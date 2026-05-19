@@ -10,7 +10,7 @@ const ROOM_CALS = [
         id: 'spring',
         name: 'Spring Room',
         name_vn: 'Phòng Xuân',
-        property: 'MiaCasaHanoi',
+        property: 'MiaCasa Hanoi',
         embedSrc: '87a5f7749b35560f564c62ec0ee8cf00101a6e331907f34effbd803846638607%40group.calendar.google.com',
         icalLinks: [
             { platform: 'Google', platform_vn: 'Google', url: `https://calendar.google.com/calendar/ical/87a5f7749b35560f564c62ec0ee8cf00101a6e331907f34effbd803846638607%40group.calendar.google.com/public/basic.ics` },
@@ -23,7 +23,7 @@ const ROOM_CALS = [
         id: 'summer',
         name: 'Summer Room',
         name_vn: 'Phòng Hạ',
-        property: 'MiaCasaHanoi',
+        property: 'MiaCasa Hanoi',
         embedSrc: '26d50548c42e4b8e731240566110420643aa4bce48233af14e62233a888438c0%40group.calendar.google.com',
         icalLinks: [
             { platform: 'Google', platform_vn: 'Google', url: `https://calendar.google.com/calendar/ical/26d50548c42e4b8e731240566110420643aa4bce48233af14e62233a888438c0%40group.calendar.google.com/public/basic.ics` },
@@ -36,7 +36,7 @@ const ROOM_CALS = [
         id: 'autumn',
         name: 'Autumn Room',
         name_vn: 'Phòng Thu',
-        property: 'MiaCasaHanoi',
+        property: 'MiaCasa Hanoi',
         embedSrc: 'b7be4b233604c94b69c4a7f95e13e61e9bac756c20b255d402d817071481ff24%40group.calendar.google.com',
         icalLinks: [
             { platform: 'Google', platform_vn: 'Google', url: `https://calendar.google.com/calendar/ical/b7be4b233604c94b69c4a7f95e13e61e9bac756c20b255d402d817071481ff24%40group.calendar.google.com/public/basic.ics` },
@@ -169,6 +169,78 @@ function refreshCalendars() {
     console.log('Refreshing calendars due to language change');
     initCalendars();
 }
+
+// ================================================================
+// MOBILE CALENDAR OPTIMIZATIONS
+// ================================================================
+
+function openCalendarModal(calendarUrl, roomName) {
+    // Check if we're on mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // On mobile, open Google Calendar in a new tab (better experience)
+        window.open(calendarUrl, '_blank');
+    } else {
+        // On desktop, use modal
+        const modal = document.getElementById('calendar-modal');
+        const iframe = document.getElementById('calendar-iframe');
+        const modalTitle = document.getElementById('calendar-modal-title');
+        
+        if (modal && iframe && modalTitle) {
+            modalTitle.textContent = roomName;
+            iframe.src = calendarUrl;
+            modal.style.display = 'flex';
+        }
+    }
+}
+
+// Add touch-friendly styles for calendar tabs on mobile
+function addMobileCalendarStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @media (max-width: 768px) {
+            .cal-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .cal-tab {
+                flex: 1;
+                min-width: calc(50% - 0.5rem);
+                padding: 0.75rem 0.5rem;
+                font-size: 0.7rem;
+                white-space: normal;
+                word-break: keep-all;
+            }
+            .cal-frame-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            .cal-frame-header .cal-frame-title {
+                font-size: 1rem;
+            }
+            .cal-frame-header .cal-frame-sub {
+                font-size: 0.7rem;
+            }
+            [onclick="openCalendarModal"] {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            [onclick="openCalendarModal"] div:first-child {
+                text-align: center !important;
+            }
+            .cal-frame-wrap .ical-links {
+                justify-content: center;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', addMobileCalendarStyles);
 
 // Listen for language change events
 window.addEventListener('languageChanged', function(e) {

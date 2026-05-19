@@ -40,7 +40,7 @@
 
 <!-- Navigation -->
 <nav>
-  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
   <ul class="nav-links">
     <li><a href="index.html" class="active" data-t="nav-home">Home</a></li>
     <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
@@ -67,7 +67,7 @@
     <div class="hero-btns">
       <a href="#booking" class="btn-primary" data-t="hero-check-dates">Check your dates →</a>
     </div>
-    <p class="micro-trust" data-t="brand-clarify">⭐ Better price direct · No platform fees · Instant confirmation</p>
+    <p class="micro-trust" data-t="brand-clarify" style="font-size: 0.9rem;"> ⭐ Better price direct · No platform fees · Instant confirmation </p>
   </div>
   <div class="hero-right">
     <div class="hero-mosaic">
@@ -78,6 +78,7 @@
     <div class="hero-badge"><p>Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
   </div>
 </section>
+
 
 <!-- Choose Your Stay Selector -->
 <div class="stay-selector" id="stay-selector">
@@ -355,7 +356,7 @@
               <label class="captcha-label">Security Check: What is <span id="captcha-num1">5</span> + <span id="captcha-num2">3</span>?</label>
               <input type="number" id="captcha-answer" class="captcha-input" placeholder="Enter answer">
             </div>
-            <button type="button" id="refresh-captcha" class="captcha-refresh">⟳ Refresh</button>
+            <button type="button" id="refresh-captcha" class="captcha-refresh" onclick="generateCaptcha('booking')">⟳ Refresh</button>
           </div>
           <div id="captcha-error" class="form-error"></div>
         </div>
@@ -372,10 +373,11 @@
           <div class="booking-panel">
             <p class="booking-panel-label" data-t="pay-label">Complete your booking:</p>
             
-            <!-- Payment Tabs -->
+            <!-- Payment Tabs - 3 options now -->
             <div class="payment-tabs">
-              <button id="pay-tab-paypal" class="pay-tab active">💳 PayPal</button>
-              <button id="pay-tab-vietqr" class="pay-tab">🏦 VietQR (VN bank)</button>
+              <button id="pay-tab-paypal" class="pay-tab active" onclick="selectPayTab('paypal')">💳 PayPal</button>
+              <button id="pay-tab-vietqr" class="pay-tab" onclick="selectPayTab('vietqr')">🏦 VietQR (VN bank)</button>
+              <button id="pay-tab-cash" class="pay-tab" onclick="selectPayTab('cash')">💵 Pay at Property</button>
             </div>
             
             <!-- PayPal Panel -->
@@ -385,12 +387,80 @@
             
             <!-- VietQR Panel -->
             <div id="vietqr-panel" class="payment-panel" style="display: none;">
-              <div id="qr-img" style="margin-bottom: 0.75rem;"></div>
-              <button id="vietqr-confirm-btn" class="vietqr-btn full-width">I've completed the transfer →</button>
+              <!-- Instructions FIRST so user knows what to do -->
+              <div style="background: #fef3c7; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; text-align: center;">
+                <p style="font-weight: 500; margin-bottom: 0.25rem;">
+                  <span class="en-only">📱 How to pay with VietQR:</span>
+                  <span class="vn-only">📱 Cách thanh toán bằng VietQR:</span>
+                </p>
+                <ol style="text-align: left; font-size: 0.75rem; margin: 0.5rem 0 0 1rem; color: #6b5c47;">
+                  <li><span class="en-only">Open your banking app</span><span class="vn-only">Mở ứng dụng ngân hàng của bạn</span></li>
+                  <li><span class="en-only">Scan the QR code below</span><span class="vn-only">Quét mã QR bên dưới</span></li>
+                  <li><span class="en-only">Complete the payment</span><span class="vn-only">Hoàn tất thanh toán</span></li>
+                  <li><span class="en-only">Upload your payment proof below</span><span class="vn-only">Tải lên bằng chứng thanh toán bên dưới</span></li>
+                </ol>
+              </div>
+              
+              <!-- QR Code -->
+              <div id="qr-img" style="margin-bottom: 0.75rem; text-align: center;"></div>
+              
+              <!-- Transfer details form - now VISIBLE by default -->
+              <div id="transfer-details" style="display: block; margin-top: 1rem;">
+                <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                  <p style="font-size: 0.8rem; margin-bottom: 0.5rem; font-weight: 500;">
+                    <span class="en-only">📸 After completing the transfer, please upload your payment proof:</span>
+                    <span class="vn-only">📸 Sau khi chuyển khoản, vui lòng tải lên bằng chứng thanh toán:</span>
+                  </p>
+                  <input type="file" id="payment-proof" accept="image/*" style="margin: 0.5rem 0; width: 100%;">
+                  <p style="font-size: 0.65rem; color: #6b5c47;">
+                    <span class="en-only">Upload a screenshot of your bank transfer or payment confirmation.</span>
+                    <span class="vn-only">Tải lên ảnh chụp màn hình chuyển khoản hoặc xác nhận thanh toán.</span>
+                  </p>
+                </div>
+                <button id="vietqr-submit-btn" class="vietqr-btn full-width" onclick="submitBankTransferProof()" style="width: 100%; padding: 0.75rem;">
+                  <span class="en-only">Submit Payment Proof →</span>
+                  <span class="vn-only">Gửi bằng chứng thanh toán →</span>
+                </button>
+              </div>
+              
+              <div id="payment-pending-message" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px; margin-top: 1rem;"></div>
+            </div>
+              
+              <div id="payment-pending-message" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px;">
+                <div style="font-size: 1.5rem;">⏳</div>
+                <p style="font-weight: 500; margin: 0.5rem 0;">
+                  <span class="en-only">Payment pending verification</span>
+                  <span class="vn-only">Đang chờ xác nhận thanh toán</span>
+                </p>
+                <button onclick="resetBookingForm()" style="margin-top: 0.5rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                  <span class="en-only">Back to booking</span>
+                  <span class="vn-only">Quay lại đặt phòng</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- NEW: Cash Payment Panel -->
+            <div id="cash-panel" class="payment-panel" style="display: none;">
+              <div style="text-align: center; padding: 0.5rem 0;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">💵</div>
+                <p style="font-weight: 500; margin-bottom: 0.25rem;">
+                  <span class="en-only">Pay when you arrive</span>
+                  <span class="vn-only">Thanh toán khi nhận phòng</span>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--ink-light); margin-bottom: 1rem;">
+                  <span class="en-only">No payment needed now. Your booking will be confirmed immediately.</span>
+                  <span class="vn-only">Không cần thanh toán ngay. Đặt phòng của bạn sẽ được xác nhận ngay lập tức.</span>
+                </p>
+                <button id="cash-confirm-btn" class="cash-btn full-width" style="background: #059669;" onclick="confirmCashBooking()">
+                  <span class="en-only">Confirm Booking →</span>
+                  <span class="vn-only">Xác nhận đặt phòng →</span>
+                </button>
+              </div>
             </div>
             
             <div id="pay-error" class="pay-error"></div>
           </div>
+        </div>
         </div>
 
         <!-- Confirmation Box -->
@@ -460,6 +530,13 @@
       Ngọc
     </p>
   </div>
+  <div class="host-journey-note">
+  <p class="superhost-text">
+    <span class="journey-icon">⭐</span>
+    <span class="en-only">Recognized as <strong>Airbnb Superhost in 2025</strong> for consistent 5-star guest experiences.</span>
+    <span class="vn-only">Được công nhận là <strong>Airbnb Superhost năm 2025</strong> nhờ trải nghiệm khách 5 sao nhất quán.</span>
+  </p>
+</div>
 </div>
   </div>
 </section>
@@ -545,12 +622,12 @@
               <label class="captcha-label">Security Check: What is <span id="contact-captcha-num1">5</span> + <span id="contact-captcha-num2">3</span>?</label>
               <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer">
             </div>
-            <button type="button" id="refresh-contact-captcha" class="captcha-refresh">⟳ Refresh</button>
+            <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
           </div>
           <div id="contact-captcha-error" class="form-error"></div>
         </div>
         
-        <button class="btn-primary full-width" id="btn-whatsapp" data-t="btn-whatsapp">Send via WhatsApp →</button>
+        <button class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
         <p class="contact-fallback">Prefer email? <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></p>
         
         <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;">✓ Message sent! We'll be in touch soon.</div>
@@ -564,7 +641,7 @@
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a><p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home.</p></div>
+      <div class="footer-brand"><a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a><p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home.</p><p> 🏆 Booking.com Traveler Review Award 2026 </p></div>
       <div class="footer-col"><h4>Our Stays</h4><ul><li><a href="miacasa-hanoi.html">MiaCasa Hanoi</a></li><li><a href="miacasa-oldquarter.html">MiaCasa Old Quarter</a></li><li><a href="#booking">Book Direct</a></li></ul></div>
       <div class="footer-col"><h4>Information</h4><ul><li><a href="our-story.html">Our Story</a></li><li><a href="blog.html">Blog</a></li><li><a href="invoice.html">Request Invoice</a></li><li><a href="cancel-booking.html">Cancel Booking</a></li></ul></div>
       <div class="footer-col"><h4>Connect</h4><ul><li><a href="https://www.instagram.com/miacasahanoi/">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61558873260616">Facebook</a></li><li><a href="https://www.tiktok.com/@miacasahanoi">TikTok</a></li></ul></div>
@@ -576,6 +653,21 @@
 
 <!-- Scripts -->
 <script src="/js/prices.js"></script>
+<script>
+// Synchronously pre-load cached price overrides from localStorage.
+// booking.js reads window._cachedPriceOverrides when it initialises _priceOverrides,
+// so override prices are correct from the very first render — no flicker.
+(function () {
+  try {
+    var raw = localStorage.getItem('mia_price_overrides_v1');
+    if (!raw) return;
+    var parsed = JSON.parse(raw);
+    if (parsed && Array.isArray(parsed.data)) {
+      window._cachedPriceOverrides = parsed.data;
+    }
+  } catch (e) {}
+}());
+</script>
 <script src="/js/booking.js" defer></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/lang.js" defer></script>

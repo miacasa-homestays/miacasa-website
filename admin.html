@@ -23,6 +23,10 @@
       <label id="lbl-password">Password</label>
       <input type="password" id="login-pass" placeholder="Password" autocomplete="current-password">
     </div>
+    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+      <input type="checkbox" id="remember-username" style="width: 16px; height: 16px; cursor: pointer;">
+      <label for="remember-username" style="font-size: 0.8rem; color: #6b5c47; cursor: pointer;">Remember my username</label>
+    </div>
     <button class="btn" id="btn-signin" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-error">Incorrect username or password.</div>
   </div>
@@ -31,7 +35,7 @@
 <!-- ADMIN PANEL -->
 <div class="admin-wrap" id="admin-wrap" style="display:none;">
   <nav class="admin-nav">
-    <div class="admin-nav-logo">MiaCasa Admin</div>
+    <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
     <div class="admin-nav-right">
       <span id="admin-greeting"></span>
       <div style="display:flex;gap:4px;margin-right:0.5rem;">
@@ -56,10 +60,10 @@
     </div>
 
     <div class="admin-tabs">
-  <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
-  <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
-  <button class="admin-tab" onclick="switchTab('cancellations',this)">⚠️ Cancellations</button>
-</div>
+      <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
+      <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
+      <button class="admin-tab" onclick="switchTab('cancellations',this)">⚠️ Cancellations</button>
+    </div>
 
     <!-- ROOMS TAB -->
     <div class="admin-panel active" id="panel-rooms">
@@ -111,76 +115,127 @@
     <!-- PRICES TAB -->
     <div class="admin-panel" id="panel-prices">
       <div class="price-section">
-        <div class="price-section-title" id="ov-form-title">Add price override</div>
-        <div class="price-form-grid">
-          <div class="price-field">
-            <label id="lbl-ov-room">Room</label>
-            <select id="ov-room">
-              <option value="Spring Room">Spring Room (MCH)</option>
-              <option value="Summer Room">Summer Room (MCH)</option>
-              <option value="Autumn Room">Autumn Room (MCH)</option>
-              <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
-            </select>
-          </div>
-          <div class="price-field">
-            <label id="lbl-ov-rule-type">Rule type</label>
-            <select id="ov-rule-type" onchange="updatePriceRuleFields()">
-              <option value="date">Specific date / date range</option>
-              <option value="weekday">Recurring weekdays</option>
-            </select>
-          </div>
-          <div class="price-field">
-            <label id="lbl-ov-from">From date</label>
-            <input type="date" id="ov-from">
-          </div>
-          <div class="price-field">
-            <label id="lbl-ov-to">To date</label>
-            <input type="date" id="ov-to">
-          </div>
-          <div class="price-field price-field-wide" id="ov-weekday-field" style="display:none;">
-            <label id="lbl-ov-weekdays">Apply on weekdays</label>
-            <div class="weekday-picker" id="ov-weekdays">
-              <label><input type="checkbox" value="1"> Mon</label>
-              <label><input type="checkbox" value="2"> Tue</label>
-              <label><input type="checkbox" value="3"> Wed</label>
-              <label><input type="checkbox" value="4"> Thu</label>
-              <label><input type="checkbox" value="5"> Fri</label>
-              <label><input type="checkbox" value="6"> Sat</label>
-              <label><input type="checkbox" value="0"> Sun</label>
-            </div>
-          </div>
-          <div class="price-field price-field-wide" id="ov-month-field" style="display:none;">
-            <label id="lbl-ov-months">Apply in months</label>
-            <div class="weekday-picker month-picker" id="ov-months">
-              <label><input type="checkbox" value="1" checked> Jan</label>
-              <label><input type="checkbox" value="2" checked> Feb</label>
-              <label><input type="checkbox" value="3" checked> Mar</label>
-              <label><input type="checkbox" value="4" checked> Apr</label>
-              <label><input type="checkbox" value="5" checked> May</label>
-              <label><input type="checkbox" value="6" checked> Jun</label>
-              <label><input type="checkbox" value="7" checked> Jul</label>
-              <label><input type="checkbox" value="8" checked> Aug</label>
-              <label><input type="checkbox" value="9" checked> Sep</label>
-              <label><input type="checkbox" value="10" checked> Oct</label>
-              <label><input type="checkbox" value="11" checked> Nov</label>
-              <label><input type="checkbox" value="12" checked> Dec</label>
-            </div>
-          </div>
-          <div class="price-field">
-            <label id="lbl-ov-price">Price per night (VND)</label>
-            <input type="number" id="ov-price" placeholder="e.g. 950000" step="50000">
-          </div>
-          <div class="price-field">
-            <label id="lbl-ov-note">Note (optional)</label>
-            <input type="text" id="ov-note" placeholder="e.g. Lunar New Year">
-          </div>
-          <div class="price-field">
-            <button class="add-override-btn" id="btn-ov-add" onclick="addOverride()">Add Override</button>
-          </div>
-        </div>
-        <div class="save-bar" id="price-save-bar"></div>
-        <div class="error-bar" id="price-error-bar"></div>
+        <div class="price-section" id="price-override-section">
+  <div class="price-section-title" id="ov-form-title">Add price override</div>
+  
+    <!-- Room selection (unchanged) -->
+    <div class="price-form-grid">
+      <div class="price-field">
+        <label id="lbl-ov-room">Room</label>
+        <select id="ov-room">
+          <option value="Spring Room">Spring Room (MCH)</option>
+          <option value="Summer Room">Summer Room (MCH)</option>
+          <option value="Autumn Room">Autumn Room (MCH)</option>
+          <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
+        </select>
       </div>
+      
+      <!-- Rule type selector -->
+      <div class="price-field">
+        <label id="lbl-ov-rule-type">Selection mode</label>
+        <select id="ov-rule-type" onchange="toggleCalendarMode()">
+          <option value="single">📅 Select individual days</option>
+          <option value="range">📆 Select date range (recurring)</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- CALENDAR VIEW (for individual day selection) -->
+<div id="calendar-mode" style="display: block;">
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <button class="calendar-nav" onclick="changeMonth(-1)">←</button>
+      <span class="calendar-month-year" id="calendar-month-year">May 2026</span>
+      <button class="calendar-nav" onclick="changeMonth(1)">→</button>
+    </div>
+    <div class="calendar-weekdays" id="calendar-weekdays"></div>
+    <div class="calendar-days" id="calendar-days"></div>
+    
+    <div class="calendar-legend">
+      <span class="legend-item"><span class="legend-color" style="background-color: #d97706;"></span> Selected date</span>
+      <span class="legend-item"><span class="legend-color" style="background-color: #fef3c7;"></span> In range (drag to select)</span>
+      <span class="legend-item"><span class="legend-color" style="background-color: #f3f4f6;"></span> Available</span>
+    </div>
+    <div class="calendar-instruction">
+      💡 Click to select/unselect · Click and drag to select ranges
+    </div>
+  </div>
+  
+  <!-- Selected dates chips -->
+  <div class="selected-dates-section" id="selected-dates-section" style="margin-top: 1rem; display: block;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+      <strong id="selected-count"></strong>
+      <button class="clear-dates-btn" onclick="clearAllSelectedDates()">Clear all</button>
+    </div>
+    <div id="selected-dates-container" style="display: none;">
+      <div class="selected-dates-chips" id="selected-dates-chips"></div>
+    </div>
+  </div>
+</div>
+    
+    <!-- DATE RANGE MODE (for recurring weekly rules - existing) -->
+    <div id="range-mode" style="display: none;">
+      <div class="price-form-grid">
+        <div class="price-field">
+          <label id="lbl-ov-from">From date</label>
+          <input type="date" id="ov-from">
+        </div>
+        <div class="price-field">
+          <label id="lbl-ov-to">To date</label>
+          <input type="date" id="ov-to">
+        </div>
+      </div>
+      <div class="price-field price-field-wide" id="ov-weekday-field" style="display: none;">
+        <label id="lbl-ov-weekdays">Apply on weekdays</label>
+        <div class="weekday-picker" id="ov-weekdays">
+          <label><input type="checkbox" value="1"> Mon</label>
+          <label><input type="checkbox" value="2"> Tue</label>
+          <label><input type="checkbox" value="3"> Wed</label>
+          <label><input type="checkbox" value="4"> Thu</label>
+          <label><input type="checkbox" value="5"> Fri</label>
+          <label><input type="checkbox" value="6"> Sat</label>
+          <label><input type="checkbox" value="0"> Sun</label>
+        </div>
+      </div>
+      <div class="price-field price-field-wide" id="ov-month-field" style="display: none;">
+        <label id="lbl-ov-months">Apply in months</label>
+        <div class="weekday-picker month-picker" id="ov-months">
+          <label><input type="checkbox" value="1" checked> Jan</label>
+          <label><input type="checkbox" value="2" checked> Feb</label>
+          <label><input type="checkbox" value="3" checked> Mar</label>
+          <label><input type="checkbox" value="4" checked> Apr</label>
+          <label><input type="checkbox" value="5" checked> May</label>
+          <label><input type="checkbox" value="6" checked> Jun</label>
+          <label><input type="checkbox" value="7" checked> Jul</label>
+          <label><input type="checkbox" value="8" checked> Aug</label>
+          <label><input type="checkbox" value="9" checked> Sep</label>
+          <label><input type="checkbox" value="10" checked> Oct</label>
+          <label><input type="checkbox" value="11" checked> Nov</label>
+          <label><input type="checkbox" value="12" checked> Dec</label>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Price and note fields -->
+    <div class="price-form-grid" style="margin-top: 1rem;">
+      <div class="price-field">
+        <label id="lbl-ov-price">Price per night (VND)</label>
+        <input type="number" id="ov-price" placeholder="e.g. 950000" step="50000">
+      </div>
+      <div class="price-field">
+        <label id="lbl-ov-note">Note (optional)</label>
+        <input type="text" id="ov-note" placeholder="e.g. Holiday special">
+      </div>
+    </div>
+    
+    <div class="price-field" style="margin-top: 0.5rem;">
+      <button class="add-override-btn" id="btn-ov-add" onclick="addOverride()">Add Override(s)</button>
+      <span id="selected-count" style="margin-left: 0.75rem; font-size: 0.75rem; color: var(--ink-light);"></span>
+    </div>
+    
+    <div class="save-bar" id="price-save-bar"></div>
+    <div class="error-bar" id="price-error-bar"></div>
+  </div>
 
       <div class="price-section">
         <div class="price-section-title" id="ov-list-title">Active price overrides</div>
@@ -197,10 +252,72 @@
 </div>
 </div>
 
-
-
 <!-- External JavaScript -->
 <script src="/js/config.js"></script>
 <script src="/js/admin.js"></script>
+
+<!-- Username storage feature only (no duplicate doLogin, no hardcoded credentials) -->
+<script>
+// Load saved username on page load
+(function() {
+    const savedUsername = localStorage.getItem('admin_username');
+    const rememberChecked = localStorage.getItem('admin_remember_username') === 'true';
+    
+    const usernameInput = document.getElementById('login-user');
+    const rememberCheckbox = document.getElementById('remember-username');
+    
+    if (savedUsername && rememberChecked && usernameInput) {
+        usernameInput.value = savedUsername;
+        if (rememberCheckbox) rememberCheckbox.checked = true;
+        // Focus on password field
+        const passwordInput = document.getElementById('login-pass');
+        if (passwordInput) passwordInput.focus();
+    } else if (savedUsername && usernameInput) {
+        usernameInput.value = savedUsername;
+        if (rememberCheckbox) rememberCheckbox.checked = false;
+    }
+})();
+
+// Save username when checkbox changes
+const rememberCheckbox = document.getElementById('remember-username');
+const usernameInput = document.getElementById('login-user');
+
+if (rememberCheckbox && usernameInput) {
+    rememberCheckbox.addEventListener('change', function() {
+        const username = usernameInput.value.trim();
+        if (this.checked && username) {
+            localStorage.setItem('admin_username', username);
+            localStorage.setItem('admin_remember_username', 'true');
+        } else if (!this.checked) {
+            localStorage.removeItem('admin_username');
+            localStorage.setItem('admin_remember_username', 'false');
+        }
+    });
+    
+    usernameInput.addEventListener('input', function() {
+        if (rememberCheckbox.checked && this.value.trim()) {
+            localStorage.setItem('admin_username', this.value.trim());
+        }
+    });
+}
+
+// Save username when login succeeds (hook into existing doLogin from admin.js)
+const originalDoLogin = window.doLogin;
+if (originalDoLogin) {
+    window.doLogin = async function() {
+        const username = usernameInput?.value.trim();
+        const remember = rememberCheckbox?.checked;
+        
+        if (remember && username) {
+            localStorage.setItem('admin_username', username);
+            localStorage.setItem('admin_remember_username', 'true');
+        }
+        
+        // Call the original doLogin from admin.js (which handles API authentication)
+        return originalDoLogin.apply(this, arguments);
+    };
+}
+</script>
+
 </body>
 </html>

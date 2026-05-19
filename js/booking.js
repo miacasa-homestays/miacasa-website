@@ -39,19 +39,19 @@ let currentAvailabilityStatus = { available: false, checked: false };
 
 function getPropertyFromRoom(room) {
     const map = {
-        "Spring Room": "MiaCasaHanoi",
-        "Summer Room": "MiaCasaHanoi",
-        "Autumn Room": "MiaCasaHanoi",
+        "Spring Room": "MiaCasa Hanoi",
+        "Summer Room": "MiaCasa Hanoi",
+        "Autumn Room": "MiaCasa Hanoi",
         "Entire Apartment (3 queen beds)": "MiaCasaOldQuarter"
     };
-    return map[room] || "MiaCasaHanoi";
+    return map[room] || "MiaCasa Hanoi";
 }
 
 // PROPERTIES DATA
 const PROPERTIES = [
     {
         id: 'hanoi',
-        name: 'MiaCasaHanoi',
+        name: 'MiaCasa Hanoi',
         badge: 'Rooms with Kitchenette',
         location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội',
         desc: 'Three private boho rooms — Spring, Summer, and Autumn — each with attached bathroom and kitchenette.',
@@ -184,61 +184,97 @@ function makeBookingId(propId, room) {
 // Each override: [id, room, fromDate, toDate, price, note]
 // Recurring rules are stored in note as: MIA_PRICE_RULE:{"type":"weekday","days":[1,2,3],"months":[1..12]}
 // ================================================================
-let _priceOverrides = [];        // populated by fetchPriceOverrides()
-let _overridesFetched = false;   // guard against duplicate fetches
+const PRICE_OVERRIDE_CACHE_KEY = 'mia_price_overrides_v1';
 const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
+
+// Pre-populate from synchronous cache injected by index.html before this script loads.
+// This gives getEffectiveFromPrice() the correct values on the very first call,
+// so prices never flicker from default → overridden.
+let _priceOverrides = (function () {
+    try {
+        if (window._cachedPriceOverrides && Array.isArray(window._cachedPriceOverrides)) {
+            return window._cachedPriceOverrides
+                .map(function (row) {
+                    return {
+                        id:    row[0],
+                        room:  String(row[1] || '').trim(),
+                        from:  String(row[2] || '').trim(),
+                        to:    String(row[3] || '').trim(),
+                        price: Number(row[4]) || 0,
+                        note:  row[5] || '',
+                        rule:  null   // parsePriceOverrideRule not yet defined here
+                    };
+                })
+                .filter(function (o) { return o.room && o.from && o.to && o.price > 0; });
+        }
+    } catch (e) { /* ignore */ }
+    return [];
+}());
+let _overridesFetched = false;
+
+function _parseOverrideRows(rows) {
+    return rows
+        .map(row => ({
+            id:    row[0],
+            room:  String(row[1] || '').trim(),
+            from:  String(row[2] || '').trim(),
+            to:    String(row[3] || '').trim(),
+            price: Number(row[4]) || 0,
+            note:  row[5] || '',
+            rule:  parsePriceOverrideRule(row[5])
+        }))
+        .filter(o => o.room && o.from && o.to && o.price > 0);
+}
 
 async function fetchPriceOverrides() {
     if (_overridesFetched) return;
     _overridesFetched = true;
 
+    // ── Step 1: Apply localStorage cache immediately (no network wait) ─────────
+    // On repeat visits this makes overridden prices appear before first paint.
+    try {
+        const cached = localStorage.getItem(PRICE_OVERRIDE_CACHE_KEY);
+        if (cached) {
+            const { data } = JSON.parse(cached);
+            if (Array.isArray(data) && data.length > 0) {
+                _priceOverrides = data;
+                refreshAllPriceDisplays();
+            }
+        }
+    } catch (e) { /* ignore cache read errors */ }
+
+    // ── Step 2: Fetch fresh data from server in background ─────────────────────
     try {
         const res = await fetch('/api/log-booking', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                action: 'getPriceOverrides'
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'getPriceOverrides' })
         });
 
         if (!res.ok) return;
 
         const json = await res.json();
-
-        // FIX: Support BOTH response shapes
-        const rows =
-            json?.data?.data ||
-            json?.data ||
-            [];
+        const rows = json?.data?.data || json?.data || [];
 
         if (Array.isArray(rows)) {
+            const fresh = _parseOverrideRows(rows);
+            const changed = JSON.stringify(fresh) !== JSON.stringify(_priceOverrides);
+            _priceOverrides = fresh;
 
-            _priceOverrides = rows.map(row => ({
-                id: row[0],
-                room: String(row[1] || '').trim(),
-                from: String(row[2] || '').trim(),
-                to: String(row[3] || '').trim(),
-                price: Number(row[4]) || 0,
-                note: row[5] || '',
-                rule: parsePriceOverrideRule(row[5])
-            }))
-            .filter(o =>
-                o.room &&
-                o.from &&
-                o.to &&
-                o.price > 0
-            );
+            // Persist for next page load — prices show instantly
+            try {
+                localStorage.setItem(PRICE_OVERRIDE_CACHE_KEY, JSON.stringify({
+                    ts: Date.now(),
+                    data: fresh
+                }));
+            } catch (e) { /* ignore */ }
 
-            console.log('Loaded price overrides:', _priceOverrides);
+            if (changed) refreshAllPriceDisplays();
         }
 
     } catch (e) {
-        console.error('Failed loading price overrides:', e);
+        // Network failed — cached or PRICES fallback already shown
     }
-
-    refreshAllPriceDisplays();
 }
 
 function parseLocalDate(dateStr) {
@@ -440,6 +476,10 @@ let selectedPayTab = 'paypal';
 // OPTIMIZED AVAILABILITY CHECK (Non-blocking + Cached)
 // ================================================================
 
+// ================================================================
+// AVAILABILITY CHECK - Calls the API endpoint
+// ================================================================
+
 async function checkRoomAvailability(room, checkIn, checkOut) {
     const cacheKey = `${room}_${checkIn}_${checkOut}`;
     const cached = availabilityCache.get(cacheKey);
@@ -454,7 +494,12 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'checkRoomAvailability', room, checkIn, checkOut })
+            body: JSON.stringify({ 
+                action: 'checkRoomAvailability', 
+                room, 
+                checkIn, 
+                checkOut 
+            })
         });
         const data = await response.json();
         
@@ -467,12 +512,13 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
         return data;
     } catch (error) {
         console.error('Availability check failed:', error);
-        return { available: true };
+        return { available: true }; // Default to available on error
     }
 }
 
 // Background availability check (does not block UI)
-function checkAvailabilityInBackground(room, ci, co) {
+// Background availability check (does not block UI)
+async function checkAvailabilityInBackground(room, ci, co) {
     if (!room || !ci || !co) return;
     if (availabilityCheckInProgress) return;
     
@@ -494,7 +540,8 @@ function checkAvailabilityInBackground(room, ci, co) {
         }
     }, 2000);
     
-    checkRoomAvailability(room, ci, co).then(availability => {
+    try {
+        const availability = await checkRoomAvailability(room, ci, co);
         clearTimeout(slowConnectionTimeout);
         currentAvailabilityStatus = availability;
         lastAvailabilityResult = availability;
@@ -533,7 +580,7 @@ function checkAvailabilityInBackground(room, ci, co) {
                 if (priceBox) priceBox.style.display = 'block';
             }
         }
-    }).catch(error => {
+    } catch (error) {
         clearTimeout(slowConnectionTimeout);
         console.error('Availability check error:', error);
         availabilityCheckInProgress = false;
@@ -542,7 +589,7 @@ function checkAvailabilityInBackground(room, ci, co) {
             availabilityMsgDiv.innerHTML = '⚠️ Unable to check availability. Please try again.';
             availabilityMsgDiv.className = 'error';
         }
-    });
+    }
 }
 
 // Debounced version to prevent multiple rapid calls
@@ -969,31 +1016,14 @@ function selectAndScroll(id) {
     return false;
 }
 
-// ================================================================
-// PAYMENT & BOOKING FUNCTIONS
-// ================================================================
 
-function selectPayTab(type) {
-    selectedPayTab = type;
-    
-    const paypalPanel = document.getElementById('paypal-panel');
-    const vietqrPanel = document.getElementById('vietqr-panel');
-    const paypalTab = document.getElementById('pay-tab-paypal');
-    const vietqrTab = document.getElementById('pay-tab-vietqr');
-    
-    if (paypalTab) paypalTab.classList.remove('active');
-    if (vietqrTab) vietqrTab.classList.remove('active');
-    
-    if (type === 'paypal') {
-        if (paypalPanel) paypalPanel.style.display = 'block';
-        if (vietqrPanel) vietqrPanel.style.display = 'none';
-        if (paypalTab) paypalTab.classList.add('active');
-    } else {
-        if (paypalPanel) paypalPanel.style.display = 'none';
-        if (vietqrPanel) vietqrPanel.style.display = 'block';
-        if (vietqrTab) vietqrTab.classList.add('active');
-        generateQRCode();
+
+// Helper function to format currency (add this near the top of booking.js)
+function formatCurrency(amount, currency) {
+    if (currency === 'VND') {
+        return amount.toLocaleString('vi-VN') + '₫';
     }
+    return amount.toLocaleString('en-US') + ' USD';
 }
 
 function generateQRCode() {
@@ -1008,6 +1038,260 @@ function generateQRCode() {
         qrContainer.innerHTML = `<img loading="lazy" decoding="async" src="${qrUrl}" style="width:200px;height:200px;border-radius:4px;" alt="VietQR">`;
     } else {
         qrContainer.innerHTML = '<p style="font-size:0.75rem;">Loading QR code...</p>';
+    }
+}
+
+// ================================================================
+// VIETQR PAYMENT WITH PROOF UPLOAD
+// ================================================================
+
+// Helper: Convert file to base64
+// Helper: Convert file to base64 with compression
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                // Create canvas for compression
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                
+                // Calculate new dimensions (max 800px)
+                const maxSize = 800;
+                if (width > height && width > maxSize) {
+                    height = (height * maxSize) / width;
+                    width = maxSize;
+                } else if (height > maxSize) {
+                    width = (width * maxSize) / height;
+                    height = maxSize;
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Compress to JPEG at 60% quality (much smaller than PNG)
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                resolve(compressedDataUrl);
+            };
+            img.onerror = reject;
+            img.src = event.target.result;
+        };
+        reader.onerror = reject;
+    });
+}
+
+// Show transfer details when VietQR is selected
+function showTransferDetails() {
+    const transferDetails = document.getElementById('transfer-details');
+    if (transferDetails) {
+        transferDetails.style.display = 'block';
+    }
+}
+
+// Submit bank transfer proof
+async function submitBankTransferProof() {
+    console.log('=== submitBankTransferProof START ===');
+    
+    // Log each step
+    console.log('Step 1: Validating booking form...');
+    const err = validateBookingForm();
+    console.log('Validation result:', err);
+    if (err) { 
+        if (err !== '__captcha__') showPayError(err); 
+        return; 
+    }
+    
+    console.log('Step 2: Checking booking ID...');
+    if (!currentBookingId) { 
+        console.log('No booking ID!');
+        showPayError('Booking ID not generated yet. Please select dates first.'); 
+        return; 
+    }
+    console.log('Booking ID:', currentBookingId);
+    
+    console.log('Step 3: Getting payment proof file...');
+    const fileInput = document.getElementById('payment-proof');
+    const file = fileInput?.files[0];
+    console.log('File selected:', file ? file.name : 'No file');
+    
+    if (!file) {
+        console.log('No file uploaded!');
+        showPayError(window.currentLang === 'vn' 
+            ? 'Vui lòng tải lên ảnh chụp màn hình chuyển khoản.' 
+            : 'Please upload a screenshot of your bank transfer.');
+        return;
+    }
+    
+    console.log('Step 4: Validating file type...');
+    if (!file.type.startsWith('image/')) {
+        console.log('Invalid file type:', file.type);
+        showPayError(window.currentLang === 'vn' 
+            ? 'Vui lòng tải lên file ảnh (PNG, JPG, JPEG).' 
+            : 'Please upload an image file (PNG, JPG, JPEG).');
+        return;
+    }
+    
+    console.log('Step 5: Validating file size...');
+    // Reduce max size to 1MB (from 2MB) since base64 increases size by ~33%
+    if (file.size > 1 * 1024 * 1024) {
+        console.log('File too large:', file.size);
+        showPayError(window.currentLang === 'vn' 
+            ? 'File ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 1MB.' 
+            : 'Image file too large. Please choose an image smaller than 1MB.');
+        return;
+    }
+    
+    // Disable button
+    const btn = document.getElementById('vietqr-submit-btn');
+    const originalText = btn ? btn.textContent : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = window.currentLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+    }
+    
+    try {
+        console.log('Step 6: Converting file to base64...');
+        const base64Image = await fileToBase64(file);
+        console.log('Base64 conversion complete, length:', base64Image.length);
+        
+        console.log('Step 7: Collecting booking data...');
+        const data = collectBookingData();
+        console.log('Booking data collected:', { bookingId: data.bookingId, property: data.property, room: data.room });
+        
+        console.log('Step 8: Creating payload...');
+        const payload = {
+            ...data,
+            action: 'createBooking',
+            paymentMethod: 'vietqr',
+            paymentStatus: 'pending_verification',
+            paymentProof: base64Image,
+            language: window.currentLang || 'en',
+            bookedAt: new Date().toISOString()
+        };
+        
+        console.log('Step 9: Calling sheets API...');
+        const res = await callSheetsAPI(payload);
+        console.log('API response:', res);
+        
+        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+        
+        console.log('Step 10: Saving to local storage...');
+        saveBookingToLocal({ ...data, paymentStatus: 'pending_verification' });
+        
+        console.log('Step 11: Showing pending verification message...');
+        showPendingVerificationMessage(data);
+        
+        console.log('Step 12: Hiding panels...');
+        const qrPanel = document.getElementById('vietqr-panel');
+        const paymentSection = document.getElementById('mia-payment-section');
+        const priceBox = document.getElementById('mia-price-box');
+        
+        if (qrPanel) qrPanel.style.display = 'none';
+        if (paymentSection) paymentSection.style.display = 'none';
+        if (priceBox) priceBox.style.display = 'none';
+        
+        console.log('Step 13: Sending admin notification...');
+        await sendAdminPaymentNotification(data);
+        
+        console.log('=== submitBankTransferProof COMPLETE ===');
+        
+    } catch (error) {
+        console.error('ERROR in submitBankTransferProof:', error);
+        showPayError(error.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
+    }
+}
+
+// Show pending verification message (NOT confirmation)
+function showPendingVerificationMessage(bookingData) {
+    const bookingSection = document.querySelector('#booking .container');
+    if (!bookingSection) return;
+    
+    const existingMessage = document.getElementById('payment-pending-message');
+    if (existingMessage) existingMessage.remove();
+    
+    const pendingDiv = document.createElement('div');
+    pendingDiv.id = 'payment-pending-message';
+    pendingDiv.style.cssText = `
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin: 2rem auto;
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        box-sizing: border-box;
+    `;
+    
+    pendingDiv.innerHTML = `
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
+        <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: #d97706;">
+            ${window.currentLang === 'vn' ? 'Đang chờ xác nhận thanh toán' : 'Pending Payment Verification'}
+        </p>
+        <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+            ${window.currentLang === 'vn'
+                ? `Mã đặt phòng: <strong>${bookingData.bookingId}</strong>`
+                : `Booking ID: <strong>${bookingData.bookingId}</strong>`}
+        </p>
+        <div style="background: white; border-radius: 12px; padding: 0.75rem; margin: 0.75rem 0; text-align: left;">
+            <p style="font-size: 0.8rem;">📧 <strong>${bookingData.guestEmail}</strong></p>
+            <p style="font-size: 0.8rem;">💰 ${formatCurrency(bookingData.amount, 'VND')}</p>
+        </div>
+        <div style="background: #fff3e0; border-radius: 8px; padding: 0.75rem; margin: 0.75rem 0;">
+            <p style="font-size: 0.75rem; margin-bottom: 0.25rem;">
+                ${window.currentLang === 'vn'
+                    ? '📸 Bằng chứng thanh toán của bạn đã được gửi đi.'
+                    : '📸 Your payment proof has been submitted.'}
+            </p>
+            <p style="font-size: 0.7rem; color: #d97706;">
+                ${window.currentLang === 'vn'
+                    ? '⚠️ Quá trình xác minh thanh toán có thể mất 1-2 giờ trong giờ làm việc.'
+                    : '⚠️ Payment verification may take 1-2 hours during business hours.'}
+            </p>
+        </div>
+        <p style="font-size: 0.75rem; margin-bottom: 0.5rem;">
+            ${window.currentLang === 'vn'
+                ? 'Chúng tôi sẽ gửi email xác nhận đặt phòng NGAY SAU KHI thanh toán được xác minh.'
+                : 'We will send a booking confirmation email AS SOON AS the payment is verified.'}
+        </p>
+        <button onclick="resetBookingForm()" style="margin-top: 0.75rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+            ${window.currentLang === 'vn' ? '← Quay lại' : '← Back'}
+        </button>
+    `;
+    
+    bookingSection.appendChild(pendingDiv);
+    pendingDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Send notification to admin about pending payment
+async function sendAdminPaymentNotification(bookingData) {
+    try {
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'sendAdminNotification',
+                bookingId: bookingData.bookingId,
+                guestName: bookingData.guestName,
+                guestEmail: bookingData.guestEmail,
+                amount: bookingData.amount,
+                property: bookingData.property,
+                room: bookingData.room,
+                checkIn: bookingData.checkIn,
+                checkOut: bookingData.checkOut
+            })
+        });
+    } catch (error) {
+        console.error('Failed to send admin notification:', error);
     }
 }
 
@@ -1070,21 +1354,6 @@ function showPaymentRedirectConfirmation(data, paymentLabel) {
     }
 }
 
-function validateBookingForm() {
-    const ci = document.getElementById('checkin')?.value;
-    const co = document.getElementById('checkout')?.value;
-    const name = document.getElementById('guest-name')?.value?.trim();
-    const email = document.getElementById('guest-email')?.value?.trim();
-    const phone = document.getElementById('guest-phone-number')?.value?.trim();
-    
-    if (!ci || !co) return 'Please select check-in and check-out dates.';
-    if (new Date(co) <= new Date(ci)) return 'Check-out must be after check-in.';
-    if (!document.getElementById('room-type-sel')?.value) return 'Please select a room.';
-    if (!name) return 'Please enter your full name.';
-    if (!email || !email.includes('@')) return 'Please enter a valid email address.';
-    if (!phone) return 'Please enter your phone number.';
-    return null;
-}
 
 function showPayError(msg) {
     const el = document.getElementById('pay-error');
@@ -1105,37 +1374,230 @@ async function callSheetsAPI(payload) {
     }
 }
 
-async function processPayPal() {
-    const err = validateBookingForm();
-    if (err) { showPayError(err); return; }
-    if (!currentBookingId) { showPayError('Booking ID not generated yet. Please select dates first.'); return; }
+function validateBookingForm() {
+    const ci   = document.getElementById('checkin')?.value;
+    const co   = document.getElementById('checkout')?.value;
+    const name = document.getElementById('guest-name')?.value?.trim();
+    const email= document.getElementById('guest-email')?.value?.trim();
+    const phone= document.getElementById('guest-phone-number')?.value?.trim();
+    const lang = window.currentLang || 'en';
 
-    const data = collectBookingData();
-    const payload = {
-        ...data,
-        action: 'createBooking',
-        paymentMethod: 'paypal',
-        paymentStatus: 'pending',
-        language: window.currentLang || 'en',
-        bookedAt: new Date().toISOString()
-    };
+    if (!ci || !co)                      return lang === 'vn' ? 'Vui lòng chọn ngày nhận và trả phòng.' : 'Please select check-in and check-out dates.';
+    if (new Date(co) <= new Date(ci))    return lang === 'vn' ? 'Ngày trả phòng phải sau ngày nhận phòng.' : 'Check-out must be after check-in.';
+    if (!document.getElementById('room-type-sel')?.value) return lang === 'vn' ? 'Vui lòng chọn phòng.' : 'Please select a room.';
+    if (!name)                           return lang === 'vn' ? 'Vui lòng nhập họ tên.' : 'Please enter your full name.';
+    if (!email || !email.includes('@'))  return lang === 'vn' ? 'Vui lòng nhập email hợp lệ.' : 'Please enter a valid email address.';
+    if (!phone)                          return lang === 'vn' ? 'Vui lòng nhập số điện thoại.' : 'Please enter your phone number.';
 
+    // CAPTCHA validation with error message
+    if (typeof validateCaptcha === 'function') {
+        const num1 = parseInt(document.getElementById('captcha-num1')?.textContent || '0');
+        const num2 = parseInt(document.getElementById('captcha-num2')?.textContent || '0');
+        const userAnswer = parseInt(document.getElementById('captcha-answer')?.value);
+        const expectedAnswer = num1 + num2;
+        
+        if (isNaN(userAnswer) || userAnswer !== expectedAnswer) {
+            const errorEl = document.getElementById('captcha-error');
+            if (errorEl) {
+                errorEl.textContent = lang === 'vn' 
+                    ? `Sai câu trả lời. ${num1} + ${num2} = ?` 
+                    : `Incorrect answer. ${num1} + ${num2} = ?`;
+                errorEl.style.display = 'block';
+            }
+            return '__captcha__';
+        } else {
+            const errorEl = document.getElementById('captcha-error');
+            if (errorEl) errorEl.style.display = 'none';
+        }
+    }
+
+    return null;
+}
+
+// Show waiting message (NOT confirmation)
+function showWaitingForPaymentMessage(bookingData) {
+    const priceBox = document.getElementById('mia-price-box');
+    const paymentSection = document.getElementById('mia-payment-section');
+    const bookingSection = document.querySelector('#booking .container');
+    
+    if (!bookingSection) return;
+    
+    // Hide price and payment sections
+    if (priceBox) priceBox.style.display = 'none';
+    if (paymentSection) paymentSection.style.display = 'none';
+    
+    // Create waiting message
+    const waitingDiv = document.createElement('div');
+    waitingDiv.id = 'payment-waiting';
+    waitingDiv.style.cssText = `
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        text-align: center;
+    `;
+    waitingDiv.innerHTML = `
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
+        <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">
+            ${window.currentLang === 'vn' 
+                ? 'Đang chờ thanh toán qua PayPal...' 
+                : 'Waiting for PayPal payment...'}
+        </p>
+        <p style="font-size: 0.85rem; color: #6b5c47; margin-bottom: 1rem;">
+            ${window.currentLang === 'vn'
+                ? 'Vui lòng hoàn tất thanh toán trong cửa sổ PayPal vừa mở.'
+                : 'Please complete your payment in the PayPal window that just opened.'}
+        </p>
+        <p style="font-size: 0.75rem; color: #6b5c47;">
+            ${window.currentLang === 'vn'
+                ? 'Sau khi thanh toán thành công, bạn sẽ nhận được email xác nhận đặt phòng.'
+                : 'Once payment is confirmed, you will receive a booking confirmation email.'}
+        </p>
+        <button onclick="checkPaymentStatus('${bookingData.bookingId}')" 
+                style="margin-top: 1rem; background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+            ${window.currentLang === 'vn' ? 'Tôi đã thanh toán →' : 'I have completed payment →'}
+        </button>
+    `;
+    
+    bookingSection.appendChild(waitingDiv);
+}
+
+// Check payment status (could be called by PayPal IPN or manually by guest)
+async function checkPaymentStatus(bookingId) {
+    const waitingDiv = document.getElementById('payment-waiting');
+    if (waitingDiv) {
+        waitingDiv.innerHTML = `
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⏳</div>
+                <p>${window.currentLang === 'vn' ? 'Đang kiểm tra thanh toán...' : 'Checking payment status...'}</p>
+            </div>
+        `;
+    }
+    
     try {
-        const res = await callSheetsAPI(payload);
-        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
-        const amountUSD = (data.amount / 25000).toFixed(2);
-        const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
-        window.open(paypalLink, '_blank');
-        saveBookingToLocal(data);
-        showPaymentRedirectConfirmation(data, 'PayPal');
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'checkPaymentStatus',
+                bookingId: bookingId
+            })
+        });
+        const result = await response.json();
+        
+        if (result.status === 'paid') {
+            // Payment confirmed - show real confirmation
+            if (waitingDiv) waitingDiv.remove();
+            showRealBookingConfirmation(result.bookingData);
+        } else if (result.status === 'pending') {
+            // Still pending
+            if (waitingDiv) {
+                waitingDiv.innerHTML = `
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
+                    <p>${window.currentLang === 'vn' 
+                        ? 'Thanh toán chưa được xác nhận. Vui lòng đợi hoặc liên hệ chúng tôi qua WhatsApp.' 
+                        : 'Payment not yet confirmed. Please wait or contact us via WhatsApp.'}</p>
+                    <a href="https://wa.me/84869922261" target="_blank" class="btn-outline" style="display: inline-block; margin-top: 0.5rem;">💬 WhatsApp</a>
+                `;
+            }
+        }
     } catch (error) {
-        showPayError(error.message);
+        console.error('Status check failed:', error);
     }
 }
 
-async function confirmVietQR() {
+// Real confirmation (only after payment is confirmed)
+function showRealBookingConfirmation(bookingData) {
+    const waitingDiv = document.getElementById('payment-waiting');
+    if (waitingDiv) waitingDiv.remove();
+    
+    const bookingSection = document.querySelector('#booking .container');
+    if (!bookingSection) return;
+    
+    const confirmDiv = document.createElement('div');
+    confirmDiv.id = 'mia-confirm-box';
+    confirmDiv.style.cssText = `
+        background: #d1fae5;
+        border: 1px solid #065f46;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        text-align: center;
+    `;
+    confirmDiv.innerHTML = `
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">✅</div>
+        <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">
+            ${window.currentLang === 'vn' 
+                ? 'Đặt phòng đã được xác nhận!' 
+                : 'Booking confirmed!'}
+        </p>
+        <p style="font-size: 0.85rem; color: #065f46; margin-bottom: 1rem;">
+            ${window.currentLang === 'vn'
+                ? `Mã đặt phòng: <strong>${bookingData.bookingId}</strong>`
+                : `Booking ID: <strong>${bookingData.bookingId}</strong>`}
+        </p>
+        <p style="font-size: 0.8rem;">
+            ${window.currentLang === 'vn'
+                ? 'Email xác nhận đã được gửi đến hộp thư của bạn.'
+                : 'A confirmation email has been sent to your inbox.'}
+        </p>
+    `;
+    
+    bookingSection.appendChild(confirmDiv);
+    
+    // Also update the booking status in the sheet via API
+    updateBookingStatusToPaid(bookingData.bookingId);
+}
+
+// Update booking status in Google Sheets
+async function updateBookingStatusToPaid(bookingId) {
+    try {
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'updatePaymentStatus',
+                bookingId: bookingId,
+                status: 'paid'
+            })
+        });
+    } catch (error) {
+        console.error('Failed to update status:', error);
+    }
+}
+
+function showPayPalBlockedMessage(paypalLink) {
+    const btn = document.getElementById('paypal-pay-btn');
+    const errorDiv = document.getElementById('pay-error') || document.createElement('div');
+    errorDiv.id = 'pay-error';
+    errorDiv.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;';
+    errorDiv.innerHTML = `
+        <p style="margin-bottom: 0.5rem;">
+            ${window.currentLang === 'vn'
+                ? '⚠️ Trình duyệt đã chặn cửa sổ bật lên. Vui lòng nhấp vào nút bên dưới để thanh toán.'
+                : '⚠️ Popup was blocked by your browser. Please click below to continue to PayPal.'}
+        </p>
+        <a href="${paypalLink}" target="_blank" 
+           style="display: inline-block; background: #0070ba; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none;">
+           ${window.currentLang === 'vn' ? 'Thanh toán qua PayPal →' : 'Pay with PayPal →'}
+        </a>
+    `;
+    
+    const paymentSection = document.getElementById('mia-payment-section');
+    if (paymentSection) {
+        paymentSection.insertBefore(errorDiv, paymentSection.firstChild);
+    }
+    
+    if (btn) {
+        btn.disabled = false;
+        btn.textContent = window.currentLang === 'vn' ? 'Thanh toán PayPal' : 'Pay with PayPal';
+    }
+}
+
+/* async function confirmVietQR() {
     const err = validateBookingForm();
-    if (err) { showPayError(err); return; }
+    if (err) { if (err !== '__captcha__') showPayError(err); return; }
     if (!currentBookingId) { showPayError('Booking ID not generated yet. Please select dates first.'); return; }
 
     const data = collectBookingData();
@@ -1158,6 +1620,273 @@ async function confirmVietQR() {
 
     saveBookingToLocal(data);
     showBookingConfirmation(data);
+} */
+
+// ================================================================
+// CASH PAYMENT FUNCTION - Add to booking.js
+// ================================================================
+
+async function confirmCashBooking() {
+    console.log('=== confirmCashBooking START ===');
+    
+    const err = validateBookingForm();
+    if (err) { if (err !== '__captcha__') showPayError(err); return; }
+    if (!currentBookingId) { 
+        console.log('No currentBookingId!');
+        showPayError('Booking ID not generated yet. Please select dates first.'); 
+        return; 
+    }
+    
+    console.log('currentBookingId:', currentBookingId);
+
+    const data = collectBookingData();
+    console.log('collectBookingData returned:', data);
+    console.log('data.bookingId:', data.bookingId);
+    const payload = {
+        ...data,
+        action: 'createBooking',
+        paymentMethod: 'cash',
+        paymentStatus: 'confirmed',  // Cash bookings are confirmed immediately
+        language: window.currentLang || 'en',
+        bookedAt: new Date().toISOString()
+    };
+
+    const btn = document.getElementById('cash-confirm-btn');
+    const originalText = btn ? btn.textContent : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = window.currentLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+    }
+
+    try {
+        const res = await callSheetsAPI(payload);
+        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+        
+        saveBookingToLocal(data);
+        showCashBookingConfirmation(data);
+        
+        // Send confirmation email immediately
+        if (typeof sendBookingConfirmationEmail === 'function') {
+            await sendBookingConfirmationEmail(data);
+        }
+        
+        const paymentSection = document.getElementById('mia-payment-section');
+        if (paymentSection) paymentSection.style.display = 'none';
+        
+    } catch (error) {
+        showPayError(error.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
+    }
+}
+
+
+
+function showCashBookingConfirmation(bookingData) {
+    console.log('=== showCashBookingConfirmation DEBUG ===');
+    console.log('bookingData received:', bookingData);
+    console.log('bookingData.bookingId:', bookingData?.bookingId);
+    
+    const priceBox = document.getElementById('mia-price-box');
+    const paymentSection = document.getElementById('mia-payment-section');
+    const bookingSection = document.querySelector('#booking .container');
+    
+    if (!bookingSection) {
+        console.error('Booking section not found!');
+        return;
+    }
+    
+    if (priceBox) priceBox.style.display = 'none';
+    if (paymentSection) paymentSection.style.display = 'none';
+    
+    const existingConfirm = document.getElementById('mia-confirm-box');
+    if (existingConfirm) existingConfirm.remove();
+    
+    const checkOutTime = bookingData.property && bookingData.property.includes('Old Quarter') 
+        ? (window.currentLang === 'vn' ? '11:00 sáng' : '11:00 AM') 
+        : (window.currentLang === 'vn' ? '12:00 trưa' : '12:00 PM');
+    
+    // Format amount safely
+    let amountDisplay;
+    if (typeof formatCurrency === 'function') {
+        amountDisplay = formatCurrency(bookingData.amount, 'VND');
+    } else {
+        amountDisplay = bookingData.amount.toLocaleString('vi-VN') + '₫';
+    }
+    
+    const confirmDiv = document.createElement('div');
+    confirmDiv.id = 'mia-confirm-box';
+    confirmDiv.style.cssText = `
+        background: #d1fae5;
+        border: 2px solid #065f46;
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin: 2rem auto;
+        text-align: center;
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        z-index: 1000;
+        max-width: 500px;
+        width: 100%;
+        box-sizing: border-box;
+    `;
+    
+    confirmDiv.innerHTML = `
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✅</div>
+        <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: #065f46;">
+            ${window.currentLang === 'vn' ? 'Đặt phòng đã được xác nhận!' : 'Booking Confirmed!'}
+        </p>
+        <p style="font-size: 0.85rem; margin-bottom: 1rem;">
+            ${window.currentLang === 'vn'
+                ? `Mã đặt phòng: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${bookingData.bookingId}</strong>`
+                : `Booking ID: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${bookingData.bookingId}</strong>`}
+        </p>
+        <div style="background: white; border-radius: 12px; padding: 1rem; margin: 1rem 0; text-align: left;">
+            <p style="margin-bottom: 0.5rem; font-weight: 500; font-size: 0.85rem;">${window.currentLang === 'vn' ? '📋 Chi tiết đặt phòng:' : '📋 Booking Details:'}</p>
+            <p style="font-size: 0.8rem; margin-bottom: 0.25rem;">🏠 <strong>${bookingData.property || 'MiaCasa'}</strong> · ${bookingData.room || ''}</p>
+            <p style="font-size: 0.8rem; margin-bottom: 0.25rem;">📅 ${bookingData.checkIn} → ${bookingData.checkOut}</p>
+            <p style="font-size: 0.8rem; margin-bottom: 0.25rem;">👥 ${bookingData.guests} ${window.currentLang === 'vn' ? 'khách' : 'guest(s)'}</p>
+            <p style="font-size: 0.8rem;">💰 ${window.currentLang === 'vn' ? 'Thanh toán khi nhận phòng' : 'Pay at property'} · ${amountDisplay}</p>
+        </div>
+        
+        <!-- ENHANCED EMAIL NOTIFICATION SECTION -->
+        <div style="background: #e6f7ec; border-radius: 8px; padding: 0.75rem; margin: 0.75rem 0; text-align: left;">
+            <p style="font-size: 0.75rem; margin-bottom: 0.25rem; color: #065f46; font-weight: 500;">
+                ${window.currentLang === 'vn' ? '📧 Email xác nhận đã được gửi đến:' : '📧 Confirmation email sent to:'}
+            </p>
+            <p style="font-size: 0.8rem; color: #065f46; word-break: break-all;">
+                <strong>${bookingData.guestEmail}</strong>
+            </p>
+            <p style="font-size: 0.65rem; color: #6b5c47; margin-top: 0.25rem;">
+                ${window.currentLang === 'vn' 
+                    ? 'Vui lòng kiểm tra hộp thư (cả mục Spam nếu không thấy)' 
+                    : 'Please check your inbox (and spam folder if you don\'t see it)'}
+            </p>
+        </div>
+        
+        <p style="font-size: 0.75rem; color: #6b5c47; margin-bottom: 1rem;">
+            ${window.currentLang === 'vn'
+                ? `Chúng tôi sẽ gửi hướng dẫn nhận phòng qua WhatsApp 24 giờ trước khi bạn đến.`
+                : `We'll send check-in instructions via WhatsApp 24 hours before arrival.`}
+        </p>
+        <button onclick="resetBookingForm()" style="margin-top: 0.5rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+            ${window.currentLang === 'vn' ? '📅 Đặt phòng mới →' : '📅 New Booking →'}
+        </button>
+    `;
+    
+    bookingSection.appendChild(confirmDiv);
+    
+    // Force visibility and scroll
+    confirmDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    console.log('Confirmation box added to DOM');
+}
+
+
+
+// Update existing selectPayTab function
+function selectPayTab(type) {
+    selectedPayTab = type;
+    
+    const paypalPanel = document.getElementById('paypal-panel');
+    const vietqrPanel = document.getElementById('vietqr-panel');
+    const cashPanel = document.getElementById('cash-panel');
+    const paypalTab = document.getElementById('pay-tab-paypal');
+    const vietqrTab = document.getElementById('pay-tab-vietqr');
+    const cashTab = document.getElementById('pay-tab-cash');
+    
+    // Hide all panels
+    if (paypalPanel) paypalPanel.style.display = 'none';
+    if (vietqrPanel) vietqrPanel.style.display = 'none';
+    if (cashPanel) cashPanel.style.display = 'none';
+    
+    // Remove active class from all tabs
+    if (paypalTab) paypalTab.classList.remove('active');
+    if (vietqrTab) vietqrTab.classList.remove('active');
+    if (cashTab) cashTab.classList.remove('active');
+    
+    if (type === 'paypal') {
+        if (paypalPanel) paypalPanel.style.display = 'block';
+        if (paypalTab) paypalTab.classList.add('active');
+    } else if (type === 'vietqr') {
+        if (vietqrPanel) vietqrPanel.style.display = 'block';
+        if (vietqrTab) vietqrTab.classList.add('active');
+        if (typeof generateQRCode === 'function') generateQRCode();
+        
+        // SHOW THE FILE UPLOAD SECTION
+        const transferDetails = document.getElementById('transfer-details');
+        if (transferDetails) {
+            transferDetails.style.display = 'block';
+        }
+        
+        // Also scroll to make it visible
+        setTimeout(() => {
+            transferDetails?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+        
+    } else if (type === 'cash') {
+        if (cashPanel) cashPanel.style.display = 'block';
+        if (cashTab) cashTab.classList.add('active');
+    }
+}
+
+// ================================================================
+// PAYPAL PAYMENT FUNCTION
+// ================================================================
+
+async function processPayPal() {
+    const err = validateBookingForm();
+    if (err) { 
+        if (err !== '__captcha__') showPayError(err); 
+        return; 
+    }
+    if (!currentBookingId) { 
+        showPayError('Booking ID not generated yet. Please select dates first.'); 
+        return; 
+    }
+
+    const data = collectBookingData();
+    const payload = {
+        ...data,
+        action: 'createBooking',
+        paymentMethod: 'paypal',
+        paymentStatus: 'pending_payment',
+        language: window.currentLang || 'en',
+        bookedAt: new Date().toISOString()
+    };
+
+    // Disable button
+    const btn = document.getElementById('paypal-pay-btn');
+    const originalText = btn ? btn.textContent : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = window.currentLang === 'vn' ? 'Đang chuyển đến PayPal...' : 'Redirecting to PayPal...';
+    }
+
+    try {
+        const res = await callSheetsAPI(payload);
+        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+        
+        const amountUSD = (data.amount / 25000).toFixed(2);
+        const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
+        
+        saveBookingToLocal({ ...data, paymentStatus: 'pending_payment' });
+        
+        // Open PayPal in new tab
+        window.open(paypalLink, '_blank');
+        
+        showPaymentRedirectConfirmation(data, 'PayPal');
+        
+    } catch (error) {
+        showPayError(error.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
+    }
 }
 
 // ================================================================
@@ -1178,13 +1907,17 @@ function initializeProperties() {
 function setupPaymentEventListeners() {
     const paypalTab = document.getElementById('pay-tab-paypal');
     const vietqrTab = document.getElementById('pay-tab-vietqr');
+    const cashTab = document.getElementById('pay-tab-cash');
     const paypalPayBtn = document.getElementById('paypal-pay-btn');
-    const vietqrConfirmBtn = document.getElementById('vietqr-confirm-btn');
+    const vietqrSubmitBtn = document.getElementById('vietqr-submit-btn');
+    const cashConfirmBtn = document.getElementById('cash-confirm-btn');
     
     if (paypalTab) paypalTab.onclick = () => selectPayTab('paypal');
     if (vietqrTab) vietqrTab.onclick = () => selectPayTab('vietqr');
+    if (cashTab) cashTab.onclick = () => selectPayTab('cash');
     if (paypalPayBtn) paypalPayBtn.onclick = () => processPayPal();
-    if (vietqrConfirmBtn) vietqrConfirmBtn.onclick = () => confirmVietQR();
+    if (vietqrSubmitBtn) vietqrSubmitBtn.onclick = () => submitBankTransferProof();
+    if (cashConfirmBtn) cashConfirmBtn.onclick = () => confirmCashBooking();
 }
 
 // Auto-show payment when guest details are filled (non-blocking)
@@ -1227,4 +1960,5 @@ window.resetBookingForm = resetBookingForm;
 window.selectPayTab = selectPayTab;
 window.generateQRCode = generateQRCode;
 window.processPayPal = processPayPal;
-window.confirmVietQR = confirmVietQR;
+window.submitBankTransferProof = submitBankTransferProof;
+window.confirmCashBooking = confirmCashBooking;

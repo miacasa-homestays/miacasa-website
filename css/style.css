@@ -113,6 +113,7 @@ nav {
     justify-content: space-between;
 }
 
+/* Original nav-logo styling - revert back */
 .nav-logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.6rem;
@@ -543,10 +544,11 @@ section {
 }
 
 .form-error {
-    display: none;
-    margin-top: 0.5rem;
-    color: #d32f2f;
+    color: #dc2626;
     font-size: 0.7rem;
+    margin-top: 0.25rem;
+    padding: 0.25rem 0;
+    display: none;
 }
 
 .blog-breadcrumb {
@@ -799,6 +801,51 @@ section {
 /* Ensure the guest details section transitions smoothly */
 #guest-details {
     transition: all 0.3s ease;
+}
+
+/* ============================================
+   LANGUAGE TOGGLE STYLES
+   ============================================ */
+
+/* English mode - hide Vietnamese content */
+html[data-lang="en"] .vn-only {
+  display: none;
+}
+
+html[data-lang="en"] .en-only {
+  display: inline;
+}
+
+/* Vietnamese mode - hide English content */
+html[data-lang="vn"] .en-only {
+  display: none;
+}
+
+html[data-lang="vn"] .vn-only {
+  display: inline;
+}
+
+.superhost-text {
+  font-size: 0.8rem;  /* Smaller than default */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;  /* Forces single line on desktop */
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.journey-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;  /* Prevents icon from shrinking */
+}
+
+/* For mobile - allow wrapping if screen is too small */
+@media (max-width: 768px) {
+  .superhost-text {
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: 0.75rem;
+  }
 }
 
 /* ============================================
@@ -2676,6 +2723,23 @@ footer a,
 
 .vietqr-btn:hover {
     background: var(--terracotta-dark) !important;
+}
+
+.cash-btn {
+  background: #059669;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cash-btn:hover {
+  background: #047857 !important;
 }
 
 /* ============================================

@@ -255,6 +255,81 @@ function getChatbotReply(message) {
 // CONTACT FORM - WhatsApp
 // ================================================================
 
+// ================================================================
+// MATH CAPTCHA
+// Stores expected answer in a JS closure — never in the DOM.
+// Two independent instances: 'booking' and 'contact'.
+// ================================================================
+const _captchaState = {};  // { booking: {a,b}, contact: {a,b} }
+
+function generateCaptcha(formId) {
+    const a = Math.floor(Math.random() * 9) + 1;  // 1–9
+    const b = Math.floor(Math.random() * 9) + 1;  // 1–9
+    _captchaState[formId] = { a, b };
+
+    const ids = formId === 'booking'
+        ? { n1: 'captcha-num1',         n2: 'captcha-num2',         ans: 'captcha-answer',         err: 'captcha-error'         }
+        : { n1: 'contact-captcha-num1', n2: 'contact-captcha-num2', ans: 'contact-captcha-answer', err: 'contact-captcha-error' };
+
+    const n1El  = document.getElementById(ids.n1);
+    const n2El  = document.getElementById(ids.n2);
+    const ansEl = document.getElementById(ids.ans);
+    const errEl = document.getElementById(ids.err);
+
+    if (n1El)  n1El.textContent  = a;
+    if (n2El)  n2El.textContent  = b;
+    if (ansEl) ansEl.value       = '';
+    if (errEl) errEl.textContent = '';
+}
+
+// Returns true if answer is correct; shows inline error and returns false otherwise.
+function validateCaptcha(formId) {
+    console.log('=== validateCaptcha DEBUG ===');
+    console.log('formId:', formId);
+    console.log('_captchaState:', _captchaState);
+    
+    const lang = window.currentLang || 'en';
+    const ids = formId === 'booking'
+        ? { ans: 'captcha-answer',         err: 'captcha-error'         }
+        : { ans: 'contact-captcha-answer', err: 'contact-captcha-error' };
+
+    const state = _captchaState[formId];
+    console.log('state for', formId, ':', state);
+    
+    if (!state) {
+        console.log('No state found, generating new CAPTCHA...');
+        generateCaptcha(formId);
+        const errEl = document.getElementById(ids.err);
+        if (errEl) errEl.textContent = lang === 'vn'
+            ? 'Vui lòng trả lời câu hỏi bảo mật.'
+            : 'Please answer the security question.';
+        return false;
+    }
+
+    const ansEl = document.getElementById(ids.ans);
+    const errEl = document.getElementById(ids.err);
+    const userAnswer = parseInt(ansEl?.value, 10);
+    
+    console.log('Expected answer:', state.a + state.b);
+    console.log('User answer:', userAnswer);
+
+    if (isNaN(userAnswer) || userAnswer !== state.a + state.b) {
+        console.log('Answer incorrect!');
+        if (errEl) errEl.textContent = lang === 'vn'
+            ? 'Câu trả lời không đúng. Vui lòng thử lại.'
+            : 'Incorrect answer. Please try again.';
+        generateCaptcha(formId);
+        return false;
+    }
+
+    console.log('Answer correct!');
+    if (errEl) errEl.textContent = '';
+    return true;
+}
+
+window.generateCaptcha = generateCaptcha;
+window.validateCaptcha  = validateCaptcha;
+
 function sendWhatsApp() {
     const name = document.getElementById('contact-name')?.value?.trim() || '';
     const email = document.getElementById('contact-email')?.value?.trim() || '';
@@ -266,7 +341,10 @@ function sendWhatsApp() {
         showContactNotice(currentLang === 'vn' ? 'Vui lòng điền tên và tin nhắn.' : 'Please fill in your name and message.', true);
         return;
     }
-    
+
+    // Validate math captcha before proceeding
+    if (!validateCaptcha('contact')) return;
+
     const text = `Hi MiaCasa! 👋\n\n*Name:* ${name}\n*Email:* ${email || 'not provided'}\n*Property:* ${prop}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
     const url = 'https://wa.me/84869922261?text=' + encodeURIComponent(text);
     const opened = window.open(url, '_blank');
@@ -536,6 +614,49 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Populate contact form dropdowns
     populateContactDropdowns();
+    
+    // Initialize CAPTCHA on page load
+    if (document.getElementById('captcha-num1')) {
+        generateCaptcha('booking');
+    }
+    if (document.getElementById('contact-captcha-num1')) {
+        generateCaptcha('contact');
+    }
+    
+    // ============================================
+    // ADD THIS - Clear CAPTCHA error when user types
+    // ============================================
+    const captchaInput = document.getElementById('captcha-answer');
+    if (captchaInput) {
+        captchaInput.addEventListener('input', function() {
+            const errorEl = document.getElementById('captcha-error');
+            if (errorEl) errorEl.style.display = 'none';
+        });
+    }
+    
+    const contactCaptchaInput = document.getElementById('contact-captcha-answer');
+    if (contactCaptchaInput) {
+        contactCaptchaInput.addEventListener('input', function() {
+            const errorEl = document.getElementById('contact-captcha-error');
+            if (errorEl) errorEl.style.display = 'none';
+        });
+    }
+    // ============================================
+    
+    // Refresh CAPTCHA buttons
+    const refreshBookingBtn = document.getElementById('refresh-captcha');
+    if (refreshBookingBtn) {
+        refreshBookingBtn.addEventListener('click', function() {
+            generateCaptcha('booking');
+        });
+    }
+    
+    const refreshContactBtn = document.getElementById('refresh-contact-captcha');
+    if (refreshContactBtn) {
+        refreshContactBtn.addEventListener('click', function() {
+            generateCaptcha('contact');
+        });
+    }
     
     // RENDER PROPERTIES GRID - ADD THIS LINE
     /* if (document.getElementById('properties-grid')) {

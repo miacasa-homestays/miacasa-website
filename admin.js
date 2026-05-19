@@ -1,6 +1,5 @@
 // ================================================================
-// ADMIN.JS - Admin panel functionality for MiaCasa
-// Works with log-booking.js on Netlify free tier
+// ADMIN.JS - Complete working version with calendar
 // ================================================================
 
 const API_URL = '/api/log-booking';
@@ -118,14 +117,6 @@ const ADMIN_TRANSLATIONS = {
   }
 };
 
-// Room definitions
-const ROOMS = [
-  { id: 'spring', name: 'Spring Room', property: 'MiaCasaHanoi' },
-  { id: 'summer', name: 'Summer Room', property: 'MiaCasaHanoi' },
-  { id: 'autumn', name: 'Autumn Room', property: 'MiaCasaHanoi' },
-  { id: 'oldquarter', name: 'Entire Apartment (3 queen beds)', property: 'MiaCasaOldQuarter' }
-];
-
 const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
 const WEEKDAY_NAMES = {
   en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -176,17 +167,9 @@ async function doLogin() {
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        action: 'login',
-        username: user,
-        password: pass
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'login', username: user, password: pass })
     });
-
     const json = await response.json();
 
     if (json.status === 'ok') {
@@ -199,13 +182,7 @@ async function doLogin() {
       errEl.style.display = 'block';
     }
   } catch (error) {
-    // If we get a network/fetch error, it's usually the Netlify function crashing
-    // (env vars not set) rather than a true CORS issue — show the actual message
-    const msg = error.message || '';
-    let errorMessage = adminLang === 'vn'
-      ? 'Không thể kết nối. Kiểm tra biến môi trường Netlify (ADMIN_USER, ADMIN_PASSWORD, ADMIN_TOKEN).'
-      : 'Cannot connect. Check Netlify environment variables (ADMIN_USER, ADMIN_PASSWORD, ADMIN_TOKEN) are set.';
-    errEl.textContent = errorMessage;
+    errEl.textContent = adminLang === 'vn' ? 'Không thể kết nối.' : 'Cannot connect.';
     errEl.style.display = 'block';
   } finally {
     loginBtn.disabled = false;
@@ -217,8 +194,6 @@ function doLogout() {
   clearToken();
   document.getElementById('admin-wrap').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  
-  // Clear login form
   document.getElementById('login-user').value = '';
   document.getElementById('login-pass').value = '';
   document.getElementById('login-error').style.display = 'none';
@@ -227,18 +202,10 @@ function doLogout() {
 async function showAdmin() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-wrap').style.display = 'block';
-  
   const userName = sessionStorage.getItem('mia_admin_user') || 'Admin';
-  document.getElementById('admin-greeting').textContent = 
-    adminLang === 'vn' ? `Xin chào, ${userName}!` : `Welcome, ${userName}!`;
+  document.getElementById('admin-greeting').textContent = adminLang === 'vn' ? `Xin chào, ${userName}!` : `Welcome, ${userName}!`;
   updatePriceRuleFields();
-  
-  // Load all data
-  await Promise.all([
-    renderRoomStatusList(),
-    renderOverrides(),
-    loadMaintenanceStatus()
-  ]);
+  await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
 }
 
 // ================================================================
@@ -251,14 +218,12 @@ function switchTab(name, btn) {
   btn.classList.add('active');
   document.getElementById('panel-' + name).classList.add('active');
   
-  // Refresh data when switching tabs
-  if (name === 'rooms') {
-    renderRoomStatusList();
-  } else if (name === 'prices') {
+  if (name === 'rooms') renderRoomStatusList();
+  else if (name === 'prices') {
     renderOverrides();
-  } else if (name === 'cancellations') {
-    loadPendingCancellations();
+    setTimeout(() => initCalendar(), 100);
   }
+  else if (name === 'cancellations') loadPendingCancellations();
 }
 
 // ================================================================
@@ -272,7 +237,6 @@ async function getRoomStatus() {
     body: JSON.stringify({ action: 'getRoomStatus', token: getToken() })
   });
   const data = await res.json();
-  // Make sure we return an array
   return data.data || [];
 }
 
@@ -282,14 +246,12 @@ async function addRoomStatus() {
   const to = document.getElementById('rs-to').value;
   const status = document.getElementById('rs-status').value;
   const note = document.getElementById('rs-note').value.trim();
-
   const errBar = document.getElementById('rooms-error-bar');
   const saveBar = document.getElementById('rooms-save-bar');
   
   errBar.style.display = 'none';
   saveBar.style.display = 'none';
 
-  // Validation
   if (!room || !from || !to) {
     errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn phòng và cả hai ngày.' : 'Please select a room and both dates.';
     errBar.style.display = 'block';
@@ -302,7 +264,6 @@ async function addRoomStatus() {
     return;
   }
 
-  // Disable button
   const applyBtn = document.getElementById('btn-rs-apply');
   applyBtn.disabled = true;
   applyBtn.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
@@ -311,11 +272,7 @@ async function addRoomStatus() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        action: 'updateRoomStatus', 
-        room, from, to, status, note, 
-        token: getToken() 
-      })
+      body: JSON.stringify({ action: 'updateRoomStatus', room, from, to, status, note, token: getToken() })
     });
     const json = await res.json();
 
@@ -323,14 +280,9 @@ async function addRoomStatus() {
       saveBar.textContent = adminLang === 'vn' ? '✓ Đã cập nhật trạng thái phòng' : '✓ Room status updated';
       saveBar.style.display = 'block';
       setTimeout(() => saveBar.style.display = 'none', 4000);
-      
-      // Clear form
       document.getElementById('rs-note').value = '';
       document.getElementById('rs-from').value = '';
       document.getElementById('rs-to').value = '';
-      document.getElementById('rs-status').value = 'open';
-      
-      // Refresh list
       await renderRoomStatusList();
     } else {
       errBar.textContent = 'Error: ' + (json.message || 'Unknown error');
@@ -346,10 +298,7 @@ async function addRoomStatus() {
 }
 
 async function deleteRoomStatus(id) {
-  if (!confirm(adminLang === 'vn' ? 'Xóa quy tắc này?' : 'Delete this rule?')) {
-    return;
-  }
-  
+  if (!confirm(adminLang === 'vn' ? 'Xóa quy tắc này?' : 'Delete this rule?')) return;
   try {
     await fetch(API_URL, {
       method: 'POST',
@@ -358,67 +307,28 @@ async function deleteRoomStatus(id) {
     });
     await renderRoomStatusList();
   } catch (error) {
-    console.error('Delete error:', error);
-    alert(adminLang === 'vn' ? 'Xóa thất bại. Vui lòng thử lại.' : 'Delete failed. Please try again.');
+    alert(adminLang === 'vn' ? 'Xóa thất bại.' : 'Delete failed.');
   }
 }
 
 async function renderRoomStatusList() {
   const container = document.getElementById('room-status-list');
-  container.innerHTML = '<p style="color:var(--ink-light);">Loading...</p>';
-  
+  container.innerHTML = '<p>Loading...</p>';
   try {
     const rows = await getRoomStatus();
-    
-    // FIX: Check if rows is an array
-    if (!rows || !Array.isArray(rows)) {
-      console.log('Room status data is not an array:', rows);
+    if (!rows || rows.length === 0) {
       container.innerHTML = `<p class="no-overrides">${ADMIN_TRANSLATIONS[adminLang]['no-rules']}</p>`;
       return;
     }
-    
-    if (rows.length === 0) {
-      container.innerHTML = `<p class="no-overrides">${ADMIN_TRANSLATIONS[adminLang]['no-rules']}</p>`;
-      return;
-    }
-    
-    // Sort by from date descending (newest first)
-    rows.sort((a, b) => new Date(b[2]) - new Date(a[2]));
-    
     const AL = ADMIN_TRANSLATIONS[adminLang];
-    container.innerHTML = `
-      <table class="overrides-table">
-        <thead>
-          <tr>
-            <th>${AL['th-room']}</th>
-            <th>${AL['th-from']}</th>
-            <th>${AL['th-to']}</th>
-            <th>${AL['th-status']}</th>
-            <th>${AL['th-note']}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(r => {
-            const isClosed = r[3] === 'closed';
-            const statusLabel = isClosed ? ADMIN_TRANSLATIONS[adminLang]['opt-rs-closed'] : ADMIN_TRANSLATIONS[adminLang]['opt-rs-open'];
-            return `
-            <tr>
-              <td>${escapeHtml(r[0])}</td>
-              <td>${formatDateForDisplay(r[1])}</td>
-              <td>${formatDateForDisplay(r[2])}</td>
-              <td><span style="font-weight:500;color:${isClosed ? '#991B1B' : '#065F46'}">${statusLabel}</span></td>
-              <td style="color:var(--ink-light);">${escapeHtml(r[4] || '—')}</td>
-              <td><button class="del-btn" onclick="deleteRoomStatus('${r[5]}')">✕</button></td>
-            </tr>
-          `;
-          }).join('')}
-        </tbody>
-      </table>
-    `;
+    container.innerHTML = `<table class="overrides-table"><thead><tr><th>${AL['th-room']}</th><th>${AL['th-from']}</th><th>${AL['th-to']}</th><th>${AL['th-status']}</th><th>${AL['th-note']}</th><th></th></tr></thead><tbody>${
+      rows.map(r => {
+        const isClosed = r[3] === 'closed';
+        return `<tr><td>${escapeHtml(r[0])}</td><td>${formatDateForDisplay(r[1])}</td><td>${formatDateForDisplay(r[2])}</td><td><span style="color:${isClosed ? '#991B1B' : '#065F46'}">${isClosed ? '🔒 Closed' : '🔓 Open'}</span></td><td>${escapeHtml(r[4] || '—')}</td><td><button class="del-btn" onclick="deleteRoomStatus('${r[5]}')">✕</button></td></tr>`
+      }).join('')
+    }</tbody></table>`;
   } catch (error) {
-    console.error('Render error:', error);
-    container.innerHTML = '<p style="color:#991B1B;">Failed to load room status. Please refresh the page.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">Failed to load.</p>';
   }
 }
 
@@ -433,258 +343,63 @@ async function fetchOverrides() {
     body: JSON.stringify({ action: 'getPriceOverrides', token: getToken() })
   });
   const data = await res.json();
-  // Make sure we return an array
   return data.data || [];
 }
 
 function updatePriceRuleFields() {
-  const type = document.getElementById('ov-rule-type')?.value || 'date';
-  const showRecurring = type === 'weekday';
+  const mode = document.getElementById('ov-rule-type')?.value || 'single';
   const weekdayField = document.getElementById('ov-weekday-field');
   const monthField = document.getElementById('ov-month-field');
-  const toLabel = document.getElementById('lbl-ov-to');
-  const fromInput = document.getElementById('ov-from');
-  const toInput = document.getElementById('ov-to');
-
-  if (weekdayField) weekdayField.style.display = showRecurring ? 'flex' : 'none';
-  if (monthField) monthField.style.display = showRecurring ? 'flex' : 'none';
-  if (toLabel) {
-    toLabel.textContent = showRecurring
-      ? (adminLang === 'vn' ? 'Đến ngày (hiệu lực)' : 'To date (active until)')
-      : ADMIN_TRANSLATIONS[adminLang]['lbl-ov-to'];
-  }
-
-  if (showRecurring && fromInput && toInput && !fromInput.value && !toInput.value) {
-    const today = new Date();
-    const nextYear = new Date(today);
-    nextYear.setFullYear(today.getFullYear() + 1);
-    fromInput.value = formatDateInput(today);
-    toInput.value = formatDateInput(nextYear);
+  
+  if (mode === 'single') {
+    if (weekdayField) weekdayField.style.display = 'none';
+    if (monthField) monthField.style.display = 'none';
+  } else {
+    const ruleType = document.getElementById('ov-rule-type')?.value;
+    const isRecurring = ruleType === 'weekday';
+    if (weekdayField) weekdayField.style.display = isRecurring ? 'flex' : 'none';
+    if (monthField) monthField.style.display = isRecurring ? 'flex' : 'none';
   }
 }
 
 function getCheckedValues(containerId) {
-  return Array.from(document.querySelectorAll(`#${containerId} input:checked`))
-    .map(input => Number(input.value))
-    .filter(value => Number.isFinite(value));
+  return Array.from(document.querySelectorAll(`#${containerId} input:checked`)).map(input => Number(input.value));
 }
 
 function formatDateInput(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function buildPriceRuleNote(note, ruleType) {
-  const cleanNote = note.replace(new RegExp(`\\s*${PRICE_RULE_PREFIX}.*$`), '').trim();
-  if (ruleType !== 'weekday') return cleanNote;
-
-  const days = getCheckedValues('ov-weekdays');
-  const months = getCheckedValues('ov-months');
-  const rule = {
-    type: 'weekday',
-    days,
-    months: months.length ? months : [1,2,3,4,5,6,7,8,9,10,11,12]
-  };
-
-  return `${cleanNote ? cleanNote + ' ' : ''}${PRICE_RULE_PREFIX}${JSON.stringify(rule)}`;
-}
-
-function parsePriceRuleNote(note) {
-  const raw = String(note || '');
-  const index = raw.indexOf(PRICE_RULE_PREFIX);
-  if (index === -1) return { userNote: raw, rule: null };
-
-  const userNote = raw.slice(0, index).trim();
-  const encoded = raw.slice(index + PRICE_RULE_PREFIX.length).trim();
-  try {
-    return { userNote, rule: JSON.parse(encoded) };
-  } catch (e) {
-    return { userNote: raw, rule: null };
-  }
-}
-
-function compactNumberList(values, labels) {
-  if (!Array.isArray(values) || values.length === 0) return '—';
-  return values
-    .slice()
-    .sort((a, b) => a - b)
-    .map(value => labels[value] || labels[value - 1] || value)
-    .join(', ');
-}
-
-function formatPriceRule(rule) {
-  const L = ADMIN_TRANSLATIONS[adminLang];
-  if (!rule || rule.type !== 'weekday') {
-    return `<span class="rule-pill">${L['rule-once']}</span>`;
-  }
-
-  const dayNames = WEEKDAY_NAMES[adminLang] || WEEKDAY_NAMES.en;
-  const monthNames = MONTH_NAMES[adminLang] || MONTH_NAMES.en;
-  const months = Array.isArray(rule.months) ? rule.months : [];
-  const monthText = months.length === 12 || months.length === 0
-    ? (adminLang === 'vn' ? 'Tất cả tháng' : 'All months')
-    : compactNumberList(months, monthNames);
-  const dayText = compactNumberList(rule.days, dayNames);
-
-  return `<span class="rule-pill">${L['rule-weekday']}</span><div style="margin-top:0.25rem;color:var(--ink-light);">${dayText} · ${monthText}</div>`;
-}
-
-async function addOverride() {
-  const room = document.getElementById('ov-room').value;
-  const ruleType = document.getElementById('ov-rule-type')?.value || 'date';
-  const from = document.getElementById('ov-from').value;
-  const to = document.getElementById('ov-to').value;
-  const price = parseInt(document.getElementById('ov-price').value);
-  const noteInput = document.getElementById('ov-note').value.trim();
-  const note = buildPriceRuleNote(noteInput, ruleType);
-
-  const errBar = document.getElementById('price-error-bar');
-  const saveBar = document.getElementById('price-save-bar');
-  const token = getToken();
-  console.log('=== ADD OVERRIDE DEBUG ===');
-  console.log('Token being sent:', token);
-  console.log('Token type:', typeof token);
-  errBar.style.display = 'none';
-  saveBar.style.display = 'none';
-
-  // Validation
-  if (!room || !from || !to || !price) {
-    errBar.textContent = adminLang === 'vn' ? 'Vui lòng điền đầy đủ thông tin.' : 'Please fill in all required fields.';
-    errBar.style.display = 'block';
-    return;
-  }
-
-  if (ruleType === 'weekday' && getCheckedValues('ov-weekdays').length === 0) {
-    errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn ít nhất một thứ trong tuần.' : 'Please select at least one weekday.';
-    errBar.style.display = 'block';
-    return;
-  }
-  
-  if (new Date(to) < new Date(from)) {
-    errBar.textContent = adminLang === 'vn' ? 'Ngày kết thúc phải bằng hoặc sau ngày bắt đầu.' : 'End date must be on or after start date.';
-    errBar.style.display = 'block';
-    return;
-  }
-  
-  if (price < 100000) {
-    errBar.textContent = adminLang === 'vn' ? 'Giá phải lớn hơn 100,000 VND.' : 'Price must be greater than 100,000 VND.';
-    errBar.style.display = 'block';
-    return;
-  }
-
-  // Disable button
-  const addBtn = document.getElementById('btn-ov-add');
-  addBtn.disabled = true;
-  addBtn.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
-
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        action: 'addPriceOverride', 
-        room, from, to, price, note, 
-        token: getToken() 
-      })
-    });
-    const json = await res.json();
-
-    if (json.status === 'ok') {
-      saveBar.textContent = adminLang === 'vn' ? '✓ Đã thêm giá tùy chỉnh' : '✓ Override added successfully';
-      saveBar.style.display = 'block';
-      setTimeout(() => saveBar.style.display = 'none', 4000);
-      
-      // Clear form
-      document.getElementById('ov-price').value = '';
-      document.getElementById('ov-note').value = '';
-      
-      // Refresh list
-      await renderOverrides();
-    } else {
-      errBar.textContent = 'Error: ' + (json.message || 'Unknown error');
-      errBar.style.display = 'block';
-    }
-  } catch (error) {
-    errBar.textContent = 'Error: ' + error.message;
-    errBar.style.display = 'block';
-  } finally {
-    addBtn.disabled = false;
-    addBtn.textContent = adminLang === 'vn' ? 'Thêm' : 'Add Override';
-  }
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }
 
 async function deleteOverride(id) {
-  if (!confirm(adminLang === 'vn' ? 'Xóa giá tùy chỉnh này?' : 'Delete this override?')) {
-    return;
-  }
-  
+  if (!confirm(adminLang === 'vn' ? 'Xóa?' : 'Delete?')) return;
   try {
     await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'deletePriceOverride', id: id, token: getToken() })
+      body: JSON.stringify({ action: 'deletePriceOverride', id, token: getToken() })
     });
     await renderOverrides();
   } catch (error) {
-    console.error('Delete error:', error);
-    alert(adminLang === 'vn' ? 'Xóa thất bại. Vui lòng thử lại.' : 'Delete failed. Please try again.');
+    alert('Delete failed');
   }
 }
 
 async function renderOverrides() {
   const container = document.getElementById('overrides-list');
-  container.innerHTML = '<p style="color:var(--ink-light);">Loading...</p>';
-  
+  container.innerHTML = '<p>Loading...</p>';
   try {
     const overrides = await fetchOverrides();
-
     if (!overrides || overrides.length === 0) {
       container.innerHTML = `<p class="no-overrides">${ADMIN_TRANSLATIONS[adminLang]['no-overrides']}</p>`;
       return;
     }
-
-    // Sort by from date ascending (index 2 is the 'From' date)
-    overrides.sort((a, b) => new Date(a[2]) - new Date(b[2]));
-    
     const AL = ADMIN_TRANSLATIONS[adminLang];
-    container.innerHTML = `
-      <table class="overrides-table">
-        <thead>
-          <tr>
-            <th>${AL['th-room']}</th>
-            <th>${AL['th-rule']}</th>
-            <th>${AL['th-from']}</th>
-            <th>${AL['th-to']}</th>
-            <th>${AL['th-price']}</th>
-            <th>${AL['th-usd']}</th>
-            <th>${AL['th-note']}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          ${overrides.map(o => {
-            const parsed = parsePriceRuleNote(o[5]);
-            return `
-              <tr>
-                <td>${escapeHtml(o[1])}</td>
-                <td>${formatPriceRule(parsed.rule)}</td>
-                <td>${formatDateForDisplay(o[2])}</td>
-                <td>${formatDateForDisplay(o[3])}</td>
-                <td style="font-weight:500;color:var(--terracotta);">${formatVND(o[4])}</td>
-                <td style="color:var(--ink-light);">~$${Math.round(o[4] / 25000)}</td>
-                <td style="color:var(--ink-light);">${escapeHtml(parsed.userNote || '—')}</td>
-                <td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
-    `;
+    container.innerHTML = `<table class="overrides-table"><thead><tr><th>${AL['th-room']}</th><th>${AL['th-rule']}</th><th>${AL['th-from']}</th><th>${AL['th-to']}</th><th>${AL['th-price']}</th><th>${AL['th-usd']}</th><th>${AL['th-note']}</th><th></th></tr></thead><tbody>${
+      overrides.map(o => `<tr><td>${escapeHtml(o[1])}</td><td><span class="rule-pill">Specific dates</span></td><td>${formatDateForDisplay(o[2])}</td><td>${formatDateForDisplay(o[3])}</td><td>${formatVND(o[4])}</td><td>~$${Math.round(o[4]/25000)}</td><td>${escapeHtml(o[5] || '—')}</td><td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td></tr>`
+      ).join('')
+    }</tbody></table>`;
   } catch (error) {
-    console.error('Render error:', error);
-    container.innerHTML = '<p style="color:#991B1B;">Failed to load overrides. Please refresh the page.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">Failed to load.</p>';
   }
 }
 
@@ -700,49 +415,30 @@ async function getMaintenanceMode() {
   });
   const json = await res.json();
   return json.value === 'on';
-}  // ← THIS CLOSING BRACE WAS MISSING!
+}
 
 async function setMaintenanceMode(enabled) {
-  console.log('setMaintenanceMode called with:', enabled);
-  
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        action: 'setMaintenanceMode', 
-        value: enabled ? 'on' : 'off', 
-        token: getToken() 
-      })
-    });
-    
-    const json = await res.json();
-    return json.status === 'ok';
-  } catch (error) {
-    console.error('setMaintenanceMode error:', error);
-    return false;
-  }
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'setMaintenanceMode', value: enabled ? 'on' : 'off', token: getToken() })
+  });
+  const json = await res.json();
+  return json.status === 'ok';
 }
 
 async function toggleMaintenance() {
   const el = document.getElementById('maintenance-status');
   const btn = document.getElementById('maintenance-btn');
-  
-  // Get current status more reliably
-  const currentText = el.textContent;
-  const currentIsOn = (currentText === 'ON' || currentText === 'BẬT');
+  const currentIsOn = (el.textContent === 'ON' || el.textContent === 'BẬT');
   const newValue = !currentIsOn;
-
-  // Save original button text
   const originalText = btn.textContent;
   
-  // Disable button during operation
   btn.disabled = true;
   btn.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
 
   try {
     const success = await setMaintenanceMode(newValue);
-    
     if (success) {
       if (newValue) {
         el.textContent = ADMIN_TRANSLATIONS[adminLang]['maintenance-on-status'] || 'ON';
@@ -754,17 +450,12 @@ async function toggleMaintenance() {
         btn.textContent = ADMIN_TRANSLATIONS[adminLang]['maintenance-off'] || 'Turn Maintenance On';
       }
     } else {
-      // Revert button text on failure
       btn.textContent = originalText;
-      const errorMsg = adminLang === 'vn' ? 'Cập nhật chế độ bảo trì thất bại.' : 'Failed to update maintenance mode.';
-      alert(errorMsg);
+      alert('Failed to update maintenance mode.');
     }
   } catch (error) {
-    console.error('Toggle maintenance error:', error);
-    // Revert button text on error
     btn.textContent = originalText;
-    const errorMsg = adminLang === 'vn' ? 'Có lỗi xảy ra. Vui lòng thử lại.' : 'An error occurred. Please try again.';
-    alert(errorMsg);
+    alert('An error occurred.');
   } finally {
     btn.disabled = false;
   }
@@ -775,7 +466,6 @@ async function loadMaintenanceStatus() {
     const isOn = await getMaintenanceMode();
     const el = document.getElementById('maintenance-status');
     const btn = document.getElementById('maintenance-btn');
-    
     if (isOn) {
       el.textContent = ADMIN_TRANSLATIONS[adminLang]['maintenance-on-status'] || 'ON';
       el.className = 'status-on';
@@ -785,9 +475,7 @@ async function loadMaintenanceStatus() {
       el.className = 'status-off';
       btn.textContent = ADMIN_TRANSLATIONS[adminLang]['maintenance-off'] || 'Turn Maintenance On';
     }
-  } catch (error) {
-    console.error('Load maintenance status error:', error);
-  }
+  } catch (error) {}
 }
 
 // ================================================================
@@ -797,10 +485,7 @@ async function loadMaintenanceStatus() {
 function formatDateForDisplay(dateStr) {
   if (!dateStr) return '—';
   const parts = dateStr.split('-');
-  if (parts.length === 3) {
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  }
-  return dateStr;
+  return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
 }
 
 function formatVND(amount) {
@@ -821,218 +506,84 @@ function escapeHtml(text) {
 function setAdminLang(lang) {
   adminLang = lang;
   localStorage.setItem('mia_admin_lang', lang);
-
   const enBtn = document.getElementById('lang-en');
   const vnBtn = document.getElementById('lang-vn');
   if (enBtn) enBtn.classList.toggle('active', lang === 'en');
   if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
-  const roomStatusSelect = document.getElementById('rs-status');
-  if (roomStatusSelect && !roomStatusSelect.value) roomStatusSelect.value = 'open';
-
+  
   const L = ADMIN_TRANSLATIONS[lang];
   if (!L) return;
-
-  // Update all translatable elements
-  const elements = {
-    'login-logo': 'textContent',
-    'login-sub': 'textContent',
-    'lbl-username': 'textContent',
-    'lbl-password': 'textContent',
-    'btn-signin': 'textContent',
-    'admin-page-title': 'textContent',
-    'admin-page-sub': 'textContent',
-    'logout-btn': 'textContent',
-    'rs-form-title': 'textContent',
-    'lbl-rs-room': 'textContent',
-    'lbl-rs-from': 'textContent',
-    'lbl-rs-to': 'textContent',
-    'lbl-rs-status': 'textContent',
-    'lbl-rs-note': 'textContent',
-    'btn-rs-apply': 'textContent',
-    'rs-list-title': 'textContent',
-    'ov-form-title': 'textContent',
-    'lbl-ov-room': 'textContent',
-    'lbl-ov-rule-type': 'textContent',
-    'lbl-ov-from': 'textContent',
-    'lbl-ov-to': 'textContent',
-    'lbl-ov-weekdays': 'textContent',
-    'lbl-ov-months': 'textContent',
-    'lbl-ov-price': 'textContent',
-    'lbl-ov-note': 'textContent',
-    'btn-ov-add': 'textContent',
-    'ov-list-title': 'textContent'
-  };
-
-  for (const [id, prop] of Object.entries(elements)) {
+  
+  const elements = ['login-logo', 'login-sub', 'lbl-username', 'lbl-password', 'btn-signin', 'admin-page-title', 'admin-page-sub', 'logout-btn', 'rs-form-title', 'lbl-rs-room', 'lbl-rs-from', 'lbl-rs-to', 'lbl-rs-status', 'lbl-rs-note', 'btn-rs-apply', 'rs-list-title', 'ov-form-title', 'lbl-ov-room', 'lbl-ov-rule-type', 'lbl-ov-from', 'lbl-ov-to', 'lbl-ov-weekdays', 'lbl-ov-months', 'lbl-ov-price', 'lbl-ov-note', 'btn-ov-add', 'ov-list-title'];
+  elements.forEach(id => {
     const el = document.getElementById(id);
-    if (el && L[id]) el[prop] = L[id];
-  }
-
-  // Update tab buttons
+    if (el && L[id]) el.textContent = L[id];
+  });
+  
   const tabs = document.querySelectorAll('.admin-tab');
   if (tabs[0]) tabs[0].textContent = L['tab-rooms'];
   if (tabs[1]) tabs[1].textContent = L['tab-prices'];
-  updatePriceRuleFields();
-
-  // Update select options
+  
   const rsSel = document.getElementById('rs-status');
   if (rsSel && rsSel.options.length >= 2) {
     rsSel.options[0].text = L['opt-rs-open'];
     rsSel.options[1].text = L['opt-rs-closed'];
   }
-
-  // Update room select options
-  const roomOptions = {
-    0: L['room-spring'],
-    1: L['room-summer'],
-    2: L['room-autumn'],
-    3: L['room-oq']
-  };
   
-  ['rs-room', 'ov-room'].forEach(selId => {
-    const sel = document.getElementById(selId);
-    if (sel) {
-      Object.entries(roomOptions).forEach(([i, text]) => {
-        if (sel.options[i]) sel.options[i].text = text;
-      });
-    }
-  });
-
-  // Re-render lists with new language
   renderRoomStatusList();
   renderOverrides();
   loadMaintenanceStatus();
 }
 
 // ================================================================
-// INITIALIZATION
-// ================================================================
-
-// Set default dates for forms
-function setDefaultDates() {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  
-  const fromInput = document.getElementById('ov-from');
-  const toInput = document.getElementById('ov-to');
-  
-  if (fromInput) fromInput.value = today.toISOString().split('T')[0];
-  if (toInput) toInput.value = tomorrow.toISOString().split('T')[0];
-}
-
-// Check if already logged in
-if (sessionStorage.getItem('mia_admin_logged_in') && getToken()) {
-  showAdmin();
-}
-
-// Set up event listeners
-document.addEventListener('DOMContentLoaded', () => {
-  setDefaultDates();
-  setAdminLang(adminLang);
-  
-  // Login form event listeners
-  const loginUser = document.getElementById('login-user');
-  const loginPass = document.getElementById('login-pass');
-  
-  if (loginUser) {
-    loginUser.addEventListener('input', () => {
-      document.getElementById('login-error').style.display = 'none';
-    });
-  }
-  
-  if (loginPass) {
-    loginPass.addEventListener('input', () => {
-      document.getElementById('login-error').style.display = 'none';
-    });
-    loginPass.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') doLogin();
-    });
-  }
-});
-// ================================================================
-// CANCELLATION MANAGEMENT (Admin UI)
+// CANCELLATION MANAGEMENT
 // ================================================================
 
 async function loadPendingCancellations() {
   const container = document.getElementById('cancellations-list');
   if (!container) return;
-  
   container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
-  
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'getPendingCancellations', token: getToken() })
     });
-    
     const data = await response.json();
-    
     if (!data.cancellations || data.cancellations.length === 0) {
-      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p style="color: #6b5c47;">✅ No pending cancellation requests</p></div>';
+      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>✅ No pending cancellation requests</p></div>';
       document.getElementById('pending-count').innerHTML = '';
       return;
     }
-    
     document.getElementById('pending-count').innerHTML = `(${data.cancellations.length} pending)`;
-    
     container.innerHTML = data.cancellations.map(c => `
       <div class="cancel-card" id="cancel-card-${c.bookingId}" style="background: white; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-          <div style="flex: 2;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-              <strong style="font-size: 1rem;">${c.bookingId}</strong>
-              <span style="background: #fef3c7; color: #d97706; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem;">PENDING</span>
-            </div>
-            <p style="margin-top: 0.75rem;"><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p>
-            <p><strong>Property:</strong> ${c.property} - ${c.room}</p>
-            <p><strong>Check-in:</strong> ${c.checkIn}</p>
-            <p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫ (${c.paymentMethod})</p>
-          </div>
-          <div style="flex: 1; min-width: 200px;">
-            <button onclick="showRefundForm('${c.bookingId}', ${c.amount}, '${c.paymentMethod}')" class="add-override-btn" style="width: 100%; background: #059669;">✅ Approve Refund</button>
-            <button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="width: 100%; margin-top: 0.5rem; background: #dc2626;">❌ Reject Request</button>
-          </div>
+          <div><strong>${c.bookingId}</strong><p><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p><p><strong>Property:</strong> ${c.property} - ${c.room}</p><p><strong>Check-in:</strong> ${c.checkIn}</p><p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫</p></div>
+          <div><button onclick="showRefundForm('${c.bookingId}')" class="add-override-btn" style="background: #059669;">✅ Approve Refund</button><button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="margin-top: 0.5rem; background: #dc2626;">❌ Reject</button></div>
         </div>
-        
-        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e0ddd5;">
-          <h4>Confirm Refund</h4>
-          <p>Have you manually processed the refund in ${c.paymentMethod}?</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div><label>Refund Amount (VND)</label><input type="number" id="refund-amount-${c.bookingId}" value="${c.amount}" style="width: 100%; padding: 0.5rem;"></div>
-            <div><label>Reference (optional)</label><input type="text" id="refund-txn-${c.bookingId}" style="width: 100%; padding: 0.5rem;"></div>
-          </div>
-          <div><label>Note</label><textarea id="refund-note-${c.bookingId}" rows="2" style="width: 100%; padding: 0.5rem;"></textarea></div>
-          <div style="margin-top: 1rem;"><button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">✅ Confirm & Notify Guest</button></div>
-        </div>
+        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem;"><button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">Confirm Refund</button></div>
       </div>
     `).join('');
   } catch (error) {
-    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem; border-radius: 8px;">Error loading cancellation requests</div>';
+    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem;">Error loading</div>';
   }
 }
 
-function showRefundForm(bookingId, amount, paymentMethod) {
+function showRefundForm(bookingId) {
   document.getElementById(`refund-form-${bookingId}`).style.display = 'block';
 }
 
 async function confirmRefund(bookingId) {
-  const refundAmount = document.getElementById(`refund-amount-${bookingId}`).value;
-  const refundNote = document.getElementById(`refund-note-${bookingId}`).value;
-  
-  if (!confirm('⚠️ Have you manually processed the refund in PayPal/Bank?\n\nClick OK to confirm and notify the guest.')) return;
-  
+  if (!confirm('Have you manually processed the refund?')) return;
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'confirmRefund', bookingId, refundAmount: parseInt(refundAmount), refundNote, token: getToken() })
+    body: JSON.stringify({ action: 'confirmRefund', bookingId, token: getToken() })
   });
-  
   const data = await response.json();
-  
   if (data.status === 'ok') {
-    alert('✅ ' + data.message);
+    alert('✅ Refund confirmed');
     document.getElementById(`cancel-card-${bookingId}`)?.remove();
     loadPendingCancellations();
   } else {
@@ -1041,44 +592,462 @@ async function confirmRefund(bookingId) {
 }
 
 async function rejectCancellation(bookingId) {
-  // Simple reject for now - just remove from pending
-  if (!confirm('Are you sure you want to reject this cancellation request?')) return;
-  
-  // For now, just remove from UI. You can add more logic later.
+  if (!confirm('Reject this cancellation?')) return;
   document.getElementById(`cancel-card-${bookingId}`)?.remove();
-  alert('✅ Request rejected');
   loadPendingCancellations();
 }
 
+// ================================================================
+// CALENDAR PICKER - WORKING CLICK + DRAG
+// ================================================================
 
+// ================================================================
+// CALENDAR — STATE
+// ================================================================
+let currentCalendarDate = new Date();
+let selectedDates   = new Set();  // "YYYY-MM-DD" strings
+let isDragging      = false;
+let dragStartKey    = null;
+let dragCurrentKey  = null;
+let mouseDidMove    = false;      // distinguishes click from drag
 
-async function debugCancellations() {
-  console.log('=== DEBUGGING CANCELLATIONS ===');
-  const token = getToken();
-  console.log('Token exists:', !!token);
-  
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'getPendingCancellations', token: token })
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function formatDateKey(date) {
+  return date.getFullYear() + '-' +
+    String(date.getMonth() + 1).padStart(2,'0') + '-' +
+    String(date.getDate()).padStart(2,'0');
+}
+
+function parseDateKey(key) {
+  // Parse as LOCAL date (avoids UTC midnight timezone shift)
+  const [y, m, d] = key.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function datesBetween(aKey, bKey) {
+  const a = parseDateKey(aKey);
+  const b = parseDateKey(bKey);
+  const start = a <= b ? a : b;
+  const end   = a <= b ? b : a;
+  const result = [];
+  const cur = new Date(start);
+  while (cur <= end) {
+    result.push(formatDateKey(cur));
+    cur.setDate(cur.getDate() + 1);
+  }
+  return result;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderCalendar() {
+  const year  = currentCalendarDate.getFullYear();
+  const month = currentCalendarDate.getMonth();
+
+  const monthNames = adminLang === 'vn'
+    ? ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6',
+       'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12']
+    : ['January','February','March','April','May','June',
+       'July','August','September','October','November','December'];
+
+  const weekdays = adminLang === 'vn'
+    ? ['CN','T2','T3','T4','T5','T6','T7']
+    : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const el = document.getElementById('calendar-month-year');
+  if (el) el.textContent = monthNames[month] + ' ' + year;
+
+  const wdEl = document.getElementById('calendar-weekdays');
+  if (wdEl) wdEl.innerHTML = weekdays.map(d => `<div class="calendar-weekday">${d}</div>`).join('');
+
+  const daysEl = document.getElementById('calendar-days');
+  if (!daysEl) return;
+
+  // Drag preview range
+  const dragRange = new Set(
+    (isDragging && dragStartKey && dragCurrentKey)
+      ? datesBetween(dragStartKey, dragCurrentKey)
+      : []
+  );
+
+  const today       = formatDateKey(new Date());
+  const firstDow    = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const prevDays    = new Date(year, month, 0).getDate();
+
+  let html = '';
+
+  // Leading empty cells from previous month
+  for (let i = firstDow - 1; i >= 0; i--) {
+    html += `<div class="calendar-day other-month">${prevDays - i}</div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = formatDateKey(new Date(year, month, d));
+    const isSelected  = selectedDates.has(key);
+    const isInDrag    = dragRange.has(key);
+    const isToday     = key === today;
+
+    let cls = 'calendar-day';
+    if (isSelected)            cls += ' selected';
+    if (isInDrag && !isSelected) cls += ' in-range';
+    if (isToday)               cls += ' today';
+
+    html += `<div class="${cls}" data-date="${key}">${d}</div>`;
+  }
+
+  // Trailing cells
+  const total = 42;
+  const filled = firstDow + daysInMonth;
+  for (let i = 1; i <= total - filled; i++) {
+    html += `<div class="calendar-day other-month">${i}</div>`;
+  }
+
+  daysEl.innerHTML = html;
+  // No attachEvents() call — events are delegated at container level (see initCalendar)
+}
+
+// ── Toggle / update display ───────────────────────────────────────────────────
+function toggleDateSelection(key) {
+  if (selectedDates.has(key)) {
+    selectedDates.delete(key);
+  } else {
+    selectedDates.add(key);
+  }
+  updateSelectedDatesDisplay();
+  renderCalendar();
+}
+
+function commitDragRange() {
+  if (dragStartKey && dragCurrentKey) {
+    datesBetween(dragStartKey, dragCurrentKey).forEach(k => selectedDates.add(k));
+  }
+  isDragging     = false;
+  dragStartKey   = null;
+  dragCurrentKey = null;
+  updateSelectedDatesDisplay();
+  renderCalendar();
+}
+
+function clearAllSelectedDates() {
+  selectedDates.clear();
+  updateSelectedDatesDisplay();
+  renderCalendar();
+}
+
+function removeDateFromSelection(key) {
+  selectedDates.delete(key);
+  updateSelectedDatesDisplay();
+  renderCalendar();
+}
+
+function updateSelectedDatesDisplay() {
+  const container  = document.getElementById('selected-dates-container');
+  const chipsEl    = document.getElementById('selected-dates-chips');
+  const countSpan  = document.getElementById('selected-count');
+  const count      = selectedDates.size;
+
+  if (countSpan) {
+    countSpan.textContent = count > 0
+      ? (adminLang === 'vn' ? `Đã chọn ${count} ngày` : `${count} date${count > 1 ? 's' : ''} selected`)
+      : '';
+  }
+
+  if (!container || !chipsEl) return;
+
+  if (count === 0) {
+    container.style.display = 'none';
+    chipsEl.innerHTML = '';
+    return;
+  }
+
+  container.style.display = 'block';
+
+  // Group consecutive dates into compact ranges for the chips
+  const sorted = [...selectedDates].sort();
+  const groups = [];
+  let gs = sorted[0], gp = sorted[0];
+  for (let i = 1; i < sorted.length; i++) {
+    const diff = (parseDateKey(sorted[i]) - parseDateKey(gp)) / 86400000;
+    if (diff === 1) { gp = sorted[i]; }
+    else { groups.push([gs, gp]); gs = sorted[i]; gp = sorted[i]; }
+  }
+  groups.push([gs, gp]);
+
+  chipsEl.innerHTML = groups.map(([s, e]) => {
+    const label = s === e ? s : `${s} → ${e}`;
+    // Build list of individual dates in this group for removal
+    const dList = datesBetween(s, e).map(k => `'${k}'`).join(',');
+    return `<span class="date-chip">${label}<span class="remove-date" onclick="event.stopPropagation();[${dList}].forEach(k=>removeDateFromSelection(k))">✕</span></span>`;
+  }).join('');
+}
+
+// ── Event delegation (one set of listeners, never re-added) ──────────────────
+function attachCalendarEvents() {
+  const daysEl = document.getElementById('calendar-days');
+  if (!daysEl || daysEl._calEventsAttached) return;
+  daysEl._calEventsAttached = true;
+
+  // ── MOUSE ────────────────────────────────────────────────────────────────
+  daysEl.addEventListener('mousedown', (e) => {
+    const key = e.target.dataset.date;
+    if (!key || e.target.classList.contains('other-month')) return;
+    e.preventDefault();
+    isDragging     = true;
+    mouseDidMove   = false;
+    dragStartKey   = key;
+    dragCurrentKey = key;
+    renderCalendar();
   });
+
+  daysEl.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const key = e.target.dataset.date;
+    if (!key || e.target.classList.contains('other-month')) return;
+    if (key !== dragCurrentKey) {
+      mouseDidMove   = true;
+      dragCurrentKey = key;
+      renderCalendar();
+    }
+  });
+
+  // mouseup on document so drag completes even if cursor leaves the grid
+  document.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    if (mouseDidMove) {
+      // Drag — commit the range
+      commitDragRange();
+    } else {
+      // Click — toggle single day
+      const key = dragStartKey;
+      isDragging = false; dragStartKey = null; dragCurrentKey = null;
+      if (key) toggleDateSelection(key);
+      else renderCalendar();
+    }
+  });
+
+  // ── TOUCH ────────────────────────────────────────────────────────────────
+  daysEl.addEventListener('touchstart', (e) => {
+    const key = e.target.dataset.date;
+    if (!key || e.target.classList.contains('other-month')) return;
+    isDragging     = true;
+    mouseDidMove   = false;
+    dragStartKey   = key;
+    dragCurrentKey = key;
+    renderCalendar();
+  }, { passive: true });
+
+  daysEl.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const key = el && el.dataset.date;
+    if (!key || el.classList.contains('other-month')) return;
+    if (key !== dragCurrentKey) {
+      mouseDidMove   = true;
+      dragCurrentKey = key;
+      renderCalendar();
+    }
+  }, { passive: true });
+
+  daysEl.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    if (mouseDidMove) {
+      commitDragRange();
+    } else {
+      const key = dragStartKey;
+      isDragging = false; dragStartKey = null; dragCurrentKey = null;
+      if (key) toggleDateSelection(key);
+      else renderCalendar();
+    }
+  });
+}
+
+// ── Public API ────────────────────────────────────────────────────────────────
+function changeMonth(delta) {
+  currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+  renderCalendar();
+}
+
+function initCalendar() {
+  currentCalendarDate = new Date();
+  selectedDates.clear();
+  isDragging = false; dragStartKey = null; dragCurrentKey = null; mouseDidMove = false;
+  updateSelectedDatesDisplay();
+  renderCalendar();
+  attachCalendarEvents();   // idempotent — only attaches once per daysEl
+}
+
+function toggleCalendarMode() {
+  const mode = document.getElementById('ov-rule-type')?.value || 'single';
+  const calendarModeDiv = document.getElementById('calendar-mode');
+  const rangeModeDiv = document.getElementById('range-mode');
+  const weekdayField = document.getElementById('ov-weekday-field');
+  const monthField = document.getElementById('ov-month-field');
+  const selectedDatesSection = document.getElementById('selected-dates-section');
   
-  const data = await response.json();
-  console.log('API Response:', data);
-  console.log('Cancellations count:', data.cancellations?.length || 0);
-  
-  if (data.cancellations && data.cancellations.length > 0) {
-    console.log('First cancellation:', data.cancellations[0]);
+  if (mode === 'single') {
+    if (calendarModeDiv) calendarModeDiv.style.display = 'block';
+    if (rangeModeDiv) rangeModeDiv.style.display = 'none';
+    if (selectedDatesSection) selectedDatesSection.style.display = 'block';
+    initCalendar();
+  } else {
+    if (calendarModeDiv) calendarModeDiv.style.display = 'none';
+    if (rangeModeDiv) rangeModeDiv.style.display = 'block';
+    if (selectedDatesSection) selectedDatesSection.style.display = 'none';
+    
+    const ruleType = document.getElementById('ov-rule-type')?.value;
+    const isRecurring = ruleType === 'weekday';
+    
+    if (weekdayField) weekdayField.style.display = isRecurring ? 'flex' : 'none';
+    if (monthField) monthField.style.display = isRecurring ? 'flex' : 'none';
+    
+    selectedDates.clear();
+    updateSelectedDatesDisplay();
+    
+    const today = new Date();
+    const nextMonth = new Date(today);
+    nextMonth.setDate(today.getDate() + 30);
+    const fromInput = document.getElementById('ov-from');
+    const toInput = document.getElementById('ov-to');
+    if (fromInput && !fromInput.value) fromInput.value = formatDateInput(today);
+    if (toInput && !toInput.value) toInput.value = formatDateInput(nextMonth);
   }
 }
 
-// Export for global access
+function setDefaultDates() {
+  const today = new Date();
+  const fromInput = document.getElementById('ov-from');
+  const toInput = document.getElementById('ov-to');
+  if (fromInput) fromInput.value = formatDateInput(today);
+  if (toInput) {
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    toInput.value = formatDateInput(tomorrow);
+  }
+}
+
+window.addOverride = async function() {
+  const mode = document.getElementById('ov-rule-type')?.value || 'single';
+  const room = document.getElementById('ov-room').value;
+  const price = parseInt(document.getElementById('ov-price').value);
+  const note = document.getElementById('ov-note').value.trim();
+  const errBar = document.getElementById('price-error-bar');
+  const saveBar = document.getElementById('price-save-bar');
+  
+  errBar.style.display = 'none';
+  saveBar.style.display = 'none';
+  
+  if (!room || !price) {
+    errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn phòng và nhập giá.' : 'Please select a room and enter a price.';
+    errBar.style.display = 'block';
+    return;
+  }
+  
+  if (price < 100000) {
+    errBar.textContent = adminLang === 'vn' ? 'Giá phải lớn hơn 100,000 VND.' : 'Price must be greater than 100,000 VND.';
+    errBar.style.display = 'block';
+    return;
+  }
+  
+  const addBtn = document.getElementById('btn-ov-add');
+  addBtn.disabled = true;
+  addBtn.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+  
+  try {
+    if (mode === 'single') {
+      const selectedDateArray = Array.from(selectedDates);
+      if (selectedDateArray.length === 0) {
+        errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn ít nhất một ngày.' : 'Please select at least one date.';
+        errBar.style.display = 'block';
+        addBtn.disabled = false;
+        addBtn.textContent = adminLang === 'vn' ? 'Thêm' : 'Add Override';
+        return;
+      }
+      
+      let successCount = 0;
+      for (const dateKey of selectedDateArray) {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'addPriceOverride', room, from: dateKey, to: dateKey, price, note, token: getToken() })
+        });
+        const json = await res.json();
+        if (json.status === 'ok') successCount++;
+      }
+      
+      if (successCount > 0) {
+        saveBar.textContent = adminLang === 'vn' 
+          ? `✓ Đã thêm ${successCount} giá tùy chỉnh`
+          : `✓ Added ${successCount} override(s)`;
+        saveBar.style.display = 'block';
+        setTimeout(() => saveBar.style.display = 'none', 4000);
+        selectedDates.clear();
+        updateSelectedDatesDisplay();
+        renderCalendar();
+        await renderOverrides();
+      } else {
+        errBar.textContent = adminLang === 'vn' ? 'Không thể thêm giá.' : 'Failed to add overrides.';
+        errBar.style.display = 'block';
+      }
+    } else {
+      const from = document.getElementById('ov-from').value;
+      const to = document.getElementById('ov-to').value;
+      if (!from || !to) {
+        errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn khoảng ngày.' : 'Please select a date range.';
+        errBar.style.display = 'block';
+        return;
+      }
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'addPriceOverride', room, from, to, price, note, token: getToken() })
+      });
+      const json = await res.json();
+      if (json.status === 'ok') {
+        saveBar.textContent = adminLang === 'vn' ? '✓ Đã thêm giá tùy chỉnh' : '✓ Override added successfully';
+        saveBar.style.display = 'block';
+        setTimeout(() => saveBar.style.display = 'none', 4000);
+        await renderOverrides();
+      } else {
+        errBar.textContent = 'Error: ' + (json.message || 'Unknown error');
+        errBar.style.display = 'block';
+      }
+    }
+  } catch (error) {
+    errBar.textContent = 'Error: ' + error.message;
+    errBar.style.display = 'block';
+  } finally {
+    addBtn.disabled = false;
+    addBtn.textContent = adminLang === 'vn' ? 'Thêm' : 'Add Override';
+  }
+};
+
+// Check if already logged in
+if (sessionStorage.getItem('mia_admin_logged_in') && getToken()) {
+  showAdmin();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  setDefaultDates();
+  setAdminLang(adminLang);
+  
+  const loginUser = document.getElementById('login-user');
+  const loginPass = document.getElementById('login-pass');
+  if (loginPass) loginPass.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
+  
+  if (document.getElementById('panel-prices')?.classList.contains('active')) {
+    setTimeout(() => initCalendar(), 100);
+  }
+});
+
+// Global exports
 window.doLogin = doLogin;
 window.doLogout = doLogout;
 window.switchTab = switchTab;
 window.addRoomStatus = addRoomStatus;
 window.deleteRoomStatus = deleteRoomStatus;
-window.addOverride = addOverride;
+window.addOverride = window.addOverride;
 window.deleteOverride = deleteOverride;
 window.toggleMaintenance = toggleMaintenance;
 window.setAdminLang = setAdminLang;
@@ -1086,3 +1055,8 @@ window.loadPendingCancellations = loadPendingCancellations;
 window.showRefundForm = showRefundForm;
 window.confirmRefund = confirmRefund;
 window.rejectCancellation = rejectCancellation;
+window.changeMonth = changeMonth;
+window.clearAllSelectedDates = clearAllSelectedDates;
+window.toggleCalendarMode = toggleCalendarMode;
+window.initCalendar = initCalendar;
+window.removeDateFromSelection = removeDateFromSelection;
