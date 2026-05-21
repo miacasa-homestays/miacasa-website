@@ -211,6 +211,7 @@ let _priceOverrides = (function () {
     return [];
 }());
 let _overridesFetched = false;
+let _captchaValidated  = false;  // true after captcha passes for the current booking
 
 function _parseOverrideRows(rows) {
     return rows
@@ -486,7 +487,7 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
     
     // Use cache if less than 2 minutes old
     if (cached && (Date.now() - cached.timestamp) < 120000) {
-        console.log('✓ Using cached availability');
+        //console.log('✓ Using cached availability');
         return cached.data;
     }
     
@@ -736,7 +737,7 @@ async function updateAvailabilityAndUI() {
     // SHOW GUEST DETAILS SECTION IMMEDIATELY (don't wait for availability)
     if (guestDetailsSection && guestDetailsSection.style.display !== 'block') {
         guestDetailsSection.style.display = 'block';
-        console.log('✅ Guest details section shown immediately');
+        //console.log('✅ Guest details section shown immediately');
     }
     
     // Generate booking ID immediately
@@ -809,30 +810,109 @@ async function updateAvailabilityAndUI() {
 }
 
 function resetBookingForm() {
-    document.getElementById('mia-confirm-box')?.setAttribute('style', 'display: none');
-    document.getElementById('mia-price-box')?.setAttribute('style', 'display: none');
-    document.getElementById('mia-payment-section')?.setAttribute('style', 'display: none');
-    
-    const gn = document.getElementById('guest-name');
-    const ge = document.getElementById('guest-email');
-    const gp = document.getElementById('guest-phone-number');
-    if (gn) gn.value = '';
-    if (ge) ge.value = '';
-    if (gp) gp.value = '';
-    
-    const ci = document.getElementById('checkin');
-    const co = document.getElementById('checkout');
-    if (ci) ci.value = '';
-    if (co) co.value = '';
-    
-    lastPriceResult = null;
-    currentBookingId = '';
-    currentBookingKey = '';
-    currentAvailabilityStatus = { available: false, checked: false };
-    lastAvailabilityResult = null;
-    availabilityCache.clear(); // Clear cache on reset
-    
-    updateAvailabilityAndUI();
+  // Reset CAPTCHA validation flag
+  _captchaValidated = false;
+  
+  // Hide confirmation boxes and remove pending messages
+  const confirmBox = document.getElementById('mia-confirm-box');
+  const priceBox = document.getElementById('mia-price-box');
+  const paymentSection = document.getElementById('mia-payment-section');
+  const pendingMessage = document.getElementById('payment-pending-message');
+  const paymentWaiting = document.getElementById('payment-waiting');
+  
+  if (confirmBox) confirmBox.style.display = 'none';
+  if (priceBox) priceBox.style.display = 'none';
+  if (paymentSection) paymentSection.style.display = 'none';
+  if (pendingMessage) pendingMessage.style.display = 'none';
+  if (paymentWaiting) paymentWaiting.remove();
+  
+  // Clear guest details
+  const guestName = document.getElementById('guest-name');
+  const guestEmail = document.getElementById('guest-email');
+  const guestPhone = document.getElementById('guest-phone-number');
+  
+  if (guestName) guestName.value = '';
+  if (guestEmail) guestEmail.value = '';
+  if (guestPhone) guestPhone.value = '';
+  
+  // Clear dates
+  const checkin = document.getElementById('checkin');
+  const checkout = document.getElementById('checkout');
+  if (checkin) checkin.value = '';
+  if (checkout) checkout.value = '';
+  
+  // Reset CAPTCHA - generate new numbers and clear answer
+  const captchaNum1 = document.getElementById('captcha-num1');
+  const captchaNum2 = document.getElementById('captcha-num2');
+  const captchaAnswer = document.getElementById('captcha-answer');
+  
+  if (captchaNum1 && captchaNum2) {
+    // Generate new random numbers (1-10)
+    captchaNum1.textContent = Math.floor(Math.random() * 10) + 1;
+    captchaNum2.textContent = Math.floor(Math.random() * 10) + 1;
+  }
+  if (captchaAnswer) captchaAnswer.value = '';
+  
+  // Clear CAPTCHA error
+  const captchaError = document.getElementById('captcha-error');
+  if (captchaError) captchaError.style.display = 'none';
+  
+  // Clear payment error
+  const payError = document.getElementById('pay-error');
+  if (payError) payError.style.display = 'none';
+  
+  // Reset availability message
+  const availabilityMsg = document.getElementById('availability-message');
+  if (availabilityMsg) {
+    availabilityMsg.innerHTML = '';
+    availabilityMsg.style.display = 'none';
+  }
+  
+  // Reset cancellation message
+  const cancellationMsg = document.getElementById('cancellation-message');
+  if (cancellationMsg) cancellationMsg.style.display = 'none';
+  
+  // Reset booking variables
+  lastPriceResult = null;
+  currentBookingId = '';
+  currentBookingKey = '';
+  currentAvailabilityStatus = { available: false, checked: false };
+  lastAvailabilityResult = null;
+  
+  // Clear availability cache
+  availabilityCache.clear();
+  
+  // Reset payment tab to PayPal (default)
+  selectPayTab('paypal');
+  
+  // Reset any disabled buttons
+  const cashBtn = document.getElementById('cash-confirm-btn');
+  const paypalBtn = document.getElementById('paypal-pay-btn');
+  const vietqrBtn = document.getElementById('vietqr-submit-btn');
+  
+  if (cashBtn) {
+    cashBtn.disabled = false;
+    cashBtn.textContent = window.currentLang === 'vn' ? 'Xác nhận đặt phòng →' : 'Confirm Booking →';
+  }
+  if (paypalBtn) {
+    paypalBtn.disabled = false;
+    paypalBtn.textContent = window.currentLang === 'vn' ? 'Thanh toán PayPal' : 'Pay with PayPal';
+  }
+  if (vietqrBtn) {
+    vietqrBtn.disabled = false;
+    vietqrBtn.textContent = window.currentLang === 'vn' ? 'Gửi bằng chứng thanh toán →' : 'Submit Payment Proof →';
+  }
+  
+  // Re-run availability check to reset UI
+  updateAvailabilityAndUI();
+  
+  // Scroll back to booking form
+  const bookingSection = document.getElementById('booking');
+  if (bookingSection) {
+    bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  console.log('✅ Booking form reset complete');
 }
 
 // ================================================================
@@ -953,8 +1033,8 @@ function renderBookingSelector() {
 // ================================================================
 
 function selectProp(id) {
-    console.log('=== selectProp DEBUG ===');
-    console.log('1. Selected property ID:', id);
+    //console.log('=== selectProp DEBUG ===');
+    //console.log('1. Selected property ID:', id);
     
     activeProp = id;
     document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
@@ -962,23 +1042,23 @@ function selectProp(id) {
     if (activeBtn) activeBtn.classList.add('active');
     
     const p = PROPERTIES.find(x => x.id === id);
-    console.log('2. Found property object:', p);
-    console.log('3. p.rooms:', p?.rooms);
-    console.log('4. p.vn?.rooms:', p?.vn?.rooms);
+    //console.log('2. Found property object:', p);
+    //console.log('3. p.rooms:', p?.rooms);
+    //console.log('4. p.vn?.rooms:', p?.vn?.rooms);
     
     const lang = window.currentLang || 'en';
-    console.log('5. Current language:', lang);
+    //console.log('5. Current language:', lang);
     
     const rooms = getField(p, 'rooms', lang);
-    console.log('6. getField returned rooms:', rooms);
+    //console.log('6. getField returned rooms:', rooms);
     
     const roomSelect = document.getElementById('room-type-sel');
     if (roomSelect) {
         roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
-        console.log('7. Room dropdown updated with:', rooms);
-        console.log('8. Room dropdown HTML:', roomSelect.innerHTML);
+        //console.log('7. Room dropdown updated with:', rooms);
+        //console.log('8. Room dropdown HTML:', roomSelect.innerHTML);
     } else {
-        console.log('8. roomSelect element not found!');
+        //console.log('8. roomSelect element not found!');
     }
     
     const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
@@ -1095,51 +1175,57 @@ function showTransferDetails() {
 
 // Submit bank transfer proof
 async function submitBankTransferProof() {
-    console.log('=== submitBankTransferProof START ===');
+    //console.log('=== submitBankTransferProof START ===');
     
     // Log each step
-    console.log('Step 1: Validating booking form...');
-    const err = validateBookingForm();
-    console.log('Validation result:', err);
-    if (err) { 
-        if (err !== '__captcha__') showPayError(err); 
-        return; 
+    // On the first submission, validate all fields INCLUDING captcha.
+    // On retry (e.g. wrong file type), captcha is already validated so skip it.
+    if (!_captchaValidated) {
+        const err = validateBookingForm();
+        if (err) {
+            if (err !== '__captcha__') showPayError(err);
+            return;
+        }
+        _captchaValidated = true;
+    } else {
+        const err = validateBookingFieldsOnly();
+        if (err) { showPayError(err); return; }
     }
     
-    console.log('Step 2: Checking booking ID...');
+    //console.log('Step 2: Checking booking ID...');
     if (!currentBookingId) { 
-        console.log('No booking ID!');
+        //console.log('No booking ID!');
         showPayError('Booking ID not generated yet. Please select dates first.'); 
         return; 
     }
-    console.log('Booking ID:', currentBookingId);
+    //console.log('Booking ID:', currentBookingId);
     
-    console.log('Step 3: Getting payment proof file...');
+    //console.log('Step 3: Getting payment proof file...');
     const fileInput = document.getElementById('payment-proof');
     const file = fileInput?.files[0];
-    console.log('File selected:', file ? file.name : 'No file');
+    //console.log('File selected:', file ? file.name : 'No file');
     
     if (!file) {
-        console.log('No file uploaded!');
+        //console.log('No file uploaded!');
         showPayError(window.currentLang === 'vn' 
             ? 'Vui lòng tải lên ảnh chụp màn hình chuyển khoản.' 
             : 'Please upload a screenshot of your bank transfer.');
         return;
     }
     
-    console.log('Step 4: Validating file type...');
+    //console.log('Step 4: Validating file type...');
     if (!file.type.startsWith('image/')) {
-        console.log('Invalid file type:', file.type);
+        //console.log('Invalid file type:', file.type);
         showPayError(window.currentLang === 'vn' 
             ? 'Vui lòng tải lên file ảnh (PNG, JPG, JPEG).' 
             : 'Please upload an image file (PNG, JPG, JPEG).');
         return;
     }
     
-    console.log('Step 5: Validating file size...');
+    //console.log('Step 5: Validating file size...');
     // Reduce max size to 1MB (from 2MB) since base64 increases size by ~33%
     if (file.size > 1 * 1024 * 1024) {
-        console.log('File too large:', file.size);
+        //console.log('File too large:', file.size);
         showPayError(window.currentLang === 'vn' 
             ? 'File ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 1MB.' 
             : 'Image file too large. Please choose an image smaller than 1MB.');
@@ -1155,15 +1241,15 @@ async function submitBankTransferProof() {
     }
     
     try {
-        console.log('Step 6: Converting file to base64...');
+        //console.log('Step 6: Converting file to base64...');
         const base64Image = await fileToBase64(file);
-        console.log('Base64 conversion complete, length:', base64Image.length);
+        //console.log('Base64 conversion complete, length:', base64Image.length);
         
-        console.log('Step 7: Collecting booking data...');
+        //console.log('Step 7: Collecting booking data...');
         const data = collectBookingData();
-        console.log('Booking data collected:', { bookingId: data.bookingId, property: data.property, room: data.room });
+        //console.log('Booking data collected:', { bookingId: data.bookingId, property: data.property, room: data.room });
         
-        console.log('Step 8: Creating payload...');
+        //console.log('Step 8: Creating payload...');
         const payload = {
             ...data,
             action: 'createBooking',
@@ -1174,19 +1260,19 @@ async function submitBankTransferProof() {
             bookedAt: new Date().toISOString()
         };
         
-        console.log('Step 9: Calling sheets API...');
+        //console.log('Step 9: Calling sheets API...');
         const res = await callSheetsAPI(payload);
-        console.log('API response:', res);
+        //console.log('API response:', res);
         
         if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
         
-        console.log('Step 10: Saving to local storage...');
+        //console.log('Step 10: Saving to local storage...');
         saveBookingToLocal({ ...data, paymentStatus: 'pending_verification' });
         
-        console.log('Step 11: Showing pending verification message...');
+        //console.log('Step 11: Showing pending verification message...');
         showPendingVerificationMessage(data);
         
-        console.log('Step 12: Hiding panels...');
+        //console.log('Step 12: Hiding panels...');
         const qrPanel = document.getElementById('vietqr-panel');
         const paymentSection = document.getElementById('mia-payment-section');
         const priceBox = document.getElementById('mia-price-box');
@@ -1195,10 +1281,10 @@ async function submitBankTransferProof() {
         if (paymentSection) paymentSection.style.display = 'none';
         if (priceBox) priceBox.style.display = 'none';
         
-        console.log('Step 13: Sending admin notification...');
+        //console.log('Step 13: Sending admin notification...');
         await sendAdminPaymentNotification(data);
         
-        console.log('=== submitBankTransferProof COMPLETE ===');
+        //console.log('=== submitBankTransferProof COMPLETE ===');
         
     } catch (error) {
         console.error('ERROR in submitBankTransferProof:', error);
@@ -1372,6 +1458,26 @@ async function callSheetsAPI(payload) {
     } catch (err) {
         return { status: 'error', message: err.toString() };
     }
+}
+
+// Validates only the booking form fields — no captcha.
+// Used by steps that come AFTER the captcha has already been validated
+// (e.g. proof upload in the VietQR flow).
+function validateBookingFieldsOnly() {
+    const ci   = document.getElementById('checkin')?.value;
+    const co   = document.getElementById('checkout')?.value;
+    const name = document.getElementById('guest-name')?.value?.trim();
+    const email= document.getElementById('guest-email')?.value?.trim();
+    const phone= document.getElementById('guest-phone-number')?.value?.trim();
+    const lang = window.currentLang || 'en';
+
+    if (!ci || !co)                     return lang === 'vn' ? 'Vui lòng chọn ngày nhận và trả phòng.' : 'Please select check-in and check-out dates.';
+    if (new Date(co) <= new Date(ci))   return lang === 'vn' ? 'Ngày trả phòng phải sau ngày nhận phòng.' : 'Check-out must be after check-in.';
+    if (!document.getElementById('room-type-sel')?.value) return lang === 'vn' ? 'Vui lòng chọn phòng.' : 'Please select a room.';
+    if (!name)                          return lang === 'vn' ? 'Vui lòng nhập họ tên.' : 'Please enter your full name.';
+    if (!email || !email.includes('@')) return lang === 'vn' ? 'Vui lòng nhập email hợp lệ.' : 'Please enter a valid email address.';
+    if (!phone)                         return lang === 'vn' ? 'Vui lòng nhập số điện thoại.' : 'Please enter your phone number.';
+    return null;
 }
 
 function validateBookingForm() {
@@ -1627,67 +1733,58 @@ function showPayPalBlockedMessage(paypalLink) {
 // ================================================================
 
 async function confirmCashBooking() {
-    console.log('=== confirmCashBooking START ===');
-    
-    const err = validateBookingForm();
-    if (err) { if (err !== '__captcha__') showPayError(err); return; }
-    if (!currentBookingId) { 
-        console.log('No currentBookingId!');
-        showPayError('Booking ID not generated yet. Please select dates first.'); 
-        return; 
-    }
-    
-    console.log('currentBookingId:', currentBookingId);
+  const err = validateBookingForm();
+  if (err) { if (err !== '__captcha__') showPayError(err); return; }
+  if (!currentBookingId) { 
+    showPayError('Booking ID not generated yet. Please select dates first.'); 
+    return; 
+  }
 
-    const data = collectBookingData();
-    console.log('collectBookingData returned:', data);
-    console.log('data.bookingId:', data.bookingId);
-    const payload = {
-        ...data,
-        action: 'createBooking',
-        paymentMethod: 'cash',
-        paymentStatus: 'confirmed',  // Cash bookings are confirmed immediately
-        language: window.currentLang || 'en',
-        bookedAt: new Date().toISOString()
-    };
+  const data = collectBookingData();
+  const payload = {
+    ...data,
+    action: 'createBooking',
+    paymentMethod: 'cash',
+    paymentStatus: 'confirmed',
+    language: window.currentLang || 'en',
+    bookedAt: new Date().toISOString()
+  };
 
-    const btn = document.getElementById('cash-confirm-btn');
-    const originalText = btn ? btn.textContent : '';
+  const btn = document.getElementById('cash-confirm-btn');
+  const originalText = btn ? btn.textContent : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = window.currentLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+  }
+
+  try {
+    const res = await callSheetsAPI(payload);
+    if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+    
+    saveBookingToLocal(data);
+    showCashBookingConfirmation(data);
+    
+    // Reset CAPTCHA validation flag for next booking
+    _captchaValidated = false;
+    
+    const paymentSection = document.getElementById('mia-payment-section');
+    if (paymentSection) paymentSection.style.display = 'none';
+    
+  } catch (error) {
+    showPayError(error.message);
     if (btn) {
-        btn.disabled = true;
-        btn.textContent = window.currentLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
-
-    try {
-        const res = await callSheetsAPI(payload);
-        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
-        
-        saveBookingToLocal(data);
-        showCashBookingConfirmation(data);
-        
-        // Send confirmation email immediately
-        if (typeof sendBookingConfirmationEmail === 'function') {
-            await sendBookingConfirmationEmail(data);
-        }
-        
-        const paymentSection = document.getElementById('mia-payment-section');
-        if (paymentSection) paymentSection.style.display = 'none';
-        
-    } catch (error) {
-        showPayError(error.message);
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = originalText;
-        }
-    }
+  }
 }
 
 
 
 function showCashBookingConfirmation(bookingData) {
-    console.log('=== showCashBookingConfirmation DEBUG ===');
-    console.log('bookingData received:', bookingData);
-    console.log('bookingData.bookingId:', bookingData?.bookingId);
+    //console.log('=== showCashBookingConfirmation DEBUG ===');
+    //console.log('bookingData received:', bookingData);
+    //console.log('bookingData.bookingId:', bookingData?.bookingId);
     
     const priceBox = document.getElementById('mia-price-box');
     const paymentSection = document.getElementById('mia-payment-section');
@@ -1782,7 +1879,7 @@ function showCashBookingConfirmation(bookingData) {
     // Force visibility and scroll
     confirmDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
-    console.log('Confirmation box added to DOM');
+    //console.log('Confirmation box added to DOM');
 }
 
 

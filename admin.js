@@ -150,6 +150,21 @@ function clearToken() {
 // ================================================================
 
 async function doLogin() {
+  // ✅ ADD THIS BLOCK - Save username to localStorage if "Remember me" is checked
+  const usernameInput = document.getElementById('login-user');
+  const rememberCheckbox = document.getElementById('remember-username');
+  const enteredUsername = usernameInput?.value.trim();
+  const remember = rememberCheckbox?.checked;
+  
+  if (remember && enteredUsername) {
+    localStorage.setItem('admin_username', enteredUsername);
+    localStorage.setItem('admin_remember_username', 'true');
+  } else if (rememberCheckbox && !remember) {
+    localStorage.removeItem('admin_username');
+    localStorage.setItem('admin_remember_username', 'false');
+  }
+  // ✅ END OF ADDED BLOCK
+
   const user = document.getElementById('login-user').value.trim();
   const pass = document.getElementById('login-pass').value;
   const errEl = document.getElementById('login-error');
@@ -1039,6 +1054,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('panel-prices')?.classList.contains('active')) {
     setTimeout(() => initCalendar(), 100);
   }
+  
+  // Load saved username after a short delay (ensures admin.js has finished initializing)
+  setTimeout(function() {
+    const savedUsername = localStorage.getItem('admin_username');
+    const rememberChecked = localStorage.getItem('admin_remember_username') === 'true';
+    const usernameInput = document.getElementById('login-user');
+    const rememberCheckbox = document.getElementById('remember-username');
+    
+    if (usernameInput && savedUsername && rememberChecked) {
+      usernameInput.value = savedUsername;
+      if (rememberCheckbox) rememberCheckbox.checked = true;
+    } else if (usernameInput && savedUsername) {
+      usernameInput.value = savedUsername;
+      if (rememberCheckbox) rememberCheckbox.checked = false;
+    }
+  }, 200);
 });
 
 // Global exports

@@ -36,11 +36,18 @@
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<a href="#booking" class="sticky-book-btn" data-t="sticky-book"><span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><span>📅</span><span>Book Now</span></span></a>
+<a href="#booking" class="sticky-book-btn" data-t="sticky-book">
+  <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+    <span>📅</span>
+    <span class="en-only">Book Now</span>
+    <span class="vn-only">Đặt ngay</span>
+  </span>
+</a>
 
 <!-- Navigation -->
 <nav>
   <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
+  
   <ul class="nav-links">
     <li><a href="index.html" class="active" data-t="nav-home">Home</a></li>
     <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
@@ -71,9 +78,31 @@
   </div>
   <div class="hero-right">
     <div class="hero-mosaic">
-      <div class="mosaic-cell tall"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg" alt="MiaCasa Hanoi exterior" loading="eager" fetchpriority="high" decoding="async"></div>
-      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room" loading="lazy" decoding="async"></div>
-      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Old Quarter terrace" loading="lazy" decoding="async"></div>
+      <div class="mosaic-cell tall"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg" 
+     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+     sizes="(max-width: 768px) 100vw, 50vw"
+     alt="MiaCasa Hanoi exterior" 
+     loading="eager" 
+     fetchpriority="high" 
+     decoding="async"></div>
+      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg" 
+     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 300w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 600w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 900w"
+     sizes="(max-width: 768px) 33vw, 25vw"
+     alt="Spring Room" 
+     loading="lazy" 
+     decoding="async"></div>
+      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" 
+     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 300w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 600w,
+             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 900w"
+     sizes="(max-width: 768px) 33vw, 25vw"
+     alt="Old Quarter terrace" 
+     loading="lazy" 
+     decoding="async"></div>
     </div>
     <div class="hero-badge"><p>Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
   </div>
@@ -82,60 +111,138 @@
 
 <!-- Choose Your Stay Selector -->
 <div class="stay-selector" id="stay-selector">
-  <h2 data-t="choose-title">Choose Your Stay</h2>
+  <div style="text-align: center; margin-bottom: 1rem;">
+    <div class="section-tag" style="display: inline-flex; width: auto; padding: 0 1rem;" data-t="two-properties-tag">Two Properties</div>
+  </div>
+  <h2 data-t="choose-title">Two Different Homes,<br><em>Choose Your Hanoi Experience</em></h2>
+  
+  <!-- <div style="text-align: center; margin-bottom: 2rem;">
+    <span style="display: inline-flex; align-items: center; gap: 1rem; background: var(--sand); padding: 0.5rem 1.5rem; border-radius: 50px;">
+      <span style="display: flex; align-items: center; gap: 0.3rem;">📍 <strong data-t="diff-addresses">Different addresses</strong></span>
+      <span style="color: var(--terracotta);">|</span>
+      <span style="display: flex; align-items: center; gap: 0.3rem;">⚠️ <strong data-t="both-no-elevator">No elevator in either property</strong></span>
+    </span>
+  </div> -->
+
   <div class="selector-grid">
     
     <!-- Option 1: Entire Apartment (Old Quarter) -->
-    <div class="selector-card" data-property="oldquarter">
+    <div class="selector-card" data-property="oldquarter" style="border-top: 4px solid var(--terracotta);">
+      <div style="background: var(--terracotta); color: white; text-align: center; padding: 0.3rem; border-radius: 30px; margin-bottom: 1rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;">
+        <span data-t="oq-badge-1">🏠 ENTIRE APARTMENT</span>
+      </div>
+      
       <div class="selector-emoji">🏡</div>
-      <h3 data-t="selector-oq-title">Entire Apartment</h3>
-      <p data-t="selector-oq-desc">MiaCasa Old Quarter · Hoàn Kiếm</p>
-      <ul class="selector-features">
-        <li data-t="selector-oq-feat1">3 queen beds · Sleeps up to 6</li>
-        <li data-t="selector-oq-feat2">Private terrace · Smart lock</li>
-        <li data-t="selector-oq-feat3">Steps from Hoàn Kiếm Lake</li>
+      <h3 style="font-size: 1.5rem;">MiaCasa Old Quarter</h3>
+      <p style="font-size: 0.7rem; color: var(--terracotta); letter-spacing: 0.08em; margin-top: -0.25rem;">📍 <span data-t="oq-location">Hoàn Kiếm · Old Quarter</span></p>
+      
+      <ul class="selector-features" style="margin-top: 1rem;">
+        <li data-t="oq-feat1">🛏️ 3 queen beds · Sleeps up to 6</li>
+        <li data-t="oq-feat2">🌿 Private terrace · Smart lock</li>
+        <li data-t="oq-feat3">🚶 2 min walk to Hoàn Kiếm Lake</li>
+        <li data-t="oq-feat4">🔑 Private entrance — no shared spaces</li>
       </ul>
+      
+      <!-- ⚠️ OLD QUARTER WARNINGS -->
+      <div style="background: #fef3c7; border-left: 3px solid #f59e0b; padding: 0.5rem 0.75rem; margin: 0.75rem 0; border-radius: 6px;">
+        <p style="font-size: 0.65rem; margin: 0; color: #92400e;">
+          <span class="en-only">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location can be <strong>noisy</strong> (bars/street noise until late).</span>
+          <span class="vn-only">⚠️ LƯU Ý: Phòng ở <strong>tầng 3, cầu thang dốc và hẹp</strong> (không thang máy). <strong>Chủ nhà có thể giúp mang hành lý lên/xuống.</strong> Vị trí trung tâm Phố Cổ có thể <strong>ồn ào</strong> (tiếng bar/đường phố đến khuya).</span>
+        </p>
+      </div>
+      
       <div class="price-prominent selector-price">
-        <span class="currency">from</span>
+        <span class="currency" data-t="from">from</span>
         <span class="amount" id="selector-oldquarter-price">--</span>
-        <span class="night">₫ /night</span>
+        <span class="night" data-t="per-night">₫ /night</span>
         <span class="price-save-badge" id="selector-oldquarter-save">--</span>
       </div>
+      
       <div class="selector-actions">
-        <a href="miacasa-oldquarter.html" class="btn-outline" data-t="selector-oq-explore">Explore →</a>
-        <a href="index.html?property=oldquarter#booking" class="selector-btn" data-t="selector-oq-btn">Book Your Dates →</a>
+        <a href="miacasa-oldquarter.html" class="btn-outline" data-t="selector-oq-explore">View Details →</a>
+        <a href="index.html?property=oldquarter#booking" class="selector-btn" data-t="selector-oq-btn">Book Entire Apartment →</a>
       </div>
-      <div class="selector-proof">
-        ✓ Instant confirmation · ✓ Best rate
-      </div>
+      <div class="selector-proof" data-t="instant-confirm">✓ Instant confirmation · ✓ Best rate</div>
     </div>
 
-    <!-- Option 2: Rooms or Full Home (Hanoi) -->
-    <div class="selector-card" data-property="hanoi">
+    <!-- Option 2: MiaCasa Hanoi -->
+    <div class="selector-card" data-property="hanoi" style="border-top: 4px solid var(--sage);">
+      <div style="background: var(--sage); color: white; text-align: center; padding: 0.3rem; border-radius: 30px; margin-bottom: 1rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;">
+        <span data-t="h-badge-1">🛏️ PRIVATE ROOMS</span>
+      </div>
+      
       <div class="selector-emoji">🛏️</div>
-      <h3 data-t="selector-h-title">Rooms or Full Home</h3>
-      <p data-t="selector-h-desc">MiaCasa Hanoi · Văn Miếu</p>
-      <ul class="selector-features">
-        <li data-t="selector-h-feat1">3 private rooms · Up to 3 guests each</li>
-        <li data-t="selector-h-feat2">Kitchenette · Free laundry</li>
-        <li data-t="selector-h-feat3">5 min walk to Train Street</li>
+      <h3 style="font-size: 1.5rem;">MiaCasa Hanoi</h3>
+      <p style="font-size: 0.7rem; color: var(--terracotta); letter-spacing: 0.08em; margin-top: -0.25rem;">📍 <span data-t="h-location">Đống Đa · Near Train Street</span></p>
+      
+      <ul class="selector-features" style="margin-top: 1rem;">
+        <li data-t="h-feat1">🛏️ 3 private rooms · Up to 3 guests each</li>
+        <li data-t="h-feat2">🍳 Kitchenette · Free laundry</li>
+        <li data-t="h-feat3">🚂 15 min walk to Train Street</li>
+        <li data-t="h-feat4">🏡 Quiet, local residential neighborhood</li>
       </ul>
+      
+      <!-- Add to MiaCasa Hanoi card if it has stairs -->
+      <div style="background: #e6f7ec; border-left: 3px solid var(--sage); padding: 0.5rem 0.75rem; margin: 0.75rem 0; border-radius: 6px;">
+        <p style="font-size: 0.65rem; margin: 0; color: #065f46;">
+          <span class="en-only">💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong></span>
+          <span class="vn-only">💡 Đặt cả 3 phòng để có <strong>toàn bộ căn nhà</strong> riêng tư cho nhóm bạn (ngủ 8 người). <strong>Chủ nhà có thể giúp mang hành lý.</strong></span>
+        </p>
+      </div>
+
       <div class="price-prominent selector-price">
-        <span class="currency">from</span>
+        <span class="currency" data-t="from">from</span>
         <span class="amount" id="selector-hanoi-price">--</span>
-        <span class="night">₫ /night</span>
+        <span class="night" data-t="per-night">₫ /night</span>
         <span class="price-save-badge" id="selector-hanoi-save">--</span>
       </div>
+      
       <div class="selector-actions">
-        <a href="miacasa-hanoi.html" class="btn-outline" data-t="selector-h-explore">Explore →</a>
-        <a href="index.html?property=hanoi#booking" class="selector-btn" data-t="selector-h-btn">Book Your Dates →</a>
+        <a href="miacasa-hanoi.html" class="btn-outline" data-t="selector-h-explore">View Details →</a>
+        <a href="index.html?property=hanoi#booking" class="selector-btn" data-t="selector-h-btn">Book a Room →</a>
       </div>
-      <div class="selector-proof">
-        ✓ Instant confirmation · ✓ Best rate
-      </div>
+      <div class="selector-proof" data-t="instant-confirm">✓ Instant confirmation · ✓ Best rate</div>
     </div>
     
   </div>
+  
+    <!-- Comparison / Decision guide -->
+  <!-- <div style="margin-top: 2rem; background: var(--cream); border-radius: 16px; padding: 1.25rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+    <p style="text-align: center; font-weight: 600; margin-bottom: 1rem; font-size: 0.8rem;" data-t="which-for-you">🤔 Which property is right for you?</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.7rem;">
+      
+      <div>
+        <div style="font-weight: 600; color: var(--terracotta); margin-bottom: 0.5rem;">🏠 MiaCasa Old Quarter</div>
+        <ul style="margin: 0; padding-left: 1rem; color: var(--ink-light);">
+          <li><span class="en-only">✓ Entire apartment — 100% private</span><span class="vn-only">✓ Toàn bộ căn hộ — riêng tư 100%</span></li>
+          <li><span class="en-only">✓ Best for: Groups wanting total privacy</span><span class="vn-only">✓ Phù hợp: Nhóm muốn không gian riêng tư</span></li>
+          <li><span class="en-only">✓ Sleeps 6 · Private terrace</span><span class="vn-only">✓ Ngủ 6 · Sân thượng riêng</span></li>
+          <li style="color: #92400e;"><span class="en-only">⚠️ Steep stairs (3rd floor, no elevator — hosts help with luggage)</span><span class="vn-only">⚠️ Cầu thang dốc (tầng 3, không thang máy — chủ nhà giúp mang hành lý)</span></li>
+          <li style="color: #92400e;"><span class="en-only">⚠️ Can be noisy (central location)</span><span class="vn-only">⚠️ Có thể ồn ào (vị trí trung tâm)</span></li>
+        </ul>
+      </div>
+      
+      <div>
+        <div style="font-weight: 600; color: var(--sage); margin-bottom: 0.5rem;">🏠 MiaCasa Hanoi</div>
+        <ul style="margin: 0; padding-left: 1rem; color: var(--ink-light);">
+          <li><span class="en-only">✓ Private rooms with kitchenette</span><span class="vn-only">✓ Phòng riêng có bếp nhỏ</span></li>
+          <li><span class="en-only">✓ Best for: Couples, solo travelers</span><span class="vn-only">✓ Phù hợp: Cặp đôi, khách solo</span></li>
+          <li><span class="en-only">✓ Can book all 3 rooms for entire home (sleeps 8)</span><span class="vn-only">✓ Có thể đặt cả 3 phòng để có toàn bộ nhà (ngủ 8)</span></li>
+          <li><span class="en-only">✓ Quiet, local neighborhood</span><span class="vn-only">✓ Khu phố yên tĩnh, địa phương</span></li>
+          <li><span class="en-only">⚠️ No elevator (stair access — hosts help with luggage)</span><span class="vn-only">⚠️ Không thang máy (đi cầu thang — chủ nhà giúp mang hành lý)</span></li>
+        </ul>
+      </div>
+      
+    </div>
+  </div> -->
+  
+  <!-- Single note about no elevator & luggage help -->
+  <!-- <div style="margin-top: 1rem; text-align: center;">
+    <p style="font-size: 0.6rem; color: var(--ink-light);">
+      <span class="en-only">📌 Both properties are in traditional Hanoi homes — <strong>neither has an elevator</strong>. <strong>Hosts are happy to help carry luggage</strong> up and down the stairs. Please consider mobility needs before booking.</span>
+      <span class="vn-only">📌 Cả hai chỗ nghỉ đều là nhà truyền thống Hà Nội — <strong>không có thang máy</strong>. <strong>Chủ nhà sẵn lòng giúp mang hành lý</strong> lên xuống cầu thang. Vui lòng cân nhắc nhu cầu di chuyển trước khi đặt phòng.</span>
+    </p>
+  </div> -->
 </div>
 
 <!-- Quick Navigation -->
@@ -175,7 +282,10 @@
     </div>
     <div class="booking-badges">
       <span class="booking-badge warning">🔥 High demand — weekends fill up fast</span>
-      <span class="booking-badge success">✓ Free cancellation up to 48h before</span>
+      <span class="booking-badge success">
+        <span class="en-only">✓ Free cancellation up to 48h before</span>
+        <span class="vn-only">✓ Miễn phí hủy trước 48 giờ</span>
+      </span>
     </div>
 
     <div class="booking-form-wrap">
@@ -186,11 +296,11 @@
       <div class="form-grid">
         <div class="form-group">
           <label id="lbl-room">Room / Space</label>
-          <select id="room-type-sel"></select>
+          <select id="room-type-sel" aria-label="Select room type"></select>
         </div>
         <div class="form-group">
           <label id="lbl-checkin">Check-in</label>
-          <input type="date" id="checkin" onfocus="this.showPicker?.()">
+          <input type="date" id="checkin" aria-label="Check-in date" onfocus="this.showPicker?.()">
         </div>
         <div class="form-group">
           <label id="lbl-checkout">Check-out</label>
@@ -377,7 +487,10 @@
             <div class="payment-tabs">
               <button id="pay-tab-paypal" class="pay-tab active" onclick="selectPayTab('paypal')">💳 PayPal</button>
               <button id="pay-tab-vietqr" class="pay-tab" onclick="selectPayTab('vietqr')">🏦 VietQR (VN bank)</button>
-              <button id="pay-tab-cash" class="pay-tab" onclick="selectPayTab('cash')">💵 Pay at Property</button>
+              <button id="pay-tab-cash" class="pay-tab" onclick="selectPayTab('cash')">
+                <span class="en-only">💵 Pay at Property</span>
+                <span class="vn-only">💵 Thanh toán tại chỗ</span>
+              </button>
             </div>
             
             <!-- PayPal Panel -->
@@ -641,7 +754,10 @@
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a><p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home.</p><p> 🏆 Booking.com Traveler Review Award 2026 </p></div>
+      <p>
+        <span class="en-only">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home.</span>
+        <span class="vn-only">Hai homestay độc đáo tại Hà Nội — được tạo nên dành cho những du khách muốn cảm giác như ở nhà.</span>
+      </p>
       <div class="footer-col"><h4>Our Stays</h4><ul><li><a href="miacasa-hanoi.html">MiaCasa Hanoi</a></li><li><a href="miacasa-oldquarter.html">MiaCasa Old Quarter</a></li><li><a href="#booking">Book Direct</a></li></ul></div>
       <div class="footer-col"><h4>Information</h4><ul><li><a href="our-story.html">Our Story</a></li><li><a href="blog.html">Blog</a></li><li><a href="invoice.html">Request Invoice</a></li><li><a href="cancel-booking.html">Cancel Booking</a></li></ul></div>
       <div class="footer-col"><h4>Connect</h4><ul><li><a href="https://www.instagram.com/miacasahanoi/">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61558873260616">Facebook</a></li><li><a href="https://www.tiktok.com/@miacasahanoi">TikTok</a></li></ul></div>
@@ -674,7 +790,10 @@
 <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer></script>
 
 <!-- Floating Buttons -->
-<a href="#booking" class="floating-book-btn">📅 Book Now</a>
+<a href="#booking" class="floating-book-btn">
+  <span class="en-only">📅 Book Now</span>
+  <span class="vn-only">📅 Đặt ngay</span>
+</a>
 
 <script>
 // Basic initialization

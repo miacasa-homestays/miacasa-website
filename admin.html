@@ -256,68 +256,75 @@
 <script src="/js/config.js"></script>
 <script src="/js/admin.js"></script>
 
-<!-- Username storage feature only (no duplicate doLogin, no hardcoded credentials) -->
+<!-- Username storage feature -->
 <script>
-// Load saved username on page load
 (function() {
-    const savedUsername = localStorage.getItem('admin_username');
-    const rememberChecked = localStorage.getItem('admin_remember_username') === 'true';
-    
-    const usernameInput = document.getElementById('login-user');
-    const rememberCheckbox = document.getElementById('remember-username');
-    
-    if (savedUsername && rememberChecked && usernameInput) {
-        usernameInput.value = savedUsername;
-        if (rememberCheckbox) rememberCheckbox.checked = true;
-        // Focus on password field
-        const passwordInput = document.getElementById('login-pass');
-        if (passwordInput) passwordInput.focus();
-    } else if (savedUsername && usernameInput) {
-        usernameInput.value = savedUsername;
-        if (rememberCheckbox) rememberCheckbox.checked = false;
-    }
-})();
-
-// Save username when checkbox changes
-const rememberCheckbox = document.getElementById('remember-username');
-const usernameInput = document.getElementById('login-user');
-
-if (rememberCheckbox && usernameInput) {
-    rememberCheckbox.addEventListener('change', function() {
-        const username = usernameInput.value.trim();
-        if (this.checked && username) {
-            localStorage.setItem('admin_username', username);
-            localStorage.setItem('admin_remember_username', 'true');
-        } else if (!this.checked) {
-            localStorage.removeItem('admin_username');
-            localStorage.setItem('admin_remember_username', 'false');
-        }
-    });
-    
-    usernameInput.addEventListener('input', function() {
-        if (rememberCheckbox.checked && this.value.trim()) {
-            localStorage.setItem('admin_username', this.value.trim());
-        }
-    });
-}
-
-// Save username when login succeeds (hook into existing doLogin from admin.js)
-const originalDoLogin = window.doLogin;
-if (originalDoLogin) {
-    window.doLogin = async function() {
-        const username = usernameInput?.value.trim();
-        const remember = rememberCheckbox?.checked;
+    // Function to load saved username
+    function loadSavedUsername() {
+        const savedUsername = localStorage.getItem('admin_username');
+        const rememberChecked = localStorage.getItem('admin_remember_username') === 'true';
+        const usernameInput = document.getElementById('login-user');
+        const rememberCheckbox = document.getElementById('remember-username');
         
+        if (usernameInput && savedUsername) {
+            usernameInput.value = savedUsername;
+            if (rememberCheckbox) {
+                rememberCheckbox.checked = rememberChecked;
+            }
+            console.log('Username loaded:', savedUsername, 'Remember checked:', rememberChecked);
+        }
+    }
+    
+    // Save username function
+    function saveUsername(username, remember) {
         if (remember && username) {
             localStorage.setItem('admin_username', username);
             localStorage.setItem('admin_remember_username', 'true');
+        } else if (!remember) {
+            localStorage.removeItem('admin_username');
+            localStorage.setItem('admin_remember_username', 'false');
         }
+    }
+    
+    // Set up event listeners for the login form
+    function setupEventListeners() {
+        const rememberCheckbox = document.getElementById('remember-username');
+        const usernameInput = document.getElementById('login-user');
         
-        // Call the original doLogin from admin.js (which handles API authentication)
-        return originalDoLogin.apply(this, arguments);
-    };
-}
+        if (rememberCheckbox && usernameInput) {
+            // When checkbox changes, save or remove username
+            rememberCheckbox.addEventListener('change', function() {
+                const username = usernameInput.value.trim();
+                saveUsername(username, this.checked);
+            });
+            
+            // When username is typed, save if checkbox is checked
+            usernameInput.addEventListener('input', function() {
+                if (rememberCheckbox.checked && this.value.trim()) {
+                    localStorage.setItem('admin_username', this.value.trim());
+                }
+            });
+        }
+    }
+    
+    // Try to load immediately
+    if (document.getElementById('login-user')) {
+        loadSavedUsername();
+        setupEventListeners();
+    } else {
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedUsername();
+            setupEventListeners();
+        });
+    }
+    
+    // Also try after a short delay (in case of dynamic loading)
+    setTimeout(loadSavedUsername, 100);
+    setTimeout(loadSavedUsername, 500);
+})();
 </script>
+
 
 </body>
 </html>

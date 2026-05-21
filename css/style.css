@@ -129,6 +129,8 @@ nav {
     font-style: italic;
 }
 
+
+
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -678,7 +680,7 @@ section {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--terracotta);
+    color: var(--terracotta-dark);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
@@ -709,7 +711,7 @@ section {
 
 .hero-sub {
     font-size: 1rem;
-    color: var(--ink-lighter);
+    color: var(--ink);
     max-width: 400px;
     margin-bottom: 2rem;
     line-height: 1.7;
@@ -1255,6 +1257,23 @@ html[data-lang="vn"] .vn-only {
     color: var(--terracotta);
     position: absolute;
     left: 0;
+}
+
+/* Room selection hint for entire home */
+.room-hint {
+    font-size: 0.65rem;
+    color: var(--sage);
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.room-selector-note {
+    background: var(--sand);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+    text-align: center;
 }
 
 /* ============================================
