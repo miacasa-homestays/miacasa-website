@@ -392,12 +392,39 @@ const TRANSLATIONS = {
                       vn:'📍 92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hà Nội — 5 phút đến Phố Tàu Hỏa · Gần Ga Hà Nội · Dễ dàng tiếp cận Phố Cổ và Hồ Hoàn Kiếm.'},
   'h-loc-seo':       {en:'Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips.',
                       vn:'Ở gần Ga Hà Nội nghĩa là bạn chỉ cách Phố Cổ 5–10 phút, gần Văn Miếu (Quốc Tử Giám) và thuận tiện đi tàu và các chuyến tham quan.'},
+  // For the location section
+'h-loc-tag': { en: 'Location',
+               vn: 'Vị trí' },
+
+'h-loc-title': { en: 'Near Train Street<br><em>& Old Quarter</em>',
+                 vn: 'Gần Phố Tàu<br><em>& Phố Cổ</em>' },
+
+'h-loc-addr': { en: '📍 92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi',
+                vn: '📍 92 Ngõ 51 Ng. Linh Quang, Văn Chương, Hà Nội' },
+
+'h-loc-li1': { en: '~15 min walk to Hanoi Train Street (Railway Street)',
+               vn: '~15 phút đi bộ đến Phố Tàu Hà Nội' },
+
+'h-loc-li2': { en: '~12 min walk to Văn Miếu – Quốc Tử Giám (Temple of Literature)',
+               vn: '~12 phút đi bộ đến Văn Miếu – Quốc Tử Giám' },
+
+'h-loc-li3': { en: '~10 min by Grab to the Old Quarter and Hoàn Kiếm Lake',
+               vn: '~10 phút đi Grab đến Phố Cổ và Hồ Hoàn Kiếm' },
+
+'h-loc-li4': { en: '~14 min walk to Hanoi Railway Station (trains to Sapa, Hội An)',
+               vn: '~14 phút đi bộ đến Ga Hà Nội (tàu đi Sapa, Hội An)' },
+
+'h-loc-seo': { en: 'Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips. The neighbourhood of Văn Chương is quiet and residential — a welcome contrast to the buzzing streets of the Old Quarter. If you prefer to be right in the centre of Hàng Buồm and Hoàn Kiếm, our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter apartment</a> may suit you better.',
+               vn: 'Ở gần Ga Hà Nội có nghĩa là bạn chỉ cách Phố Cổ 5–10 phút, gần Văn Miếu – Quốc Tử Giám, và thuận tiện cho việc đi tàu cũng như các chuyến đi trong ngày. Khu phố Văn Chương yên tĩnh và mang đậm tính dân cư — một sự tương phản đáng yêu so với những con phố nhộn nhịp của Phố Cổ. Nếu bạn muốn ở ngay trung tâm Hàng Buồm và Hồ Hoàn Kiếm, căn hộ <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Phố Cổ</a> có thể phù hợp hơn với bạn.' },                    
   'h-book-tag':      {en:'Reservations', vn:'Đặt phòng'},
   'h-book-title':    {en:'Book your <em>stay</em>', vn:'Đặt <em>phòng ngay</em>'},
   'h-book-sub':      {en:'Book your stay in Hanoi direct — select your dates below or message us on WhatsApp for the best rate.',
                       vn:'Đặt phòng trực tiếp tại Hà Nội — chọn ngày bên dưới hoặc nhắn tin qua WhatsApp để có giá tốt nhất.'},
   'h-book-note':     {en:'From PRICE_PLACEHOLDER₫/night · Direct booking homestay Hanoi — best rate, no platform fees',
                     vn:'Từ PRICE_PLACEHOLDER₫/đêm · Đặt trực tiếp homestay Hà Nội — giá tốt nhất, không phí nền tảng'},
+  'quiet-mornings': { en: '☕ Quiet mornings away from traffic', vn: '☕ Buổi sáng yên tĩnh, xa khói bụi' },
+  'live-like-local': { en: '🏡 Live like a local in a real neighborhood', vn: '🏡 Sống như người dân địa phương trong khu phố thực' },
+  'slower-experience': { en: '🌿 Slower, more personal Hanoi experience', vn: '🌿 Trải nghiệm Hà Nội chậm rãi và riêng tư hơn' },
 
   'floating-book':   {en:'📅 Book Now', vn:'📅 Đặt ngay'},
   'oquarter-summary-1': {en:'In the heart of Old Quarter', vn:'Giữa lòng Phố Cổ'},
@@ -472,6 +499,30 @@ const TRANSLATIONS = {
                       vn:'📍 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội — Đi bộ đến Hồ Hoàn Kiếm · Bao quanh bởi quán cà phê và đồ ăn đường phố · Vị trí trung tâm cho tất cả điểm tham quan chính.'},
   'oq-loc-seo':      {en:'Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience.',
                       vn:'Ở Hoàn Kiếm nghĩa là đi bộ đến Hồ Hoàn Kiếm, dễ dàng tiếp cận chợ đêm và đồ ăn đường phố, và trải nghiệm Phố Cổ hoàn toàn sâu sắc.'},
+  // For the Old Quarter location section
+  'oqu-loc-tag': { en: 'Location',
+                  vn: 'Vị trí' },
+
+  'oqu-loc-title': { en: 'Heart of<br><em>Hoan Kiem & Old Quarter</em>',
+                    vn: 'Trung tâm<br><em>Hoàn Kiếm & Phố Cổ</em>' },
+
+  'oqu-loc-addr': { en: '📍 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi',
+                    vn: '📍 38 Phố Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội' },
+
+  'oqu-loc-li1': { en: 'walk to Hoàn Kiếm Lake',
+                  vn: 'đi bộ đến Hồ Hoàn Kiếm' },
+
+  'oqu-loc-li2': { en: 'walk to Lương Văn Can Street (Old Quarter\'s busiest)',
+                  vn: 'đi bộ đến Phố Lương Văn Can (phố sầm uất nhất Phố Cổ)' },
+
+  'oqu-loc-li3': { en: 'walk to Đồng Xuân Market',
+                  vn: 'đi bộ đến Chợ Đồng Xuân' },
+
+  'oqu-loc-li4': { en: 'by Grab to Hanoi Railway Station',
+                  vn: 'đi Grab đến Ga Hà Nội' },
+
+  'oqu-loc-seo': { en: 'Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. If you prefer a quieter, residential base away from the tourist crowds, our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.',
+                  vn: 'Ở tại Hoàn Kiếm có nghĩa là bạn có thể đi bộ đến Hồ Hoàn Kiếm, dễ dàng tiếp cận chợ đêm và ẩm thực đường phố, và trải nghiệm Phố Cổ trọn vẹn nhất. Nếu bạn thích một nơi yên tĩnh, mang tính dân cư hơn và xa đám đông khách du lịch, các phòng <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hà Nội gần Phố Tàu</a> là một lựa chọn tuyệt vời.' },                    
   'oq-book-tag':     {en:'Reservations', vn:'Đặt phòng'},
   'oq-book-title':   {en:'Book your <em>stay</em>', vn:'Đặt <em>phòng ngay</em>'},
   'oq-book-sub':     {en:'Book this Old Quarter apartment direct — check availability below or message us for the best rate.',
