@@ -6,6 +6,14 @@ const API_URL = '/api/log-booking';
 const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
 const INCLUDED_GUESTS = 2;
 
+function miaT(key, fallback) {
+    if (typeof window.getMiaTranslation === 'function') {
+        const translated = window.getMiaTranslation(key);
+        if (translated) return translated;
+    }
+    return fallback;
+}
+
 // Make sure PRICES is loaded
 if (typeof PRICES === 'undefined') {
     window.PRICES = {
@@ -526,18 +534,18 @@ async function checkAvailabilityInBackground(room, ci, co) {
     availabilityCheckInProgress = true;
     
     const availabilityMsgDiv = document.getElementById('availability-message');
-    if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === '⏳ Checking availability...') {
+    if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === miaT('checking-availability', '⏳ Checking availability...')) {
         // Message already showing, don't change
     } else if (availabilityMsgDiv) {
-        availabilityMsgDiv.innerHTML = '⏳ Checking availability...';
+        availabilityMsgDiv.innerHTML = miaT('checking-availability', '⏳ Checking availability...');
         availabilityMsgDiv.className = 'loading';
         availabilityMsgDiv.style.display = 'block';
     }
     
     // Set a timeout to show if it's taking too long
     slowConnectionTimeout = setTimeout(() => {
-        if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === '⏳ Checking availability...') {
-            availabilityMsgDiv.innerHTML = '⏳ Still checking... you can continue filling your details';
+        if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === miaT('checking-availability', '⏳ Checking availability...')) {
+            availabilityMsgDiv.innerHTML = miaT('booking-still-checking', '⏳ Still checking... you can continue filling your details');
         }
     }, 2000);
     
@@ -550,7 +558,7 @@ async function checkAvailabilityInBackground(room, ci, co) {
         
         if (availability.available) {
             if (availabilityMsgDiv) {
-                availabilityMsgDiv.innerHTML = '✅ Room available! You can proceed.';
+                availabilityMsgDiv.innerHTML = miaT('booking-room-available-proceed', '✅ Room available! You can proceed.');
                 availabilityMsgDiv.className = 'available';
             }
             // Show payment section if user details are already filled
@@ -562,8 +570,8 @@ async function checkAvailabilityInBackground(room, ci, co) {
         } else {
             if (availabilityMsgDiv) {
                 availabilityMsgDiv.innerHTML = availability.bothPropertiesBooked 
-                    ? '❌ Both properties are booked for these dates. Please try different dates.'
-                    : '❌ This room is booked. Try our other property or choose different dates.';
+                    ? miaT('both-booked', '❌ Both properties are booked for these dates. Please try different dates.')
+                    : miaT('room-not-available', '❌ This room is booked. Try our other property or choose different dates.');
                 availabilityMsgDiv.className = 'unavailable';
             }
             const paymentSection = document.getElementById('mia-payment-section');
@@ -587,7 +595,7 @@ async function checkAvailabilityInBackground(room, ci, co) {
         availabilityCheckInProgress = false;
         const availabilityMsgDiv = document.getElementById('availability-message');
         if (availabilityMsgDiv) {
-            availabilityMsgDiv.innerHTML = '⚠️ Unable to check availability. Please try again.';
+            availabilityMsgDiv.innerHTML = miaT('booking-availability-error', '⚠️ Unable to check availability. Please try again.');
             availabilityMsgDiv.className = 'error';
         }
     }
@@ -698,7 +706,7 @@ async function updateAvailabilityAndUI() {
     // Past date check
     if (ci && checkInDateObj < today) {
         if (availabilityMsgDiv) {
-            availabilityMsgDiv.innerHTML = window.currentLang === 'vn' ? '❌ Không thể chọn ngày trong quá khứ' : '❌ Cannot select past dates';
+            availabilityMsgDiv.innerHTML = miaT('booking-past-dates', '❌ Cannot select past dates');
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
@@ -710,10 +718,10 @@ async function updateAvailabilityAndUI() {
     // Check if all required inputs are filled
     if (!room || !ci || !co || !guests) {
         if (availabilityMsgDiv) {
-            if (!ci || !co) availabilityMsgDiv.innerHTML = '📅 Please select check-in and check-out dates';
-            else if (!room) availabilityMsgDiv.innerHTML = '🏠 Please select a room';
-            else if (!guests) availabilityMsgDiv.innerHTML = '👥 Please select number of guests';
-            else availabilityMsgDiv.innerHTML = '📋 Please complete all booking details';
+            if (!ci || !co) availabilityMsgDiv.innerHTML = miaT('booking-select-dates', '📅 Please select check-in and check-out dates');
+            else if (!room) availabilityMsgDiv.innerHTML = miaT('booking-select-room', '🏠 Please select a room');
+            else if (!guests) availabilityMsgDiv.innerHTML = miaT('booking-select-guests', '👥 Please select number of guests');
+            else availabilityMsgDiv.innerHTML = miaT('booking-complete-details', '📋 Please complete all booking details');
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
@@ -726,7 +734,7 @@ async function updateAvailabilityAndUI() {
     // Validate date order
     if (new Date(co) <= new Date(ci)) {
         if (availabilityMsgDiv) {
-            availabilityMsgDiv.innerHTML = '⚠️ Check-out date must be after check-in date';
+            availabilityMsgDiv.innerHTML = miaT('booking-date-order-error', '⚠️ Check-out date must be after check-in date');
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
@@ -770,7 +778,7 @@ async function updateAvailabilityAndUI() {
         
         if (cached.data.available) {
             if (availabilityMsgDiv) {
-                availabilityMsgDiv.innerHTML = '✅ Room available! You can proceed.';
+                availabilityMsgDiv.innerHTML = miaT('booking-room-available-proceed', '✅ Room available! You can proceed.');
                 availabilityMsgDiv.className = 'available';
             }
             // Show payment section if user details are already filled
@@ -781,8 +789,8 @@ async function updateAvailabilityAndUI() {
         } else {
             if (availabilityMsgDiv) {
                 availabilityMsgDiv.innerHTML = cached.data.bothPropertiesBooked 
-                    ? '❌ Both properties are booked for these dates. Please try different dates.'
-                    : '❌ This room is booked. Try our other property or choose different dates.';
+                    ? miaT('both-booked', '❌ Both properties are booked for these dates. Please try different dates.')
+                    : miaT('room-not-available', '❌ This room is booked. Try our other property or choose different dates.');
                 availabilityMsgDiv.className = 'unavailable';
             }
             if (paymentSection) paymentSection.style.display = 'none';
@@ -790,7 +798,7 @@ async function updateAvailabilityAndUI() {
     } else {
         // No cache - show loading and check in background
         if (availabilityMsgDiv) {
-            availabilityMsgDiv.innerHTML = '⏳ Checking availability...';
+            availabilityMsgDiv.innerHTML = miaT('checking-availability', '⏳ Checking availability...');
             availabilityMsgDiv.className = 'loading';
             availabilityMsgDiv.style.display = 'block';
         }
@@ -1117,7 +1125,7 @@ function generateQRCode() {
         const qrUrl = `https://img.vietqr.io/image/SACOMBANK-021091408386-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=Ba%20Thi%20Bich%20Ngoc`;
         qrContainer.innerHTML = `<img loading="lazy" decoding="async" src="${qrUrl}" style="width:200px;height:200px;border-radius:4px;" alt="VietQR">`;
     } else {
-        qrContainer.innerHTML = '<p style="font-size:0.75rem;">Loading QR code...</p>';
+        qrContainer.innerHTML = `<p style="font-size:0.75rem;">${miaT('booking-loading-qr', 'Loading QR code...')}</p>`;
     }
 }
 
@@ -1418,7 +1426,7 @@ function showBookingConfirmation(data) {
         confBox.style.display = 'block';
         const bidEl = document.getElementById('conf-bid');
         const detailsEl = document.getElementById('conf-details');
-        if (bidEl) bidEl.textContent = 'Booking ID: ' + data.bookingId;
+        if (bidEl) bidEl.textContent = miaT('booking-id-label', 'Booking ID:') + ' ' + data.bookingId;
         if (detailsEl) {
             detailsEl.innerHTML = `<div><strong>Property:</strong> ${data.property}</div><div><strong>Room:</strong> ${data.room}</div><div><strong>Check-in:</strong> ${fmtDateVN(data.checkIn)}</div><div><strong>Check-out:</strong> ${fmtDateVN(data.checkOut)}</div><div><strong>Guests:</strong> ${data.guests}</div><div><strong>Total:</strong> ${fmtVND(data.amount)} (~${fmtUSD(data.amount)})</div>`;
         }
