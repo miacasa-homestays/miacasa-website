@@ -22,6 +22,7 @@ const TRANSLATIONS = {
   'nav-gallery':     {en:'Gallery',                      vn:'Ảnh'},
   'nav-about':       {en:'About',                        vn:'Giới thiệu'},
   'nav-rooms':       {en:'Rooms',                        vn:'Phòng'},
+  'nav-apartment':   (en:'Apartment',                    vn:'Căn hộ'),
   'nav-blog':        {en:'Blog',                         vn:'Nhật ký'},
   'nav-book-now':    {en:'Book Now',                     vn:'Đặt ngay'},
   'nav-amenities':   {en:'Amenities',                    vn:'Tiện nghi'},
