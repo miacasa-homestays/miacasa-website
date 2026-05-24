@@ -1,12 +1,6 @@
 // ================================================================
 // API/LOG-BOOKING.JS - Vercel Serverless Function
 // ================================================================
-// Required env vars in Vercel (Project → Settings → Environment Variables):
-//   GOOGLE_SHEETS_URL  — your Google Apps Script deployment URL
-//   ADMIN_USER         — admin login email
-//   ADMIN_PASSWORD     — admin login password
-//   GAS_ADMIN_TOKEN    — token from your Google Apps Script
-// ================================================================
 
 const crypto = require('crypto');
 
@@ -29,7 +23,6 @@ function isValidToken(token) {
 
 async function callGAS(payload) {
   if (!GOOGLE_SHEETS_URL) {
-    console.error('GOOGLE_SHEETS_URL not set');
     return { status: 'error', message: 'Configuration error: Google Sheets URL not set' };
   }
 
@@ -64,6 +57,24 @@ async function callAdminGAS(payload) {
   return callGAS({ ...payload, token: GAS_ADMIN_TOKEN });
 }
 
+// Helper function to parse body (Vercel doesn't auto-parse JSON)
+async function parseBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch(e) {
+        resolve({});
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
 // Vercel serverless function handler
 module.exports = async function handler(req, res) {
   // Set CORS headers
@@ -81,7 +92,14 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ status: 'error', message: 'Method not allowed' });
   }
 
-  const body = req.body;
+  // Parse request body (Vercel doesn't auto-parse)
+  let body;
+  try {
+    body = await parseBody(req);
+  } catch(e) {
+    return res.status(400).json({ status: 'error', message: 'Invalid JSON body' });
+  }
+
   const { action, token } = body;
 
   try {
@@ -90,7 +108,7 @@ module.exports = async function handler(req, res) {
     if (action === 'login') {
       const { username, password } = body;
       if (!ADMIN_USER || !ADMIN_PASSWORD) {
-        return res.status(200).json({ status: 'error', message: 'Admin credentials not configured. Set ADMIN_USER and ADMIN_PASSWORD in Vercel environment variables.' });
+        return res.status(200).json({ status: 'error', message: 'Admin credentials not configured.' });
       }
       if (username === ADMIN_USER && password === ADMIN_PASSWORD) {
         return res.status(200).json({ status: 'ok', token: makeSessionToken() });
