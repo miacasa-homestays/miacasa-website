@@ -595,6 +595,12 @@ const TRANSLATIONS = {
   vn:'Mỗi phòng được thiết kế tinh tế với ánh sáng tự nhiên, điểm nhấn gỗ và phong cách tối giản ấm áp.',
   zh:'每间客房都经过精心设计，采用自然光线、木质装饰和温暖的极简美学。'
 },
+
+'h-who-title': {
+  en: 'Who <em>stays here</em>',
+  vn: 'Ai <em>phù hợp</em>',
+  zh: '谁<em>适合入住</em>'
+},
 'h-who-1': {
   en:'Couples looking for a calm stay',
   vn:'Các cặp đôi tìm kiếm chỗ nghỉ yên tĩnh',
@@ -693,6 +699,7 @@ const TRANSLATIONS = {
   vn:'Mọi tiện nghi,<br><em>được chuẩn bị chu đáo</em>',
   zh:'每一处舒适，<br><em>用心提供</em>'
 },
+
 
 'h-am1': {
   en:'High-speed WiFi',
