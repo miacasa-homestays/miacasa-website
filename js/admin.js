@@ -468,9 +468,12 @@ function setAdminLang(lang) {
   localStorage.setItem('mia_admin_lang', lang);
   const enBtn = document.getElementById('lang-en');
   const vnBtn = document.getElementById('lang-vn');
+  const zhBtn = document.getElementById('lang-zh');
+
   if (enBtn) enBtn.classList.toggle('active', lang === 'en');
   if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
-  
+  if (zhBtn) zhBtn.classList.toggle('active', lang === 'zh');
+
   const L = ADMIN_TRANSLATIONS[lang];
   if (!L) return;
   

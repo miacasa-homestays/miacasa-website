@@ -59,6 +59,9 @@
   <div class="lang-toggle">
     <button id="lang-en" class="lang-btn active" onclick="setLang('en')"><span class="flag-icon">🇬🇧</span> EN</button>
     <button id="lang-vn" class="lang-btn" onclick="setLang('vn')"><span class="flag-icon">🇻🇳</span> VN</button>
+    <button id="lang-zh" class="lang-btn" onclick="setLang('zh')">
+      <span class="flag-icon">🇨🇳</span> ZH
+    </button>
   </div>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -989,8 +992,8 @@ window.renderProperties = window.renderProperties || function() {
     }
 
     function getChatbotCopy(lang) {
-        return lang === 'vn'
-            ? {
+        if (lang === 'vn') {
+            return {
                 title: 'Trợ lý MiaCasa',
                 subtitle: 'Thường phản hồi trong vài phút',
                 placeholder: 'Nhập tin nhắn...',
@@ -1001,20 +1004,38 @@ window.renderProperties = window.renderProperties || function() {
                     { text: '📍 Vị trí', msg: 'MiaCasa ở đâu?' },
                     { text: '📋 Hủy phòng', msg: 'Chính sách hủy phòng là gì?' }
                 ]
-            }
-            : {
-                title: 'MiaCasa Assistant',
-                subtitle: 'Usually replies in minutes',
-                placeholder: 'Type a message...',
-                welcome: 'Hello! 👋 I\'m your MiaCasa Homestays assistant. I can help you find rooms, check prices, or answer any questions. How can I help you today?',
+            };
+        }
+        
+        if (lang === 'zh') {
+            return {
+                title: 'MiaCasa 助手',
+                subtitle: '通常几分钟内回复',
+                placeholder: '输入消息...',
+                welcome: '您好！👋 我是 MiaCasa 民宿的助手。我可以帮您查找房间、查询价格、或回答任何问题。今天有什么可以帮您的吗？',
                 quickButtons: [
-                    { text: '🏠 Properties', msg: 'What properties do you have?' },
-                    { text: '💰 Prices', msg: 'What are the prices?' },
-                    { text: '📍 Location', msg: 'Where are you located?' },
-                    { text: '📋 Cancellation', msg: 'What is the cancellation policy?' }
+                    { text: '🏠 房源', msg: '你们有哪些房源？' },
+                    { text: '💰 价格', msg: '价格是多少？' },
+                    { text: '📍 位置', msg: '你们在哪里？' },
+                    { text: '📋 取消政策', msg: '取消政策是什么？' }
                 ]
             };
-    }
+          }
+    
+        // Default English
+        return {
+            title: 'MiaCasa Assistant',
+            subtitle: 'Usually replies in minutes',
+            placeholder: 'Type a message...',
+            welcome: 'Hello! 👋 I\'m your MiaCasa Homestays assistant. I can help you find rooms, check prices, or answer any questions. How can I help you today?',
+            quickButtons: [
+                { text: '🏠 Properties', msg: 'What properties do you have?' },
+                { text: '💰 Prices', msg: 'What are the prices?' },
+                { text: '📍 Location', msg: 'Where are you located?' },
+                { text: '📋 Cancellation', msg: 'What is the cancellation policy?' }
+            ]
+        };
+}
 
     function renderChatbotLanguage(options = {}) {
         const lang = getLang();
@@ -1057,79 +1078,49 @@ window.renderProperties = window.renderProperties || function() {
         if (typing) typing.remove();
     }
     
-    function getResponse(message, lang) {
-        const msg = message.toLowerCase();
-        
-        // Greetings
-        if (msg.match(/^(hi|hello|hey|chào|xin chào|helo)$/)) {
-            return lang === 'vn' 
-                ? 'Xin chào! 👋 Tôi có thể giúp gì cho bạn? Bạn muốn hỏi về phòng, giá cả, hay vị trí của homestay?'
-                : 'Hello! 👋 How can I help you? Would you like to know about our rooms, prices, or locations?';
-        }
-        
-        // Properties
-        if (msg.includes('property') || msg.includes('homestay') || msg.includes('phòng') || msg.includes('chỗ nghỉ')) {
-            return lang === 'vn'
-                ? 'Chúng tôi có hai homestay:\n\n🏠 MiaCasa Hà Nội: 3 phòng riêng gần Phố Tàu, phù hợp cặp đôi & khách solo.\n\n🏙️ MiaCasa Phố Cổ: Căn hộ 3 phòng ngủ tại trung tâm Hoàn Kiếm, phù hợp gia đình & nhóm bạn (ngủ 6).\n\nBạn muốn biết thêm về chỗ nghỉ nào?'
-                : 'We have two homestays:\n\n🏠 MiaCasa Hanoi: 3 private rooms near Train Street, perfect for couples & solo travelers.\n\n🏙️ MiaCasa Old Quarter: Entire 3-bedroom apartment in Hoàn Kiếm, perfect for families & groups (sleeps 6).\n\nWhich property would you like to know more about?';
-        }
-        
-        // Prices
-        if (msg.includes('price') || msg.includes('cost') || msg.includes('giá') || msg.includes('bao nhiêu')) {
-            const hanoiPrice = (typeof getEffectiveFromPrice === 'function') ? getEffectiveFromPrice('hanoi') : (PRICES['hanoi-spring'] || 750000);
-            const oqPrice = (typeof getEffectiveFromPrice === 'function') ? getEffectiveFromPrice('oldquarter') : (PRICES.oldquarter || 1200000);
-            return lang === 'vn'
-                ? `💰 Giá tham khảo:\n\n• MiaCasa Hà Nội: từ ${hanoiPrice.toLocaleString()}₫/đêm\n• MiaCasa Phố Cổ: từ ${oqPrice.toLocaleString()}₫/đêm (cho 2 khách)\n\nGiá có thể thay đổi theo ngày và số khách.`
-                : `💰 Reference prices:\n\n• MiaCasa Hanoi: from ${hanoiPrice.toLocaleString()}₫/night\n• MiaCasa Old Quarter: from ${oqPrice.toLocaleString()}₫/night (base for 2 guests)\n\nPrices vary by date and guest count.`;
-        }
-        
-        // Location
-        if (msg.includes('location') || msg.includes('address') || msg.includes('vị trí') || msg.includes('địa chỉ') || msg.includes('ở đâu')) {
-            return lang === 'vn'
-                ? '📍 Địa chỉ:\n\n• MiaCasa Hà Nội: 92 Ngõ 51 Ng. Linh Quang, Văn Chương (gần Phố Tàu)\n• MiaCasa Phố Cổ: 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm (trung tâm Phố Cổ)'
-                : '📍 Addresses:\n\n• MiaCasa Hanoi: 92 Ngh. 51 Ng. Linh Quang, Văn Chương (near Train Street)\n• MiaCasa Old Quarter: 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm (heart of Old Quarter)';
-        }
-        
-        // Cancellation
-        if (msg.includes('cancel') || msg.includes('hủy')) {
-            return lang === 'vn'
-                ? '📋 Chính sách hủy:\n\n• Hủy miễn phí đến 48h trước nhận phòng\n• Hủy trong 48h có thể mất phí\n• Không hoàn tiền sau ngày nhận phòng\n\n👉 https://miacasahanoi.com/cancel-booking'
-                : '📋 Cancellation policy:\n\n• Free cancellation up to 48h before check-in\n• Cancellations within 48h may incur a fee\n• No refunds after check-in\n\n👉 https://miacasahanoi.com/cancel-booking';
-        }
-        
-        // Check-in/out
-        if (msg.includes('check-in') || msg.includes('checkin') || msg.includes('check-out') || msg.includes('checkout') || msg.includes('nhận phòng') || msg.includes('trả phòng')) {
-            return lang === 'vn'
-                ? '🔑 Giờ nhận phòng: từ 14:00\n🔑 Giờ trả phòng:\n• MiaCasa Hà Nội: 12:00 trưa\n• MiaCasa Phố Cổ: 11:00 sáng'
-                : '🔑 Check-in: from 2:00 PM\n🔑 Check-out:\n• MiaCasa Hanoi: 12:00 PM (noon)\n• MiaCasa Old Quarter: 11:00 AM';
-        }
-        
-        // Contact
-        if (msg.includes('contact') || msg.includes('whatsapp') || msg.includes('phone') || msg.includes('liên hệ')) {
-            return lang === 'vn'
-                ? '📱 Liên hệ:\n\n💬 WhatsApp: +84 869 922 261\n📞 Điện thoại: +84 869 922 261\n✉️ Email: miacasahanoi@gmail.com\n\n⏰ Phản hồi trong 2 giờ (7:00-22:00)'
-                : '📱 Contact:\n\n💬 WhatsApp: +84 869 922 261\n📞 Phone: +84 869 922 261\n✉️ Email: miacasahanoi@gmail.com\n\n⏰ Response within 2 hours (7am-10pm)';
-        }
-        
-        // Booking
-        if (msg.includes('book') || msg.includes('đặt')) {
-            return lang === 'vn'
-                ? '✅ Đặt phòng trực tiếp trên website:\n1. Chọn ngày\n2. Chọn số khách\n3. Điền thông tin\n4. Thanh toán qua PayPal hoặc VietQR\n\n📅 Bạn muốn đặt ngày nào?'
-                : '✅ Book directly on our website:\n1. Select dates\n2. Select guests\n3. Fill in details\n4. Pay via PayPal or VietQR\n\n📅 What dates are you looking for?';
-        }
-        
-        // Help
-        if (msg.includes('help') || msg.includes('giúp')) {
-            return lang === 'vn'
-                ? '🤖 Tôi có thể giúp:\n\n• Thông tin homestay\n• Giá phòng\n• Vị trí & địa chỉ\n• Chính sách hủy\n• Giờ nhận/trả phòng\n• Liên hệ\n\nBạn muốn hỏi gì?'
-                : '🤖 I can help with:\n\n• Homestay info\n• Prices\n• Location & addresses\n• Cancellation policy\n• Check-in/out times\n• Contact\n\nWhat would you like to know?';
-        }
-        
-        // Default response
-        return lang === 'vn'
-            ? 'Cảm ơn bạn đã quan tâm đến MiaCasa! 😊\n\nTôi có thể giúp gì cho bạn? Hãy thử hỏi:\n• "Thông tin homestay"\n• "Giá phòng"\n• "Vị trí"\n• "Chính sách hủy"\n\nNếu cần người hỗ trợ ngay, nhắn WhatsApp: https://wa.me/84869922261'
-            : 'Thank you for your interest in MiaCasa! 😊\n\nHow can I help you? Try asking:\n• "Property info"\n• "Prices"\n• "Location"\n• "Cancellation policy"\n\nNeed a human? Message us on WhatsApp: https://wa.me/84869922261';
+    function getChatbotCopy(lang) {
+    if (lang === 'vn') {
+        return {
+            title: 'Trợ lý MiaCasa',
+            subtitle: 'Thường phản hồi trong vài phút',
+            placeholder: 'Nhập tin nhắn...',
+            welcome: 'Xin chào! 👋 Tôi là trợ lý của MiaCasa Homestays. Tôi có thể giúp bạn tìm phòng, kiểm tra giá, hoặc trả lời bất kỳ câu hỏi nào. Bạn cần tôi giúp gì?',
+            quickButtons: [
+                { text: '🏠 Homestay', msg: 'Bạn có những chỗ nghỉ nào?' },
+                { text: '💰 Giá phòng', msg: 'Giá phòng bao nhiêu?' },
+                { text: '📍 Vị trí', msg: 'MiaCasa ở đâu?' },
+                { text: '📋 Hủy phòng', msg: 'Chính sách hủy phòng là gì?' }
+            ]
+        };
     }
+    if (lang === 'zh') {
+        return {
+            title: 'MiaCasa 助手',
+            subtitle: '通常几分钟内回复',
+            placeholder: '输入消息...',
+            welcome: '您好！👋 我是 MiaCasa 民宿的助手。我可以帮您查找房间、查询价格、或回答任何问题。今天有什么可以帮您的吗？',
+            quickButtons: [
+                { text: '🏠 房源', msg: '你们有哪些房源？' },
+                { text: '💰 价格', msg: '价格是多少？' },
+                { text: '📍 位置', msg: '你们在哪里？' },
+                { text: '📋 取消政策', msg: '取消政策是什么？' }
+            ]
+        };
+    }
+    // Default English
+    return {
+        title: 'MiaCasa Assistant',
+        subtitle: 'Usually replies in minutes',
+        placeholder: 'Type a message...',
+        welcome: 'Hello! 👋 I\'m your MiaCasa Homestays assistant. I can help you find rooms, check prices, or answer any questions. How can I help you today?',
+        quickButtons: [
+            { text: '🏠 Properties', msg: 'What properties do you have?' },
+            { text: '💰 Prices', msg: 'What are the prices?' },
+            { text: '📍 Location', msg: 'Where are you located?' },
+            { text: '📋 Cancellation', msg: 'What is the cancellation policy?' }
+        ]
+    };
+}
     
     function sendMessage(message) {
         if (!message.trim()) return;

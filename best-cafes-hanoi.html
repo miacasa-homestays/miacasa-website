@@ -525,12 +525,14 @@
   }
 
   html[data-lang="en"] .lang-toggle .en-only,
-  html[data-lang="vn"] .lang-toggle .vn-only {
+  html[data-lang="vn"] .lang-toggle .vn-only,
+  html[data-lang="zh"] .lang-toggle .zh-only {
     display: inline-flex !important;
   }
 
   html[data-lang="en"] .blog-cta-links .en-only,
-  html[data-lang="vn"] .blog-cta-links .vn-only {
+  html[data-lang="vn"] .blog-cta-links .vn-only,
+  html[data-lang="zh"] .blog-cta-links .zh-only {
     display: inline-flex !important;
   }
 
@@ -599,6 +601,9 @@
     <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
       <span class="flag-icon">🇻🇳</span> VN
     </button>
+    <button id="lang-zh" class="lang-btn" onclick="setLang('zh')">
+      <span class="flag-icon">🇨🇳</span> ZH
+    </button>
   </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
@@ -631,15 +636,6 @@
         📅 Updated May 2026 · ☕ 8 min read · ✍️ By MiaCasa Team
       </div>
 
-      <!-- <div class="lang-toggle">
-        <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-          EN
-        </button>
-
-        <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-          VN
-        </button>
-      </div> -->
 
     </div>
 
