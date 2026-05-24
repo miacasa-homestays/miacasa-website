@@ -91,7 +91,11 @@ const TRANSLATIONS = {
     vn: '⭐ Giá tốt hơn khi đặt trực tiếp · Không phí nền tảng · Xác nhận ngay lập tức',
     zh: '⭐ 直接预订更优惠 · 无平台费用 · 即时确认'
   },
-
+  'booking-badge-warning': {
+    en: '🔥 High demand — weekends fill up fast',
+    vn: '🔥 Nhu cầu cao — cuối tuần kín phòng nhanh',
+    zh: '🔥 需求旺盛 — 周末很快订满'
+  },
   // Add these to your lang.js translations object
   // New translations for the updated selector
   'choose-title': { en: 'Two Different Homes,<br><em>Choose Your Hanoi Experience</em>', vn: 'Hai Ngôi Nhà Khác Nhau,<br><em>Chọn Trải Nghiệm Hà Nội Của Bạn</em>', zh:'两种不同住宿，<br><em>选择您的河内体验</em>' },
