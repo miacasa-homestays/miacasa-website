@@ -44,6 +44,16 @@ const TRANSLATIONS = {
   'hero-cta1':       {en:'View MiaCasa Hanoi',           vn:'Xem MiaCasa Hà Nội', zh:'查看 MiaCasa Hanoi'},
   'hero-cta2':       {en:'View MiaCasa Old Quarter',     vn:'Xem MiaCasa Phố Cổ', zh:'查看 MiaCasa Old Quarter'},
   'hero-cta3':       {en:'Explore Stays',                vn:'Khám phá chỗ nghỉ', zh:'探索住宿'},
+  'hero-badge-rated': {
+    en: 'Rated across Airbnb & Booking.com',
+    vn: 'Được đánh giá trên Airbnb và Booking.com',
+    zh: '在 Airbnb 和 Booking.com 上获得好评'
+  },
+  'hero-badge-stars': {
+    en: '★ 4.9 — 200+ Happy Guests',
+    vn: '★ 4.9 — 200+ Khách hài lòng',
+    zh: '★ 4.9 — 200+ 满意客人'
+  },
 
   /* ── HOMEPAGE WELCOME ─────────────────────────────────────────── */
   'welcome-tag':     {en:'A Different Kind of Stay',     vn:'Trải nghiệm khác biệt', zh:'与众不同的住宿体验'},
@@ -75,6 +85,12 @@ const TRANSLATIONS = {
   'book-title':      {en:'Book Your Stay <em>Direct</em>', vn:'Đặt phòng <em>trực tiếp</em>', zh:'<em>直接</em>预订您的住宿'},
   'book-sub':        {en:'Better rates. No platform fees. Instant confirmation.', vn:'Giá tốt hơn. Không phí nền tảng. Xác nhận ngay lập tức.', zh:'更优惠价格，无平台费用，即时确认。'},
   'choose-stay':     {en:'Choose your stay',            vn:'Chọn chỗ nghỉ của bạn', zh:'选择您的住宿'},
+  'instant-punch':   {en:'⚡ Instant booking. No platform fees. Confirm in minutes.', vn:'⚡ Đặt phòng ngay lập tức. Không phí nền tảng. Xác nhận trong vài phút.', zh:'⚡ 即时预订。无平台费用。几分钟内确认。'}, 
+  'brand-clarify': {
+    en: '⭐ Better price direct · No platform fees · Instant confirmation',
+    vn: '⭐ Giá tốt hơn khi đặt trực tiếp · Không phí nền tảng · Xác nhận ngay lập tức',
+    zh: '⭐ 直接预订更优惠 · 无平台费用 · 即时确认'
+  },
 
   // Add these to your lang.js translations object
   // New translations for the updated selector
@@ -646,6 +662,24 @@ const TRANSLATIONS = {
   en:'From',
   vn:'từ',
   zh:'起'
+},
+
+'h-rooms-tag': {
+  en: 'Rooms',
+  vn: 'Phòng nghỉ',
+  zh: '房间'
+},
+
+'h-rooms-title': {
+  en: 'Three private<br><em>rooms</em>',
+  vn: 'Ba phòng<br><em>riêng tư</em>',
+  zh: '三间独立<br><em>客房</em>'
+},
+
+'h-rooms-sub': {
+  en: 'Each room has an en-suite bathroom and kitchenette, designed with simplicity and natural materials.',
+  vn: 'Mỗi phòng có phòng tắm riêng và bếp nhỏ, được thiết kế đơn giản với vật liệu tự nhiên.',
+  zh: '每间客房均配有独立卫浴和小厨房，采用简约设计和天然材料。'
 },
 
 'h-amen-tag': {
