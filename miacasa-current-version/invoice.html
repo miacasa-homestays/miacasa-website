@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Request Invoice — MiaCasa Homestays</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=block" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+/* Invoice page specific styles */
+.inv-hero {
+  background: var(--ink);
+  color: white;
+  padding: 4rem 0 3rem;
+  margin-top: 64px;
+}
+
+.inv-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.inv-hero h1 em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.inv-hero p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 520px;
+  line-height: 1.8;
+}
+
+.inv-hero .section-tag {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.inv-hero .section-tag::before {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.inv-body {
+  background: var(--cream);
+  padding: 3rem 0 5rem;
+  min-height: 60vh;
+}
+
+/* Two column layout for form + QR codes */
+.inv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.inv-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(44, 36, 22, 0.05);
+}
+
+/* QR Codes Section */
+.qr-section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(44, 36, 22, 0.05);
+}
+
+.qr-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.qr-title em {
+  color: var(--terracotta);
+  font-style: italic;
+}
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.qr-item {
+  text-align: center;
+}
+
+.qr-code {
+  background: var(--sand);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.qr-item h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--terracotta);
+  margin-bottom: 0.25rem;
+}
+
+.qr-item p {
+  font-size: 0.7rem;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+}
+
+.review-btn {
+  display: inline-block;
+  background: var(--terracotta);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.review-btn:hover {
+  background: var(--terracotta-dark);
+  transform: translateY(-1px);
+}
+
+.inv-card .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.inv-card label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.inv-card input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--warm-white);
+  transition: all 0.2s;
+}
+
+.inv-card input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.1);
+}
+
+.inv-card input.error {
+  border-color: #e53e3e;
+  background-color: #fff5f5;
+}
+
+.inv-error {
+  color: #c53030;
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  display: none;
+}
+
+.inv-status {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  display: none;
+  line-height: 1.5;
+}
+
+.inv-status.loading {
+  background: var(--sand);
+  color: var(--ink-light);
+}
+
+.inv-status.success {
+  background: #d1fae5;
+  border-left: 3px solid #065f46;
+  color: #065f46;
+}
+
+.inv-status.fail {
+  background: #fee2e2;
+  border-left: 3px solid #991b1b;
+  color: #991b1b;
+}
+
+.pdf-preview {
+  display: none;
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pdf-preview iframe {
+  width: 100%;
+  height: 680px;
+  border: none;
+  display: block;
+}
+
+.pdf-dl {
+  display: none;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.help-text {
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.help-text a {
+  color: var(--terracotta);
+  text-decoration: none;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+/* Review success message */
+.review-reminder {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  border: 1px solid #f59e0b;
+}
+
+.review-reminder p {
+  font-size: 0.75rem;
+  color: #92400e;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .inv-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .inv-hero {
+    padding: 3rem 0 2rem;
+  }
+  .inv-hero h1 {
+    font-size: 1.8rem;
+  }
+  .inv-body {
+    padding: 2rem 0 3rem;
+  }
+  .inv-card {
+    padding: 1.5rem;
+  }
+  .qr-section {
+    padding: 1.25rem;
+  }
+  .qr-grid {
+    gap: 1rem;
+  }
+  .pdf-preview iframe {
+    height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .qr-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .qr-code {
+    padding: 0.75rem;
+  }
+  .qr-code img {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inv-hero h1 {
+    font-size: 1.5rem;
+  }
+  .inv-card {
+    padding: 1.25rem;
+  }
+  .pdf-preview iframe {
+    height: 400px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-t="nav-home">Home</a></li>
+    <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+    <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
+    <li><a href="blog.html" data-t="nav-blog">Blog</a></li>
+    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
+    <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button id="lang-en" class="lang-btn active" onclick="switchLanguage('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="switchLanguage('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+    <button id="lang-zh" class="lang-btn" onclick="setLang('zh')">
+      <span class="flag-icon">🇨🇳</span> ZH
+    </button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Hero Section -->
+<section class="inv-hero">
+  <div class="container">
+    <div class="section-tag" id="secInvoice">Post-Stay</div>
+    <h1 id="invTitle">Request an <em>Invoice</em></h1>
+    <p id="invSubtitle">Enter your Booking ID (e.g., MCH-SPR-0001 or MCOQ-OLQ-0001) and the email address used at booking. We'll generate your invoice instantly.</p>
+  </div>
+</section>
+
+<!-- Invoice Request Form + QR Codes -->
+<section class="inv-body">
+  <div class="container">
+    <div class="inv-grid">
+      
+      <!-- Left Column: Invoice Request Form -->
+      <div class="inv-card">
+        <div class="form-group">
+          <label for="inv-booking-id" id="lblBookingId">Booking ID</label>
+          <input type="text" id="inv-booking-id" placeholder="e.g. MCH-SPR-0001 or MCOQ-OLQ-0001" autocomplete="off">
+          <div class="inv-error" id="err-booking-id">Please enter your Booking ID.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="inv-email" id="lblEmail">Email Address</label>
+          <input type="email" id="inv-email" placeholder="Email you used when booking" autocomplete="email">
+          <div class="inv-error" id="err-email">Please enter the email address used at booking.</div>
+        </div>
+
+        <button class="btn-primary" id="generateBtn" style="width:100%;margin-top:0.5rem;">Generate Invoice →</button>
+
+        <div class="inv-status loading" id="inv-loading">⏳ Looking up your booking…</div>
+        <div class="inv-status success" id="inv-success"></div>
+        <div class="inv-status fail" id="inv-fail"></div>
+
+        <div class="pdf-preview" id="pdf-preview">
+          <iframe id="pdf-frame" title="Invoice preview"></iframe>
+        </div>
+        <div class="pdf-dl" id="pdf-dl">
+          <a id="pdf-download" class="btn-outline" style="display:inline-flex;align-items:center;gap:0.5rem;" download>⬇ Download Invoice PDF</a>
+        </div>
+
+        <div class="help-text" id="helpText">
+          Your Booking ID was included in your confirmation message. If you can't find it,
+          <a href="https://wa.me/84869922261" target="_blank" rel="noopener">contact us on WhatsApp</a>.
+        </div>
+      </div>
+      
+      <!-- Right Column: Google Review QR Codes -->
+      <div class="qr-section">
+        <h3 class="qr-title" id="qrTitle">Share your <em>experience</em></h3>
+        
+        <div class="qr-grid">
+          <!-- MiaCasa Hanoi QR -->
+          <div class="qr-item">
+            <div class="qr-code">
+              <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_1200/v1778776570/MiaCasa Hanoi-Google-Review-QR_mx8yzu.png" 
+                   alt="QR Code to review MiaCasa Hanoi on Google Maps"
+                   loading="lazy" decoding="async">
+            </div>
+            <h4 id="hanoiName">MiaCasa Hanoi</h4>
+            <p id="hanoiReviewText">Scan to leave a review</p>
+            <a href="https://search.google.com/local/writereview?placeid=ChIJP3C-1verNTERjQJE9F3-6OY&source=g.page.m._&laa=merchant-review-solicitation" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="review-btn" 
+               id="hanoiReviewBtn">⭐ Write a Review</a>
+          </div>
+          
+          <!-- MiaCasa Old Quarter QR -->
+          <div class="qr-item">
+            <div class="qr-code">
+              <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_1200/v1778776680/MiaCasa-OldQuarter-Google-Review-QR_mi4s2y.png" 
+                   alt="QR Code to review MiaCasa Old Quarter on Google Maps"
+                   loading="lazy" decoding="async">
+            </div>
+            <h4 id="oqName">MiaCasa Old Quarter</h4>
+            <p id="oqReviewText">Scan to leave a review</p>
+            <a href="https://search.google.com/local/writereview?placeid=ChIJO_-H3WyrNTER4SH8nRJN0hM&source=g.page.m._&laa=merchant-review-solicitation" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="review-btn" 
+               id="oqReviewBtn">⭐ Write a Review</a>
+          </div>
+        </div>
+        
+        <!-- Gentle reminder after invoice generation -->
+        <div class="review-reminder" id="reviewReminder" style="display: none;">
+          <p id="reminderText">✨ Loved your stay? Help other travelers find us — leave a Google review! ✨</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-our-stays">Our Stays</h4>
+                <ul>
+                    <li><a href="miacasa-hanoi.html" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
+                    <li><a href="miacasa-oldquarter.html" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
+                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-info">Information</h4>
+                <ul>
+                    <li><a href="our-story.html" data-t="footer-story">Our Story</a></li>
+                    <li><a href="blog.html" data-t="footer-blog">Blog</a></li>
+                    <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-contact-title">Contact</h4>
+                <ul>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
+                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span data-t="footer-copyright">© 2025 MiaCasa Homestays</span>
+            <span data-t="footer-made">Made with ♡ in Hanoi</span>
+        </div>
+    </div>
+</footer>
+
+<!-- External JavaScript -->
+<script src="/js/lang.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/invoice.js"></script>
+
+<script>
+// Complete translations for the invoice page
+const INVOICE_TRANSLATION_KEYS = {
+  "secInvoice": "invoice-sec-invoice",
+  "invTitle": "invoice-inv-title",
+  "invSubtitle": "invoice-inv-subtitle",
+  "lblBookingId": "invoice-lbl-booking-id",
+  "lblEmail": "invoice-lbl-email",
+  "placeholderBid": "invoice-placeholder-bid",
+  "placeholderEmail": "invoice-placeholder-email",
+  "errBid": "invoice-err-bid",
+  "errEmail": "invoice-err-email",
+  "btnGenerate": "invoice-btn-generate",
+  "loading": "invoice-loading",
+  "helpText": "invoice-help-text",
+  "downloadBtn": "invoice-download-btn",
+  "qrTitle": "invoice-qr-title",
+  "hanoiName": "invoice-hanoi-name",
+  "oqName": "invoice-oq-name",
+  "reviewText": "invoice-review-text",
+  "reviewBtn": "invoice-review-btn",
+  "reminderText": "invoice-reminder-text",
+  "nav-home": "nav-home",
+  "nav-hanoi": "nav-hanoi",
+  "nav-oq": "nav-oq",
+  "nav-story": "nav-story",
+  "nav-blog": "nav-blog",
+  "nav-contact": "nav-contact",
+  "nav-book-now": "nav-book-now",
+  "footer-brand-p": "footer-brand-p",
+  "footer-rating": "footer-rating",
+  "footer-our-stays": "footer-our-stays",
+  "footer-hanoi-link": "footer-hanoi-link",
+  "footer-oq-link": "footer-oq-link",
+  "footer-book-direct": "footer-book-direct",
+  "footer-info": "footer-info",
+  "footer-story": "footer-story",
+  "footer-blog": "footer-blog",
+  "footer-contact": "footer-contact",
+  "footer-contact-title": "footer-contact-title",
+  "footer-whatsapp": "footer-whatsapp",
+  "footer-call": "footer-call",
+  "footer-response": "footer-response",
+  "social-facebook": "social-facebook",
+  "social-instagram": "social-instagram",
+  "social-tiktok": "social-tiktok",
+  "footer-copyright": "footer-copyright",
+  "footer-made": "footer-made"
+};
+const INVOICE_TRANSLATIONS = window.buildMiaTranslations(INVOICE_TRANSLATION_KEYS);
+
+let currentInvoiceLang = 'en';
+
+function updateInvoiceTranslations(lang) {
+  const t = INVOICE_TRANSLATIONS[lang];
+  if (!t) return;
+  
+  // Update elements by ID
+  const elementIds = ['secInvoice', 'invTitle', 'invSubtitle', 'lblBookingId', 'lblEmail', 
+                      'err-booking-id', 'err-email', 'generateBtn', 'inv-loading', 'helpText', 
+                      'pdf-download', 'qrTitle', 'hanoiName', 'oqName', 'hanoiReviewText', 
+                      'oqReviewText', 'hanoiReviewBtn', 'oqReviewBtn', 'reminderText'];
+  
+  elementIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (id === 'invTitle' || id === 'qrTitle' || id === 'reminderText') {
+        el.innerHTML = t[id === 'invTitle' ? 'invTitle' : (id === 'qrTitle' ? 'qrTitle' : 'reminderText')];
+      } else if (id === 'hanoiReviewBtn' || id === 'oqReviewBtn') {
+        el.innerHTML = t.reviewBtn;
+      } else if (id === 'pdf-download') {
+        el.innerHTML = `⬇ ${t.downloadBtn}`;
+      } else if (id === 'inv-loading') {
+        el.innerHTML = t.loading;
+      } else if (id === 'helpText') {
+        el.innerHTML = t.helpText;
+      } else {
+        el.textContent = t[id === 'err-booking-id' ? 'errBid' : 
+                           (id === 'err-email' ? 'errEmail' :
+                           (id === 'generateBtn' ? 'btnGenerate' :
+                           (id === 'secInvoice' ? 'secInvoice' :
+                           (id === 'invSubtitle' ? 'invSubtitle' :
+                           (id === 'lblBookingId' ? 'lblBookingId' :
+                           (id === 'lblEmail' ? 'lblEmail' :
+                           (id === 'hanoiName' ? 'hanoiName' :
+                           (id === 'oqName' ? 'oqName' :
+                           (id === 'hanoiReviewText' ? 'reviewText' :
+                           (id === 'oqReviewText' ? 'reviewText' : id))))))))))];
+      }
+    }
+  });
+  
+  // Placeholders
+  const bookingInput = document.getElementById('inv-booking-id');
+  if (bookingInput) bookingInput.placeholder = t.placeholderBid;
+  const emailInput = document.getElementById('inv-email');
+  if (emailInput) emailInput.placeholder = t.placeholderEmail;
+  
+  // Navigation and footer data-t attributes
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key] && !el.querySelector('img')) el.textContent = t[key];
+  });
+}
+
+function switchLanguage(lang) {
+  currentInvoiceLang = lang;
+  localStorage.setItem('mia_lang', lang);
+  const enBtn = document.getElementById('lang-en');
+  const vnBtn = document.getElementById('lang-vn');
+  if (enBtn) enBtn.classList.toggle('active', lang === 'en');
+  if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
+  updateInvoiceTranslations(lang);
+}
+
+function showReviewReminder() {
+  const reminder = document.getElementById('reviewReminder');
+  if (reminder) {
+    reminder.style.display = 'block';
+    setTimeout(() => reminder.style.display = 'none', 10000);
+  }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('mia_lang') || 'en';
+  switchLanguage(savedLang);
+  
+  // Listen for invoice generation success
+  const observer = new MutationObserver(() => {
+    const successDiv = document.getElementById('inv-success');
+    if (successDiv && successDiv.style.display !== 'none' && successDiv.innerHTML) {
+      showReviewReminder();
+    }
+  });
+  
+  const successDiv = document.getElementById('inv-success');
+  if (successDiv) observer.observe(successDiv, { attributes: true, attributeFilter: ['style'] });
+});
+
+window.switchLanguage = switchLanguage;
+</script>
+
+<a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">💬</a>
+<a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
+
+<style>
+footer a:hover, .lang-btn:hover:not(.active) {
+  color: var(--terracotta) !important;
+  border-color: var(--terracotta);
+}
+</style>
+</body>
+</html>

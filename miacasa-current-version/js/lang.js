@@ -1,0 +1,3440 @@
+/**
+ * MiaCasa — Global Translation System (lang.js)
+ * Include this on every page BEFORE any page-specific scripts.
+ * 
+ * HTML elements use:
+ *   data-t="key"   → el.textContent = translation
+ *   data-th="key"  → el.innerHTML   = translation (for <em>, <br> etc.)
+ * 
+ * To add a new page: add keys here, add data-t/data-th to the HTML.
+ * setLang(lang) is global and persists via localStorage.
+ */
+
+const TRANSLATIONS = {
+  /* ── NAV (all pages) ──────────────────────────────────────────── */
+  'nav-home':        {en:'Home',                         vn:'Trang chủ', zh:'首页'},
+  'nav-hanoi':       {en:'MiaCasa Hanoi',                vn:'MiaCasa Hà Nội', zh:'MiaCasa Hanoi'},
+  'nav-oq':          {en:'MiaCasa Old Quarter',          vn:'MiaCasa Phố Cổ', zh:'MiaCasa Old Quarter'},
+  'nav-story':       {en:'Our Story',                    vn:'Câu chuyện', zh:'我们的故事'},
+  'nav-contact':     {en:'Contact Us',                   vn:'Liên hệ', zh:'联系我们'},
+  'nav-stays':       {en:'Stays',                        vn:'Chỗ nghỉ', zh:'住宿'},
+  'nav-book':        {en:'Book',                         vn:'Đặt phòng', zh:'预订'},
+  'nav-gallery':     {en:'Gallery',                      vn:'Ảnh', zh:'相册'},
+  'nav-about':       {en:'About',                        vn:'Giới thiệu', zh:'关于我们'},
+  'nav-rooms':       {en:'Rooms',                        vn:'Phòng', zh:'房间'},
+  'nav-apartment':   {en:'Apartment',                    vn:'Căn hộ', zh:'公寓'},
+  'nav-blog':        {en:'Blog',                         vn:'Nhật ký', zh:'博客'},
+  'nav-book-now':    {en:'Book Now',                     vn:'Đặt ngay', zh:'立即预订'},
+  'nav-amenities':   {en:'Amenities',                    vn:'Tiện nghi', zh:'设施'},
+  'nav-location':    {en:'Location',                     vn:'Vị trí', zh:'位置'},
+  'nav-rules':       {en:'Rules',                        vn:'Nội quy', zh:'入住须知'},
+  'nav-faq':         {en:'FAQ',                          vn:'Câu hỏi', zh:'常见问题'},
+  'nav-reviews':     {en:'Reviews',                      vn:'Đánh giá', zh:'评价'},
+  'sticky-book':     {en:'📅 Book Now',                  vn:'📅 Đặt ngay', zh:'📅 立即预订'},
+  'book-now-home':   {en:'Book Now →',                   vn:'Đặt ngay →', zh:'立即预订 →'},
+
+  /* ── HOMEPAGE HERO ────────────────────────────────────────────── */
+  'hero-tag':        {en:'Hanoi, Vietnam',               vn:'Hà Nội, Việt Nam', zh:'越南河内'},
+  'hero-h1':         {en:'Boutique Homestays<br>in <em>Hanoi</em>', vn:'Homestay Boutique<br>tại <em>Hà Nội</em>', zh:'位于<em>河内</em>的精品民宿'},
+  'hero-sub':        {
+                      en:'Warm, local stays in the heart of the city — perfect for couples, solo travelers, and small groups.',
+                      vn:'Chỗ nghỉ ấm áp, đậm chất địa phương — lý tưởng cho các cặp đôi, khách solo và nhóm nhỏ.',
+                      zh:'温馨且充满本地特色的住宿，位于城市中心，非常适合情侣、独自旅行者和小团体。'
+                     },
+  'hero-cta1':       {en:'View MiaCasa Hanoi',           vn:'Xem MiaCasa Hà Nội', zh:'查看 MiaCasa Hanoi'},
+  'hero-cta2':       {en:'View MiaCasa Old Quarter',     vn:'Xem MiaCasa Phố Cổ', zh:'查看 MiaCasa Old Quarter'},
+  'hero-cta3':       {en:'Explore Stays',                vn:'Khám phá chỗ nghỉ', zh:'探索住宿'},
+
+  /* ── HOMEPAGE WELCOME ─────────────────────────────────────────── */
+  'welcome-tag':     {en:'A Different Kind of Stay',     vn:'Trải nghiệm khác biệt', zh:'与众不同的住宿体验'},
+  'welcome-title':   {en:'A Different Kind<br>of <em>Stay</em>', vn:'Một Trải Nghiệm<br><em>Khác Biệt</em>', zh:'一种不同的<br><em>住宿体验</em>'},
+  'wl-p1':           {
+                      en:'At MiaCasa, we believe travel should feel personal, not transactional.',
+                      vn:'Tại MiaCasa, chúng tôi tin rằng du lịch nên mang tính cá nhân, không phải giao dịch.',
+                      zh:'在 MiaCasa，我们相信旅行应该是温暖且个性化的，而不仅仅是一场交易。'
+                     },
+  'wl-p2':           {
+                      en:'Our homes are designed to be comfortable, calm, and genuinely local — whether you are here for a short visit or a longer stay. Choose a <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">quiet room near Hanoi Railway Station</a>, or book our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">entire apartment in the Old Quarter</a>.',
+                      vn:'Những ngôi nhà được thiết kế để thoải mái, yên tĩnh và đậm chất địa phương — dù bạn ở ngắn hay dài ngày.',
+                      zh:'我们的住宿空间舒适、安静且充满本地特色，无论是短住还是长住都非常适合。您可以选择<a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">靠近河内火车站的安静房间</a>，或预订<a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">位于老城区的整套公寓</a>。'
+                     },
+  'wl-cta':          {en:'Learn about Our Story →',      vn:'Tìm hiểu câu chuyện của chúng tôi →', zh:'了解我们的故事 →'},
+
+  /* ── HOMEPAGE WHY BOOK DIRECT ─────────────────────────────────── */
+  'sec-direct':      {en:'Why Book Direct',              vn:'Tại sao đặt trực tiếp', zh:'为什么直接预订'},
+  'direct-title':    {en:'Better rates,<br><em>direct connection</em>', vn:'Giá tốt hơn,<br><em>kết nối trực tiếp</em>', zh:'更优惠的价格，<br><em>直接联系</em>'},
+  'direct-1':        {en:'Save 10–15% compared to booking platforms',  vn:'Tiết kiệm 10–15% so với các nền tảng đặt phòng', zh:'相比预订平台节省 10–15%'},
+  'direct-2':        {en:'Direct support via WhatsApp',                vn:'Hỗ trợ trực tiếp qua WhatsApp', zh:'通过 WhatsApp 直接联系'},
+  'direct-3':        {en:'Flexible check-in and personalized help',    vn:'Check-in linh hoạt và hỗ trợ cá nhân hoá', zh:'灵活入住与个性化帮助'},
+  'direct-4':        {en:'No hidden fees',                             vn:'Không phí ẩn', zh:'无隐藏费用'},
+  'direct-headline': {en:'📌 Why book direct with MiaCasa', vn:'📌 Tại sao đặt trực tiếp với MiaCasa', zh:'📌 为什么直接在 MiaCasa 预订'},
+  'direct-cta':      {en:'Same stay. Better price. Book direct.', vn:'Cùng một chỗ nghỉ. Giá tốt hơn. Đặt trực tiếp.', zh:'同样住宿，更优惠价格。直接预订。'},
+
+  /* ── HOMEPAGE BOOKING SECTION ─────────────────────────────────── */
+  'sec-book':        {en:'Reservations',                vn:'Đặt phòng', zh:'预订'},
+  'book-title':      {en:'Book Your Stay <em>Direct</em>', vn:'Đặt phòng <em>trực tiếp</em>', zh:'<em>直接</em>预订您的住宿'},
+  'book-sub':        {en:'Better rates. No platform fees. Instant confirmation.', vn:'Giá tốt hơn. Không phí nền tảng. Xác nhận ngay lập tức.', zh:'更优惠价格，无平台费用，即时确认。'},
+  'choose-stay':     {en:'Choose your stay',            vn:'Chọn chỗ nghỉ của bạn', zh:'选择您的住宿'},
+
+  // Add these to your lang.js translations object
+  // New translations for the updated selector
+  'choose-title': { en: 'Two Different Homes,<br><em>Choose Your Hanoi Experience</em>', vn: 'Hai Ngôi Nhà Khác Nhau,<br><em>Chọn Trải Nghiệm Hà Nội Của Bạn</em>', zh:'两种不同住宿，<br><em>选择您的河内体验</em>' },
+  'diff-addresses': { en: 'Different addresses', vn: 'Địa chỉ khác nhau', zh:'不同地址' },
+  'both-no-elevator': { en: 'No elevator in either property', vn: 'Không có thang máy ở cả hai chỗ nghỉ', zh:'两处住宿均无电梯' },
+  'oq-badge-1': { en: '🏠 ENTIRE APARTMENT', vn: '🏠 TOÀN BỘ CĂN HỘ', zh:'🏠 整套公寓' },
+  'oq-location': { en: 'Hoàn Kiếm · Old Quarter', vn: 'Hoàn Kiếm · Phố Cổ', zh:'还剑郡 · 老城区' },
+  'oq-feat1': { en: '🛏️ 3 queen beds · Sleeps up to 6', vn: '🛏️ 3 giường đôi · Ngủ tối đa 6 người', zh:'🛏️ 3 张大床 · 最多入住 6 人' },
+  'oq-feat2': { en: '🌿 Private terrace · Smart lock', vn: '🌿 Sân thượng riêng · Khóa thông minh', zh:'🌿 私人露台 · 智能门锁' },
+  'oq-feat3': { en: '🚶 2 min walk to Hoàn Kiếm Lake', vn: '🚶 Đi bộ 2 phút đến Hồ Hoàn Kiếm', zh:'🚶 步行 2 分钟到还剑湖' },
+  'oq-feat4': { en: '🔑 Private entrance — no shared spaces', vn: '🔑 Lối vào riêng — không gian riêng tư', zh:'🔑 独立入口 — 无共享空间' },
+  'h-badge-1': { en: '🛏️ PRIVATE ROOMS', vn: '🛏️ PHÒNG RIÊNG', zh:'🛏️ 独立房间' },
+  'h-location': { en: 'Đống Đa · Near Train Street', vn: 'Đống Đa · Gần Phố Tàu', zh:'栋多郡 · 靠近火车街' },
+  'h-feat1': { en: '🛏️ 3 private rooms · Up to 3 guests each', vn: '🛏️ 3 phòng riêng · Tối đa 3 khách mỗi phòng', zh:'🛏️ 3 间独立房间 · 每间最多 3 位客人' },
+  'h-feat2': { en: '🍳 Kitchenette · Free laundry', vn: '🍳 Bếp nhỏ · Giặt ủi miễn phí', zh:'🍳 小厨房 · 免费洗衣' },
+  'h-feat3': { en: '🚂 15 min walk to Train Street', vn: '🚂 Đi bộ 15 phút đến Phố Tàu', zh:'🚂 步行 15 分钟到火车街' },
+  'h-feat4': { en: '🏡 Quiet, local residential neighborhood', vn: '🏡 Khu phố yên tĩnh, địa phương', zh:'🏡 安静的本地社区' },
+  'from': { en: 'from', vn: 'từ', zh:'起' },
+  'per-night': { en: '₫ /night', vn: '₫ /đêm', zh:'₫ /晚' },
+  'instant-confirm': { en: '✓ Instant confirmation · ✓ Best rate', vn: '✓ Xác nhận ngay · ✓ Giá tốt nhất', zh:'✓ 即时确认 · ✓ 最优价格' },
+  'selector-oq-btn': { en: 'Book Entire Apartment →', vn: 'Đặt Toàn Bộ Căn Hộ →', zh:'预订整套公寓 →' },
+  'selector-h-btn': { en: 'Book a Room →', vn: 'Đặt Phòng →', zh:'预订房间 →' },
+  'which-for-you': { en: '🤔 Which property is right for you?', vn: '🤔 Chỗ nghỉ nào phù hợp với bạn?', zh:'🤔 哪个住宿更适合您？' },
+
+  // Update these existing ones if they don't match
+  'selector-oq-title': { en: 'MiaCasa Old Quarter', vn: 'MiaCasa Phố Cổ', zh:'MiaCasa Old Quarter' },
+  'selector-h-title': { en: 'MiaCasa Hanoi', vn: 'MiaCasa Hà Nội', zh:'MiaCasa Hanoi' },
+  'selector-oq-desc': { en: 'Hoàn Kiếm · Old Quarter', vn: 'Hoàn Kiếm · Phố Cổ', zh:'还剑郡 · 老城区' },
+  'selector-h-desc': { en: 'Đống Đa · Near Train Street', vn: 'Đống Đa · Gần Phố Tàu', zh:'栋多郡 · 靠近火车街' },
+
+  // UPDATE these in your lang.js (change the values)
+  'selector-oq-explore': { en: 'View Details →', vn: 'Xem chi tiết →', zh:'查看详情 →' },
+  'selector-h-explore': { en: 'View Details →', vn: 'Xem chi tiết →', zh:'查看详情 →' },
+
+  // Add these to your language object
+  'two-properties-tag': { en: 'Two Properties', vn: 'Hai Chỗ Nghỉ', zh:'两处住宿' },
+  'diff-addresses': { en: 'Different addresses', vn: 'Địa chỉ khác nhau', zh:'不同地址' },
+  'both-entire': { en: 'Both can be entire homes', vn: 'Cả hai đều có thể là toàn bộ nhà', zh:'两者都可整套预订' },
+  'oq-badge-1': { en: '🏠 ALWAYS AN ENTIRE APARTMENT', vn: '🏠 LUÔN LÀ TOÀN BỘ CĂN HỘ', zh:'🏠 始终为整套公寓' },
+  'oq-location': { en: 'Hoàn Kiếm · Old Quarter', vn: 'Hoàn Kiếm · Phố Cổ', zh:'还剑郡 · 老城区' },
+  'oq-feat4': { en: '🔑 Book the whole apartment — just for you', vn: '🔑 Đặt toàn bộ căn hộ — chỉ riêng bạn', zh:'🔑 整套公寓仅供您独享' },
+  'h-badge-1': { en: '🛏️ PRIVATE ROOMS OR ENTIRE HOME*', vn: '🛏️ PHÒNG RIÊNG HOẶC TOÀN BỘ NHÀ*', zh:'🛏️ 独立房间或整套住房*' },
+  'h-location': { en: 'Đống Đa · Near Train Street', vn: 'Đống Đa · Gần Phố Tàu', zh:'栋多郡 · 靠近火车街' },
+  'h-feat4': { en: '🔑 Book 1 room OR book all 3 for the whole home*', vn: '🔑 Đặt 1 phòng HOẶC đặt cả 3 để có toàn bộ nhà*', zh:'🔑 预订 1 间房或预订全部 3 间获得整套住房*' },
+  'note-title': { en: '📌 *About MiaCasa Hanoi:', vn: '📌 *Về MiaCasa Hà Nội:', zh:'📌 *关于 MiaCasa Hanoi：' },
+  'from': { en: 'from', vn: 'từ', zh:'起' },
+  /* ── HOUSE RULES ──────────────────────────────────────────────── */
+'sec-rules': {
+  en:'House Rules',
+  vn:'Nội quy',
+  zh:'入住须知'
+},
+'rules-title': {
+  en:'A few things to keep in <em>mind</em>',
+  vn:'Một vài điều cần <em>lưu ý</em>',
+  zh:'一些需要<em>注意</em>的事项'
+},
+'rules-sub': {
+  en:'To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.',
+  vn:'Để đảm bảo mọi người có kỳ lưu trú tuyệt vời, chúng tôi đề nghị khách tuân thủ các quy định đơn giản sau.',
+  zh:'为了确保每位客人都拥有愉快的住宿体验，请遵守以下简单规定。'
+},
+
+'rule-checkinout': {
+  en:'Check-in / Check-out',
+  vn:'Nhận / Trả phòng',
+  zh:'入住 / 退房'
+},
+'rule-cio-1': {
+  en:'Check-in from 2:00 PM (self check-in)',
+  vn:'Nhận phòng từ 14:00 (tự check-in)',
+  zh:'下午 2:00 起入住（自助入住）'
+},
+'rule-cio-2': {
+  en:'MiaCasa Hanoi: check-out by 12:00 PM (noon)',
+  vn:'MiaCasa Hanoi: trả phòng trước 12:00 (trưa)',
+  zh:'MiaCasa Hanoi：中午 12:00 前退房'
+},
+'rule-cio-3': {
+  en:'MiaCasaOldQuarter: check-out by 11:00 AM',
+  vn:'MiaCasaOldQuarter: trả phòng trước 11:00',
+  zh:'MiaCasa Old Quarter：上午 11:00 前退房'
+},
+'rule-cio-4': {
+  en:'Early/late check-in available on request',
+  vn:'Nhận / trả phòng sớm / muộn theo yêu cầu',
+  zh:'可根据要求安排提前入住或延迟退房'
+},
+'rule-cio-5': {
+  en:'Luggage storage available at MiaCasa Hanoi — longer durations may incur an extra charge',
+  vn:'Có thể gửi hành lý tại MiaCasa Hanoi — thời gian dài có thể tính thêm phí',
+  zh:'MiaCasa Hanoi 提供行李寄存服务，长时间寄存可能需额外收费'
+},
+
+'rule-noise': {
+  en:'Noise & Guests',
+  vn:'Tiếng ồn & Khách',
+  zh:'噪音与访客'
+},
+'rule-noise-1': {
+  en:'Quiet hours 10:00 PM – 7:00 AM',
+  vn:'Giờ yên tĩnh 22:00 – 7:00',
+  zh:'安静时段：晚上 10:00 至早上 7:00'
+},
+'rule-noise-2': {
+  en:'No unregistered overnight guests',
+  vn:'Không đón khách qua đêm chưa đăng ký',
+  zh:'未经登记不得留宿访客'
+},
+'rule-noise-3': {
+  en:'Be mindful of neighbours',
+  vn:'Tôn trọng hàng xóm',
+  zh:'请体谅邻居'
+},
+'rule-noise-4': {
+  en:'Groups of 4+ need prior notice',
+  vn:'Nhóm từ 4 người trở lên cần thông báo trước',
+  zh:'4 人及以上团体需提前通知'
+},
+
+'rule-smoking': {
+  en:'Smoking & Pets',
+  vn:'Hút thuốc & Thú cưng',
+  zh:'吸烟与宠物'
+},
+'rule-smoke-1': {
+  en:'No smoking indoors',
+  vn:'Không hút thuốc trong nhà',
+  zh:'室内禁止吸烟'
+},
+'rule-smoke-2': {
+  en:'Balcony/terrace smoking only',
+  vn:'Chỉ hút thuốc ở ban công / sân thượng',
+  zh:'仅可在阳台或露台吸烟'
+},
+'rule-smoke-3': {
+  en:'Pets welcome — additional charge applies, please inform the host in advance',
+  vn:'Chào đón thú cưng — phụ phí áp dụng, vui lòng báo chủ nhà trước',
+  zh:'欢迎宠物入住，需额外收费，请提前通知房东'
+},
+'rule-smoke-4': {
+  en:'Candles permitted with care',
+  vn:'Cho phép dùng nến cẩn thận',
+  zh:'可使用蜡烛，请注意安全'
+},
+
+'rule-propcare': {
+  en:'Property Care',
+  vn:'Bảo quản tài sản',
+  zh:'房屋维护'
+},
+'rule-prop-1': {
+  en:'Treat the space as your own home',
+  vn:'Đối xử với không gian như ngôi nhà của bạn',
+  zh:'请像对待自己家一样爱护房屋'
+},
+'rule-prop-2': {
+  en:'Report damages promptly',
+  vn:'Báo cáo hư hỏng ngay lập tức',
+  zh:'如有损坏请及时告知'
+},
+'rule-prop-3': {
+  en:'No shoes inside — slippers provided',
+  vn:'Không đi giày trong nhà — có dép',
+  zh:'室内请勿穿鞋，提供拖鞋'
+},
+'rule-prop-4': {
+  en:'Use designated rubbish bins',
+  vn:'Dùng thùng rác đúng nơi quy định',
+  zh:'请使用指定垃圾桶'
+},
+
+'rule-legal': {
+  en:'Legal Requirement',
+  vn:'Yêu cầu pháp lý',
+  zh:'法律要求'
+},
+'rule-legal-1': {
+  en:'Vietnamese law requires all guests to provide a copy of their passport or national ID',
+  vn:'Pháp luật Việt Nam yêu cầu tất cả khách phải cung cấp bản sao hộ chiếu hoặc CMND/CCCD',
+  zh:'根据越南法律，所有客人需提供护照或身份证复印件'
+},
+'rule-legal-2': {
+  en:'Please send a photo to the host via WhatsApp or email before or upon check-in',
+  vn:'Vui lòng gửi ảnh cho chủ nhà qua WhatsApp hoặc email trước hoặc khi nhận phòng',
+  zh:'请在入住前或入住时通过 WhatsApp 或电子邮件发送照片给房东'
+},
+'rule-legal-3': {
+  en:'Bookings cannot be confirmed without this document',
+  vn:'Đặt phòng không thể xác nhận nếu thiếu tài liệu này',
+  zh:'缺少该文件将无法确认预订'
+},
+'rule-legal-4': {
+  en:'Information is used solely for local authority registration',
+  vn:'Thông tin chỉ dùng để đăng ký với cơ quan chức năng địa phương',
+  zh:'信息仅用于当地政府登记'
+},
+
+'rule-payment': {
+  en:'Payments & Cancellation',
+  vn:'Thanh toán & Hủy phòng',
+  zh:'付款与取消政策'
+},
+'rule-pay-1': {
+  en:'Free cancellation up to 48h prior',
+  vn:'Miễn phí hủy trước 48 giờ',
+  zh:'入住前 48 小时可免费取消'
+},
+'rule-pay-2': {
+  en:'Bank transfer or PayPal accepted',
+  vn:'Chấp nhận chuyển khoản ngân hàng hoặc PayPal',
+  zh:'接受银行转账或 PayPal'
+},
+'rule-pay-3': {
+  en:'Security deposit for long stays',
+  vn:'Đặt cọc bảo đảm cho lưu trú dài ngày',
+  zh:'长期住宿需支付押金'
+},
+
+'rule-eco': {
+  en:'Eco Guidelines',
+  vn:'Hướng dẫn sinh thái',
+  zh:'环保建议'
+},
+'rule-eco-1': {
+  en:'Turn off A/C when leaving',
+  vn:'Tắt điều hoà khi ra ngoài',
+  zh:'离开时请关闭空调'
+},
+'rule-eco-2': {
+  en:'Mineral water provided (2 bottles per room per stay)',
+  vn:'Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)',
+  zh:'提供矿泉水（每间房每次入住 2 瓶）'
+},
+'rule-eco-3': {
+  en:'We minimise single-use plastics where possible',
+  vn:'Chúng tôi giảm thiểu đồ nhựa dùng một lần',
+  zh:'我们尽量减少一次性塑料使用'
+},
+'rule-eco-4': {
+  en:'Towel reuse encouraged',
+  vn:'Khuyến khích tái sử dụng khăn tắm',
+  zh:'鼓励重复使用毛巾'
+},
+
+
+
+  /* ── CONTACT FORM ─────────────────────────────────────────────── */
+'invoice-text':    {en:'Need an invoice for your stay?', vn:'Cần hóa đơn cho kỳ lưu trú của bạn?', zh:'需要您的住宿发票吗？'},
+'invoice-link':    {en:'Click here →', vn:'Bấm vào đây →', zh:'点击这里 →'},
+'cancel-text':     {en:'✈️ Need to cancel your booking?', vn:'✈️ Cần hủy đặt phòng?', zh:'✈️ 需要取消预订吗？'},
+'cancel-link':     {en:'Request cancellation →', vn:'Yêu cầu hủy →', zh:'申请取消 →'},
+'sec-contact':     {en:'Get in Touch', vn:'Liên hệ', zh:'联系我们'},
+'contact-title':   {en:"We'd love to <em>hear from you</em>", vn:'Chúng tôi rất mong <em>được nghe từ bạn</em>', zh:'我们很乐意<em>听到您的声音</em>'},
+'contact-sub':     {en:'Questions, special requests, or just want to say hello — reach out anytime.', vn:'Câu hỏi, yêu cầu đặc biệt, hoặc chỉ muốn chào hỏi — hãy liên hệ bất cứ lúc nào.', zh:'疑问、特殊要求，或只是想打个招呼 — 随时联系我们。'},
+'contact-findus':  {en:'Find us in Hanoi', vn:'Tìm chúng tôi tại Hà Nội', zh:'在河内找到我们'},
+'contact-whatsapp-lbl': {en:'WhatsApp / Phone', vn:'WhatsApp / Điện thoại', zh:'WhatsApp / 电话'},
+'contact-email-lbl': {en:'Email', vn:'Email', zh:'电子邮箱'},
+
+/* ── our-story.html ───────────────────────────────────────────── */
+'story-hero-em':    {en:'Story', vn:'Câu chuyện', zh:'故事'},
+'story-h-began':    {en:'How It Began', vn:'Mọi chuyện bắt đầu như thế nào', zh:'故事的开端'},
+'story-h-building': {en:'Building MiaCasa', vn:'Xây dựng MiaCasa', zh:'打造 MiaCasa'},
+'story-h-hosts':    {en:'Meet the Hosts', vn:'Gặp gỡ chủ nhà', zh:'认识房东'},
+'story-h-milestone':{en:'A Milestone of Guest Trust', vn:'Một cột mốc của niềm tin từ khách', zh:'客人信任的里程碑'},
+'story-h-different':{en:'What Makes MiaCasa Different', vn:'Điều gì làm MiaCasa khác biệt', zh:'MiaCasa 的不同之处'},
+'story-h-spaces':   {en:'Our Spaces', vn:'Không gian của chúng tôi', zh:'我们的空间'},
+'story-h-hanoi':    {en:'Building MiaCasa Hanoi', vn:'Xây dựng MiaCasa Hà Nội', zh:'打造 MiaCasa Hanoi'},
+'story-h-oq':       {en:'Creating MiaCasa Old Quarter', vn:'Tạo nên MiaCasa Phố Cổ', zh:'打造 MiaCasa Old Quarter'},
+'story-h-same':     {en:'What Stays the Same', vn:'Những điều vẫn không thay đổi', zh:'始终不变的部分'},
+'story-h-improving':{en:'Always Improving', vn:'Không ngừng cải thiện', zh:'不断提升'},
+
+/* ── FOOTER (shared across pages) ─────────────────────────────── */
+'footer-brand-desc': {
+  en:'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+  vn:'Hai homestay khác biệt tại Hà Nội — được tạo nên bằng sự tận tâm cho những du khách muốn một mái nhà thực sự, không chỉ là một chỗ ngủ.',
+  zh:'河内两处独特的民宿 — 为寻求真正家的旅行者用心打造，而不仅仅是一张床。'
+},
+'footer-stays':     {en:'Our Stays', vn:'Chỗ nghỉ', zh:'我们的住宿'},
+'footer-info':      {en:'Information', vn:'Thông tin', zh:'信息'},
+'footer-contact':   {en:'Contact', vn:'Liên hệ', zh:'联系方式'},
+'story-seo-cta-note': {
+  en:'Free cancellation · Instant confirmation · No platform fees',
+  vn:'Miễn phí hủy phòng · Xác nhận tức thì · Không phí nền tảng',
+  zh:'免费取消 · 即时确认 · 无平台费用'
+},
+'contact-response-lbl': {en:'Response time', vn:'Thời gian phản hồi', zh:'回复时间'},
+'contact-response-val': {
+  en:'Within 2 hours · 7am – 10pm ICT',
+  vn:'Trong vòng 2 giờ · 7h – 22h giờ Việt Nam',
+  zh:'2小时内回复 · 上午7点 – 晚上10点 (ICT)'
+},
+'hosts-tag': {en:'Your Hosts', vn:'Chủ nhà của bạn', zh:'您的房东'},
+'hosts-title': {
+  en:'Hosted by <em>Linh &amp; Ngọc</em>',
+  vn:'Được đón tiếp bởi <em>Linh &amp; Ngọc</em>',
+  zh:'由<em>Linh &amp; Ngọc</em>接待'
+},
+'hosts-desc': {
+  en:'Two friends who built every room themselves. Real people who answer your messages and care how your stay goes.',
+  vn:'Hai người bạn đã tự tay xây dựng từng căn phòng. Những con người thật sự luôn trả lời tin nhắn và quan tâm đến trải nghiệm lưu trú của bạn.',
+  zh:'两位朋友亲手打造了每一个房间。真实的人，回复您的消息并关心您的住宿体验。'
+},
+'hosts-story': {en:'Read our story →', vn:'Đọc câu chuyện của chúng tôi →', zh:'阅读我们的故事 →'},
+'urgency-signal': {
+  en:'🔥 Popular pick — booked most weekends this season',
+  vn:'🔥 Được yêu thích — thường kín phòng vào cuối tuần mùa này',
+  zh:'🔥 热门选择 — 本季多数周末已被预订'
+},
+
+/* ── CONTACT FORM LABELS ──────────────────────────────────────── */
+'lbl-cname':       {en:'Name', vn:'Họ và tên', zh:'姓名'},
+'lbl-cemail':      {en:'Email', vn:'Email', zh:'电子邮箱'},
+'lbl-cprop':       {en:'Property', vn:'Chỗ nghỉ', zh:'住宿'},
+'lbl-csubject':    {en:'Subject', vn:'Chủ đề', zh:'主题'},
+'lbl-cmsg':        {en:'Message', vn:'Tin nhắn', zh:'留言'},
+'ph-cname':        {en:'Your name', vn:'Tên của bạn', zh:'您的姓名'},
+'ph-cemail':       {en:'your@email.com', vn:'email@cuaban.com', zh:'您的电子邮箱'},
+'ph-cmsg':         {en:'Tell us how we can help...', vn:'Hãy cho chúng tôi biết chúng tôi có thể giúp gì...', zh:'告诉我们如何帮助您...'},
+'btn-whatsapp':    {en:'Send via WhatsApp →', vn:'Gửi qua WhatsApp →', zh:'通过 WhatsApp 发送 →'},
+'subject-booking': {en:'Booking Enquiry', vn:'Hỏi về đặt phòng', zh:'预订咨询'},
+'subject-special': {en:'Special Request', vn:'Yêu cầu đặc biệt', zh:'特殊要求'},
+'subject-calendar': {
+  en:'Calendar Sync / Channel Manager',
+  vn:'Đồng bộ lịch / Quản lý kênh',
+  zh:'日历同步 / 渠道管理'
+},
+'subject-other':   {en:'Other', vn:'Khác', zh:'其他'},
+'contact-confirm': {
+  en:'✓ Message sent! We\'ll be in touch soon.',
+  vn:'✓ Đã gửi tin nhắn! Chúng tôi sẽ liên hệ sớm.',
+  zh:'✓ 消息已发送！我们会尽快与您联系。'
+},
+'prop-hanoi':      {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội', zh:'MiaCasa 河内'},
+'prop-oldquarter': {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ', zh:'MiaCasa 老城区'},
+
+'captcha-label': {
+  en:'Security Check: What is {num1} + {num2}?',
+  vn:'Kiểm tra bảo mật: {num1} + {num2} bằng bao nhiêu?',
+  zh:'安全验证：{num1} + {num2} 等于多少？'
+},
+'captcha-placeholder': {
+  en:'Enter answer',
+  vn:'Nhập câu trả lời',
+  zh:'请输入答案'
+},
+'captcha-refresh': {
+  en:'⟳ Refresh',
+  vn:'⟳ Làm mới',
+  zh:'⟳ 刷新'
+},
+
+'whatsapp-link':   {en:'💬 WhatsApp', vn:'💬 WhatsApp', zh:'💬 WhatsApp'},
+'call-link':       {en:'📞 Call +84 869 922 261', vn:'📞 Gọi +84 869 922 261', zh:'📞 致电 +84 869 922 261'},
+
+/* ── FOOTER TRANSLATIONS ──────────────────────────────────────── */
+'footer-stays-title': {en:'Our Stays', vn:'Chỗ nghỉ', zh:'我们的住宿'},
+'footer-info-title': {en:'Information', vn:'Thông tin', zh:'信息'},
+'footer-also-title': {en:'Also on', vn:'Cũng có trên', zh:'也见于'},
+'footer-hanoi':    {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội', zh:'MiaCasa 河内'},
+'footer-oq':       {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ', zh:'MiaCasa 老城区'},
+'footer-book':     {en:'Book Direct', vn:'Đặt trực tiếp', zh:'直接预订'},
+'footer-avail':    {en:'Availability', vn:'Lịch trống', zh:'空房情况'},
+'footer-amenities': {en:'Amenities', vn:'Tiện nghi', zh:'设施'},
+'footer-rules':    {en:'House Rules', vn:'Nội quy', zh:'入住须知'},
+'footer-gallery':  {en:'Gallery', vn:'Thư viện ảnh', zh:'图库'},
+'footer-reviews':  {en:'Reviews', vn:'Đánh giá', zh:'评价'},
+'footer-tagline': {
+  en:'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+  vn:'Hai homestay độc đáo tại Hà Nội — được tạo nên bằng sự tận tâm cho những du khách muốn một mái nhà thực sự, không chỉ là một chỗ ngủ.',
+  zh:'河内两处独特的民宿 — 为寻求真正家的旅行者用心打造，而不仅仅是一张床。'
+},
+'footer-copy': {
+  en:'© 2025 MiaCasa Homestays. All rights reserved.',
+  vn:'© 2025 MiaCasa Homestays. Bảo lưu mọi quyền.',
+  zh:'© 2025 MiaCasa Homestays。版权所有。'
+},
+'footer-made': {
+  en:'Made with ♡ in Hanoi',
+  vn:'Được tạo nên với ♡ tại Hà Nội',
+  zh:'用♡在河内打造'
+},
+'footer-airbnb-h': {
+  en:'Airbnb – MiaCasa Hanoi',
+  vn:'Airbnb – MiaCasa Hà Nội',
+  zh:'Airbnb – MiaCasa 河内'
+},
+'footer-airbnb-oq': {
+  en:'Airbnb – MiaCasaOldQuarter',
+  vn:'Airbnb – MiaCasa Phố Cổ',
+  zh:'Airbnb – MiaCasa 老城区'
+},
+'footer-booking-h': {
+  en:'Booking.com – MiaCasa Hanoi',
+  vn:'Booking.com – MiaCasa Hà Nội',
+  zh:'Booking.com – MiaCasa 河内'
+},
+'footer-booking-oq': {
+  en:'Booking.com – MiaCasaOldQuarter',
+  vn:'Booking.com – MiaCasa Phố Cổ',
+  zh:'Booking.com – MiaCasa 老城区'
+},
+'footer-agoda-h': {
+  en:'Agoda – MiaCasa Hanoi',
+  vn:'Agoda – MiaCasa Hà Nội',
+  zh:'Agoda – MiaCasa 河内'
+},
+'footer-hanoi-title': {
+  en:'MiaCasa Hanoi',
+  vn:'MiaCasa Hà Nội',
+  zh:'MiaCasa 河内'
+},
+'footer-hanoi-address': {
+  en:'92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi, Vietnam',
+  vn:'92 Ngõ 51 Linh Quang, Văn Chương, Hà Nội, Việt Nam',
+  zh:'越南河内市栋多郡文社坊灵光巷51号92号'
+},
+'footer-oq-title': {
+  en:'MiaCasa Old Quarter',
+  vn:'MiaCasa Phố Cổ',
+  zh:'MiaCasa 老城区'
+},
+'footer-oq-address': {
+  en:'38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam',
+  vn:'38 Phố Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội, Việt Nam',
+  zh:'越南河内市还剑郡行帆坊梁玉眷街38号'
+},
+'footer-contact-title': {en:'Contact Us', vn:'Liên hệ', zh:'联系我们'},
+'footer-whatsapp': {
+  en:'WhatsApp +84 869 922 261',
+  vn:'WhatsApp +84 869 922 261',
+  zh:'WhatsApp +84 869 922 261'
+},
+'footer-call': {
+  en:'Call +84 869 922 261',
+  vn:'Gọi +84 869 922 261',
+  zh:'电话 +84 869 922 261'
+},
+'footer-response': {
+  en:'⏱️ Responses within 2 hours (7am - 10pm ICT)',
+  vn:'⏱️ Phản hồi trong vòng 2 giờ (7h - 22h giờ Việt Nam)',
+  zh:'⏱️ 2小时内回复（ICT时间 上午7点 - 晚上10点）'
+},
+
+  /* ── MIACASA HANOI PAGE ───────────────────────────────────────── */
+
+'h-tag': {
+  en:'MiaCasa Hanoi · Văn Miếu, Hanoi',
+  vn:'MiaCasa Hà Nội · Văn Miếu, Hà Nội'
+},
+
+'h-h1': {
+  en:'A Calm Stay Near<br><em>Hanoi Railway Station</em>',
+  vn:'Chỗ Nghỉ Yên Tĩnh Gần<br><em>Ga Hà Nội</em>'
+},
+
+'h-sub': {
+  en:'Located near Văn Miếu and the Train Street area — a peaceful base to explore Hanoi.',
+  vn:'Nằm gần Văn Miếu và khu vực Phố Tàu Hỏa — điểm xuất phát yên tĩnh để khám phá Hà Nội.'
+},
+
+'h-cta1': {
+  en:'Check Availability',
+  vn:'Kiểm tra lịch trống'
+},
+
+'h-cta2': {
+  en:'Book via WhatsApp',
+  vn:'Đặt qua WhatsApp'
+},
+
+'h-about-tag': {
+  en:'About the Stay',
+  vn:'Về chỗ nghỉ'
+},
+
+'h-about-title': {
+  en:'A quiet, local<br><em>stay in Hanoi</em>',
+  vn:'Chỗ nghỉ yên tĩnh,<br><em>đậm chất địa phương</em>'
+},
+
+'h-about-p1': {
+  en:"MiaCasa Hanoi is designed for travelers who want a quieter, more local experience while staying close to Hanoi's main attractions.",
+  vn:'MiaCasa Hanoi được thiết kế cho những du khách muốn trải nghiệm yên tĩnh, đậm chất địa phương hơn trong khi vẫn gần các điểm tham quan chính của Hà Nội.',
+  zh:'MiaCasa Hanoi 专为希望在靠近河内主要景点的同时，享受更安静、更本地化体验的旅客而设计。'
+},
+'h-about-p2': {
+  en:'Located near Hanoi Railway Station and Văn Miếu – Quốc Tử Giám, the property offers easy access to the Old Quarter without the constant noise and crowds.',
+  vn:'Nằm gần Ga Hà Nội và Văn Miếu – Quốc Tử Giám, chỗ nghỉ giúp dễ dàng tiếp cận Phố Cổ mà không có tiếng ồn và đông đúc liên tục.',
+  zh:'酒店靠近河内火车站和文庙-国子监，方便前往老城区，同时远离持续的噪音和人群。'
+},
+'h-about-p3': {
+  en:'Each room is thoughtfully designed with natural light, wooden accents, and a warm, minimalist aesthetic.',
+  vn:'Mỗi phòng được thiết kế tinh tế với ánh sáng tự nhiên, điểm nhấn gỗ và phong cách tối giản ấm áp.',
+  zh:'每间客房都经过精心设计，采用自然光线、木质装饰和温暖的极简美学。'
+},
+'h-who-1': {
+  en:'Couples looking for a calm stay',
+  vn:'Các cặp đôi tìm kiếm chỗ nghỉ yên tĩnh',
+  zh:'寻求宁静住宿的情侣'
+},
+'h-who-2': {
+  en:'Solo travelers and digital nomads',
+  vn:'Khách du lịch một mình và người làm việc từ xa',
+  zh:'独自旅行者和数字游民'
+},
+'h-who-3': {
+  en:'Guests who prefer local neighborhoods over tourist-heavy areas',
+  vn:'Khách thích khu dân cư địa phương hơn những khu vực đông khách du lịch',
+  zh:'偏爱本地社区而非旅游区的客人'
+},
+'h-room1': {
+  en:'🌸 Spring Room — light, airy, and calming',
+  vn:'🌸 Phòng Xuân — sáng, thoáng và thư thái',
+  zh:'🌸 春房 — 明亮、通风、宁静'
+},
+'h-room2': {
+  en:'☀️ Summer Room — warm tones with a cozy feel',
+  vn:'☀️ Phòng Hạ — tông màu ấm với cảm giác ấm cúng',
+  zh:'☀️ 夏房 — 暖色调，温馨舒适'
+},
+'h-room3': {
+  en:'🍂 Autumn Room — soft, relaxed, and restful',
+  vn:'🍂 Phòng Thu — nhẹ nhàng, thư giãn và nghỉ ngơi',
+  zh:'🍂 秋房 — 柔和、放松、宁静'
+},
+
+/* Room specification translations */
+
+'h-room-s1': {
+  en:'🛏 1 king bed · up to 3 guests',
+  vn:'🛏 1 giường King · tối đa 3 khách'
+},
+
+'h-room-s2': {
+  en:'🚿 En-suite bathroom',
+  vn:'🚿 Phòng tắm riêng'
+},
+
+'h-room-s3': {
+  en:'🍳 Private kitchenette · induction stove',
+  vn:'🍳 Bếp nhỏ riêng · bếp từ'
+},
+
+'h-room-s3-alt': {
+  en:'🍳 Private kitchenette · induction stove',
+  vn:'🍳 Bếp nhỏ riêng · bếp từ'
+},
+
+'h-room-s4': {
+  en:'📺 Netflix projector · AC · Fan',
+  vn:'📺 Máy chiếu Netflix · Điều hòa · Quạt'
+},
+
+'h-room-price': {
+  en:'From',
+  vn:'từ'
+},
+
+'h-amen-tag': {
+  en:"What's Included",
+  vn:'Tiện nghi'
+},
+
+'h-amen-title': {
+  en:'Every comfort,<br><em>thoughtfully provided</em>',
+  vn:'Mọi tiện nghi,<br><em>được chuẩn bị chu đáo</em>'
+},
+
+'h-am1': {
+  en:'High-speed WiFi',
+  vn:'WiFi tốc độ cao'
+},
+
+'h-am1s': {
+  en:'100 Mbps — great for remote work',
+  vn:'100 Mbps — phù hợp làm việc từ xa'
+},
+
+'h-am2': {
+  en:'Air conditioning & fan',
+  vn:'Điều hòa & quạt'
+},
+
+'h-am2s': {
+  en:'Climate control in every room',
+  vn:'Kiểm soát nhiệt độ trong mọi phòng'
+},
+
+'h-am3': {
+  en:'Ensuite private bathroom',
+  vn:'Phòng tắm riêng'
+},
+
+'h-am3s': {
+  en:'Premium toiletries & fluffy towels',
+  vn:'Đồ dùng vệ sinh cao cấp & khăn tắm mềm mại'
+},
+
+'h-am4': {
+  en:'In-room kitchenette',
+  vn:'Bếp nhỏ trong phòng'
+},
+
+'h-am4s': {
+  en:'Mini fridge, kettle & cooking basics',
+  vn:'Tủ lạnh mini, ấm đun nước & dụng cụ nấu ăn cơ bản'
+},
+
+'h-am5': {
+  en:'Self check-in 24h',
+  vn:'Tự nhận phòng 24h'
+},
+
+'h-am5s': {
+  en:'Code lockbox — arrive any time',
+  vn:'Hộp khóa mã — đến bất cứ lúc nào'
+},
+
+'h-am6': {
+  en:'Café downstairs',
+  vn:'Quán cà phê tầng dưới'
+},
+
+'h-am6s': {
+  en:'Your daily coffee ritual sorted',
+  vn:'Thói quen cà phê hằng ngày đã sẵn sàng'
+},
+
+'h-am7': {
+  en:'Local guide & curated map',
+  vn:'Hướng dẫn địa phương & bản đồ gợi ý'
+},
+
+'h-am7s': {
+  en:'Hidden gems, cafés & tips from the host',
+  vn:'Địa điểm bí mật, quán cà phê & mẹo từ chủ nhà'
+},
+
+'h-am8': {
+  en:'Free laundry',
+  vn:'Giặt ủi miễn phí'
+},
+
+'h-am8s': {
+  en:'Washing machine & dryer with detergent',
+  vn:'Máy giặt và máy sấy kèm bột giặt'
+},
+
+/* FINAL location section (duplicates resolved) */
+
+'h-loc-tag': {
+  en:'Location',
+  vn:'Vị trí'
+},
+
+'h-loc-title': {
+  en:'Near Train Street<br><em>& Old Quarter</em>',
+  vn:'Gần Phố Tàu<br><em>& Phố Cổ</em>'
+},
+
+'h-loc-addr': {
+  en:'📍 92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi',
+  vn:'📍 92 Ngõ 51 Ng. Linh Quang, Văn Chương, Hà Nội'
+},
+
+'h-loc-li1': {
+  en:'~15 min walk to Hanoi Train Street (Railway Street)',
+  vn:'~15 phút đi bộ đến Phố Tàu Hà Nội'
+},
+
+'h-loc-li2': {
+  en:'~12 min walk to Văn Miếu – Quốc Tử Giám (Temple of Literature)',
+  vn:'~12 phút đi bộ đến Văn Miếu – Quốc Tử Giám'
+},
+
+'h-loc-li3': {
+  en:'~10 min by Grab to the Old Quarter and Hoàn Kiếm Lake',
+  vn:'~10 phút đi Grab đến Phố Cổ và Hồ Hoàn Kiếm'
+},
+
+'h-loc-li4': {
+  en:'~14 min walk to Hanoi Railway Station (trains to Sapa, Hội An)',
+  vn:'~14 phút đi bộ đến Ga Hà Nội (tàu đi Sapa, Hội An)'
+},
+
+'h-loc-seo': {
+  en:'Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips. The neighbourhood of Văn Chương is quiet and residential — a welcome contrast to the buzzing streets of the Old Quarter. If you prefer to be right in the centre of Hàng Buồm and Hoàn Kiếm, our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter apartment</a> may suit you better.',
+  vn:'Ở gần Ga Hà Nội nghĩa là bạn chỉ cách Phố Cổ 5–10 phút, gần Văn Miếu – Quốc Tử Giám và thuận tiện cho việc đi tàu cũng như các chuyến đi trong ngày. Khu phố Văn Chương yên tĩnh và mang đậm tính dân cư — một sự tương phản dễ chịu với những con phố nhộn nhịp của Phố Cổ. Nếu bạn muốn ở ngay trung tâm Hàng Buồm và Hồ Hoàn Kiếm, căn hộ <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Phố Cổ</a> có thể phù hợp hơn với bạn.'
+},
+
+'h-book-tag': {
+  en:'Reservations',
+  vn:'Đặt phòng'
+},
+
+'h-book-title': {
+  en:'Book your <em>stay</em>',
+  vn:'Đặt <em>phòng ngay</em>'
+},
+
+'h-book-sub': {
+  en:'Book your stay in Hanoi direct — select your dates below or message us on WhatsApp for the best rate.',
+  vn:'Đặt phòng trực tiếp tại Hà Nội — chọn ngày bên dưới hoặc nhắn tin qua WhatsApp để có giá tốt nhất.'
+},
+
+'h-book-note': {
+  en:'From PRICE_PLACEHOLDER₫/night · Direct booking homestay Hanoi — best rate, no platform fees',
+  vn:'Từ PRICE_PLACEHOLDER₫/đêm · Đặt trực tiếp homestay Hà Nội — giá tốt nhất, không phí nền tảng'
+},
+
+'quiet-mornings': {
+  en:'☕ Quiet mornings away from traffic',
+  vn:'☕ Buổi sáng yên tĩnh, tránh xa tiếng xe cộ'
+},
+
+'live-like-local': {
+  en:'🏡 Live like a local in a real neighborhood',
+  vn:'🏡 Sống như người địa phương trong một khu dân cư thực thụ'
+},
+
+'slower-experience': {
+  en:'🌿 Slower, more personal Hanoi experience',
+  vn:'🌿 Trải nghiệm Hà Nội chậm rãi và mang tính cá nhân hơn'
+},
+
+'floating-book': {
+  en:'📅 Book Now',
+  vn:'📅 Đặt ngay'
+},
+
+'oquarter-summary-1': {
+  en:'In the heart of Old Quarter',
+  vn:'Giữa lòng Phố Cổ'
+},
+
+'oquarter-summary-2': {
+  en:'Walk to everything',
+  vn:'Đi bộ đến mọi nơi'
+},
+
+'oquarter-summary-3': {
+  en:'Rooftop terrace & BBQ',
+  vn:'Sân thượng & BBQ'
+},
+
+'oquarter-summary-4': {
+  en:'Best for groups & social travelers',
+  vn:'Phù hợp cho nhóm & du khách thích giao lưu'
+},
+
+'hero-h1-new': {
+  en:'Boutique stays in Hanoi,<br><em>designed for comfort & location</em>',
+  vn:'Chỗ nghỉ boutique tại Hà Nội,<br><em>thiết kế cho sự thoải mái & vị trí thuận tiện</em>'
+},
+
+'hero-sub-new': {
+  en:'Choose between vibrant Old Quarter energy or a quiet local retreat.',
+  vn:'Chọn giữa sự sôi động của Phố Cổ hoặc một nơi nghỉ dưỡng yên tĩnh đậm chất địa phương.'
+},
+
+'hero-check-dates': {
+  en:'Check your dates →',
+  vn:'Kiểm tra ngày của bạn →'
+},
+
+'hero-compare': {
+  en:'Compare properties',
+  vn:'So sánh chỗ nghỉ'
+},
+
+'h-cta-wa': {
+  en:'📱 Book via WhatsApp',
+  vn:'📱 Đặt qua WhatsApp'
+},
+
+'h-cta-av': {
+  en:'Check Availability',
+  vn:'Kiểm tra lịch trống'
+},
+
+'h-cross-name': {
+  en:'Also explore: MiaCasa Old Quarter',
+  vn:'Khám phá thêm: MiaCasa Phố Cổ'
+},
+
+'h-cross-sub': {
+  en:'Old Quarter · Hoan Kiem · Entire apartment for groups',
+  vn:'Phố Cổ · Hoàn Kiếm · Toàn bộ căn hộ cho nhóm'
+},
+
+'hanoi-trust-1': {
+  en:'🌿 Quiet local neighborhood near Train Street & Văn Miếu',
+  vn:'🌿 Khu dân cư yên tĩnh gần Phố Tàu & Văn Miếu'
+},
+
+'hanoi-trust-2': {
+  en:'🍳 Private rooms with kitchenette — ideal for longer stays',
+  vn:'🍳 Phòng riêng có bếp nhỏ — lý tưởng cho lưu trú dài ngày'
+},
+
+'hanoi-trust-3': {
+  en:'⭐ Highly rated for cleanliness, comfort & host support',
+  vn:'⭐ Được đánh giá cao về độ sạch sẽ, sự thoải mái & hỗ trợ từ chủ nhà'
+},
+
+  /* ── MIACASA OLD QUARTER PAGE ─────────────────────────────────── */
+
+'oq-tag': {
+  en:'MiaCasa Old Quarter · Hoan Kiem, Hanoi',
+  vn:'MiaCasa Phố Cổ · Hoàn Kiếm, Hà Nội'
+},
+
+'oq-h1': {
+  en:'Stay in the Heart<br><em>of Hoàn Kiếm</em>',
+  vn:'Ở Ngay Trung Tâm<br><em>Hoàn Kiếm</em>'
+},
+
+'oq-sub': {
+  en:"A full apartment in Hanoi's Old Quarter — perfect for groups and families.",
+  vn:'Toàn bộ căn hộ giữa Phố Cổ Hà Nội — lý tưởng cho nhóm bạn và gia đình.'
+},
+
+'oq-cta1': {
+  en:'Check Availability',
+  vn:'Kiểm tra lịch trống'
+},
+
+'oq-cta2': {
+  en:'Book via WhatsApp',
+  vn:'Đặt qua WhatsApp'
+},
+
+'oq-about-tag': {
+  en:'About the Stay',
+  vn:'Về chỗ nghỉ'
+},
+
+'oq-about-title': {
+  en:'In the vibrant<br><em>Old Quarter</em>',
+  vn:'Giữa lòng<br><em>Phố Cổ sôi động</em>'
+},
+
+'oq-about-p1': {
+  en:"Located in the vibrant Old Quarter, MiaCasa Old Quarter places you right in the center of Hanoi's culture, food, and nightlife.",
+  vn:'Nằm trong khu Phố Cổ sôi động, MiaCasa Phố Cổ đưa bạn đến ngay trung tâm văn hóa, ẩm thực và cuộc sống về đêm của Hà Nội.'
+},
+
+'oq-about-p2': {
+  en:'The apartment features three queen beds, making it ideal for families or small groups who want to stay together in one comfortable space.',
+  vn:'Căn hộ có ba giường Queen, lý tưởng cho gia đình hoặc nhóm nhỏ muốn ở cùng nhau trong một không gian thoải mái.'
+},
+
+'oq-about-p3': {
+  en:'Step outside and you are instantly surrounded by local cafés, street food, and historic streets.',
+  vn:'Chỉ cần bước ra ngoài là bạn đã được bao quanh bởi quán cà phê địa phương, đồ ăn đường phố và những con phố lịch sử.'
+},
+
+'oq-who-tag': {
+  en:'Perfect For',
+  vn:'Phù hợp cho'
+},
+
+'oq-who-title': {
+  en:'Who <em>stays here</em>',
+  vn:'Ai <em>phù hợp</em>'
+},
+
+'oq-who-1': {
+  en:'Families',
+  vn:'Gia đình'
+},
+
+'oq-who-2': {
+  en:'Groups of friends',
+  vn:'Nhóm bạn bè'
+},
+
+'oq-who-3': {
+  en:'Travelers who want to stay in the center of everything',
+  vn:'Du khách muốn ở ngay trung tâm mọi thứ'
+},
+
+'oq-apt-tag': {
+  en:'The Apartment',
+  vn:'Căn hộ'
+},
+
+'oq-apt-title': {
+  en:'Entire apartment,<br><em>yours alone</em>',
+  vn:'Toàn bộ căn hộ,<br><em>chỉ dành riêng cho bạn</em>'
+},
+
+'oq-apt-sub': {
+  en:'Complete privacy for your group — across two levels with an open terrace above the Old Quarter.',
+  vn:'Không gian riêng tư hoàn toàn cho nhóm của bạn — gồm hai tầng và sân thượng mở nhìn ra Phố Cổ.'
+},
+
+'oq-feat1': {
+  en:'3 queen beds',
+  vn:'3 giường Queen'
+},
+
+'oq-feat1s': {
+  en:'2 on main level + 1 attic bed — sleeps up to 6',
+  vn:'2 giường tầng chính + 1 giường gác mái — tối đa 6 khách'
+},
+
+'oq-feat2': {
+  en:'Open Terrace',
+  vn:'Sân thượng mở'
+},
+
+'oq-feat2s': {
+  en:'Your quiet corner above the Old Quarter',
+  vn:'Góc thư giãn riêng của bạn trên Phố Cổ'
+},
+
+'oq-feat3': {
+  en:'Smart Lock',
+  vn:'Khóa thông minh'
+},
+
+'oq-feat3s': {
+  en:'Keypad entry — arrive any time, no key needed',
+  vn:'Nhập mã để vào — đến bất cứ lúc nào, không cần chìa khóa'
+},
+
+'oq-amen-tag': {
+  en:"What's Included",
+  vn:'Tiện nghi'
+},
+
+'oq-amen-title': {
+  en:'Everything you need,<br><em>right here</em>',
+  vn:'Mọi thứ bạn cần,<br><em>ngay tại đây</em>'
+},
+
+'oq-amen-sub': {
+  en:'Everything you need for a comfortable stay in the heart of the Old Quarter.',
+  vn:'Mọi thứ bạn cần cho một kỳ nghỉ thoải mái ngay trung tâm Phố Cổ.'
+},
+
+'oq-am1': {
+  en:'High-speed WiFi',
+  vn:'WiFi tốc độ cao'
+},
+
+'oq-am1s': {
+  en:'100 Mbps — great for remote work',
+  vn:'100 Mbps — phù hợp làm việc từ xa'
+},
+
+'oq-am2': {
+  en:'Air conditioning',
+  vn:'Điều hòa'
+},
+
+'oq-am2s': {
+  en:'Climate control throughout',
+  vn:'Điều hòa toàn bộ căn hộ'
+},
+
+'oq-am3': {
+  en:'Full apartment access',
+  vn:'Toàn bộ căn hộ riêng'
+},
+
+'oq-am3s': {
+  en:'Complete privacy — just your group',
+  vn:'Riêng tư hoàn toàn — chỉ dành cho nhóm của bạn'
+},
+
+'oq-am4': {
+  en:'Open outdoor terrace',
+  vn:'Sân thượng ngoài trời'
+},
+
+'oq-am4s': {
+  en:'Your quiet corner above the Old Quarter',
+  vn:'Góc thư giãn riêng trên Phố Cổ'
+},
+
+'oq-am5': {
+  en:'Smart lock · Self check-in',
+  vn:'Khóa thông minh · Tự nhận phòng'
+},
+
+'oq-am5s': {
+  en:'Keypad entry — arrive any time',
+  vn:'Nhập mã — đến bất cứ lúc nào'
+},
+
+'oq-am6': {
+  en:'White noise machine',
+  vn:'Máy tạo tiếng ồn trắng'
+},
+
+'oq-am6s': {
+  en:'Helps mask street noise for better sleep',
+  vn:'Giúp giảm tiếng ồn đường phố để ngủ ngon hơn'
+},
+
+'oq-am7': {
+  en:'Street food at your door',
+  vn:'Ẩm thực đường phố ngay trước cửa'
+},
+
+'oq-am7s': {
+  en:'The best of Hanoi within walking distance',
+  vn:'Tinh hoa ẩm thực Hà Nội trong khoảng cách đi bộ'
+},
+
+'oq-am8': {
+  en:'Smart TV',
+  vn:'TV thông minh'
+},
+
+'oq-am8s': {
+  en:'Netflix & YouTube ready',
+  vn:'Sẵn sàng Netflix & YouTube'
+},
+
+/* ── LOCATION ───────────────────────────────────────── */
+
+'oq-loc-tag': {
+  en:'Location',
+  vn:'Vị trí'
+},
+
+'oq-loc-title': {
+  en:'Heart of<br><em>Hoan Kiem & Old Quarter</em>',
+  vn:'Trung tâm<br><em>Hoàn Kiếm & Phố Cổ</em>'
+},
+
+'oq-loc-addr': {
+  en:'📍 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi',
+  vn:'📍 38 Phố Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội'
+},
+
+'oq-loc-li1': {
+  en:'~5 min walk to Hoàn Kiếm Lake',
+  vn:'~5 phút đi bộ đến Hồ Hoàn Kiếm'
+},
+
+'oq-loc-li2': {
+  en:"~3 min walk to Lương Văn Can Street (Old Quarter's busiest street)",
+  vn:'~3 phút đi bộ đến phố Lương Văn Can (khu sầm uất của Phố Cổ)'
+},
+
+'oq-loc-li3': {
+  en:'~10 min walk to Đồng Xuân Market',
+  vn:'~10 phút đi bộ đến Chợ Đồng Xuân'
+},
+
+'oq-loc-li4': {
+  en:'~12 min by Grab to Hanoi Railway Station',
+  vn:'~12 phút đi Grab đến Ga Hà Nội'
+},
+
+'oq-loc-seo': {
+  en:'Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. If you prefer a quieter, residential base away from the tourist crowds, our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.',
+  vn:'Ở Hoàn Kiếm, bạn có thể dễ dàng đi bộ đến Hồ Hoàn Kiếm, khám phá chợ đêm và ẩm thực đường phố, đồng thời tận hưởng trọn vẹn không khí Phố Cổ. Nếu bạn thích một nơi yên tĩnh hơn, mang tính địa phương và tránh xa đám đông du lịch, các phòng <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hà Nội gần Phố Tàu</a> sẽ là lựa chọn phù hợp.'
+},
+
+'oq-book-tag': {
+  en:'Reservations',
+  vn:'Đặt phòng'
+},
+
+'oq-book-title': {
+  en:'Book your <em>stay</em>',
+  vn:'Đặt <em>phòng ngay</em>'
+},
+
+'oq-book-sub': {
+  en:'Book this Old Quarter apartment direct — check availability below or message us for the best rate.',
+  vn:'Đặt trực tiếp căn hộ Phố Cổ — kiểm tra lịch trống bên dưới hoặc nhắn qua WhatsApp để nhận giá tốt nhất.'
+},
+
+'oq-book-note': {
+  en:'From PRICE_PLACEHOLDER₫/night · Apartment in Old Quarter Hanoi for rent — direct booking, best price guaranteed',
+  vn:'Từ PRICE_PLACEHOLDER₫/đêm · Căn hộ Phố Cổ Hà Nội — đặt trực tiếp, giá tốt nhất'
+},
+
+'oq-cta-wa': {
+  en:'📱 Book via WhatsApp',
+  vn:'📱 Đặt qua WhatsApp'
+},
+
+'oq-cta-av': {
+  en:'Check Availability',
+  vn:'Kiểm tra lịch trống'
+},
+
+'oq-cross-name': {
+  en:'Also explore: MiaCasa Hanoi',
+  vn:'Khám phá thêm: MiaCasa Hà Nội'
+},
+
+'oq-cross-sub': {
+  en:'Near Train Street · Private rooms · Ideal for couples & solo travellers',
+  vn:'Gần Phố Tàu · Phòng riêng · Lý tưởng cho cặp đôi & khách đi một mình'
+},
+
+'oquarter-trust-1': {
+  en:'📍 Right in the heart of the Old Quarter — walk everywhere',
+  vn:'📍 Ngay trung tâm Phố Cổ — dễ dàng đi bộ khắp nơi'
+},
+
+'oquarter-trust-2': {
+  en:'🏠 Spacious apartment with private terrace',
+  vn:'🏠 Căn hộ rộng rãi với sân thượng riêng'
+},
+
+'oquarter-trust-3': {
+  en:'⭐ Highly rated by guests for location & hosting',
+  vn:'⭐ Được khách đánh giá cao về vị trí & trải nghiệm lưu trú'
+},
+
+'oquarter-authentic': {
+  en:"🏙️ In the heart of Hanoi's Old Quarter — lively evenings and real city energy. Best suited for guests who want to experience Hanoi, not escape it.",
+  vn:'🏙️ Giữa lòng Phố Cổ Hà Nội — nhộn nhịp về đêm và tràn đầy năng lượng thành phố. Phù hợp nhất với những ai muốn thực sự trải nghiệm Hà Nội.'
+},
+
+'oldquarter-notice': {
+  en:'⚠ Heads up: The neighbourhood is lively and can be noisy at night. Access is via steep stairs — not ideal for young children, elderly guests, or anyone with mobility concerns.',
+  vn:'⚠ Lưu ý: Khu vực khá sôi động và có thể ồn vào ban đêm. Lối lên bằng cầu thang dốc — không phù hợp với trẻ nhỏ, người lớn tuổi hoặc khách gặp khó khăn khi di chuyển.'
+},
+
+  /* ── OUR STORY PAGE ────────────────────────────────────────────── */
+/* ── ADDITIONAL CONTACT FORM & FOOTER TRANSLATIONS ─────────────── */
+
+'prop-hanoi': {
+  en:'MiaCasa Hanoi',
+  vn:'MiaCasa Hà Nội',
+  zh:'MiaCasa 河内'
+},
+
+'prop-oldquarter': {
+  en:'MiaCasa Old Quarter',
+  vn:'MiaCasa Phố Cổ',
+  zh:'MiaCasa 河内老城区'
+},
+
+'captcha-label': {
+  en:'Security Check: What is {num1} + {num2}?',
+  vn:'Kiểm tra bảo mật: {num1} + {num2} bằng bao nhiêu?',
+  zh:'安全验证：{num1} + {num2} 等于多少？'
+},
+
+'captcha-placeholder': {
+  en:'Enter answer',
+  vn:'Nhập câu trả lời',
+  zh:'请输入答案'
+},
+
+'captcha-refresh': {
+  en:'⟳ Refresh',
+  vn:'⟳ Làm mới',
+  zh:'⟳ 刷新'
+},
+
+'whatsapp-link': {
+  en:'💬 WhatsApp',
+  vn:'💬 WhatsApp',
+  zh:'💬 WhatsApp'
+},
+
+'call-link': {
+  en:'📞 Call +84 869 922 261',
+  vn:'📞 Gọi +84 869 922 261',
+  zh:'📞 致电 +84 869 922 261'
+},
+
+'footer-brand-p': {
+  en:'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+  vn:'Hai homestay độc đáo tại Hà Nội — được tạo ra với tình yêu cho những du khách muốn có một ngôi nhà thực sự, không chỉ là một chỗ ngủ.',
+  zh:'河内两处独特的民宿——为希望拥有真正家的旅客用心打造，而不仅仅是一张床。'
+},
+
+'footer-rating': {
+  en:'⭐ 4.9★ · 200+ happy guests',
+  vn:'⭐ 4.9★ · Hơn 200 khách hài lòng',
+  zh:'⭐ 4.9★ · 200+ 位满意住客'
+},
+
+'footer-our-stays': {
+  en:'Our Stays',
+  vn:'Chỗ ở của chúng tôi',
+  zh:'我们的住宿'
+},
+
+'footer-hanoi-link': {
+  en:'MiaCasa Hanoi',
+  vn:'MiaCasa Hà Nội',
+  zh:'MiaCasa 河内'
+},
+
+'footer-oq-link': {
+  en:'MiaCasa Old Quarter',
+  vn:'MiaCasa Phố Cổ',
+  zh:'MiaCasa 河内老城区'
+},
+
+'footer-book-direct': {
+  en:'Book Direct',
+  vn:'Đặt trực tiếp',
+  zh:'直接预订'
+},
+
+'footer-info': {
+  en:'Information',
+  vn:'Thông tin',
+  zh:'信息'
+},
+
+'footer-story': {
+  en:'Our Story',
+  vn:'Câu chuyện của chúng tôi',
+  zh:'我们的故事'
+},
+
+'footer-blog': {
+  en:'Blog',
+  vn:'Blog',
+  zh:'博客'
+},
+
+'footer-contact': {
+  en:'Contact',
+  vn:'Liên hệ',
+  zh:'联系我们'
+},
+
+'social-facebook': {
+  en:'Facebook',
+  vn:'Facebook',
+  zh:'Facebook'
+},
+
+'social-instagram': {
+  en:'Instagram',
+  vn:'Instagram',
+  zh:'Instagram'
+},
+
+'social-tiktok': {
+  en:'TikTok',
+  vn:'TikTok',
+  zh:'TikTok'
+},
+
+'footer-copyright': {
+  en:'© 2025 MiaCasa Homestays',
+  vn:'© 2025 MiaCasa Homestays',
+  zh:'© 2025 MiaCasa Homestays'
+},
+
+'story-hero-title': {
+  en:'How MiaCasa Began',
+  vn:'Hành trình bắt đầu của MiaCasa',
+  zh:'MiaCasa 的起源'
+},
+
+'story-hero-subtitle': {
+  en:'A small idea, built with care in Hanoi',
+  vn:'Một ý tưởng nhỏ, được xây dựng với sự chăm chút tại Hà Nội',
+  zh:'一个小小的想法，在河内被用心打造'
+},
+
+'story-tag': {
+  en:'MiaCasa Homestays',
+  vn:'MiaCasa Homestays',
+  zh:'MiaCasa 民宿'
+},
+
+'story-h1': {
+  en:'Our <em>Story</em>',
+  vn:'Câu Chuyện<br><em>Của Chúng Tôi</em>',
+  zh:'我们的<br><em>故事</em>'
+},
+
+'story-lead': {
+  en:'MiaCasa didn\'t start as a business. It started as an idea of home.',
+  vn:'MiaCasa không bắt đầu như một công việc kinh doanh. Nó bắt đầu từ một ý tưởng về cảm giác như ở nhà.',
+  zh:'MiaCasa 并非始于一门生意，而是始于“家”的想法。'
+},
+
+'story-back': {
+  en:'← Back to MiaCasa Homestays',
+  vn:'← Quay lại MiaCasa Homestays',
+  zh:'← 返回 MiaCasa 民宿'
+},
+
+'story-p1': {
+  en:'When we first thought about opening a homestay in Hanoi, the goal wasn\'t to build something big or commercial. It was simple — to create a space that felt calm, lived-in, and real. A place where someone arriving in a new city could actually feel at ease.',
+  vn:'Khi chúng tôi lần đầu nghĩ đến việc mở một homestay tại Hà Nội, mục tiêu không phải là xây dựng một nơi thật lớn hay mang tính thương mại. Rất đơn giản — chúng tôi muốn tạo ra một không gian yên tĩnh, có cảm giác "sống thật", nơi mà bất kỳ ai đến một thành phố mới cũng có thể cảm thấy thoải mái.',
+  zh:'当我们第一次想到在河内开设民宿时，目标并不是打造一家大型商业住宿。我们的想法很简单——创造一个平静、真实、充满生活感的空间，让初到陌生城市的人真正感到安心。'
+},
+
+'story-mobile-line1': {
+  en:'MiaCasa is a small homestay in Hanoi, built by locals who care deeply about how a <strong>place</strong> feels.',
+  vn:'MiaCasa là một homestay nhỏ tại Hà Nội, được xây dựng bởi người địa phương, những người quan tâm sâu sắc đến cảm giác của <strong>không gian</strong>.',
+  zh:'MiaCasa 是河内一家小型民宿，由真正关心<strong>空间感受</strong>的当地人打造。'
+},
+
+'story-mobile-line2': {
+  en:'Whether it\'s a quiet room near the train station or a full apartment in the Old Quarter, every stay is designed with intention.',
+  vn:'Dù là căn phòng yên tĩnh gần ga tàu hay toàn bộ căn hộ ở Phố Cổ, mỗi kỳ lưu trú đều được thiết kế có chủ ý.',
+  zh:'无论是靠近火车站的安静房间，还是老城区的整套公寓，每一次入住都经过用心设计。'
+},
+
+'story-mobile-line3': {
+  en:'What started as a simple idea grew into two distinct homes in Hanoi.',
+  vn:'Một ý tưởng nhỏ giản đơn đã phát triển thành hai không gian sống khác biệt tại Hà Nội.',
+  zh:'一个简单的想法，逐渐发展成河内两处独特的住所。'
+},
+
+'story-mobile-line4': {
+  en:'One is in the quieter Văn Miếu area.',
+  vn:'Một ở khu Văn Miếu yên tĩnh.',
+  zh:'其中一处位于较安静的文庙区域。'
+},
+
+'story-mobile-line5': {
+  en:'The other sits in the heart of the Old Quarter.',
+  vn:'Một ở giữa lòng Phố Cổ sôi động.',
+  zh:'另一处位于热闹老城区的中心。'
+},
+
+'story-mobile-line6': {
+  en:'Stay near Văn Miếu for a calm, local atmosphere.',
+  vn:'Ở gần Văn Miếu để tận hưởng bầu không khí yên bình, đậm chất địa phương.',
+  zh:'选择文庙附近，享受安静而充满本地氛围的住宿体验。'
+},
+
+'story-mobile-line7': {
+  en:'Or choose the Old Quarter if you want to be in the center of everything.',
+  vn:'Hoặc chọn Phố Cổ nếu bạn muốn ở ngay trung tâm mọi hoạt động.',
+  zh:'如果想身处一切中心，也可以选择老城区。'
+},
+
+'story-mobile-line8': {
+  en:'This was never meant to be just a place to stay.',
+  vn:'Đây không chỉ đơn thuần là một nơi để ngủ.',
+  zh:'这里从来不只是一个睡觉的地方。'
+},
+  'story-mobile-line9': {
+  en:'It\'s meant to feel calm, thoughtful, and genuinely lived in.',
+  vn:'Đó là nơi bạn cảm thấy bình yên, được chăm chút, và thực sự như sống trong chính ngôi nhà của mình.',
+  zh:'它旨在让人感到平静、用心，并真正拥有家的生活感。'
+},
+'story-p1-line1':  {
+  en:'When we first thought about opening a homestay in Hanoi,',
+  vn:'Khi chúng tôi lần đầu nghĩ đến việc mở một homestay tại Hà Nội,',
+  zh:'当我们第一次想到在河内开设一家民宿时，'
+},
+'story-p1-line2':  {
+  en:'the goal wasn\'t to build something big or commercial.',
+  vn:'mục tiêu không phải là xây dựng một nơi thật lớn hay mang tính thương mại.',
+  zh:'我们的目标并不是打造一个庞大或商业化的项目。'
+},
+'story-p1-line3':  {
+  en:'It was simple — to create a space that felt calm, lived-in, and real.',
+  vn:'Rất đơn giản — chúng tôi muốn tạo ra một không gian yên tĩnh, có cảm giác "sống thật".',
+  zh:'我们的想法很简单——打造一个让人感到平静、有生活气息且真实的空间。'
+},
+'story-p1-line4':  {
+  en:'A place where someone arriving in a new city could actually feel at ease.',
+  vn:'Một nơi mà bất kỳ ai đến một thành phố mới cũng có thể cảm thấy thoải mái.',
+  zh:'一个让初到陌生城市的人真正感到安心自在的地方。'
+},
+'story-quote':     {
+  en:'Not a hotel. Not just a listing. A home.',
+  vn:'Không phải khách sạn. Không chỉ là một chỗ ở. Mà là một ngôi nhà.',
+  zh:'不是酒店。也不只是一个住宿选择。而是一个家。'
+},
+'story-convert':   {
+  en:'If this feels like the kind of place you\'d want to stay in Hanoi, you can explore our spaces below.',
+  vn:'Nếu bạn cảm thấy đây là nơi phù hợp cho chuyến đi của mình, bạn có thể khám phá các không gian của MiaCasa bên dưới.',
+  zh:'如果这里正是您在河内想入住的地方，欢迎在下方探索我们的空间。'
+},
+'story-hanoi-subtitle': {
+  en:'Quiet neighborhood · Close to Văn Miếu & Train Street',
+  vn:'Khu phố yên tĩnh · Gần Văn Miếu & Phố Tàu',
+  zh:'安静社区 · 靠近文庙与火车街'
+},
+'story-oq-subtitle': {
+  en:'Right in the center · Walk to Hoàn Kiếm Lake',
+  vn:'Ngay trung tâm · Đi bộ đến Hồ Hoàn Kiếm',
+  zh:'位于市中心 · 步行可达还剑湖'
+},
+'story-seo-1':     {
+  en:'MiaCasa is a small homestay in Hanoi built by locals who care deeply about how a space feels — whether it\'s a quiet room near the Train Station or a full apartment in the Old Quarter.',
+  vn:'MiaCasa là một homestay nhỏ tại Hà Nội, được xây dựng bởi những người địa phương luôn quan tâm đến cảm giác không gian — dù là phòng yên tĩnh gần Ga Hà Nội hay căn hộ trọn vẹn ở Phố Cổ.',
+  zh:'MiaCasa 是一家位于河内的小型民宿，由关心居住体验的本地人打造——无论是靠近火车站的安静房间，还是位于老城区的整套公寓。'
+},
+'story-seo-2':     {
+  en:'MiaCasa is a locally run homestay in Hanoi designed for travelers looking for a more personal stay — away from crowded tourist zones, close to local life.',
+  vn:'MiaCasa là homestay địa phương tại Hà Nội, được thiết kế cho du khách muốn trải nghiệm cá nhân hơn — xa khu du lịch đông đúc, gần cuộc sống thực của người dân.',
+  zh:'MiaCasa 是一家由本地经营的河内民宿，专为寻求更个性化住宿体验的旅客打造——远离拥挤景区，更贴近本地生活。'
+},
+'story-seo-3':     {
+  en:'What started as a small idea has grown into two distinct homestays in Hanoi — one in the quieter Văn Miếu area, and one in the heart of the Old Quarter.',
+  vn:'Một ý tưởng nhỏ đã phát triển thành hai homestay riêng biệt tại Hà Nội — một ở khu vực Văn Miếu yên tĩnh, và một ở trung tâm Phố Cổ.',
+  zh:'一个小小的想法，逐渐发展成河内两家风格不同的民宿——一家位于宁静的文庙区域，另一家位于热闹的老城区中心。'
+},
+'story-seo-4':     {
+  en:'Today, MiaCasa includes two homestays in Hanoi — one near Văn Miếu for a quieter stay, and one in the Old Quarter for those who want to be in the center of everything.',
+  vn:'Hôm nay, MiaCasa bao gồm hai homestay tại Hà Nội — một gần Văn Miếu cho kỳ nghỉ yên tĩnh, và một ở Phố Cổ cho những ai muốn ở trung tâm mọi thứ.',
+  zh:'如今，MiaCasa 在河内拥有两家民宿——一家靠近文庙，适合安静入住；另一家位于老城区，适合喜欢热闹中心地段的旅客。'
+},
+'story-how-title': {
+  en:'How It Began',
+  vn:'Mọi thứ bắt đầu như thế nào',
+  zh:'故事的开始'
+},
+'story-how-p1':    {
+  en:'The first space we worked on became what is now MiaCasa Hanoi.',
+  vn:'Không gian đầu tiên mà chúng tôi thực hiện chính là MiaCasa Hanoi.',
+  zh:'我们打造的第一个空间，后来成为了今天的 MiaCasa Hanoi。'
+},
+'story-how-p2':    {
+  en:'It wasn\'t perfect. The walls needed painting. The furniture was chosen piece by piece. Some things were changed more than once. It took time, effort, and a lot of small decisions that no one really sees.',
+  vn:'Nó không hoàn hảo ngay từ đầu. Tường cần sơn lại, nội thất được chọn từng món một, có những thứ phải thay đổi nhiều lần. Tất cả mất thời gian, công sức, và rất nhiều quyết định nhỏ mà không ai thấy.',
+  zh:'一开始并不完美。墙面需要重新粉刷，家具是一件件精心挑选的，有些东西甚至修改了不止一次。这花费了大量时间、精力，以及许多别人看不见的小决定。'
+},
+'story-how-p3':    {
+  en:'But that was the point. We didn\'t want to rush it. We wanted it to feel right.',
+  vn:'Nhưng đó chính là điều chúng tôi mong muốn. Chúng tôi không làm vội. Chúng tôi muốn làm cho đúng.',
+  zh:'但这正是我们的初衷。我们不想仓促完成，而是希望一切都恰到好处。'
+},
+'story-building-title': {
+  en:'Building MiaCasa',
+  vn:'Xây dựng MiaCasa',
+  zh:'打造 MiaCasa'
+},
+'story-building-p1': {
+  en:'Creating a space that feels like home doesn\'t happen overnight.',
+  vn:'Tạo ra một không gian có cảm giác như ở nhà không phải là chuyện một sớm một chiều.',
+  zh:'打造一个有“家”感觉的空间，并不是一夜之间完成的。'
+},
+'story-building-p1b': {
+  en:'It happens piece by piece, decision by decision.',
+  vn:'Nó được hình thành từng chút một, từng quyết định nhỏ.',
+  zh:'它是一点一点、一个决定接一个决定慢慢成形的。'
+},
+'story-before-title': {
+  en:'Before',
+  vn:'Trước',
+  zh:'之前'
+},
+'story-before-desc': {
+  en:'Empty walls. Raw space. A blank canvas.',
+  vn:'Tường trống. Không gian thô. Một bức tranh trống.',
+  zh:'空白的墙面，未经装饰的空间，一张等待描绘的画布。'
+},
+'story-messy-title': {
+  en:'Messy Stage',
+  vn:'Giai đoạn lộn xộn',
+  zh:'施工阶段'
+},
+'story-messy-desc': {
+  en:'Paint, tools, dust — real process.',
+  vn:'Sơn, dụng cụ, bụi — quá trình thực sự.',
+  zh:'油漆、工具、灰尘——真实的打造过程。'
+},
+'story-furniture-title': {
+  en:'Furniture Arriving',
+  vn:'Bàn ghế đến',
+  zh:'家具进场'
+},
+'story-furniture-desc': {
+  en:'Piece by piece, choice by choice.',
+  vn:'Từng món một, từng lựa chọn.',
+  zh:'一件一件挑选，一步一步完成。'
+},
+'story-during-title': {
+  en:'During',
+  vn:'Trong quá trình',
+  zh:'进行中'
+},
+'story-during-desc': {
+  en:'Painting. Arranging. Making it ours.',
+  vn:'Sơn tường. Sắp xếp. Biến nó thành của chúng tôi.',
+  zh:'粉刷、布置，让它真正成为我们的空间。'
+},
+'story-after-title': {
+  en:'Almost Finished',
+  vn:'Gần hoàn thiện',
+  zh:'接近完成'
+},
+'story-after-desc': {
+  en:'Warm, calm, and ready.',
+  vn:'Ấm áp, yên tĩnh và sẵn sàng.',
+  zh:'温暖、安静，并准备迎接客人。'
+},
+'story-pause-1':   {
+  en:'Slowly. Carefully. One detail at a time.',
+  vn:'Chậm rãi. Cẩn trọng. Từng chi tiết một.',
+  zh:'慢慢地、细心地，一次专注一个细节。'
+},
+'story-pause-2':   {
+  en:'Piece by piece. Choice by choice.',
+  vn:'Từng món một. Từng lựa chọn.',
+  zh:'一步一步，一个选择接着一个选择。'
+},
+'story-mission':   {
+  en:'They didn\'t just want to create a place to stay — they wanted to create a space that feels calm, thoughtful, and genuinely lived in.',
+  vn:'Họ không chỉ muốn tạo ra một nơi để ở — họ muốn tạo ra một không gian yên tĩnh, có chiều sâu và cảm giác thực sự sống động.',
+  zh:'他们不仅仅想打造一个住宿空间，更希望创造一个让人感到平静、用心且真正有生活气息的地方。'
+},
+'story-hosts-title': {
+  en:'Meet the Hosts',
+  vn:'Gặp gỡ chủ nhà',
+  zh:'认识房东'
+},
+'story-hosts-p1':  {
+  en:'MiaCasa is built and run by Linh and Ngọc — long-time friends who became business partners through a shared vision.',
+  vn:'MiaCasa được xây dựng và vận hành bởi Linh và Ngọc — hai người bạn lâu năm và hiện là đối tác kinh doanh.',
+  zh:'MiaCasa 由 Linh 和 Ngọc 创立并运营——两位多年好友，因为共同理念而成为合作伙伴。'
+},
+'story-linh-detail': {
+  en:'Professional interior designer who focuses on creating spaces that feel calm, warm, and quietly beautiful — the kind of places she would want to stay in herself.',
+  vn:'Nhà thiết kế nội thất chuyên nghiệp, tập trung tạo ra những không gian yên tĩnh, ấm áp và đẹp một cách nhẹ nhàng — nơi mà chính cô ấy cũng muốn ở.',
+  zh:'专业室内设计师，专注于打造宁静、温暖、低调而美丽的空间——也是她自己愿意入住的地方。'
+},
+'story-ngoc-detail': {
+  en:'Works in hospitality and brings a deep understanding of what guests actually need — from comfort to small thoughtful touches that make a stay memorable.',
+  vn:'Làm việc trong ngành dịch vụ, thấu hiểu những gì khách thực sự cần — từ sự thoải mái đến những chi tiết nhỏ chu đáo làm nên kỳ nghỉ đáng nhớ.',
+  zh:'拥有酒店服务经验，深刻理解客人真正需要什么——从舒适体验到令人难忘的小细节。'
+},
+'story-hosts-p2':  {
+  en:'Together, they built MiaCasa from scratch — learning, adjusting, and improving along the way. Linh shapes how it looks. Ngọc shapes how it feels.',
+  vn:'Cùng nhau, họ xây dựng MiaCasa từ những bước đầu tiên — vừa làm, vừa học, vừa điều chỉnh. Linh định hình không gian. Ngọc định hình cảm giác.',
+  zh:'她们一起从零开始打造 MiaCasa，一路学习、调整与改善。Linh 负责空间设计，Ngọc 负责入住体验。'
+},
+'story-hanoi-title': {
+  en:'Building MiaCasa Hanoi',
+  vn:'Xây dựng MiaCasa Hanoi',
+  zh:'打造 MiaCasa Hanoi'
+},
+'story-hanoi-p1':  {
+  en:'MiaCasa Hanoi became a calm, quiet space — tucked away from the noise, but still close to everything that makes Hanoi special. It\'s designed for travelers who want a slower, more grounded stay. A place to come back to after a long day in the city.',
+  vn:'MiaCasa Hanoi dần trở thành một không gian yên tĩnh, nhẹ nhàng — tách khỏi sự ồn ào nhưng vẫn đủ gần để khám phá Hà Nội. Đây là nơi dành cho những ai muốn một nhịp sống chậm hơn, một nơi để trở về sau một ngày dài.',
+  zh:'MiaCasa Hanoi 逐渐成为一个宁静舒适的空间——远离喧嚣，却依然靠近河内最精彩的一切。它为喜欢慢节奏、沉浸式旅行的客人而设计，是结束一天城市探索后放松休息的地方。'
+},
+'story-hanoi-gallery': {
+  en:'From Empty Space to MiaCasa Hanoi',
+  vn:'Từ không gian trống đến MiaCasa Hanoi',
+  zh:'从空房间到 MiaCasa Hanoi'
+},
+  'story-oq-title': {
+  en:'Creating MiaCasa Old Quarter',
+  vn:'Tạo nên MiaCasa Old Quarter',
+  zh:'打造 MiaCasa 老城区'
+},
+
+'story-oq-p1': {
+  en:'After MiaCasa Hanoi, the idea was to create something with a different energy. That became MiaCasa Old Quarter.',
+  vn:'Sau MiaCasa Hanoi, chúng tôi muốn tạo ra một không gian với năng lượng khác. Đó là MiaCasa Old Quarter.',
+  zh:'在 MiaCasa Hanoi 之后，我们希望打造一个拥有不同氛围的空间。这便成为了 MiaCasa 老城区。'
+},
+
+'story-oq-p2': {
+  en:'Here, the focus is not quiet — it\'s connection. A full apartment in the heart of the Old Quarter, surrounded by street food, night walks, and the constant rhythm of the city. It\'s designed for groups and families — people who want to experience Hanoi together.',
+  vn:'Ở đây không phải là sự yên tĩnh — mà là sự kết nối. Một căn hộ trọn vẹn giữa lòng Phố Cổ, nơi mọi thứ luôn sống động: đồ ăn đường phố, những buổi tối dạo phố, và nhịp sống không ngừng. Phù hợp cho nhóm bạn và gia đình — những người muốn trải nghiệm Hà Nội cùng nhau.',
+  zh:'这里的重点不是安静，而是连接与陪伴。位于老城区中心的一整套公寓，周围环绕着街头美食、夜晚散步与城市不断流动的节奏。特别适合家庭和朋友团体，一起体验河内的魅力。'
+},
+
+'story-oq-p3': {
+  en:'Same care. Different feeling.',
+  vn:'Cùng một sự chăm chút. Nhưng một cảm giác khác.',
+  zh:'同样的用心，不一样的感觉。'
+},
+
+'story-oq-gallery': {
+  en:'Bringing the Old Quarter Space to Life',
+  vn:'Hành trình hoàn thiện không gian Phố Cổ',
+  zh:'让老城区空间焕发生机'
+},
+
+'story-same-title': {
+  en:'What Stays the Same',
+  vn:'Những điều không thay đổi',
+  zh:'始终不变的部分'
+},
+
+'story-same-p1': {
+  en:'Even though the spaces are different, the intention behind them is the same.',
+  vn:'Dù mỗi không gian có một phong cách riêng, nhưng tinh thần vẫn giống nhau.',
+  zh:'虽然空间风格不同，但背后的理念始终一致。'
+},
+
+'story-same-1': {
+  en:'Thoughtful spaces instead of over-designed ones',
+  vn:'Không gian có sự chăm chút, không quá cầu kỳ',
+  zh:'精心打造的空间，而非过度设计'
+},
+
+'story-same-2': {
+  en:'Honest communication instead of scripted service',
+  vn:'Giao tiếp chân thành, không theo kịch bản',
+  zh:'真诚沟通，而非公式化服务'
+},
+
+'story-same-3': {
+  en:'Real hospitality instead of transactions',
+  vn:'Sự hiếu khách thật sự, không chỉ là dịch vụ',
+  zh:'真正的待客之道，而不只是交易'
+},
+
+'story-same-p2': {
+  en:'We also offer direct booking through this website — so guests can avoid platform fees and connect with us more directly.',
+  vn:'Chúng tôi cũng cung cấp đặt phòng trực tiếp qua website này — giúp bạn tránh phí trung gian và kết nối dễ dàng hơn với chúng tôi.',
+  zh:'我们也提供官网直接预订，让客人避免平台费用，并与我们更直接地联系。'
+},
+
+'story-different-title': {
+  en:'What Makes Us Different',
+  vn:'Điều gì làm nên sự khác biệt',
+  zh:'我们的不同之处'
+},
+
+'story-diff-1-title': {
+  en:'🎨 Designed by a professional',
+  vn:'🎨 Thiết kế chuyên nghiệp',
+  zh:'🎨 专业设计'
+},
+
+'story-diff-1-desc': {
+  en:'Interior designer behind every detail',
+  vn:'Từng chi tiết đều được nhà thiết kế chăm chút',
+  zh:'每一个细节都由室内设计师精心打造'
+},
+
+'story-diff-2-title': {
+  en:'🏠 Locally hosted',
+  vn:'🏠 Chủ nhà tại chỗ',
+  zh:'🏠 本地房东接待'
+},
+
+'story-diff-2-desc': {
+  en:'Not managed remotely. We\'re here.',
+  vn:'Không qua trung gian. Chúng tôi ở đây.',
+  zh:'不是远程管理，我们就在这里。'
+},
+
+'story-diff-3-title': {
+  en:'💰 Direct booking',
+  vn:'💰 Đặt phòng trực tiếp',
+  zh:'💰 直接预订'
+},
+
+'story-diff-3-desc': {
+  en:'No platform fees, best rate',
+  vn:'Không phí nền tảng, giá tốt nhất',
+  zh:'无平台费用，价格更优惠'
+},
+
+'story-diff-4-title': {
+  en:'✨ Thoughtful details',
+  vn:'✨ Chi tiết chu đáo',
+  zh:'✨ 用心细节'
+},
+
+'story-diff-4-desc': {
+  en:'Small touches that make a difference',
+  vn:'Những điều nhỏ tạo nên sự khác biệt',
+  zh:'细微之处，带来不同体验'
+},
+
+'story-why-title': {
+  en:'Why guests choose MiaCasa',
+  vn:'Tại sao khách chọn MiaCasa',
+  zh:'为什么客人选择 MiaCasa'
+},
+
+'story-why-1-title': {
+  en:'🎨 Designed with intention',
+  vn:'🎨 Thiết kế có chủ ý',
+  zh:'🎨 用心设计'
+},
+
+'story-why-1-desc': {
+  en:'Not just furnished — thoughtfully created',
+  vn:'Không chỉ được trang bị — mà được tạo ra một cách chu đáo',
+  zh:'不仅仅是布置，而是经过深思熟虑打造'
+},
+
+'story-why-2-title': {
+  en:'🏠 Locally hosted',
+  vn:'🏠 Chủ nhà tại chỗ',
+  zh:'🏠 本地房东接待'
+},
+
+'story-why-2-desc': {
+  en:'Not managed remotely. We\'re here.',
+  vn:'Không qua trung gian. Chúng tôi ở đây.',
+  zh:'不是远程管理，我们就在这里。'
+},
+
+'story-why-3-title': {
+  en:'💰 Direct booking',
+  vn:'💰 Đặt phòng trực tiếp',
+  zh:'💰 官网直接预订'
+},
+
+'story-why-3-desc': {
+  en:'No platform fees, best rate guaranteed',
+  vn:'Không phí nền tảng, giá tốt nhất đảm bảo',
+  zh:'无平台费用，保证最佳价格'
+},
+
+'story-why-4-title': {
+  en:'✨ Spaces that feel lived-in',
+  vn:'✨ Không gian sống động',
+  zh:'✨ 有生活感的空间'
+},
+
+'story-why-4-desc': {
+  en:'Real homes, not staged showrooms',
+  vn:'Nhà thực sự, không phải phòng trưng bày',
+  zh:'真实的家，而非摆拍样板间'
+},
+  'story-belief':    {en:'We believe where you stay should feel personal, not transactional.', vn:'Chúng tôi tin rằng nơi bạn ở nên mang lại cảm giác cá nhân, không chỉ là một giao dịch.', zh:'我们相信，住宿应该让人感到温暖和真实，而不只是一次交易。'},
+'story-properties-title': {en:'Our Spaces', vn:'Không gian của chúng tôi', zh:'我们的空间'},
+'story-hanoi-bullet-1': {en:'Ideal for couples & solo travelers', vn:'Lý tưởng cho cặp đôi & khách solo', zh:'适合情侣和独自旅行者'},
+'story-hanoi-bullet-2': {en:'3 private rooms with kitchenettes', vn:'3 phòng riêng với bếp nhỏ', zh:'3间带小厨房的独立房间'},
+'story-hanoi-bullet-3': {en:'~15 min walk to Train Street', vn:'~15 phút đi bộ đến Phố Tàu', zh:'步行约15分钟到火车街'},
+'story-oq-bullet-1': {en:'Best for groups & families', vn:'Phù hợp cho nhóm & gia đình', zh:'最适合团体和家庭入住'},
+'story-oq-bullet-2': {en:'Entire 3-bedroom apartment, sleeps up to 6', vn:'Toàn bộ căn hộ 3 phòng ngủ, ngủ tối đa 6 người', zh:'整套三居室公寓，最多可入住6人'},
+'story-oq-bullet-3': {en:'Open terrace', vn:'Sân thượng mở', zh:'开放式露台'},
+'story-growing-title': {en:'Always Improving', vn:'Không ngừng hoàn thiện', zh:'不断提升'},
+'story-growing-p1': {en:'MiaCasa has welcomed guests from around the world, with a hosting experience built on care, consistency, and attention to detail.', vn:'MiaCasa đã chào đón khách từ khắp nơi trên thế giới, với trải nghiệm lưu trú được xây dựng trên sự quan tâm, nhất quán và chú trọng đến từng chi tiết.', zh:'MiaCasa 已迎接来自世界各地的客人，我们的入住体验建立在关怀、一致性和对细节的重视之上。'},
+'story-growing-p2': {en:'The spaces are thoughtfully designed and well maintained. What continues to grow is the care, the warmth, and the small touches that turn a good stay into a memorable one.', vn:'Không gian được thiết kế chu đáo và bảo trì tốt. Điều tiếp tục phát triển là sự quan tâm, sự ấm áp và những điểm nhỏ làm nên một kỳ nghỉ đáng nhớ.', zh:'空间经过精心设计并维护良好。不断成长的是我们的关怀、温暖，以及那些让一次不错的入住变得难忘的小细节。'},
+'story-growing-p3': {en:'Each stay helps us refine the experience even further.', vn:'Mỗi lần lưu trú đều giúp chúng tôi hoàn thiện trải nghiệm hơn nữa.', zh:'每一次入住都帮助我们进一步完善体验。'},
+'story-growing-p4': {en:'When you stay with us, you\'re not just booking a room. You\'re stepping into a home we\'ve built with intention — and continue to look after, one detail at a time.', vn:'Khi bạn ở cùng chúng tôi, bạn không chỉ đặt một căn phòng. Bạn đang bước vào một ngôi nhà được xây dựng với chủ ý — và tiếp tục được chăm chút, từng chi tiết một.', zh:'当您入住我们这里时，您不仅仅是在预订一个房间，而是在进入一个我们用心打造并持续细心照顾的家，一点一滴地完善。'},
+'story-growing-quote': {en:'We\'re glad you\'re here.', vn:'Chúng tôi rất vui vì bạn ở đây.', zh:'很高兴您来到这里。'},
+'story-closing': {en:'If you\'re planning a trip to Hanoi, we\'d love to host you.', vn:'Nếu bạn đang lên kế hoạch cho chuyến đi tới Hà Nội, chúng tôi rất mong được đón tiếp bạn.', zh:'如果您正在计划前往河内旅行，我们很期待接待您。'},
+'story-closing-emphasis': {en:'Experience MiaCasa for yourself.', vn:'Trải nghiệm MiaCasa cho chính bạn.', zh:'亲自体验 MiaCasa。'},
+'story-closing-sub': {en:'Whether you\'re traveling solo, as a couple, or with family — there\'s a space for you.', vn:'Dù bạn đi một mình, cùng bạn đời hay cả gia đình — đều có không gian phù hợp cho bạn.', zh:'无论您是独自旅行、情侣出行还是家庭旅行，这里都有适合您的空间。'},
+'story-anchor': {en:'A small homestay brand built in Hanoi by two friends who care about thoughtful spaces.', vn:'Một thương hiệu homestay nhỏ được xây dựng tại Hà Nội bởi hai người bạn, những người quan tâm đến không gian có chiều sâu.', zh:'一个由两位好友在河内创立的小型民宿品牌，用心打造温暖舒适的空间。'},
+'story-cta-view-h': {en:'Explore MiaCasa Hanoi →', vn:'Khám phá MiaCasa Hà Nội →', zh:'探索 MiaCasa Hanoi →'},
+'story-cta-view-oq': {en:'Explore Old Quarter →', vn:'Khám phá Phố Cổ →', zh:'探索老城区 →'},
+'story-cta-avail': {en:'Check Availability', vn:'Xem lịch trống', zh:'查看可订情况'},
+'story-cta-wa': {en:'WhatsApp', vn:'WhatsApp', zh:'WhatsApp'},
+'story-cta-h': {en:'Explore MiaCasa Hanoi →', vn:'Khám phá MiaCasa Hà Nội →', zh:'探索 MiaCasa Hanoi →'},
+'story-cta-oq': {en:'Explore MiaCasa Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →', zh:'探索 MiaCasa Old Quarter →'},
+'story-before': {en:'📷 Before', vn:'📷 Trước', zh:'📷 改造前'},
+'story-during': {en:'📷 During', vn:'📷 Trong quá trình', zh:'📷 改造中'},
+'story-after': {en:'📷 After', vn:'📷 Sau', zh:'📷 完成后'},
+'story-oq-before': {en:'📷 Before', vn:'📷 Trước', zh:'📷 改造前'},
+'story-oq-during': {en:'📷 During', vn:'📷 Trong quá trình', zh:'📷 改造中'},
+'story-oq-after': {en:'📷 After', vn:'📷 Sau', zh:'📷 完成后'},
+'story-grounding': {en:'A small homestay brand built in Hanoi by two friends who care about thoughtful spaces.', vn:'Một thương hiệu homestay nhỏ được xây dựng tại Hà Nội bởi hai người bạn, những người quan tâm đến không gian có chiều sâu.', zh:'一个由两位好友在河内创立的小型民宿品牌，用心打造温暖舒适的空间。'},
+
+/* ── FAQ ──────────────────────────────────────────────────────── */
+'faq-tag': {en:"FAQ", vn:"Câu hỏi thường gặp", zh:"常见问题"},
+'faq-title': {en:"Frequently Asked<br><em>Questions</em>", vn:"Câu Hỏi<br><em>Thường Gặp</em>", zh:"常见<br><em>问题</em>"},
+'faq-choosetitle': {en:'Not sure which property to choose?', vn:'Chưa biết chọn chỗ nghỉ nào?', zh:'不确定该选择哪一处住宿？'},
+'faq-choose-oq': {en:'Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife.', vn:'Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm.', zh:'如果您想住在市中心，靠近景点和夜生活，请选择 MiaCasa Old Quarter。'},
+'faq-choose-h': {en:'Choose MiaCasa Hanoi if you prefer a quieter, more local experience.', vn:'Chọn MiaCasa Hà Nội nếu bạn thích không khí yên tĩnh và đậm chất địa phương hơn.', zh:'如果您喜欢更安静、更有本地氛围的体验，请选择 MiaCasa Hanoi。'},
+'faq-help-title': {en:"Not sure which property to choose?", vn:"Không chắc nên chọn chỗ nghỉ nào?", zh:"不确定该选择哪一处住宿？"},
+'faq-help-oq': {en:"Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife", vn:"Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm", zh:"如果您想住在市中心，靠近景点和夜生活，请选择 MiaCasa Old Quarter"},
+'faq-help-h': {en:"Choose MiaCasa Hanoi if you prefer a quieter, more local experience", vn:"Chọn MiaCasa Hanoi nếu bạn thích trải nghiệm yên tĩnh và đậm chất địa phương hơn", zh:"如果您喜欢更安静、更有本地氛围的体验，请选择 MiaCasa Hanoi"},
+
+'h-faq-q1':        {en:"How far is MiaCasa Hanoi from the Old Quarter?", vn:"MiaCasa Hanoi cách Phố Cổ bao xa?", zh:"MiaCasa Hanoi 距离老城区有多远？"},
+'h-faq-a1':        {en:"MiaCasa Hanoi is about 10–15 minutes by Grab or taxi from the Old Quarter and Hoàn Kiếm Lake. Close enough to explore easily, while staying in a quieter, more local neighborhood.", vn:"MiaCasa Hanoi cách Phố Cổ và Hồ Hoàn Kiếm khoảng 10–15 phút bằng Grab hoặc taxi. Gần đủ để dễ dàng khám phá, trong khi vẫn ở trong một khu phố yên tĩnh và đậm chất địa phương hơn.", zh:"从 MiaCasa Hanoi 前往老城区和还剑湖，乘坐 Grab 或出租车约需 10 至 15 分钟。距离景点足够近，方便游览，同时又位于更安静、更具本地生活氛围的社区。"},
+
+'h-faq-q2':        {en:"Is the area quiet?", vn:"Khu vực có yên tĩnh không?", zh:"附近区域安静吗？"},
+'h-faq-a2':        {en:"Yes. The homestay is located in a peaceful residential area, away from busy tourist streets. Ideal if you prefer a calm environment after a day exploring Hanoi.", vn:"Có. Homestay nằm trong một khu dân cư yên tĩnh, cách xa những con phố du lịch tấp nập. Lý tưởng nếu bạn thích môi trường bình yên sau một ngày khám phá Hà Nội.", zh:"是的。民宿位于安静的居民区，远离繁忙的游客街区。如果您在探索河内一天后喜欢安静的环境，这里非常适合您。"},
+
+'h-faq-q3':        {en:"Is it near Railway Street?", vn:"Có gần Phố Tàu Hỏa không?", zh:"离火车街近吗？"},
+'h-faq-a3':        {en:"Yes — within walking distance or a very short ride to Hanoi Railway Street. Convenient if you want to visit without staying in the crowded area.", vn:"Có — chỉ cần đi bộ hoặc đi xe rất ngắn đến Phố Tàu Hỏa Hà Nội. Rất tiện nếu bạn muốn ghé thăm nhưng không muốn ở trong khu đông đúc.", zh:"是的，步行即可到达或只需短程车程即可到达河内火车街。如果您想游览火车街，但不想住在拥挤区域，这里会很方便。"},
+
+'h-faq-q4':        {en:"Is MiaCasa Hanoi suitable for long stays or remote work?", vn:"MiaCasa Hanoi có phù hợp cho lưu trú dài ngày hoặc làm việc từ xa không?", zh:"MiaCasa Hanoi 适合长期住宿或远程办公吗？"},
+'h-faq-a4':        {en:"Absolutely. Many guests choose this property for longer stays because of the quiet surroundings, comfortable rooms, and reliable WiFi.", vn:"Hoàn toàn phù hợp. Nhiều khách chọn chỗ nghỉ này cho kỳ lưu trú dài ngày vì không gian yên tĩnh, phòng thoải mái và WiFi ổn định.", zh:"当然适合。许多客人因为这里环境安静、房间舒适以及 WiFi 稳定而选择长期入住。"},
+
+'h-faq-q5':        {en:"Are there local food options nearby?", vn:"Gần đây có nhiều lựa chọn ăn uống địa phương không?", zh:"附近有当地餐饮选择吗？"},
+'h-faq-a5':        {en:"Yes — plenty of authentic local eateries, cafés, and small shops within walking distance. A great area to experience everyday Hanoi life.", vn:"Có — rất nhiều quán ăn địa phương đích thực, quán cà phê và cửa hàng nhỏ trong tầm đi bộ. Khu vực tuyệt vời để trải nghiệm cuộc sống Hà Nội hàng ngày.", zh:"有，步行范围内有许多地道的本地餐馆、咖啡馆和小店，是体验真实河内日常生活的好地方。"},
+
+'h-faq-q6':        {en:"How do I check in?", vn:"Tôi nhận phòng như thế nào?", zh:"如何办理入住？"},
+'h-faq-a6':        {en:"We offer self check-in with clear instructions sent before your arrival. Simple and flexible, especially for late arrivals.", vn:"Chúng tôi cung cấp dịch vụ tự nhận phòng với hướng dẫn rõ ràng được gửi trước khi bạn đến. Đơn giản và linh hoạt, đặc biệt cho những người đến muộn.", zh:"我们提供自助入住，并会在您到达前发送清晰的说明。简单灵活，特别适合晚到的客人。"},
+
+'h-faq-q7':        {en:"Can I book directly through the website?", vn:"Tôi có thể đặt phòng trực tiếp qua website không?", zh:"我可以直接通过网站预订吗？"},
+'h-faq-a7':        {en:"Yes. Booking directly gives you better rates compared to platforms like Airbnb or Booking.com.", vn:"Có. Đặt phòng trực tiếp qua website của chúng tôi sẽ cho bạn mức giá tốt hơn so với các nền tảng như Airbnb hoặc Booking.com.", zh:"可以。通过我们的网站直接预订，通常会比 Airbnb 或 Booking.com 等平台获得更优惠的价格。"},
+
+'h-faq-q8':        {en:'Is there a laundry?', vn:'Có máy giặt không?', zh:'有洗衣设施吗？'},
+'h-faq-a8':        {en:'Yes, free washing machine and dryer with detergent provided.', vn:'Có, máy giặt và máy sấy miễn phí kèm bột giặt.', zh:'有，提供免费洗衣机、烘干机以及洗衣液。'},
+
+'oq-faq-q1':       {en:"Is MiaCasaOldQuarter located in the center of Hanoi?", vn:"MiaCasaOldQuarter có nằm ở trung tâm Hà Nội không?", zh:"MiaCasa Old Quarter 位于河内市中心吗？"},
+'oq-faq-a1':       {en:"Yes. The apartment is in the heart of the Old Quarter, within walking distance of Hoàn Kiếm Lake, night markets, and major attractions.", vn:"Có. Căn hộ nằm ngay trung tâm Phố Cổ, trong tầm đi bộ đến Hồ Hoàn Kiếm, chợ đêm và các điểm tham quan chính.", zh:"是的。公寓位于河内老城区中心，步行即可到达还剑湖、夜市和主要景点。"},
+
+'oq-faq-q2':       {en:"Is it noisy at night?", vn:"Ban đêm có ồn không?", zh:"晚上会很吵吗？"},
+'oq-faq-a2':       {en:"Being in the Old Quarter, the area can be lively, especially evenings and weekends. If you enjoy city energy, great fit. If you prefer quiet, MiaCasa Hanoi may be a better option.", vn:"Ở Phố Cổ, khu vực có thể khá sôi động, đặc biệt vào buổi tối và cuối tuần. Nếu bạn thích năng lượng thành phố, rất phù hợp. Nếu bạn thích yên tĩnh, MiaCasa Hanoi có thể là lựa chọn tốt hơn.", zh:"由于位于老城区，附近在晚上和周末可能会比较热闹。如果您喜欢城市氛围，这里非常适合。如果您更喜欢安静，MiaCasa Hanoi 可能是更好的选择。"},
+
+'oq-faq-q3':       {en:"Is this property suitable for families or groups?", vn:"Chỗ nghỉ này có phù hợp cho gia đình hoặc nhóm không?", zh:"这里适合家庭或团体入住吗？"},
+'oq-faq-a3':       {en:"Yes. The apartment has multiple beds and a spacious layout, making it ideal for families or small groups traveling together.", vn:"Có. Căn hộ có nhiều giường và bố cục rộng rãi, lý tưởng cho gia đình hoặc nhóm nhỏ đi cùng nhau.", zh:"适合。公寓有多张床和宽敞的布局，非常适合家庭或小团体一起入住。"},
+
+'oq-faq-q4':       {en:"How far is it from Hoàn Kiếm Lake?", vn:"Cách Hồ Hoàn Kiếm bao xa?", zh:"距离还剑湖有多远？"},
+'oq-faq-a4':       {en:"Just a short walk — typically around 5 to 10 minutes depending on your pace.", vn:"Chỉ cần đi bộ một chút — thường khoảng 5 đến 10 phút tùy tốc độ của bạn.", zh:"步行即可到达，通常约需 5 至 10 分钟，取决于您的步行速度。"},
+
+'oq-faq-q5':       {en:"Are restaurants and cafés nearby?", vn:"Gần đây có nhà hàng và quán cà phê không?", zh:"附近有餐厅和咖啡馆吗？"},
+'oq-faq-a5':       {en:"You will be surrounded by some of the best food, cafés, and street eats Hanoi has to offer — all within walking distance.", vn:"Bạn sẽ được bao quanh bởi những món ăn ngon nhất Hà Nội, quán cà phê và ẩm thực đường phố — tất cả trong tầm đi bộ.", zh:"周围遍布河内最棒的美食、咖啡馆和街头小吃，全部都在步行范围内。"},
+
+'oq-faq-q6':       {en:"How do I check in?", vn:"Tôi nhận phòng như thế nào?", zh:"如何办理入住？"},
+'oq-faq-a6':       {en:"We provide simple self check-in instructions before your arrival, so you can arrive at your convenience.", vn:"Chúng tôi cung cấp hướng dẫn tự nhận phòng đơn giản trước khi bạn đến, để bạn có thể đến theo sự tiện lợi của mình.", zh:"我们会在您到达前提供简单的自助入住说明，方便您按照自己的时间到达入住。"},
+
+'oq-faq-q7':       {en:"Can I book directly for better prices?", vn:"Tôi có thể đặt trực tiếp để được giá tốt hơn không?", zh:"直接预订会更便宜吗？"},
+'oq-faq-a7':       {en:"Yes. Direct bookings through our website are more affordable since they avoid third-party platform fees.", vn:"Có. Đặt phòng trực tiếp qua website thường có giá phải chăng hơn vì tránh được phí nền tảng bên thứ ba.", zh:"是的。通过我们的网站直接预订通常更优惠，因为无需支付第三方平台费用。"},
+
+'hanoi-feel-title': {en:'🌅 Experience Hanoi differently', vn:'🌅 Trải nghiệm Hà Nội khác biệt', zh:'🌅 用不同方式体验河内'},
+'hanoi-feel-1':    {en:'☕ Quiet mornings away from traffic', vn:'☕ Buổi sáng yên tĩnh, xa khói bụi', zh:'☕ 远离车流的安静早晨'},
+'hanoi-feel-2':    {en:'🏡 Live like a local in a real neighborhood', vn:'🏡 Sống như người địa phương', zh:'🏡 在真实社区里像当地人一样生活'},
+'hanoi-feel-3':    {en:'🌿 Slower, more personal Hanoi experience', vn:'🌿 Trải nghiệm Hà Nội chậm rãi hơn', zh:'🌿 更慢节奏、更有温度的河内体验'},
+
+/* ── COMPARE STAYS SECTION (homepage) ────────────────────────── */
+'compare-tag':     {en:'Compare Stays', vn:'So sánh chỗ nghỉ', zh:'住宿对比'},
+'compare-title':   {en:'Not sure <em>which to choose?</em>', vn:'Chưa biết <em>nên chọn nơi nào?</em>', zh:'不确定<em>该选哪一个？</em>'},
+'compare-sub':     {en:'Both are women-owned, locally run, and book direct for the best price. The difference is in the vibe.', vn:'Cả hai đều do phụ nữ làm chủ, vận hành địa phương, và đặt trực tiếp để có giá tốt nhất. Sự khác biệt nằm ở không khí.', zh:'两家住宿均由女性经营、本地管理，直接预订可享最佳价格。区别在于不同的氛围。'},
+
+'compare-h-title': {en:'Quiet, local, residential', vn:'Yên tĩnh, đậm chất địa phương', zh:'安静、本地化、住宅社区'},
+'compare-h-li1':   {en:'Near Train Street &amp; Văn Miếu', vn:'Gần Phố Tàu Hỏa &amp; Văn Miếu', zh:'靠近火车街和文庙'},
+'compare-h-li2':   {en:'3 private en-suite rooms · up to 3 guests each', vn:'3 phòng riêng có phòng tắm · tối đa 3 khách mỗi phòng', zh:'3 间独立套房 · 每间最多可住 3 位客人'},
+'compare-h-li3':   {en:'Best for couples, solo travelers, remote workers', vn:'Phù hợp cho cặp đôi, khách solo, người làm việc từ xa', zh:'适合情侣、独自旅行者和远程工作者'},
+'compare-h-li4':   {en:'From <span id="compare-hanoi-price">550,000</span>₫ / night', vn:'Từ <span id="compare-hanoi-price">550.000</span>₫ / đêm', zh:'每晚 <span id="compare-hanoi-price">550,000</span>₫ 起'},
+'compare-h-cta':   {en:'Explore MiaCasa Hanoi →', vn:'Khám phá MiaCasa Hà Nội →', zh:'探索 MiaCasa Hanoi →'},
+
+'compare-oq-title':{en:'Central, vibrant, Old Quarter', vn:'Trung tâm, sôi động, Phố Cổ', zh:'市中心、充满活力、老城区'},
+'compare-oq-li1':  {en:'Heart of Hoàn Kiếm · steps from the lake', vn:'Trung tâm Hoàn Kiếm · ngay cạnh hồ', zh:'位于还剑区中心 · 距离湖边仅几步之遥'},
+'compare-oq-li2':  {en:'Entire apartment · 3 queen beds · up to 6 guests', vn:'Toàn bộ căn hộ · 3 giường đôi · tối đa 6 khách', zh:'整套公寓 · 3 张大床 · 最多可住 6 位客人'},
+'compare-oq-li3':  {en:'Best for families, groups, Old Quarter lovers', vn:'Phù hợp cho gia đình, nhóm bạn, người yêu Phố Cổ', zh:'适合家庭、团体和喜爱老城区的旅客'},
+'compare-oq-li4':  {en:'From <span id="compare-oldquarter-price">900,000</span>₫ / night', vn:'Từ <span id="compare-oldquarter-price">900.000</span>₫ / đêm', zh:'每晚 <span id="compare-oldquarter-price">900,000</span>₫ 起'},
+'compare-oq-cta':  {en:'Explore Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →', zh:'探索 MiaCasa Old Quarter →'},
+
+  /* ── CHOOSE YOUR STAY SELECTOR ─────────────────────────────────── */
+'choose-title':        {en:'Choose Your Stay', vn:'Chọn Chỗ Nghỉ Của Bạn', zh:'选择您的住宿'},
+'selector-oq-title':   {en:'Entire Apartment', vn:'Toàn Bộ Căn Hộ', zh:'整套公寓'},
+'selector-oq-desc':    {en:'MiaCasa Old Quarter · Hoàn Kiếm', vn:'MiaCasa Phố Cổ · Hoàn Kiếm', zh:'MiaCasa Old Quarter · 还剑区'},
+'selector-oq-feat1':   {en:'3 queen beds · Sleeps up to 6', vn:'3 giường đôi · Ngủ tối đa 6 người', zh:'3 张大床 · 最多可住 6 人'},
+'selector-oq-feat2':   {en:'Private terrace · Smart lock', vn:'Sân thượng riêng · Khóa thông minh', zh:'私人露台 · 智能门锁'},
+'selector-oq-feat3':   {en:'Steps from Hoàn Kiếm Lake', vn:'Cách Hồ Hoàn Kiếm vài bước', zh:'距离还剑湖仅几步之遥'},
+'selector-oq-btn':     {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →', zh:'预订您的日期 →'},
+
+'selector-h-title':    {en:'Rooms or Full Home', vn:'Phòng Hoặc Toàn Bộ Căn Hộ', zh:'单间或整套住宿'},
+'selector-h-desc':     {en:'MiaCasa Hanoi · Văn Miếu', vn:'MiaCasa Hà Nội · Văn Miếu', zh:'MiaCasa Hanoi · 文庙区'},
+'selector-h-feat1':    {en:'3 private rooms · Up to 3 guests each', vn:'3 phòng riêng · Tối đa 3 khách mỗi phòng', zh:'3 间独立房间 · 每间最多 3 位客人'},
+'selector-h-feat2':    {en:'Kitchenette · Free laundry', vn:'Bếp nhỏ · Giặt ủi miễn phí', zh:'小厨房 · 免费洗衣'},
+'selector-h-feat3':    {en:'15 min walk to Train Street', vn:'15 phút đi bộ đến Phố Tàu', zh:'步行 15 分钟到火车街'},
+'selector-h-btn':      {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →', zh:'预订您的日期 →'},
+
+/* ── TRUST BADGES ──────────────────────────────────────────────── */
+'trust-instant':       {en:'✓ Instant confirmation', vn:'✓ Xác nhận ngay lập tức', zh:'✓ 即时确认'},
+'trust-best-rate':     {en:'✓ Best rate guaranteed', vn:'✓ Giá tốt nhất đảm bảo', zh:'✓ 最优价格保证'},
+'trust-support':       {en:'✓ Support within 2 hours', vn:'✓ Hỗ trợ trong 2 giờ', zh:'✓ 2 小时内回复支持'},
+
+/* ── UPDATED CTA BUTTONS ───────────────────────────────────────── */
+'secondary-book':      {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →', zh:'预订您的日期 →'},
+'booking-book-dates':  {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →', zh:'预订您的日期 →'},
+
+/* ── DIFFERENTIATORS STRIP ─────────────────────────────────────── */
+'diff-private':        {en:'🏠 Private stays, host nearby', vn:'🏠 Ở riêng tư, chủ nhà gần bên', zh:'🏠 私密住宿，房东就在附近'},
+'diff-self':           {en:'🔓 Self check-in, arrive anytime', vn:'🔓 Tự nhận phòng, đến bất cứ lúc nào', zh:'🔓 自助入住，随时到达'},
+'diff-flex':           {en:'🛏️ Flexible: 1 room, 2 rooms, or full home', vn:'🛏️ Linh hoạt: 1 phòng, 2 phòng, hoặc cả căn hộ', zh:'🛏️ 灵活选择：1 间房、2 间房或整套住宿'},
+'diff-rate':           {en:'💰 Best rate when you book direct', vn:'💰 Giá tốt nhất khi đặt trực tiếp', zh:'💰 直接预订享最优价格'},
+'cafes-breadcrumb-current': {en:"Best Cafés in Hanoi", vn:"Quán cà phê đẹp ở Hà Nội", zh:"河内最佳咖啡馆"},
+
+/* -- Dynamic booking/admin status messages -- */
+'booking-still-checking': {en:"⏳ Still checking... you can continue filling your details", vn:"⏳ Vẫn đang kiểm tra... bạn có thể tiếp tục điền thông tin", zh:"⏳ 正在检查中……您可以继续填写信息"},
+'booking-room-available-proceed': {en:"✅ Room available! You can proceed.", vn:"✅ Phòng còn trống! Bạn có thể tiếp tục.", zh:"✅ 房间可用！您可以继续。"},
+'booking-availability-error': {en:"⚠️ Unable to check availability. Please try again.", vn:"⚠️ Không thể kiểm tra lịch trống. Vui lòng thử lại.", zh:"⚠️ 无法检查房态，请重试。"},
+'booking-past-dates': {en:"❌ Cannot select past dates", vn:"❌ Không thể chọn ngày trong quá khứ", zh:"❌ 无法选择过去的日期"},
+'booking-select-dates': {en:"📅 Please select check-in and check-out dates", vn:"📅 Vui lòng chọn ngày nhận và trả phòng", zh:"📅 请选择入住和退房日期"},
+'booking-select-room': {en:"🏠 Please select a room", vn:"🏠 Vui lòng chọn phòng", zh:"🏠 请选择房间"},
+'booking-select-guests': {en:"👥 Please select number of guests", vn:"👥 Vui lòng chọn số lượng khách", zh:"👥 请选择客人人数"},
+'booking-complete-details': {en:"📋 Please complete all booking details", vn:"📋 Vui lòng điền đầy đủ thông tin đặt phòng", zh:"📋 请填写完整预订信息"},
+'booking-date-order-error': {en:"⚠️ Check-out date must be after check-in date", vn:"⚠️ Ngày trả phòng phải sau ngày nhận phòng", zh:"⚠️ 退房日期必须晚于入住日期"},
+'booking-loading-qr': {en:"Loading QR code...", vn:"Đang tải mã QR...", zh:"正在加载二维码……"},
+'booking-id-label': {en:"Booking ID:", vn:"Mã đặt phòng:", zh:"预订编号："},
+
+/* -- Restored homepage stays keys -- */
+'sec-stays': {en:"Our Stays", vn:"Chỗ nghỉ của chúng tôi", zh:"我们的住宿"},
+'stays-title': {en:"Two stays, <em>one spirit</em>", vn:"Hai chỗ nghỉ, <em>một tinh thần</em>", zh:"两种住宿，<em>同一种理念</em>"},
+'stays-sub': {en:"Choose the quiet neighbourhood charm of MiaCasa Hanoi, or the electric energy of MiaCasa Old Quarter.", vn:"Chọn nét yên tĩnh của MiaCasa Hanoi hoặc năng lượng sôi động của MiaCasa Old Quarter.", zh:"选择 MiaCasa Hanoi 安静的社区氛围，或 MiaCasa Old Quarter 充满活力的城市能量。"},
+
+/* -- Missing existing data-t keys completed -- */
+'blog-header-title': {en:"MiaCasa Journal", vn:"Nhật ký MiaCasa", zh:"MiaCasa 日志"},
+'blog-header-sub': {en:"Honest travel tips, local guides, and stories from Hanoi — written by locals who know the city best.", vn:"Mẹo du lịch chân thật, hướng dẫn địa phương và câu chuyện từ Hà Nội — được viết bởi những người hiểu thành phố này.", zh:"真实旅行建议、本地指南和河内故事——由最了解这座城市的当地人撰写。"},
+'cafes-category': {en:"☕ CAFÉ GUIDE", vn:"☕ HƯỚNG DẪN CÀ PHÊ", zh:"☕ 咖啡馆指南"},
+'cafes-title': {en:"Best Cafés in Hanoi for Coffee, Work & Quiet Mornings (2026)", vn:"Những quán cà phê đẹp ở Hà Nội để uống cà phê, làm việc và tận hưởng buổi sáng yên tĩnh (2026)", zh:"河内最适合咖啡、办公与安静早晨的咖啡馆（2026）"},
+'cafes-excerpt': {en:"Discover Hanoi's best cafés for egg coffee, remote work, quiet mornings, and hidden local atmosphere — from Old Quarter gems to calm cafés near Văn Miếu.", vn:"Khám phá những quán cà phê đáng ghé ở Hà Nội cho cà phê trứng, làm việc từ xa, buổi sáng yên tĩnh và không khí địa phương — từ Phố Cổ đến khu Văn Miếu.", zh:"探索河内最值得去的咖啡馆，适合蛋咖啡、远程办公、安静早晨和本地氛围——从老城区宝藏咖啡馆到文庙附近的安静小店。"},
+'cafes-meta': {en:"📅 May 1, 2026 · ☕ 6 min read", vn:"📅 1 Tháng 5, 2026 · ☕ Đọc 6 phút", zh:"📅 2026年5月1日 · ☕ 阅读约6分钟"},
+
+'blog-card-3days-category': {en:"📌 ITINERARY", vn:"📌 LỊCH TRÌNH", zh:"📌 行程指南"},
+'blog-card-3days-title': {en:"3 Days in Hanoi: A Complete Itinerary (2026)", vn:"3 ngày ở Hà Nội: Lịch trình đầy đủ (2026)", zh:"河内 3 日游：完整行程指南（2026）"},
+'blog-card-3days-excerpt': {en:"3 days in Hanoi itinerary: what to eat, where to go, and how to choose between Old Quarter and quiet local neighborhoods.", vn:"Lịch trình 3 ngày ở Hà Nội: ăn gì, đi đâu và cách chọn giữa Phố Cổ và khu dân cư yên tĩnh.", zh:"河内 3 日行程：吃什么、去哪里，以及如何在老城区和安静本地社区之间做选择。"},
+'blog-card-3days-meta': {en:"📅 April 15, 2026 · ☕ 7 min read", vn:"📅 15 Tháng 4, 2026 · ☕ Đọc 7 phút", zh:"📅 2026年4月15日 · ☕ 阅读约7分钟"},
+
+'blog-card-train-category': {en:"🚂 LOCAL GUIDE", vn:"🚂 HƯỚNG DẪN ĐỊA PHƯƠNG", zh:"🚂 本地指南"},
+'blog-card-train-title': {en:"Train Street Hanoi: Full Guide (2026)", vn:"Train Street Hà Nội: Hướng dẫn đầy đủ (2026)", zh:"河内火车街完整指南（2026）"},
+'blog-card-train-excerpt': {en:"Complete guide to Train Street Hanoi: train times, safety tips, how to visit without crowds, and where to stay nearby.", vn:"Hướng dẫn đầy đủ về Train Street Hà Nội: giờ tàu, mẹo an toàn, cách đi tránh đông và nơi ở gần đó.", zh:"河内火车街完整指南：列车时间、安全建议、避开人群的方法以及附近住宿推荐。"},
+'blog-card-train-meta': {en:"📅 April 22, 2026 · ☕ 6 min read", vn:"📅 22 Tháng 4, 2026 · ☕ Đọc 6 phút", zh:"📅 2026年4月22日 · ☕ 阅读约6分钟"},
+
+'blog-card-stay-category': {en:"🏠 ACCOMMODATION", vn:"🏠 CHỖ Ở", zh:"🏠 住宿指南"},
+'blog-card-stay-title': {en:"Where to Stay in Hanoi: Old Quarter vs Local Areas", vn:"Nên ở đâu tại Hà Nội: Phố Cổ hay khu địa phương", zh:"河内住哪里：老城区 vs 本地社区"},
+'blog-card-stay-excerpt': {en:"Not sure where to stay? Compare Old Quarter vs quieter local areas to find your perfect match.", vn:"Chưa biết nên ở đâu? So sánh Phố Cổ với khu địa phương yên tĩnh hơn để chọn nơi phù hợp.", zh:"不知道该住哪里？对比老城区和更安静的本地社区，找到最适合您的住宿。"},
+'blog-card-stay-meta': {en:"📅 April 29, 2026 · ☕ 5 min read", vn:"📅 29 Tháng 4, 2026 · ☕ Đọc 5 phút", zh:"📅 2026年4月29日 · ☕ 阅读约5分钟"},
+
+'subscribe-title': {en:"📬 New posts, straight to your inbox", vn:"📬 Bài viết mới gửi thẳng đến hộp thư của bạn", zh:"📬 最新文章直达您的邮箱"},
+'subscribe-text': {en:"Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.", vn:"Nhận mẹo du lịch Hà Nội và cập nhật bài viết mới. Không spam. Hủy đăng ký bất cứ lúc nào.", zh:"获取河内旅行建议和博客更新。不发送垃圾邮件，可随时取消订阅。"},
+'subscribe-button': {en:"Subscribe →", vn:"Đăng ký →", zh:"订阅 →"},
+'subscribe-footer': {en:"Powered by Mailchimp (free up to 500 subscribers)", vn:"Được hỗ trợ bởi Mailchimp", zh:"由 Mailchimp 提供支持（免费支持最多 500 位订阅者）"},
+'subscribe-email-placeholder': {en:"Your email address", vn:"Địa chỉ email của bạn", zh:"您的邮箱地址"},
+
+'guest-info-title': {en:"Your Information", vn:"Thông tin của bạn", zh:"您的信息"},
+'tease-tag': {en:"A Glimpse Inside", vn:"Một góc nhìn bên trong", zh:"内部一瞥"},
+'tease-sub': {en:"Handcrafted spaces designed to feel lived-in and effortlessly beautiful.", vn:"Những không gian được chăm chút thủ công, có cảm giác sống động và đẹp tự nhiên.", zh:"精心打造的空间，既有生活气息，又自然舒适。"},
+'tease-title': {en:"A peek <em>inside</em>", vn:"Một góc nhìn <em>bên trong</em>", zh:"看看<em>内部</em>"},
+
+'h-gal-tag': {en:"Gallery", vn:"Thư viện ảnh", zh:"图片集"},
+'h-faq-tag': {en:"FAQ", vn:"Câu hỏi thường gặp", zh:"常见问题"},
+'h-reviews-tag': {en:"Guest Reviews", vn:"Đánh giá của khách", zh:"住客评价"},
+'h-reviews-sub': {en:"Rated 4.9★ — Loved by guests from around the world.", vn:"Được đánh giá 4.9★ — Yêu thích bởi khách từ khắp nơi trên thế giới.", zh:"评分 4.9★ —— 深受世界各地住客喜爱。"},
+'h-gal-title': {en:"A look<br><em>inside</em>", vn:"Một góc nhìn<br><em>bên trong</em>", zh:"看看<br><em>内部</em>"},
+'h-faq-title': {en:"Frequently Asked<br><em>Questions</em>", vn:"Câu hỏi<br><em>thường gặp</em>", zh:"常见<br><em>问题</em>"},
+'h-reviews-title': {en:"What <em>Guests Say</em>", vn:"Khách <em>nói gì</em>", zh:"<em>住客评价</em>"},
+
+'oq-summary-1': {en:"In the heart of Old Quarter", vn:"Giữa lòng Phố Cổ", zh:"位于老城区中心"},
+'oq-summary-2': {en:"Walk to everything", vn:"Đi bộ đến mọi nơi", zh:"步行即可到达各处"},
+'oq-summary-3': {en:"Rooftop terrace & BBQ", vn:"Sân thượng & BBQ", zh:"屋顶露台与烧烤区"},
+'oq-summary-4': {en:"Best for groups & social travelers", vn:"Phù hợp cho nhóm & du khách thích giao lưu", zh:"适合团体与喜欢社交的旅客"},
+
+'oq-gal-tag': {en:"Gallery", vn:"Thư viện ảnh", zh:"图片集"},
+'sec-reviews': {en:"Guest Reviews", vn:"Đánh giá của khách", zh:"住客评价"},
+'reviews-sub': {en:"Genuine words from people who've called MiaCasa home.", vn:"Những chia sẻ chân thật từ những vị khách từng xem MiaCasa như ngôi nhà của mình.", zh:"来自曾把 MiaCasa 当作家的住客的真实分享。"},
+'reviews-loadmore': {en:"Load more reviews", vn:"Xem thêm đánh giá", zh:"查看更多评价"},
+'oq-gal-title': {en:"A look<br><em>inside</em>", vn:"Một góc nhìn<br><em>bên trong</em>", zh:"看看<br><em>内部</em>"},
+'reviews-title': {en:"Stories from our <em>guests</em>", vn:"Câu chuyện từ <em>khách của chúng tôi</em>", zh:"来自<em>住客</em>的故事"},
+
+  'auto-blog-hanoi-3-days-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
+'auto-blog-hanoi-3-days-002': {en:"Blog", vn:"Blog", zh:"博客"},
+'auto-blog-hanoi-3-days-003': {en:"3 Days in Hanoi Itinerary", vn:"Lịch Trình 3 Ngày Ở Hà Nội", zh:"河内三日行程"},
+'auto-blog-hanoi-3-days-004': {en:"📍 HANOI TRAVEL GUIDE", vn:"📍 CẨM NANG DU LỊCH HÀ NỘI", zh:"📍 河内旅行指南"},
+'auto-blog-hanoi-3-days-005': {en:"3 Days in Hanoi: A Complete Itinerary (2026)", vn:"Lịch Trình 3 Ngày Ở Hà Nội (2026)", zh:"河内三日游：完整行程指南（2026）"},
+'auto-blog-hanoi-3-days-006': {en:"📅 April 15, 2026 · ☕ 7 min read · ✍️ By MiaCasa Team", vn:"📅 15 Tháng 4, 2026 · ☕ 7 phút đọc · ✍️ MiaCasa Team", zh:"📅 2026年4月15日 · ☕ 阅读约7分钟 · ✍️ MiaCasa团队"},
+'auto-blog-hanoi-3-days-007': {en:"Hoàn Kiếm Lake at sunset — the perfect way to end a day in Hanoi", vn:"Hồ Hoàn Kiếm lúc hoàng hôn — cách hoàn hảo để kết thúc một ngày ở Hà Nội", zh:"黄昏时分的还剑湖 —— 结束河内一天的完美方式"},
+'auto-blog-hanoi-3-days-008': {en:"Planning 3 days in Hanoi? This itinerary helps you experience the city beyond the usual tourist checklist—with local food, quieter neighborhoods, and places that make Hanoi memorable.", vn:"Đi Hà Nội 3 ngày nên làm gì? Lịch trình này giúp bạn trải nghiệm thành phố không theo danh sách thông thường—với ẩm thực địa phương, những khu phố yên tĩnh, và những nơi khiến Hà Nội đáng nhớ.", zh:"计划在河内待三天？这份行程将带你体验超越常规打卡景点的河内，包括当地美食、安静社区以及让河内令人难忘的地方。"},
+'auto-blog-hanoi-3-days-009': {en:"Day 1: Old Quarter, Street Food, and First Impressions", vn:"Ngày 1: Phố Cổ, Ẩm Thực Đường Phố và Ấn Tượng Đầu Tiên", zh:"第1天：老城区、街头美食与初印象"},
+'auto-blog-hanoi-3-days-010': {en:"Start your trip in the heart of the chaotic, colorful historic center of Hanoi—the Old Quarter.", vn:"Bắt đầu chuyến đi tại trung tâm Phố Cổ hỗn độn, đầy màu sắc của Hà Nội.", zh:"从河内充满色彩与活力的历史中心——老城区开始你的旅程。"},
+'auto-blog-hanoi-3-days-011': {en:"Morning", vn:"Buổi sáng", zh:"早晨"},
+'auto-blog-hanoi-3-days-012': {en:"Begin at Hoàn Kiếm Lake (Lake of the Restored Sword) before the crowds arrive", vn:"Bắt đầu tại Hồ Hoàn Kiếm từ sớm, trước khi đông đúc", zh:"在人群到来之前，先前往还剑湖开始一天"},
+'auto-blog-hanoi-3-days-013': {en:"Walk across the red Thê Húc Bridge to Ngọc Sơn Temple", vn:"Đi qua Cầu Thê Húc màu đỏ sang Đền Ngọc Sơn", zh:"走过红色的栖旭桥前往玉山祠"},
+'auto-blog-hanoi-3-days-014': {en:"Then wander into the maze of 36 ancient streets, each named after the trade once practiced there", vn:"Sau đó, đi bộ vào mê cung 36 phố phường — mỗi con phố từng gắn với một nghề thủ công riêng", zh:"随后漫步进入老城区36条古街的迷宫，每条街都以曾经的行业命名"},
+'auto-blog-hanoi-3-days-015': {en:"Afternoon", vn:"Buổi chiều", zh:"下午"},
+'auto-blog-hanoi-3-days-016': {en:"Continue exploring the Old Quarter's narrow alleyways", vn:"Tiếp tục khám phá những con ngõ nhỏ ở Phố Cổ", zh:"继续探索老城区狭窄的小巷"},
+'auto-blog-hanoi-3-days-017': {en:"Sit at a sidewalk café and watch daily life unfold—scooters, street vendors, and local conversations", vn:"Ngồi cà phê vỉa hè, quan sát cuộc sống hàng ngày: xe máy, người bán hàng rong, những câu chuyện thường nhật", zh:"坐在街边咖啡馆，看着河内日常生活展开——摩托车、小贩与街头交谈"},
+'auto-blog-hanoi-3-days-018': {en:"Visit Đồng Xuân Market for a glimpse of local commerce", vn:"Ghế Chợ Đồng Xuân để cảm nhận không khí buôn bán địa phương", zh:"前往同春市场，感受当地商业氛围"},
+'auto-blog-hanoi-3-days-019': {en:"What to Eat Today", vn:"Ăn gì hôm nay", zh:"今天吃什么"},
+'auto-blog-hanoi-3-days-020': {en:"Phở for breakfast — find a busy street stall, not a restaurant", vn:"Phở bữa sáng — tìm hàng đông khách, không phải nhà hàng sang", zh:"早餐来一碗河粉（Phở）——找人气街边摊，而不是餐厅"},
+'auto-blog-hanoi-3-days-021': {en:"Bánh mì for lunch — the perfect sandwich", vn:"Bánh mì bữa trưa — món sandwich hoàn hảo", zh:"午餐吃越南法棍（Bánh mì）——完美的三明治"},
+'auto-blog-hanoi-3-days-022': {en:"Bún chả for dinner — grilled pork with noodles (what Obama ate with Bourdain)", vn:"Bún chả bữa tối — món Obama từng ăn với Bourdain", zh:"晚餐尝试烤肉米粉（Bún chả）——奥巴马与波登一起吃过的美食"},
+'auto-blog-hanoi-3-days-023': {en:"Evening", vn:"Tối", zh:"晚上"},
+'auto-blog-hanoi-3-days-024': {en:"Walk through the night market (weekends only) or find a rooftop café with lake views. The Old Quarter glows at night.", vn:"Đi bộ qua chợ đêm (cuối tuần) hoặc ngồi cà phê tầng thượng nhìn ra hồ. Phố Cổ về đêm rất đẹp.", zh:"逛周末夜市，或找一家可俯瞰湖景的屋顶咖啡馆。老城区的夜晚格外迷人。"},
+'auto-blog-hanoi-3-days-025': {en:"Day 2: Culture, Cafés, and Train Street", vn:"Ngày 2: Văn Hóa, Cà Phê và Train Street", zh:"第2天：文化、咖啡馆与火车街"},
+'auto-blog-hanoi-3-days-026': {en:"Slow things down on your second day. This is when Hanoi starts to feel real.", vn:"Chậm lại một chút vào ngày thứ hai. Đây là lúc Hà Nội bắt đầu trở nên chân thật.", zh:"第二天放慢脚步，这时你会开始感受到真正的河内。"},
+'auto-blog-hanoi-3-days-027': {en:"Morning: Văn Miếu Area", vn:"Buổi sáng: Khu Văn Miếu", zh:"早晨：文庙区域"},
+'auto-blog-hanoi-3-days-028': {en:"Visit Văn Miếu – Quốc Tử Giám (Temple of Literature), Vietnam's first university — one of Hanoi's most peaceful sites", vn:"Tham quan Văn Miếu – Quốc Tử Giám — trường đại học đầu tiên của Việt Nam, một trong những nơi yên bình nhất Hà Nội", zh:"参观文庙国子监——越南第一所大学，也是河内最宁静的地方之一"},
+'auto-blog-hanoi-3-days-029': {en:"Afterward, walk through the surrounding streets. This area feels calmer, more residential, and genuinely local", vn:"Sau đó, đi bộ quanh các con phố lân cận. Khu vực này yên tĩnh và mang đậm chất địa phương", zh:"之后漫步周边街道，这一区域更安静、更有社区感，也更贴近当地生活"},
+'auto-blog-hanoi-3-days-030': {en:"Stop at a small café that doesn't cater to tourists", vn:"Dừng chân tại một quán cà phê nhỏ, không phải nơi đông khách du lịch", zh:"在一家不以游客为主的小咖啡馆停下来休息"},
+'auto-blog-hanoi-3-days-031': {en:"💡 Tip: MiaCasa Hanoi is located in this neighborhood — you can see what local life actually looks like.", vn:"💡 Gợi ý: MiaCasa Hanoi nằm ngay trong khu phố này — bạn sẽ thấy cuộc sống địa phương thực sự.", zh:"💡 小贴士：MiaCasa Hanoi 就位于这个社区，你能真正体验当地人的生活。"},
+'auto-blog-hanoi-3-days-032': {en:"Afternoon: Train Street", vn:"Buổi chiều: Train Street (Phố Tàu)", zh:"下午：火车街"},
+'auto-blog-hanoi-3-days-033': {en:"Head to one of Hanoi's most unique attractions — Train Street, where trains pass just inches from homes and cafés.", vn:"Đến một trong những địa điểm độc đáo nhất Hà Nội — Phố Tàu, nơi tàu hỏa chạy sát ngay bên những ngôi nhà và quán cà phê.", zh:"前往河内最独特的景点之一——火车街，火车从居民住宅和咖啡馆旁几乎贴身驶过。"},
+'auto-blog-hanoi-3-days-034': {en:"Read our full guide to Train Street Hanoi →", vn:"Đọc hướng dẫn chi tiết về Phố Tàu Hà Nội →", zh:"阅读我们的河内火车街完整指南 →"},
+'auto-blog-hanoi-3-days-035': {en:"How to experience it safely:", vn:"Cách trải nghiệm an toàn:", zh:"如何安全体验："},
+'auto-blog-hanoi-3-days-036': {en:"Find a café along the tracks, order a drink, and wait", vn:"Chọn một quán cà phê dọc đường ray, gọi đồ uống và chờ", zh:"在铁轨旁找一家咖啡馆，点一杯饮料，然后等待"},
+'auto-blog-hanoi-3-days-037': {en:"Trains typically pass around late afternoon and evening (ask locals for exact times)", vn:"Tàu thường chạy vào chiều tối (hỏi người địa phương để biết giờ chính xác)", zh:"火车通常在傍晚和晚上经过（可向当地人询问准确时间）"},
+'auto-blog-hanoi-3-days-038': {en:"Follow every instruction from café owners — they know when it's safe", vn:"Làm theo mọi hướng dẫn từ chủ quán — họ biết khi nào an toàn", zh:"遵循咖啡馆老板的所有指示——他们最清楚何时安全"},
+'auto-blog-hanoi-3-days-039': {en:"📅 Trains typically run at 4:00pm, 7:00pm, and 9:00pm, but schedules change. Ask a local café owner—they always know.", vn:"📅 Tàu thường chạy lúc 16:00, 19:00 và 21:00, nhưng lịch có thể thay đổi. Hãy hỏi chủ quán cà phê địa phương — họ luôn biết.", zh:"📅 火车通常在16:00、19:00和21:00运行，但时间会变化。询问当地咖啡馆老板，他们最清楚。"},
+'auto-blog-hanoi-3-days-040': {en:"When the train passes, everything changes for a few seconds. Then life continues as if nothing happened. It's unforgettable.", vn:"Khi tàu chạy qua, mọi thứ thay đổi trong vài giây — rồi lại trở lại bình thường. Đó là trải nghiệm khó quên.", zh:"火车经过时，一切在几秒钟内改变，然后生活又恢复如常。这是难以忘记的体验。"},
+'auto-blog-hanoi-3-days-041': {en:"📍 From MiaCasa Hanoi, it's a 5-minute walk. Many guests visit at 6am or 8pm to avoid crowds.", vn:"📍 Từ MiaCasa Hanoi, đi bộ 5 phút. Nhiều khách của chúng tôi đến lúc 6h sáng hoặc 8h tối để tránh đông đúc.", zh:"📍 从 MiaCasa Hanoi 步行5分钟即可到达。许多客人选择早上6点或晚上8点前往以避开人群。"},
+'auto-blog-hanoi-3-days-042': {en:"Evening", vn:"Tối", zh:"晚上"},
+'auto-blog-hanoi-3-days-043': {en:"Take a Grab to Hồ Tây (West Lake) for sunset. Walk along the water, find a lakeside café, and enjoy Hanoi at its calmest.", vn:"Đi Grab ra Hồ Tây ngắm hoàng hôn. Đi bộ dọc hồ, tìm quán cà phê ven hồ, và tận hưởng Hà Nội lúc yên tĩnh nhất.", zh:"乘坐Grab前往西湖看日落。沿湖散步，找一家湖边咖啡馆，享受最宁静的河内。"},
+'auto-blog-hanoi-3-days-044': {en:"Dinner: Try chả cá (turmeric fish with dill) or revisit a favorite street food spot.", vn:"Bữa tối: Thử chả cá hoặc quay lại món ăn đường phố yêu thích.", zh:"晚餐：尝试炸鱼饼（莳萝黄姜鱼）或回到你喜欢的小吃摊。"},
+'auto-blog-hanoi-3-days-045': {en:"Day 3: West Lake and a Slower Hanoi", vn:"Ngày 3: Hồ Tây và Hà Nội Chậm Rãi", zh:"第3天：西湖与慢节奏河内"},
+'auto-blog-hanoi-3-days-046': {en:"By the third day, you'll want to slow down. That's exactly the right instinct.", vn:"Đến ngày thứ ba, bạn sẽ muốn chậm lại. Đó chính xác là cảm giác đúng.", zh:"到了第三天，你会想放慢节奏，这正是正确的感觉。"},
+'auto-blog-hanoi-3-days-047': {en:"Morning", vn:"Buổi sáng", zh:"上午"},
+'auto-blog-hanoi-3-days-048': {en:"Head to Hồ Tây (West Lake) — Hanoi's largest lake, surrounded by quiet neighborhoods", vn:"Ra Hồ Tây — hồ lớn nhất Hà Nội, quanh là những khu phố yên tĩnh", zh:"前往西湖——河内最大的湖，周围是安静的居民区"},
+'auto-blog-hanoi-3-days-049': {en:"Visit Trấn Quốc Pagoda, the oldest Buddhist temple in Hanoi (1,500 years old)", vn:"Thăm Chùa Trấn Quốc, ngôi chùa Phật giáo cổ nhất Hà Nội (hơn 1.500 năm tuổi)", zh:"参观镇国寺——河内最古老的佛教寺庙（距今约1500年历史）"},
+'auto-blog-hanoi-3-days-050': {en:"Walk along the water or cycle the lakeside path", vn:"Đi bộ dọc hồ hoặc đạp xe quanh bờ", zh:"沿湖散步或骑行湖边道路"},
+'auto-blog-hanoi-3-days-051': {en:"Stop at a café overlooking the lake — order cà phê trứng (egg coffee) if you haven't yet", vn:"Dừng ở quán cà phê ven hồ — gọi cà phê trứng nếu chưa thử", zh:"在湖景咖啡馆停下——如果还没试过，可以点一杯蛋咖啡"},
+'auto-blog-hanoi-3-days-052': {en:"Afternoon", vn:"Buổi chiều", zh:"下午"},
+'auto-blog-hanoi-3-days-053': {en:"Return to the city center at your own pace", vn:"Quay lại trung tâm thành phố theo nhịp của riêng bạn", zh:"按自己的节奏返回市中心"},
+'auto-blog-hanoi-3-days-054': {en:"Do some light shopping — look for silk, handicrafts, or local art", vn:"Mua sắm nhẹ — lụa, đồ thủ công, hoặc tranh nghệ thuật", zh:"轻松购物——寻找丝绸、手工艺品或当地艺术品"},
+'auto-blog-hanoi-3-days-055': {en:"Revisit any streets or cafés that caught your attention earlier", vn:"Quay lại những con phố hoặc quán cà phê yêu thích", zh:"重访之前让你印象深刻的街道或咖啡馆"},
+'auto-blog-hanoi-3-days-056': {en:"Try any food you missed (bánh cuốn, bún riêu, or chè for dessert)", vn:"Thử món ăn còn thiếu (bánh cuốn, bún riêu, hoặc chè)", zh:"尝试之前错过的美食（如越南蒸粉卷、蟹汤粉或甜品）"},
+'auto-blog-hanoi-3-days-057': {en:"Evening", vn:"Tối", zh:"晚上"},
+'auto-blog-hanoi-3-days-058': {en:"End your trip with a relaxed dinner — no rushing, no schedule. Just enjoy Hanoi one last time.", vn:"Kết thúc chuyến đi bằng bữa tối thư giãn — không vội vàng. Chỉ là tận hưởng Hà Nội lần cuối.", zh:"用一顿轻松的晚餐结束旅程——不赶时间，只是最后一次享受河内。"},
+'auto-blog-hanoi-3-days-059': {en:"💡 Consider a local cooking class or water puppet show if time allows.", vn:"💡 Cân nhắc tham gia lớp học nấu ăn địa phương hoặc xem múa rối nước nếu có thời gian.", zh:"💡 如果时间允许，可以考虑参加烹饪课程或观看水上木偶戏。"},
+'auto-blog-hanoi-3-days-060': {en:"Where to Stay During Your 3 Days in Hanoi", vn:"Nên Ở Đâu Trong 3 Ngày Ở Hà Nội?", zh:"在河内3天应该住哪里"},
+'auto-blog-hanoi-3-days-061': {en:"Where you stay shapes your entire experience. Choose based on your travel style:", vn:"Chỗ ở ảnh hưởng rất nhiều đến trải nghiệm của bạn. Lựa chọn dựa trên phong cách du lịch:", zh:"住宿会影响你的整体体验，请根据旅行风格选择："},
+'auto-blog-hanoi-3-days-062': {en:"🛵 Want to be in the center of everything?", vn:"🛵 Muốn ở ngay trung tâm?", zh:"🛵 想住在一切的中心？"},
+'auto-blog-hanoi-3-days-063': {en:"Choose MiaCasa Old Quarter", vn:"Chọn MiaCasa Old Quarter", zh:"选择 MiaCasa Old Quarter"},
+'auto-blog-hanoi-3-days-064': {en:"— a full apartment in the heart of Hoàn Kiếm, steps from the lake and nightlife. Best for groups and travelers who want energy at their doorstep.", vn:"— toàn bộ căn hộ giữa lòng Hoàn Kiếm, đi bộ ra hồ và phố đi bộ. Phù hợp cho nhóm và ai thích năng lượng sôi động.", zh:"——位于还剑郡中心的整套公寓，步行可达湖泊和夜生活区。适合喜欢热闹的团体旅客。"},
+'auto-blog-hanoi-3-days-065': {en:"🌿 Prefer a quieter, more local experience?", vn:"🌿 Thích yên tĩnh, gần gũi địa phương?", zh:"🌿 更喜欢安静、当地化的体验？"},
+'auto-blog-hanoi-3-days-066': {en:"Choose MiaCasa Hanoi", vn:"Chọn MiaCasa Hanoi", zh:"选择 MiaCasa Hanoi"},
+'auto-blog-hanoi-3-days-067': {en:"— three private rooms near Văn Miếu and Train Street. A calm, residential neighborhood that's still a quick ride from everything. Best for couples, solo travelers, and anyone who needs good sleep.", vn:"— ba phòng riêng gần Văn Miếu và Train Street. Khu phố yên tĩnh, vẫn gần mọi thứ. Phù hợp cho cặp đôi, khách solo, hoặc ai cần ngủ ngon.", zh:"——靠近文庙和火车街的三间私人房间。安静的住宅区，但交通便利。适合情侣、独行旅客以及需要良好睡眠的人。"},
+'auto-blog-hanoi-3-days-068': {en:"Final Thoughts", vn:"Lời Kết", zh:"最终总结"},
+'auto-blog-hanoi-3-days-069': {en:"Three days in Hanoi is not about doing everything.", vn:"Ba ngày ở Hà Nội không phải để làm hết mọi thứ.", zh:"在河内的三天并不是为了做完所有事情。"},
+'auto-blog-hanoi-3-days-070': {en:"It's about finding a rhythm — between busy streets and quiet moments, between food and conversation, between chaos and calm.", vn:"Mà là để tìm nhịp điệu riêng — giữa phố đông và khoảnh khắc yên tĩnh, giữa ẩm thực và câu chuyện, giữa xô bồ và bình yên.", zh:"而是找到一种节奏——在繁忙街道与安静时刻之间，在美食与对话之间，在喧嚣与平静之间。"},
+'auto-blog-hanoi-3-days-071': {en:"That's what makes the city memorable.", vn:"Đó là điều khiến Hà Nội đáng nhớ.", zh:"这正是让这座城市令人难忘的原因。"},
+'auto-blog-hanoi-3-days-072': {en:"Enjoy your trip. And if you stay with us, we'd love to host you.", vn:"Chúc bạn có chuyến đi tuyệt vời. Và nếu ở cùng chúng tôi, chúng tôi rất vui được đón bạn.", zh:"祝你旅途愉快。如果你选择入住我们这里，我们非常欢迎你。"},
+'auto-blog-hanoi-3-days-073': {en:"🏠 Hosted by locals in Hanoi", vn:"🏠 Do người địa phương làm chủ", zh:"🏠 由河内本地人运营"},
+'auto-blog-hanoi-3-days-074': {en:"⭐ 4.9★ from 200+ guests", vn:"⭐ 4.9★ từ hơn 200 khách", zh:"⭐ 200多位客人评分4.9★"},
+'auto-blog-hanoi-3-days-075': {en:"💰 Direct booking = better rate", vn:"💰 Đặt trực tiếp = giá tốt hơn", zh:"💰 直接预订 = 更优惠价格"},
+'auto-blog-hanoi-3-days-076': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
+'auto-blog-train-street-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
+'auto-blog-train-street-002': {en:"Blog", vn:"Blog", zh:"博客"},
+'auto-blog-train-street-003': {en:"Train Street Hanoi Guide", vn:"Hướng Dẫn Train Street Hà Nội", zh:"河内火车街指南"},
+'auto-blog-train-street-004': {en:"🚂 HANOI LOCAL GUIDE", vn:"🚂 CẨM NANG ĐỊA PHƯƠNG HÀ NỘI", zh:"🚂 河内本地指南"},
+'auto-blog-train-street-005': {en:"Train Street Hanoi: Full Guide (2026)", vn:"Train Street Hà Nội: Hướng Dẫn Chi Tiết (2026)", zh:"河内火车街：完整指南（2026）"},
+'auto-blog-train-street-006': {en:"📅 April 22, 2026 · ☕ 6 min read · ✍️ By MiaCasa Team", vn:"📅 22 Tháng 4, 2026 · ☕ 6 phút đọc · ✍️ MiaCasa Team", zh:"📅 2026年4月22日 · ☕ 6分钟阅读 · ✍️ MiaCasa团队"},
+'auto-blog-train-street-007': {en:"The train passing through Train Street — just inches from local homes and cafés", vn:"Đoàn tàu chạy qua Train Street — chỉ cách nhà dân và quán cà phê vài inch", zh:"火车穿过火车街——距离居民和咖啡馆仅几英寸"},
+'auto-blog-train-street-008': {en:"Train Street is one of the most unusual places in Hanoi.", vn:"Train Street là một trong những nơi độc đáo nhất ở Hà Nội.", zh:"火车街是河内最不寻常的地方之一。"},
+'auto-blog-train-street-009': {en:"A narrow residential street. Homes just inches from the tracks. Cafés set up right beside them. And a train that passes through it all, just a few times each day.", vn:"Một con phố nhỏ. Nhà dân sát đường ray. Quán cà phê ngay bên cạnh. Và đoàn tàu chạy qua chỉ cách vài bước chân.", zh:"一条狭窄的居民街。房屋紧贴铁轨。咖啡馆就在旁边。火车每天只经过几次。"},
+'auto-blog-train-street-010': {en:"It's not built for tourists—but that's exactly why people come.", vn:"Nơi này không được xây dựng cho du lịch—nhưng chính điều đó lại khiến nó trở nên đặc biệt.", zh:"这里不是为游客建造的——但这正是它吸引人的原因。"},
+'auto-blog-train-street-011': {en:"What is Train Street?", vn:"Train Street là gì?", zh:"什么是火车街？"},
+'auto-blog-train-street-012': {en:"Train Street is a stretch of railway running through a residential neighborhood in central Hanoi.", vn:"Đây là đoạn đường ray chạy xuyên qua khu dân cư ở trung tâm Hà Nội.", zh:"火车街是一段穿过河内市中心居民区的铁路。"},
+'auto-blog-train-street-013': {en:"Locals live, cook, and run small cafés right next to the tracks. When the train approaches, everything shifts. Chairs are moved. People step back. Then the train passes—and life continues.", vn:"Người dân sinh sống, nấu ăn và kinh doanh ngay cạnh đường ray. Khi tàu đến, mọi thứ thay đổi—ghế được dọn đi, mọi người đứng lùi lại. Khi tàu qua, cuộc sống tiếp tục như bình thường.", zh:"当地居民在铁轨旁生活、做饭并经营小咖啡馆。火车接近时，一切都会改变：椅子被移开，人们后退，然后火车驶过，一切恢复正常。"},
+'auto-blog-train-street-014': {en:"Is Train Street still open in 2026?", vn:"Train Street còn mở không năm 2026?", zh:"2026年火车街还开放吗？"},
+'auto-blog-train-street-015': {en:"This is one of the most common questions.", vn:"Đây là câu hỏi rất nhiều người quan tâm.", zh:"这是最常见的问题之一。"},
+'auto-blog-train-street-016': {en:"Access to Train Street has been restricted at times for safety reasons. In practice, many visitors still enter through cafés or local access points. The situation can depend on:", vn:"Việc vào Train Street đôi khi bị hạn chế vì lý do an toàn. Tuy nhiên, trên thực tế, nhiều du khách vẫn có thể vào thông qua các quán cà phê hoặc lối vào địa phương. Tình hình có thể phụ thuộc vào:", zh:"出于安全原因，火车街有时会限制进入。但实际上，许多游客仍可通过咖啡馆或当地入口进入，具体情况取决于："},
+'auto-blog-train-street-017': {en:"Local conditions", vn:"Thời điểm", zh:"当地情况"},
+'auto-blog-train-street-018': {en:"Time of day", vn:"Tình hình thực tế", zh:"时间段"},
+'auto-blog-train-street-019': {en:"Whether you enter through a café", vn:"Cách bạn vào", zh:"是否通过咖啡馆进入"},
+'auto-blog-train-street-020': {en:"Train Street Hanoi Train Times (2026 Guide)", vn:"Giờ Tàu Train Street Hà Nội (2026)", zh:"火车街列车时间（2026指南）"},
+'auto-blog-train-street-021': {en:"Train times are not fixed, and this is important to understand.", vn:"Giờ tàu không cố định, và điều này rất quan trọng.", zh:"火车时间并不固定，这一点非常重要。"},
+'auto-blog-train-street-022': {en:"Trains usually pass several times a day, most often:", vn:"Thông thường, tàu chạy vài lần mỗi ngày, thường là:", zh:"火车通常每天经过几次，常见时间为："},
+'auto-blog-train-street-023': {en:"Morning: around 8:30 AM – 12:00 PM", vn:"Buổi sáng: khoảng 8:30 – 12:00", zh:"上午：约8:30–12:00"},
+'auto-blog-train-street-024': {en:"Afternoon: around 3:00 PM – 4:30 PM", vn:"Buổi chiều: khoảng 15:00 – 16:30", zh:"下午：约15:00–16:30"},
+'auto-blog-train-street-025': {en:"Evening: around 7:00 PM – 10:00 PM", vn:"Buổi tối: khoảng 19:00 – 22:00", zh:"晚上：约19:00–22:00"},
+'auto-blog-train-street-026': {en:"You may also see specific times listed online, such as 4:10 PM, 7:20 PM, or 9:50 PM—but delays are common and schedules can change.", vn:"Bạn cũng có thể thấy một số giờ cụ thể trên mạng như 16:10, 19:20 hoặc 21:50—nhưng tàu có thể trễ và lịch có thể thay đổi.", zh:"你可能会在网上看到具体时间，如16:10、19:20或21:50，但延误很常见，时间可能变化。"},
+'auto-blog-train-street-027': {en:"Unlike many guides that list exact times, Train Street operates on a flexible timetable.", vn:"Không giống nhiều bài viết liệt kê giờ cố định, Train Street hoạt động theo lịch linh hoạt.", zh:"与许多列出固定时间的指南不同，火车街采用灵活时间表。"},
+'auto-blog-train-street-028': {en:"👉 The best way to know the exact timing is simple: Ask a café owner when you arrive—they always have the most accurate information.", vn:"👉 Cách tốt nhất để biết giờ chính xác: Hỏi trực tiếp quán cà phê khi bạn đến—họ luôn có thông tin chính xác nhất.", zh:"👉 最好的方法很简单：到达后直接询问咖啡馆老板，他们的信息最准确。"},
+'auto-blog-train-street-029': {en:"Where is Train Street?", vn:"Train Street ở đâu?", zh:"火车街在哪里？"},
+'auto-blog-train-street-030': {en:"Train Street is located near Hanoi Railway Station, not far from the Old Quarter.", vn:"Train Street nằm gần Ga Hà Nội, không xa Phố Cổ.", zh:"火车街位于河内火车站附近，离老城区不远。"},
+'auto-blog-train-street-031': {en:"The most visited sections are along:", vn:"Khu vực phổ biến nhất:", zh:"最常访问的区域包括："},
+'auto-blog-train-street-032': {en:"Trần Phú Street", vn:"Trần Phú", zh:"陈富街"},
+'auto-blog-train-street-033': {en:"Phùng Hưng Street", vn:"Phùng Hưng", zh:"冯兴街"},
+  'auto-blog-train-street-034': {en:"📍 From <a href=\"miacasa-hanoi.html\" style=\"color: #c17a5a; text-decoration: underline;\">MiaCasa Hanoi</a>, it's about a 5-minute walk. <a href=\"index.html?property=hanoi#booking\" style=\"color: #c17a5a; text-decoration: underline;\">Book Your Dates →</a>", vn:"📍 Từ <a href=\"miacasa-hanoi.html\" style=\"color: #c17a5a; text-decoration: underline;\">MiaCasa Hanoi</a>, chỉ mất khoảng 5 phút đi bộ. <a href=\"index.html?property=hanoi#booking\" style=\"color: #c17a5a; text-decoration: underline;\">Xem lịch trống →</a>", zh:"📍 从 <a href=\"miacasa-hanoi.html\" style=\"color: #c17a5a; text-decoration: underline;\">MiaCasa Hanoi</a> 步行约5分钟即可到达。 <a href=\"index.html?property=hanoi#booking\" style=\"color: #c17a5a; text-decoration: underline;\">查看可预订日期 →</a>"},
+
+'auto-blog-train-street-035': {en:"How to visit Train Street safely", vn:"Cách tham quan an toàn", zh:"如何安全参观火车街"},
+'auto-blog-train-street-036': {en:"This is not a controlled tourist attraction—it's an active railway.", vn:"Đây là đường tàu đang hoạt động, không phải khu du lịch có kiểm soát.", zh:"这里不是受控旅游景点——而是一条仍在运行的铁路。"},
+'auto-blog-train-street-037': {en:"Always listen to café staff or locals", vn:"Luôn nghe theo hướng dẫn của quán hoặc người dân", zh:"务必听从咖啡馆工作人员或当地人的指示"},
+'auto-blog-train-street-038': {en:"Stay clear of the tracks when told", vn:"Không đứng gần đường ray khi được yêu cầu", zh:"在被提醒时远离铁轨"},
+'auto-blog-train-street-039': {en:"Do not stand in the middle for photos", vn:"Không đứng giữa đường ray để chụp ảnh", zh:"不要站在铁轨中间拍照"},
+'auto-blog-train-street-040': {en:"Avoid blocking the train", vn:"Không cản trở tàu", zh:"避免阻挡火车通行"},
+'auto-blog-train-street-041': {en:"Choose a café instead of standing freely", vn:"Chọn quán cà phê thay vì đứng tự do", zh:"选择在咖啡馆内观看，而不是随意站在铁轨旁"},
+'auto-blog-train-street-042': {en:"If something feels unsafe, step back.", vn:"Nếu thấy không an toàn, hãy lùi lại.", zh:"如果感觉不安全，请后退。"},
+'auto-blog-train-street-043': {en:"Best way to experience Train Street", vn:"Trải nghiệm tốt nhất", zh:"最佳体验方式"},
+'auto-blog-train-street-044': {en:"The best way is simple.", vn:"Cách tốt nhất rất đơn giản.", zh:"最好的方式很简单。"},
+'auto-blog-train-street-045': {en:"Find a small café along the tracks. Sit down. Order a drink. Wait.", vn:"Chọn một quán cà phê nhỏ dọc đường ray. Ngồi xuống. Gọi đồ uống. Chờ.", zh:"找一家铁轨旁的小咖啡馆，坐下，点一杯饮料，等待。"},
+'auto-blog-train-street-046': {en:"A safer experience", vn:"An toàn hơn", zh:"更安全的体验"},
+'auto-blog-train-street-047': {en:"A better view", vn:"Có góc nhìn tốt hơn", zh:"更好的观景视角"},
+'auto-blog-train-street-048': {en:"A more relaxed atmosphere", vn:"Cảm nhận rõ không khí", zh:"更轻松的氛围"},
+'auto-blog-train-street-049': {en:"You'll also notice how the entire street prepares before the train arrives.", vn:"Bạn sẽ thấy cả con phố chuẩn bị như thế nào trước khi tàu đến.", zh:"你也会看到整条街在火车到来前如何准备。"},
+'auto-blog-train-street-050': {en:"What does it feel like?", vn:"Cảm giác khi tàu đi qua", zh:"火车经过是什么感觉？"},
+'auto-blog-train-street-051': {en:"A few minutes before the train arrives, everything changes.", vn:"Trước khi tàu đến vài phút, mọi thứ thay đổi.", zh:"火车到来前几分钟，一切都会改变。"},
+'auto-blog-train-street-052': {en:"People move. Chairs disappear. The space clears.", vn:"Không gian được dọn dẹp. Mọi người di chuyển.", zh:"人们移动，椅子被收起，空间被清空。"},
+'auto-blog-train-street-053': {en:"Then suddenly, the train is there—loud, close, and surprisingly fast.", vn:"Rồi đoàn tàu xuất hiện—gần, nhanh và ồn.", zh:"然后火车突然出现——声音巨大、距离很近、速度很快。"},
+'auto-blog-train-street-054': {en:"It passes in seconds.", vn:"Chỉ vài giây sau,", zh:"它在几秒内就驶过。"},
+'auto-blog-train-street-055': {en:"Then just as quickly, the street returns to normal.", vn:"mọi thứ trở lại bình thường.", zh:"随后街道又迅速恢复正常。"},
+'auto-blog-train-street-056': {en:"Best time to visit", vn:"Thời điểm nên đi", zh:"最佳参观时间"},
+'auto-blog-train-street-057': {en:"🌅 Early morning", vn:"🌅 Sáng sớm", zh:"🌅 清晨"},
+'auto-blog-train-street-058': {en:"Fewer people", vn:"Ít đông", zh:"人较少"},
+'auto-blog-train-street-059': {en:"More local atmosphere", vn:"Không khí địa phương", zh:"更本地化的氛围"},
+'auto-blog-train-street-060': {en:"🌆 Evening", vn:"🌆 Buổi tối", zh:"🌆 傍晚"},
+'auto-blog-train-street-061': {en:"Livelier cafés", vn:"Nhiều quán mở", zh:"咖啡馆更热闹"},
+'auto-blog-train-street-062': {en:"Better lighting and energy", vn:"Không khí sôi động", zh:"灯光与氛围更好"},
+'auto-blog-train-street-063': {en:"Staying near Train Street", vn:"Ở gần Train Street", zh:"住在火车街附近"},
+'auto-blog-train-street-064': {en:"If you want to visit easily, staying nearby makes a big difference.", vn:"Ở gần sẽ thuận tiện hơn rất nhiều nếu bạn muốn ghé thăm.", zh:"如果想方便参观，住在附近会有很大帮助。"},
+'auto-blog-train-street-065': {en:"MiaCasa Hanoi is located in the Văn Miếu area, within walking distance of Train Street.", vn:"MiaCasa Hanoi nằm trong khu Văn Miếu, cách Train Street vài phút đi bộ.", zh:"MiaCasa Hanoi 位于文庙区域，步行即可到达火车街。"},
+'auto-blog-train-street-066': {en:"Visit early or late", vn:"Đi sớm hoặc muộn", zh:"早点或晚点前往"},
+'auto-blog-train-street-067': {en:"Avoid crowds", vn:"Tránh đông", zh:"避开人群"},
+'auto-blog-train-street-068': {en:"Experience the area more naturally", vn:"Trải nghiệm tự nhiên hơn", zh:"更自然地体验该区域"},
+'auto-blog-train-street-069': {en:"Final thoughts", vn:"Kết luận", zh:"最终总结"},
+'auto-blog-train-street-070': {en:"Train Street is not just about the train.", vn:"Train Street không chỉ là nơi xem tàu.", zh:"火车街不仅仅是看火车的地方。"},
+'auto-blog-train-street-071': {en:"It's about the contrast—between daily life and something unexpected passing through it.", vn:"Đó là sự giao thoa giữa cuộc sống hàng ngày và một điều bất ngờ.", zh:"它是日常生活与突如其来的火车之间的对比。"},
+'auto-blog-train-street-072': {en:"If you visit with respect and awareness, it can be one of the most unique experiences in Hanoi.", vn:"Nếu trải nghiệm đúng cách, đây sẽ là một trong những điểm đáng nhớ nhất ở Hà Nội.", zh:"如果带着尊重和安全意识参观，这将是河内最独特的体验之一。"},
+'auto-blog-train-street-073': {en:"🏠 Hosted by locals in Hanoi", vn:"🏠 Do người địa phương làm chủ", zh:"🏠 由河内本地人运营"},
+'auto-blog-train-street-074': {en:"⭐ 4.9★ from 200+ guests", vn:"⭐ 4.9★ từ hơn 200 khách", zh:"⭐ 来自200多位客人的4.9★评分"},
+'auto-blog-train-street-075': {en:"💰 Direct booking = better rate", vn:"💰 Đặt trực tiếp = giá tốt hơn", zh:"💰 直接预订 = 更优惠价格"},
+'auto-blog-train-street-076': {en:"✨ Planning your trip to Hanoi?", vn:"✨ Đang lên kế hoạch cho chuyến đi Hà Nội?", zh:"✨ 正在计划你的河内之旅？"},
+'auto-blog-train-street-077': {en:"Read our complete 3-day itinerary for food, culture, and where to stay.", vn:"Đọc lịch trình 3 ngày chi tiết về ẩm thực, văn hóa và nơi ở.", zh:"阅读我们完整的3日行程，包括美食、文化和住宿建议。"},
+'auto-blog-train-street-078': {en:"📖 Read the 3-day Hanoi itinerary →", vn:"📖 Đọc lịch trình 3 ngày ở Hà Nội →", zh:"📖 阅读河内3日行程 →"},
+'auto-blog-train-street-079': {en:"📖 You might also like", vn:"📖 Có thể bạn cũng thích", zh:"📖 你可能也喜欢"},
+'auto-blog-train-street-080': {en:"3 Days in Hanoi", vn:"3 Ngày Ở Hà Nội", zh:"河内三日游"},
+'auto-blog-train-street-081': {en:"Complete itinerary with food, culture, and where to stay", vn:"Lịch trình chi tiết với ẩm thực, văn hóa và nơi ở", zh:"包含美食、文化与住宿的完整行程"},
+'auto-blog-train-street-082': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
+'auto-blog-train-street-083': {en:"Old Quarter vs quiet local areas", vn:"Phố Cổ hay khu phố yên tĩnh", zh:"老城区 vs 安静本地区域"},
+'auto-blog-train-street-084': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
+
+'auto-blog-where-to-stay-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
+'auto-blog-where-to-stay-002': {en:"Blog", vn:"Blog", zh:"博客"},
+  'auto-blog-where-to-stay-003': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
+'auto-blog-where-to-stay-004': {en:"🏠 ACCOMMODATION GUIDE", vn:"🏠 HƯỚNG DẪN CHỖ Ở", zh:"🏠 住宿指南"},
+'auto-blog-where-to-stay-005': {en:"Where to Stay in Hanoi: Old Quarter vs Local Areas", vn:"Nên Ở Đâu Khi Đến Hà Nội: Phố Cổ Hay Khu Yên Tĩnh", zh:"河内住宿选择：老城区 vs 本地安静区域"},
+'auto-blog-where-to-stay-006': {en:"📅 April 29, 2026 · ☕ 5 min read · ✍️ By MiaCasa Team", vn:"📅 29 Tháng 4, 2026 · ☕ 5 phút đọc · ✍️ MiaCasa Team", zh:"📅 2026年4月29日 · ☕ 5分钟阅读 · ✍️ MiaCasa团队"},
+'auto-blog-where-to-stay-007': {en:"Choosing where to stay in Hanoi can completely shape your experience.", vn:"Chỗ ở sẽ ảnh hưởng rất nhiều đến trải nghiệm của bạn ở Hà Nội.", zh:"选择在河内的住宿会彻底影响你的旅行体验。"},
+'auto-blog-where-to-stay-008': {en:"Some travelers want to be in the center of everything. Others prefer a quieter, more local atmosphere.", vn:"Có người muốn ở ngay trung tâm. Có người thích không gian yên tĩnh hơn.", zh:"有些旅行者想住在城市中心，有些则更喜欢安静、当地化的氛围。"},
+'auto-blog-where-to-stay-009': {en:"Most people end up choosing between two very different areas:", vn:"Hầu hết mọi người sẽ lựa chọn giữa hai khu vực rất khác nhau:", zh:"大多数人最终会在两个完全不同的区域之间选择："},
+'auto-blog-where-to-stay-010': {en:"The Old Quarter", vn:"Phố Cổ", zh:"老城区"},
+'auto-blog-where-to-stay-011': {en:"A quieter residential neighborhood", vn:"Khu dân cư yên tĩnh", zh:"更安静的住宅区"},
+'auto-blog-where-to-stay-012': {en:"Want energy, food, nightlife?", vn:"Thích sôi động, ẩm thực, nightlife?", zh:"想要活力、美食和夜生活？"},
+'auto-blog-where-to-stay-013': {en:"Old Quarter", vn:"Phố Cổ", zh:"老城区"},
+'auto-blog-where-to-stay-014': {en:"Book Your Dates →", vn:"Xem lịch trống →", zh:"查看可预订日期 →"},
+'auto-blog-where-to-stay-015': {en:"Want calm, space, better sleep?", vn:"Thích yên tĩnh, thoải mái, ngủ ngon?", zh:"想要安静、空间和更好的睡眠？"},
+'auto-blog-where-to-stay-016': {en:"Local areas (like Văn Miếu)", vn:"Khu Văn Miếu", zh:"本地区域（如文庙附近）"},
+'auto-blog-where-to-stay-017': {en:"Book Your Dates →", vn:"Xem lịch trống →", zh:"查看可预订日期 →"},
+'auto-blog-where-to-stay-018': {en:"Staying in the Old Quarter", vn:"Ở Phố Cổ", zh:"住在老城区"},
+'auto-blog-where-to-stay-019': {en:"The Old Quarter is the heart of Hanoi. Everything happens here: street food, cafés, nightlife, markets. You can walk almost everywhere.", vn:"Phố Cổ là trung tâm của Hà Nội. Mọi thứ đều ở đây: ẩm thực đường phố, quán cà phê, chợ, nightlife. Bạn có thể đi bộ hầu hết mọi nơi.", zh:"老城区是河内的中心。一切都在这里发生：街头美食、咖啡馆、夜生活和市场，几乎可以步行到任何地方。"},
+'auto-blog-where-to-stay-020': {en:"Best for:", vn:"Phù hợp với:", zh:"适合人群："},
+'auto-blog-where-to-stay-021': {en:"First-time visitors", vn:"Người lần đầu đến Hà Nội", zh:"首次来河内的游客"},
+'auto-blog-where-to-stay-022': {en:"Short stays", vn:"Lịch trình ngắn", zh:"短期停留"},
+'auto-blog-where-to-stay-023': {en:"Travelers who want everything nearby", vn:"Thích sự tiện lợi", zh:"希望一切都在附近的旅行者"},
+'auto-blog-where-to-stay-024': {en:"Things to consider:", vn:"Lưu ý:", zh:"需要考虑："},
+'auto-blog-where-to-stay-025': {en:"It can be noisy", vn:"Có thể ồn", zh:"可能比较吵"},
+'auto-blog-where-to-stay-026': {en:"Streets are crowded", vn:"Đông đúc", zh:"街道拥挤"},
+'auto-blog-where-to-stay-027': {en:"Rooms are often smaller", vn:"Không gian nhỏ", zh:"房间通常较小"},
+'auto-blog-where-to-stay-028': {en:"Staying in a quieter area (Văn Miếu and nearby)", vn:"Ở khu yên tĩnh (Văn Miếu và lân cận)", zh:"住在更安静的区域（文庙及周边）"},
+'auto-blog-where-to-stay-029': {en:"Just a few minutes away, the atmosphere changes completely. Areas like Văn Miếu feel calmer, more local, and less crowded.", vn:"Chỉ cách trung tâm vài phút nhưng không khí hoàn toàn khác. Khu Văn Miếu yên tĩnh, địa phương hơn, ít đông đúc.", zh:"只需几分钟，氛围就完全不同。像文庙这样的区域更安静、更本地化，也不那么拥挤。"},
+'auto-blog-where-to-stay-030': {en:"You'll still be close to Train Street and the Old Quarter (just a short ride away).", vn:"Bạn vẫn gần Train Street và Phố Cổ (chỉ cách một quãng ngắn).", zh:"你仍然靠近火车街和老城区（短途即可到达）。"},
+'auto-blog-where-to-stay-031': {en:"Best for:", vn:"Phù hợp với:", zh:"适合人群："},
+'auto-blog-where-to-stay-032': {en:"Couples", vn:"Cặp đôi", zh:"情侣"},
+'auto-blog-where-to-stay-033': {en:"Remote workers", vn:"Người làm việc từ xa", zh:"远程工作者"},
+'auto-blog-where-to-stay-034': {en:"Light sleepers", vn:"Người ngủ nhẹ", zh:"睡眠浅的人"},
+'auto-blog-where-to-stay-035': {en:"Longer stays", vn:"Lưu trú dài ngày", zh:"长期停留"},
+'auto-blog-where-to-stay-036': {en:"Which one should you choose?", vn:"Nên chọn khu nào?", zh:"你应该选择哪一个？"},
+'auto-blog-where-to-stay-037': {en:"There's no single \"best\" place. It depends on how you want to experience Hanoi.", vn:"Không có lựa chọn \"tốt nhất\". Chỉ có lựa chọn phù hợp với bạn.", zh:"没有唯一“最佳”地点，取决于你想如何体验河内。"},
+'auto-blog-where-to-stay-038': {en:"If you want energy → stay in the Old Quarter", vn:"Nếu thích sôi động → ở Phố Cổ", zh:"如果想要活力 → 住老城区"},
+'auto-blog-where-to-stay-039': {en:"If you want balance → stay in a quieter neighborhood", vn:"Nếu thích cân bằng → ở khu yên tĩnh", zh:"如果想要平衡 → 住安静区域"},
+'auto-blog-where-to-stay-040': {en:"Two ways to stay with MiaCasa", vn:"Hai lựa chọn tại MiaCasa", zh:"MiaCasa 的两种住宿选择"},
+'auto-blog-where-to-stay-041': {en:"MiaCasa offers both options, depending on your travel style.", vn:"MiaCasa có cả hai lựa chọn, phù hợp với phong cách du lịch của bạn.", zh:"MiaCasa 提供两种选择，取决于你的旅行风格。"},
+'auto-blog-where-to-stay-042': {en:"🛵 MiaCasa Old Quarter", vn:"🛵 MiaCasa Phố Cổ", zh:"🛵 MiaCasa 老城区"},
+'auto-blog-where-to-stay-043': {en:"Stay in the center of everything.", vn:"Ở ngay trung tâm.", zh:"住在一切的中心"},
+'auto-blog-where-to-stay-044': {en:"Full apartment", vn:"Toàn bộ căn hộ", zh:"整套公寓"},
+'auto-blog-where-to-stay-045': {en:"Steps from Hoàn Kiếm Lake", vn:"Cách Hồ Hoàn Kiếm vài bước", zh:"距离还剑湖仅几步之遥"},
+'auto-blog-where-to-stay-046': {en:"Ideal for groups and short stays", vn:"Lý tưởng cho nhóm và lưu trú ngắn", zh:"适合团体和短期停留"},
+'auto-blog-where-to-stay-047': {en:"👉 Book Your Dates →", vn:"👉 Đặt ngày lưu trú →", zh:"👉 立即预订 →"},
+'auto-blog-where-to-stay-048': {en:"🌿 MiaCasa Hanoi", vn:"🌿 MiaCasa Hà Nội", zh:"🌿 MiaCasa 河内"},
+'auto-blog-where-to-stay-049': {en:"A quieter, more local experience.", vn:"Không gian yên tĩnh, gần gũi.", zh:"更安静、更本地化的体验"},
+'auto-blog-where-to-stay-050': {en:"Private rooms", vn:"Phòng riêng", zh:"私人房间"},
+'auto-blog-where-to-stay-051': {en:"Near Văn Miếu and Train Street", vn:"Gần Văn Miếu và Train Street", zh:"靠近文庙和火车街"},
+'auto-blog-where-to-stay-052': {en:"Calm neighborhood, better sleep", vn:"Khu phố yên tĩnh, ngủ ngon hơn", zh:"安静区域，睡眠更好"},
+'auto-blog-where-to-stay-053': {en:"👉 Book Your Dates →", vn:"👉 Đặt ngày lưu trú →", zh:"👉 立即预订 →"},
+'auto-blog-where-to-stay-054': {en:"Final thoughts", vn:"Kết luận", zh:"最终总结"},
+'auto-blog-where-to-stay-055': {en:"Where you stay in Hanoi is not just about location.", vn:"Chỗ ở không chỉ là vị trí.", zh:"在河内住宿不仅仅是地点问题。"},
+'auto-blog-where-to-stay-056': {en:"It's about how you want to feel during your trip.", vn:"Mà là cảm giác bạn muốn có trong chuyến đi.", zh:"更关乎你在旅途中想要的感受。"},
+'auto-blog-where-to-stay-057': {en:"Busy and energetic. Or calm and local.", vn:"Sôi động. Hoặc yên tĩnh.", zh:"热闹活力，或安静本地化。"},
+'auto-blog-where-to-stay-058': {en:"Choose the one that fits you—and the city will feel completely different.", vn:"Chọn nơi phù hợp—và Hà Nội sẽ hoàn toàn khác biệt.", zh:"选择适合你的地方，整座城市都会变得不同。"},
+'auto-blog-where-to-stay-059': {en:"🏠 Hosted by locals in Hanoi", vn:"🏠 Do người địa phương làm chủ", zh:"🏠 由河内本地人运营"},
+'auto-blog-where-to-stay-060': {en:"⭐ 4.9★ from 200+ guests", vn:"⭐ 4.9★ từ hơn 200 khách", zh:"⭐ 来自200多位客人的4.9★评分"},
+'auto-blog-where-to-stay-061': {en:"💰 Direct booking = better rate", vn:"💰 Đặt trực tiếp = giá tốt hơn", zh:"💰 直接预订 = 更优惠价格"},
+'auto-blog-where-to-stay-062': {en:"📖 You might also like", vn:"📖 Có thể bạn cũng thích", zh:"📖 你可能也喜欢"},
+'auto-blog-where-to-stay-063': {en:"3 Days in Hanoi", vn:"3 Ngày Ở Hà Nội", zh:"河内三日游"},
+'auto-blog-where-to-stay-064': {en:"Complete itinerary with food, culture, and where to stay", vn:"Lịch trình chi tiết với ẩm thực, văn hóa và nơi ở", zh:"包含美食、文化与住宿的完整行程"},
+'auto-blog-where-to-stay-065': {en:"Train Street Guide", vn:"Hướng Dẫn Train Street", zh:"火车街指南"},
+'auto-blog-where-to-stay-066': {en:"Times, safety tips, and how to visit without crowds", vn:"Giờ tàu, mẹo an toàn, và cách tham quan tránh đông đúc", zh:"时间、安全提示以及避开人群的参观方式"},
+'auto-blog-where-to-stay-067': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
+'auto-index-001': {
+  en:"Book Now",
+  vn:"Đặt ngay",
+  zh:"立即预订"
+},
+
+'auto-index-002': {
+  en:"⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location may be <strong>noisy</strong> (street and bar noise until late).",
+  vn:"⚠️ LƯU Ý: Phòng ở <strong>tầng 3, cầu thang dốc và hẹp</strong> (không thang máy). <strong>Chủ nhà có thể hỗ trợ mang hành lý lên/xuống.</strong> Vị trí trung tâm Phố Cổ có thể <strong>ồn</strong> (tiếng đường phố và bar đến khuya).",
+  zh:"⚠️ 注意：位于三楼，<strong>楼梯陡且狭窄</strong>（无电梯）。<strong>房东可协助搬运行李上下楼。</strong> 老城区中心位置可能<strong>较吵</strong>（街道及酒吧噪音至深夜）。"
+},
+
+'auto-index-003': {
+  en:"💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong>",
+  vn:"💡 Đặt cả 3 phòng để có <strong>toàn bộ căn nhà</strong> riêng cho nhóm bạn (tối đa 8 người). <strong>Chủ nhà có thể hỗ trợ mang hành lý.</strong>",
+  zh:"💡 预订全部3个房间即可独享<strong>整套房源</strong>（最多可住8人）。<strong>房东可协助搬运行李。</strong>"
+},
+
+'auto-index-004': {
+  en:"✓ Entire apartment — 100% private",
+  vn:"✓ Toàn bộ căn hộ — riêng tư 100%",
+  zh:"✓ 整套公寓 — 100% 私密"
+},
+
+'auto-index-005': {
+  en:"✓ Best for: Groups wanting full privacy",
+  vn:"✓ Phù hợp: Nhóm cần không gian riêng",
+  zh:"✓ 适合：需要完全私密空间的团体"
+},
+
+'auto-index-006': {
+  en:"✓ Sleeps 6 · Private terrace",
+  vn:"✓ Ngủ 6 · Sân thượng riêng",
+  zh:"✓ 可住6人 · 私人露台"
+},
+
+'auto-index-007': {
+  en:"⚠️ Steep stairs (3rd floor, no elevator — hosts help with luggage)",
+  vn:"⚠️ Cầu thang dốc (tầng 3, không thang máy — chủ nhà hỗ trợ hành lý)",
+  zh:"⚠️ 楼梯较陡（三楼，无电梯——房东可协助搬运行李）"
+},
+
+'auto-index-008': {
+  en:"⚠️ Can be noisy (central Old Quarter location)",
+  vn:"⚠️ Có thể ồn (khu Phố Cổ trung tâm)",
+  zh:"⚠️ 可能较吵（老城区中心位置）"
+},
+
+'auto-index-009': {
+  en:"✓ Private rooms with kitchenette",
+  vn:"✓ Phòng riêng có bếp nhỏ",
+  zh:"✓ 独立房间 · 配备小厨房"
+},
+
+'auto-index-010': {
+  en:"✓ Best for: Couples, solo travelers",
+  vn:"✓ Phù hợp: Cặp đôi, khách đi một mình",
+  zh:"✓ 适合：情侣与独行旅客"
+},
+
+'auto-index-011': {
+  en:"✓ Can book all 3 rooms for entire home (sleeps 8)",
+  vn:"✓ Có thể đặt cả 3 phòng để có toàn bộ nhà (tối đa 8 người)",
+  zh:"✓ 可预订3间房整租（最多8人）"
+},
+
+'auto-index-012': {
+  en:"✓ Quiet, local neighborhood",
+  vn:"✓ Khu phố yên tĩnh, địa phương",
+  zh:"✓ 安静的本地社区"
+},
+
+'auto-index-013': {
+  en:"⚠️ No elevator (stairs access — hosts can help with luggage)",
+  vn:"⚠️ Không thang máy (đi cầu thang — chủ nhà hỗ trợ hành lý)",
+  zh:"⚠️ 无电梯（需走楼梯——房东可协助搬运行李）"
+},
+
+'auto-index-014': {
+  en:"📌 Both properties are traditional Hanoi homes — <strong>no elevator</strong>. <strong>Hosts are happy to help carry luggage</strong> up and down the stairs. Please consider mobility needs before booking.",
+  vn:"📌 Cả hai chỗ nghỉ là nhà truyền thống Hà Nội — <strong>không có thang máy</strong>. <strong>Chủ nhà sẵn lòng hỗ trợ mang hành lý</strong> lên xuống cầu thang. Vui lòng cân nhắc nhu cầu di chuyển trước khi đặt phòng.",
+  zh:"📌 两处房源均为河内传统住宅——<strong>无电梯</strong>。<strong>房东可协助搬运行李</strong>上下楼梯。预订前请考虑行动便利性。"
+},
+
+'auto-index-015': {
+  en:"✓ Free cancellation up to 48 hours before arrival",
+  vn:"✓ Miễn phí hủy trước 48 giờ",
+  zh:"✓ 入住前48小时可免费取消"
+},
+
+'auto-index-016': {
+  en:"💵 Pay at property",
+  vn:"💵 Thanh toán tại chỗ",
+  zh:"💵 到店付款"
+},
+
+'auto-index-017': {
+  en:"📱 How to pay with VietQR:",
+  vn:"📱 Cách thanh toán bằng VietQR:",
+  zh:"📱 如何使用 VietQR 付款："
+},
+
+'auto-index-018': {
+  en:"Open your banking app",
+  vn:"Mở ứng dụng ngân hàng",
+  zh:"打开您的银行应用"
+},
+
+'auto-index-019': {
+  en:"Scan the QR code below",
+  vn:"Quét mã QR bên dưới",
+  zh:"扫描下方二维码"
+},
+
+'auto-index-020': {
+  en:"Complete the payment",
+  vn:"Hoàn tất thanh toán",
+  zh:"完成付款"
+},
+
+'auto-index-021': {
+  en:"Upload payment proof below",
+  vn:"Tải lên bằng chứng thanh toán bên dưới",
+  zh:"在下方上传付款凭证"
+},
+
+'auto-index-022': {
+  en:"📸 After completing the transfer, please upload your payment proof:",
+  vn:"📸 Sau khi chuyển khoản, vui lòng tải lên bằng chứng thanh toán:",
+  zh:"📸 转账完成后，请上传付款凭证："
+},
+
+'auto-index-023': {
+  en:"Upload a screenshot of your bank transfer or payment confirmation.",
+  vn:"Tải lên ảnh chụp màn hình chuyển khoản hoặc xác nhận thanh toán.",
+  zh:"请上传银行转账或付款确认截图。"
+},
+
+'auto-index-024': {
+  en:"Submit payment proof →",
+  vn:"Gửi bằng chứng thanh toán →",
+  zh:"提交付款凭证 →"
+},
+
+'auto-index-025': {
+  en:"Payment pending verification",
+  vn:"Đang chờ xác nhận thanh toán",
+  zh:"付款待审核"
+},
+
+'auto-index-026': {
+  en:"Back to booking",
+  vn:"Quay lại đặt phòng",
+  zh:"返回预订"
+},
+
+'auto-index-027': {
+  en:"Pay when you arrive",
+  vn:"Thanh toán khi nhận phòng",
+  zh:"入住时付款"
+},
+
+'auto-index-028': {
+  en:"No payment is required now. Your booking will be confirmed immediately.",
+  vn:"Không cần thanh toán ngay. Đặt phòng sẽ được xác nhận ngay lập tức.",
+  zh:"目前无需付款。您的预订将立即确认。"
+},
+
+'auto-index-029': {
+  en:"Confirm booking →",
+  vn:"Xác nhận đặt phòng →",
+  zh:"确认预订 →"
+},
+
+'auto-index-030': {
+  en:"Recognized as <strong>Airbnb Superhost 2025</strong> for consistent 5-star guest experiences.",
+  vn:"Được công nhận là <strong>Airbnb Superhost 2025</strong> nhờ trải nghiệm 5 sao ổn định.",
+  zh:"因持续提供5星级体验，被评为<strong>Airbnb 超级房东 2025</strong>。"
+},
+
+'auto-index-031': {
+  en:"Two distinct homestays in Hanoi — designed for travelers who want a real home experience.",
+  vn:"Hai homestay riêng biệt tại Hà Nội — dành cho du khách muốn trải nghiệm như ở nhà.",
+  zh:"河内两处不同民宿——为追求真实居住体验的旅客设计。"
+},
+
+'auto-index-032': {
+  en:"📅 Book now",
+  vn:"📅 Đặt ngay",
+  zh:"📅 立即预订"
+},
+
+'auto-miacasa-hanoi-001': {
+  en:"✓ Free cancellation up to 48 hours before arrival",
+  vn:"✓ Miễn phí hủy trước 48 giờ",
+  zh:"✓ 入住前48小时可免费取消"
+},
+
+'auto-miacasa-hanoi-002': {
+  en:"Book now →",
+  vn:"Đặt ngay →",
+  zh:"立即预订 →"
+},
+
+'auto-miacasa-hanoi-003': {
+  en:"🏆 Booking.com Traveler Review Award 2026 · ⭐ 4.8★ from recent stays · Loved by guests visiting Hanoi",
+  vn:"🏆 Giải thưởng Booking.com 2026 · ⭐ 4.8★ từ các lượt lưu trú gần đây · Được khách yêu thích khi đến Hà Nội",
+  zh:"🏆 Booking.com 2026 旅客评价奖 · ⭐ 4.8★ 来自近期入住 · 深受来河内旅客喜爱"
+},
+
+'auto-our-story-001': {
+en:"The Story Behind <em>MiaCasa</em> — A Boutique Homestay in Hanoi",
+vn:"Câu chuyện phía sau <em>MiaCasa</em> — Boutique Homestay tại Hà Nội"
+},
+
+'auto-our-story-002': {
+en:"MiaCasa did not begin as a business plan. It began with a simple idea: create a place that feels calm, warm, and genuinely lived in.",
+vn:"MiaCasa không bắt đầu như một kế hoạch kinh doanh. Nó bắt đầu từ một ý tưởng đơn giản: tạo ra một nơi yên bình, ấm áp và mang cảm giác thật sự như ở nhà."
+},
+
+'auto-our-story-003': {
+en:"✨ Built slowly in Hanoi for travelers who want a stay that feels personal, calm, and real.",
+vn:"✨ Được xây dựng chậm rãi tại Hà Nội cho những du khách muốn một kỳ nghỉ cá nhân, yên bình và chân thật."
+},
+
+'auto-our-story-004': {en:"← MiaCasa Homestays", vn:"← MiaCasa Homestays"},
+
+'auto-our-story-005': {
+en:"MiaCasa is a <a href=\"/\">boutique homestay in Hanoi</a> offering curated stays in a quiet local area near Văn Miếu (Temple of Literature), Train Street, and Ba Đình, as well as a central Old Quarter apartment near Hoàn Kiếm Lake.",
+vn:"MiaCasa là một <a href=\"/\">boutique homestay tại Hà Nội</a>, cung cấp các kỳ lưu trú tại khu yên tĩnh gần Văn Miếu, Train Street và Ba Đình, cùng một căn hộ trung tâm Phố Cổ gần Hồ Hoàn Kiếm."
+},
+
+'auto-our-story-006': {en:"Meet the Hosts", vn:"Gặp gỡ chủ nhà"},
+
+'auto-our-story-007': {
+en:"MiaCasa is built and hosted by Linh and Ngọc, two long-time friends who share a passion for thoughtful hospitality and intentional spaces.",
+vn:"MiaCasa được xây dựng và vận hành bởi Linh và Ngọc, hai người bạn lâu năm có chung đam mê về sự hiếu khách và không gian có chủ đích."
+},
+
+'auto-our-story-008': {
+en:"Linh is a professional interior designer focused on warm, comfortable environments with natural textures, soft lighting, and quiet details. Her philosophy is simple: design spaces where people want to slow down and stay.",
+vn:"Linh là nhà thiết kế nội thất chuyên nghiệp, tập trung vào không gian ấm áp, thoải mái với chất liệu tự nhiên, ánh sáng dịu và chi tiết tinh tế. Triết lý của chị đơn giản: tạo không gian khiến con người muốn chậm lại và ở lâu hơn."
+},
+
+'auto-our-story-009': {
+en:"Ngọc works in hospitality and focuses on guest experience behind the scenes — communication, comfort, flexibility, and small details that make stays feel effortless.",
+vn:"Ngọc làm trong lĩnh vực dịch vụ lưu trú, tập trung vào trải nghiệm khách phía sau hậu trường — giao tiếp, sự thoải mái, linh hoạt và các chi tiết nhỏ giúp kỳ nghỉ trở nên nhẹ nhàng."
+},
+
+'auto-our-story-010': {en:"Together, they built MiaCasa step by step, refining it along the way.", vn:"Cùng nhau, họ xây dựng MiaCasa từng bước và liên tục hoàn thiện."},
+
+'auto-our-story-011': {en:"Linh shapes the spaces. Ngọc shapes the experience.", vn:"Linh tạo nên không gian. Ngọc tạo nên trải nghiệm."},
+
+'auto-our-story-012': {
+en:"MiaCasa was never meant to feel like a hotel. It was designed to feel like a home people remember.",
+vn:"MiaCasa không được tạo ra để giống khách sạn. Nó được thiết kế để trở thành một nơi người ta nhớ mãi."
+},
+  'auto-our-story-013': {en:"A Milestone of Guest Trust", vn:"Một cột mốc của niềm tin khách hàng"},
+
+'auto-our-story-014': {
+en:"Over time, MiaCasa welcomed guests from around the world and built its reputation through consistency, cleanliness, communication, and care.",
+vn:"Theo thời gian, MiaCasa đã đón tiếp khách từ khắp nơi trên thế giới và xây dựng danh tiếng nhờ sự nhất quán, sạch sẽ, giao tiếp và sự chăm sóc."
+},
+
+'auto-our-story-015': {
+en:"\"One of the few places in Hanoi that genuinely felt peaceful.\"",
+vn:"\"Một trong số ít nơi ở Hà Nội thực sự mang lại cảm giác bình yên.\""
+},
+
+'auto-our-story-016': {
+en:"\"Beautiful interiors, thoughtful hosts, and a stay that felt personal from start to finish.\"",
+vn:"\"Nội thất đẹp, chủ nhà chu đáo và một kỳ nghỉ mang cảm giác cá nhân từ đầu đến cuối.\""
+},
+
+'auto-our-story-017': {
+en:"🏆 Trusted by guests worldwide through Airbnb, Booking.com, and direct bookings.",
+vn:"🏆 Được khách hàng toàn cầu tin tưởng qua Airbnb, Booking.com và đặt phòng trực tiếp."
+},
+
+'auto-our-story-018': {en:"That journey led to recognitions including:", vn:"Hành trình đó đã dẫn đến các giải thưởng:"},
+
+'auto-our-story-019': {en:"Booking.com Traveler Review Award 2026", vn:"Giải thưởng Booking.com 2026"},
+'auto-our-story-020': {en:"9.3 Exceptional Guest Rating", vn:"Điểm đánh giá xuất sắc 9.3"},
+'auto-our-story-021': {en:"Airbnb Superhost 2025", vn:"Airbnb Superhost 2025"},
+
+'auto-our-story-022': {
+en:"More importantly, these recognitions reflect the trust guests place in us every time they stay.",
+vn:"Quan trọng hơn, những sự ghi nhận này phản ánh niềm tin mà khách hàng dành cho chúng tôi mỗi khi lưu trú."
+},
+
+'auto-our-story-023': {en:"Guests from 30+ countries", vn:"Khách từ hơn 30 quốc gia"},
+'auto-our-story-024': {en:"9.3 Booking.com rating", vn:"Điểm Booking.com 9.3"},
+'auto-our-story-025': {en:"Airbnb Superhost 2025", vn:"Airbnb Superhost 2025"},
+'auto-our-story-026': {en:"Direct host support", vn:"Hỗ trợ trực tiếp từ chủ nhà"},
+
+'auto-our-story-027': {en:"Built Slowly, Designed Intentionally", vn:"Xây dựng chậm rãi, thiết kế có chủ đích"},
+
+'auto-our-story-028': {en:"One unfinished space", vn:"Một không gian chưa hoàn thiện"},
+
+'auto-our-story-029': {
+en:"What started as an unfinished space in Hanoi slowly became MiaCasa.",
+vn:"Một không gian chưa hoàn thiện ở Hà Nội đã dần trở thành MiaCasa."
+},
+
+'auto-our-story-030': {en:"Piece by piece", vn:"Từng chút một"},
+
+'auto-our-story-031': {
+en:"Furniture was selected slowly. Some pieces took weeks. Others were rebuilt until they felt right.",
+vn:"Nội thất được chọn dần dần. Có món mất nhiều tuần. Có món được làm lại nhiều lần cho đến khi ưng ý."
+},
+
+'auto-our-story-032': {en:"Not just for photos", vn:"Không chỉ để chụp ảnh"},
+
+'auto-our-story-033': {
+en:"We never wanted a space that looked perfect only in photos. We wanted it to feel like home.",
+vn:"Chúng tôi không muốn tạo ra không gian chỉ đẹp trong ảnh. Chúng tôi muốn nó có cảm giác như một ngôi nhà."
+},
+
+'auto-our-story-034': {en:"Perfectly located", vn:"Vị trí lý tưởng"},
+
+'auto-our-story-035': {
+en:"MiaCasa Hanoi is quietly tucked away from noise, yet close to Văn Miếu, Train Street, Ba Đình, Hoàn Kiếm Lake, and the Old Quarter.",
+vn:"MiaCasa Hà Nội nằm yên tĩnh tránh xa ồn ào, nhưng gần Văn Miếu, Train Street, Ba Đình, Hồ Hoàn Kiếm và Phố Cổ."
+},
+
+'auto-our-story-036': {en:"Learning by doing", vn:"Học qua thực hành"},
+
+'auto-our-story-037': {
+en:"We learned how lighting changes a room, how small comforts matter, and how thoughtful design creates calm even in a busy city.",
+vn:"Chúng tôi học được cách ánh sáng thay đổi căn phòng, những tiện nghi nhỏ quan trọng ra sao, và thiết kế chu đáo tạo nên sự yên bình ngay cả giữa thành phố nhộn nhịp."
+},
+
+'auto-our-story-038': {en:"Not luxury — just real", vn:"Không sang trọng — chỉ chân thật"},
+
+'auto-our-story-039': {
+en:"Not luxury in the traditional sense. Just spaces that feel personal, calm, and genuinely cared for.",
+vn:"Không phải sang trọng theo nghĩa truyền thống. Chỉ là những không gian mang cảm giác cá nhân, yên bình và được chăm chút."
+},
+
+'auto-our-story-040': {en:"The Journey of the Space", vn:"Hành trình của không gian"},
+
+'auto-our-story-041': {en:"Before", vn:"Trước"},
+'auto-our-story-042': {en:"A blank space waiting to become something more", vn:"Một không gian trống chờ trở nên ý nghĩa hơn"},
+
+'auto-our-story-043': {en:"During", vn:"Trong"},
+'auto-our-story-044': {en:"Slowly shaping the space", vn:"Dần dần định hình không gian"},
+
+'auto-our-story-045': {en:"After", vn:"Sau"},
+'auto-our-story-046': {en:"A calm, comfortable space taking form", vn:"Một không gian yên bình, thoải mái dần hình thành"},
+
+'auto-our-story-047': {en:"Two Different Experiences in Hanoi", vn:"Hai trải nghiệm khác biệt tại Hà Nội"},
+
+'auto-our-story-048': {
+en:"Today, MiaCasa offers two distinct stays in Hanoi.",
+vn:"Hôm nay, MiaCasa cung cấp hai loại chỗ ở riêng biệt tại Hà Nội."
+},
+
+'auto-our-story-049': {
+en:"A quiet stay near Văn Miếu and Train Street, designed for solo travelers and couples who prefer a calmer rhythm.",
+vn:"Một chỗ ở yên tĩnh gần Văn Miếu và Train Street, dành cho khách đi một mình và cặp đôi thích nhịp sống chậm hơn."
+},
+
+'auto-our-story-050': {en:"3 private studio-style rooms", vn:"3 phòng studio riêng tư"},
+'auto-our-story-051': {en:"Kitchenettes in every room", vn:"Bếp nhỏ trong mỗi phòng"},
+'auto-our-story-052': {en:"Local cafés and residential atmosphere", vn:"Cà phê địa phương và không khí khu dân cư"},
+'auto-our-story-053': {en:"Slow, thoughtful stay experience", vn:"Trải nghiệm lưu trú chậm rãi, chu đáo"},
+'auto-our-story-054': {en:"Explore MiaCasa Hanoi →", vn:"Khám phá MiaCasa Hà Nội →"},
+
+'auto-our-story-055': {
+en:"A larger group stay in the heart of Hanoi's Old Quarter, designed for travelers who want to experience the city together — a boutique home away from home.",
+vn:"Một chỗ ở cho nhóm lớn ngay trung tâm Phố Cổ Hà Nội, dành cho du khách muốn trải nghiệm thành phố cùng nhau — một ngôi nhà boutique đúng nghĩa."
+},
+
+'auto-our-story-056': {en:"Entire 3-bedroom apartment", vn:"Toàn bộ căn hộ 3 phòng ngủ"},
+'auto-our-story-057': {en:"Ideal for families and groups", vn:"Lý tưởng cho gia đình và nhóm bạn"},
+'auto-our-story-058': {en:"Open terrace space", vn:"Sân thượng thoáng đãng"},
+'auto-our-story-059': {en:"Walking distance to Hoàn Kiếm Lake, food streets, and nightlife", vn:"Đi bộ tới Hồ Hoàn Kiếm, phố ẩm thực và khu nightlife"},
+'auto-our-story-060': {en:"Explore Old Quarter →", vn:"Khám phá Phố Cổ →"},
+
+'auto-our-story-061': {en:"Different atmosphere. Same philosophy.", vn:"Không khí khác nhau. Cùng một triết lý."},
+
+'auto-our-story-062': {en:"Why Travelers Choose MiaCasa in Hanoi", vn:"Vì sao du khách chọn MiaCasa tại Hà Nội"},
+
+'auto-our-story-063': {en:"Locally hosted, not remote", vn:"Chủ nhà tại địa phương, không phải quản lý từ xa"},
+'auto-our-story-064': {en:"Direct, responsive communication", vn:"Giao tiếp trực tiếp, phản hồi nhanh"},
+'auto-our-story-065': {en:"Thoughtfully designed interiors", vn:"Nội thất được thiết kế có chủ đích"},
+'auto-our-story-066': {en:"Calm, lived-in spaces, not staged showrooms", vn:"Không gian sống thật, không phải phòng trưng bày"},
+
+'auto-our-story-067': {en:"Better value direct", vn:"Giá tốt hơn khi đặt trực tiếp"},
+'auto-our-story-068': {en:"No platform fees, better rates", vn:"Không phí nền tảng, giá tốt hơn"},
+
+'auto-our-story-069': {en:"Flexible & independent", vn:"Linh hoạt và tự chủ"},
+'auto-our-story-070': {en:"Self check-in, support when needed", vn:"Tự nhận phòng, hỗ trợ khi cần"},
+
+'auto-our-story-071': {en:"Two prime locations", vn:"Hai vị trí thuận lợi"},
+'auto-our-story-072': {en:"Quiet Văn Miếu or vibrant Old Quarter", vn:"Khu Văn Miếu yên tĩnh hoặc Phố Cổ sôi động"},
+
+'auto-our-story-073': {en:"Award-winning hospitality", vn:"Dịch vụ được công nhận"},
+'auto-our-story-074': {en:"Booking.com 9.3 · Airbnb Superhost 2025", vn:"Booking.com 9.3 · Airbnb Superhost 2025"},
+
+'auto-our-story-075': {en:"Before", vn:"Trước"},
+'auto-our-story-076': {en:"An empty apartment with potential", vn:"Một căn hộ trống đầy tiềm năng"},
+
+'auto-our-story-077': {en:"During", vn:"Trong"},
+'auto-our-story-078': {en:"Materials, furniture, and ideas coming together", vn:"Vật liệu, nội thất và ý tưởng đang kết hợp"},
+
+'auto-our-story-079': {en:"After", vn:"Sau"},
+'auto-our-story-080': {
+  en:"A finished home, ready for shared stays",
+  vn:"Một ngôi nhà hoàn thiện, sẵn sàng cho những kỳ nghỉ chung"
+},
+
+'auto-our-story-081': {
+  en:"Why We Built Our Own Website",
+  vn:"Tại sao chúng tôi xây dựng website riêng"
+},
+
+'auto-our-story-082': {
+  en:"After years of hosting on major booking platforms, we created a direct booking experience for guests who prefer a more personal and transparent way to book. <strong>MiaCasa's direct booking website</strong> allows guests to reserve stays more personally, transparently, and at better value than traditional platforms.",
+  vn:"Sau nhiều năm đón tiếp khách qua các nền tảng đặt phòng lớn, chúng tôi đã tạo ra trải nghiệm đặt phòng trực tiếp dành cho những khách muốn một cách đặt phòng cá nhân và minh bạch hơn. <strong>Trang web đặt phòng trực tiếp của MiaCasa</strong> giúp khách đặt phòng cá nhân hơn, minh bạch hơn và có mức giá tốt hơn so với các nền tảng truyền thống."
+},
+
+'auto-our-story-083': {
+  en:"<strong>Direct booking guests receive the same trusted MiaCasa experience</strong> with better rates and direct support from hosts.",
+  vn:"<strong>Khách đặt trực tiếp vẫn nhận được trải nghiệm MiaCasa đáng tin cậy</strong> với giá tốt hơn và hỗ trợ trực tiếp từ chủ nhà."
+},
+
+'auto-our-story-084': {
+  en:"Guests can still verify our reputation through Airbnb and Booking.com reviews before booking directly.",
+  vn:"Khách vẫn có thể xem đánh giá của chúng tôi trên Airbnb và Booking.com trước khi đặt trực tiếp."
+},
+
+'auto-our-story-085': {
+  en:"Booking directly with MiaCasa means:",
+  vn:"Đặt trực tiếp với MiaCasa có nghĩa là:"
+},
+
+'auto-our-story-086': {en:"Better rates", vn:"Giá tốt hơn"},
+'auto-our-story-087': {en:"No platform commissions", vn:"Không phí nền tảng"},
+'auto-our-story-088': {en:"Direct communication", vn:"Giao tiếp trực tiếp"},
+'auto-our-story-089': {en:"Speak directly with your hosts", vn:"Trò chuyện trực tiếp với chủ nhà"},
+'auto-our-story-090': {en:"Instant confirmation", vn:"Xác nhận ngay lập tức"},
+'auto-our-story-091': {en:"No waiting period", vn:"Không phải chờ đợi"},
+'auto-our-story-092': {en:"Flexible support", vn:"Hỗ trợ linh hoạt"},
+'auto-our-story-093': {en:"Before and during your stay", vn:"Trước và trong kỳ nghỉ"},
+
+'auto-our-story-094': {
+  en:"A more personal experience from start to finish.",
+  vn:"Một trải nghiệm cá nhân hơn từ đầu đến cuối."
+},
+
+'auto-our-story-095': {
+  en:"What Stays the Same",
+  vn:"Điều không thay đổi"
+},
+
+'auto-our-story-096': {
+  en:"Even as MiaCasa grows, the core idea remains the same. We believe hospitality should feel human — not scripted, not transactional, and not designed only for photos.",
+  vn:"Ngay cả khi MiaCasa phát triển, giá trị cốt lõi vẫn không thay đổi. Chúng tôi tin rằng dịch vụ lưu trú nên mang tính con người — không kịch bản, không giao dịch, và không chỉ để chụp ảnh."
+},
+
+'auto-our-story-097': {
+  en:"Just spaces hosted with care by people who are genuinely involved.",
+  vn:"Chỉ là những không gian được chăm sóc bởi những con người thực sự gắn bó."
+},
+
+'auto-our-story-098': {
+  en:"Always Improving",
+  vn:"Luôn cải thiện"
+},
+
+'auto-our-story-099': {
+  en:"Every guest experience helps shape the next version of MiaCasa. The spaces evolve, but the goal stays the same: stays that feel comfortable, honest, and memorable in a natural way.",
+  vn:"Mỗi trải nghiệm của khách đều giúp định hình phiên bản tiếp theo của MiaCasa. Không gian thay đổi, nhưng mục tiêu vẫn như cũ: những kỳ nghỉ thoải mái, chân thật và đáng nhớ một cách tự nhiên."
+},
+
+'auto-our-story-100': {
+  en:"If you're visiting Hanoi and looking for a boutique homestay that feels more personal than a standard hotel, we'd love to host you.",
+  vn:"Nếu bạn đến Hà Nội và tìm một boutique homestay mang tính cá nhân hơn khách sạn thông thường, chúng tôi rất mong được đón tiếp bạn."
+},
+
+'auto-our-story-101': {
+  en:"Whether you are traveling solo, as a couple, or with family, there is a space designed for you at MiaCasa.",
+  vn:"Dù bạn đi một mình, theo cặp hay cùng gia đình, đều có không gian phù hợp dành cho bạn tại MiaCasa."
+},
+
+'auto-our-story-102': {
+  en:"Frequently Asked Questions",
+  vn:"Câu hỏi thường gặp"
+},
+
+'auto-our-story-103': {
+  en:"Is MiaCasa a hotel or a homestay?",
+  vn:"MiaCasa là khách sạn hay homestay?"
+},
+
+'auto-our-story-104': {
+  en:"MiaCasa is a boutique homestay, not a hotel. Guests enjoy private and independent stays while still experiencing a warm, local atmosphere. The hosts do not live on-site, but our team is always available online or nearby if you need assistance.",
+  vn:"MiaCasa là một boutique homestay, không phải khách sạn. Khách được tận hưởng không gian riêng tư và độc lập nhưng vẫn có cảm giác ấm cúng, gần gũi. Chủ nhà không sống tại chỗ, nhưng đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ online hoặc ở gần nếu cần."
+},
+
+'auto-our-story-105': {
+  en:"Which MiaCasa property is best for couples?",
+  vn:"Homestay nào phù hợp nhất cho các cặp đôi?"
+},
+
+'auto-our-story-106': {
+  en:"MiaCasa Hanoi is ideal for couples and solo travelers. It's a quieter neighborhood near Văn Miếu and Train Street with private studio-style rooms and kitchenettes.",
+  vn:"MiaCasa Hanoi lý tưởng cho cặp đôi và khách đi một mình. Đây là khu yên tĩnh gần Văn Miếu và Phố Tàu với phòng studio riêng và bếp nhỏ."
+},
+
+'auto-our-story-107': {
+  en:"Is direct booking cheaper than Airbnb or Booking.com?",
+  vn:"Đặt trực tiếp có rẻ hơn Airbnb hoặc Booking.com không?"
+},
+
+'auto-our-story-108': {
+  en:"Yes. Direct booking offers better rates because there are no platform commissions. You get the same trusted MiaCasa experience at a lower price.",
+  vn:"Có. Đặt trực tiếp có giá tốt hơn vì không có phí nền tảng. Bạn vẫn nhận được trải nghiệm MiaCasa đáng tin cậy với giá thấp hơn."
+},
+
+'auto-our-story-109': {
+  en:"How far is MiaCasa from Hanoi Old Quarter?",
+  vn:"MiaCasa cách Phố Cổ Hà Nội bao xa?"
+},
+
+'auto-our-story-110': {
+  en:"MiaCasa Hanoi is about 10–15 minutes from the Old Quarter near Văn Miếu. MiaCasa Old Quarter is located right in the center of the Old Quarter.",
+  vn:"MiaCasa Hanoi cách Phố Cổ khoảng 10–15 phút, gần Văn Miếu. MiaCasa Old Quarter nằm ngay trung tâm Phố Cổ."
+},
+
+'auto-our-story-111': {
+  en:"Do you offer airport pickup?",
+  vn:"Bạn có hỗ trợ đón sân bay không?"
+},
+
+'auto-our-story-112': {
+  en:"Yes, we can arrange airport pickup for guests. Please contact us after booking and we’ll help arrange transportation from Noi Bai International Airport.",
+  vn:"Có, chúng tôi có thể sắp xếp đón sân bay. Vui lòng liên hệ sau khi đặt phòng và chúng tôi sẽ hỗ trợ phương tiện từ sân bay Nội Bài."
+},
+
+'auto-our-story-113': {
+  en:"Experience a more personal stay in Hanoi.",
+  vn:"Trải nghiệm kỳ nghỉ mang tính cá nhân hơn tại Hà Nội."
+},
+
+'auto-our-story-114': {
+  en:"Whether you are traveling solo, as a couple, or with family, there is a space designed for you.",
+  vn:"Dù bạn đi một mình, theo cặp hay cùng gia đình, đều có không gian phù hợp dành cho bạn."
+},
+
+'auto-our-story-115': {en:"Explore Rooms →", vn:"Khám phá phòng →"},
+'auto-our-story-116': {en:"Book Direct for Better Rates →", vn:"Đặt trực tiếp để có giá tốt hơn →"},
+
+'auto-our-story-117': {
+  en:"Free cancellation · Instant confirmation · No platform fees",
+  vn:"Miễn phí hủy · Xác nhận ngay · Không phí nền tảng"
+},
+
+'auto-our-story-118': {
+  en:"Two distinct homestays in Hanoi — crafted with love for travelers who want a real home, not just a bed.",
+  vn:"Hai homestay khác biệt tại Hà Nội — được tạo nên bằng tình yêu cho du khách muốn một ngôi nhà thật sự, không chỉ là một chiếc giường."
+},
+
+'auto-our-story-119': {
+  en:"🏆 Trusted by guests from around the world",
+  vn:"🏆 Được khách từ khắp nơi trên thế giới tin tưởng"
+},
+
+'auto-our-story-120': {
+  en:"<a href=\"/\">Boutique homestays in Hanoi</a> offering direct booking, locally hosted stays, and thoughtfully designed spaces near the Old Quarter and Văn Miếu.",
+  vn:"Boutique homestay tại Hà Nội cung cấp đặt phòng trực tiếp, chủ nhà tại chỗ và không gian được thiết kế chu đáo gần Phố Cổ và Văn Miếu."
+},
+
+'auto-our-story-121': {en:"Our Stays", vn:"Chỗ nghỉ"},
+'auto-our-story-122': {en:"Book Direct", vn:"Đặt trực tiếp"},
+'auto-our-story-123': {en:"Information", vn:"Thông tin"},
+'auto-our-story-124': {en:"Our Story", vn:"Câu chuyện"},
+'auto-our-story-125': {en:"Blog", vn:"Blog"},
+'auto-our-story-126': {en:"Contact", vn:"Liên hệ"},
+'auto-our-story-127': {en:"Contact", vn:"Liên hệ"},
+
+'auto-our-story-128': {
+  en:"Call +84 869 922 261",
+  vn:"Gọi +84 869 922 261"
+},
+
+'auto-our-story-129': {
+  en:"⏱️ Response within 2 hours",
+  vn:"⏱️ Phản hồi trong 2 giờ"
+},
+
+'auto-our-story-130': {
+  en:"Made with ♡ in Hanoi",
+  vn:"Được tạo nên bằng ♡ tại Hà Nội"
+},
+
+'auto-our-story-131': {
+  en:"📅 Book Now",
+  vn:"📅 Đặt ngay"
+},
+ 'cancel-title': {en:"Cancel Booking", vn:"Hủy Đặt Phòng"},
+'cancel-subtitle': {en:"Enter your booking details to submit a cancellation request.", vn:"Nhập thông tin đặt phòng của bạn để gửi yêu cầu hủy."},
+
+'cancel-policy-title': {en:"📌 Cancellation Policy", vn:"📌 Chính Sách Hủy"},
+'cancel-policy1': {en:"• ✅ Free cancellation up to 48 hours before check-in", vn:"• ✅ Hủy miễn phí đến 48 giờ trước khi nhận phòng"},
+'cancel-policy2': {en:"• ⚠️ Cancellations within 48 hours of check-in may incur a fee", vn:"• ⚠️ Hủy trong vòng 48 giờ trước khi nhận phòng có thể mất phí"},
+'cancel-policy3': {en:"• ❌ No refunds after check-in", vn:"• ❌ Không hoàn tiền sau khi đã nhận phòng"},
+
+'cancel-label-bid': {en:"Booking ID *", vn:"Mã đặt phòng *"},
+'cancel-label-email': {en:"Email Address *", vn:"Địa chỉ Email *"},
+'cancel-label-name': {en:"Full Name *", vn:"Họ và tên *"},
+'cancel-label-reason': {en:"Reason for cancellation (optional)", vn:"Lý do hủy (tùy chọn)"},
+
+'cancel-submit-btn': {en:"Submit Cancellation Request →", vn:"Gửi yêu cầu hủy →"},
+'cancel-back-link': {en:"← Back to Home", vn:"← Quay lại Trang chủ"},
+
+'cancel-placeholder-bid': {en:"e.g. MCH-SPR-0001", vn:"VD: MCH-SPR-0001"},
+'cancel-placeholder-email': {en:"your@email.com", vn:"email@cua.ban"},
+'cancel-placeholder-name': {en:"Enter your full name", vn:"Nhập họ và tên của bạn"},
+'cancel-placeholder-reason': {en:"Tell us why you're cancelling (optional)", vn:"Cho chúng tôi biết lý do hủy (tùy chọn)"},
+
+'cancel-loading': {en:"Submitting cancellation request…", vn:"Đang gửi yêu cầu hủy..."},
+
+'cancel-pending-title': {en:"📋 Cancellation Request Submitted", vn:"📋 Đã gửi yêu cầu hủy"},
+'cancel-pending-message': {
+  en:"Your cancellation request has been received. The host will review it and respond within 24 hours.",
+  vn:"Yêu cầu hủy của bạn đã được tiếp nhận. Chủ nhà sẽ xem xét và phản hồi trong vòng 24 giờ."
+},
+
+'cancel-email-sent': {en:"📧 A confirmation email has been sent to you.", vn:"📧 Email xác nhận đã được gửi đến bạn."},
+
+'cancel-questions': {en:"💬 Need help?", vn:"💬 Cần hỗ trợ?"},
+'cancel-whatsapp': {en:"Chat on WhatsApp", vn:"Chat WhatsApp"},
+
+'cancel-error-title': {en:"❌ Error", vn:"❌ Lỗi"},
+'cancel-connection-error': {en:"Connection Error", vn:"Lỗi kết nối"},
+'cancel-connection-msg': {
+  en:"Unable to connect to the server. Please check your internet connection and try again.",
+  vn:"Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet và thử lại."
+},
+
+'cancel-contact-whatsapp': {
+  en:"Contact us on WhatsApp: +84 869 922 261",
+  vn:"Liên hệ WhatsApp: +84 869 922 261"
+},
+
+'invoice-sec-invoice': {en:"Post-Stay", vn:"Sau Khi Ở"},
+
+'invoice-inv-title': {en:"Request an <em>Invoice</em>", vn:"Yêu cầu <em>Hóa đơn</em>"},
+'invoice-inv-subtitle': {
+  en:"Enter your Booking ID (e.g., MCH-SPR-0001 or MCOQ-OLQ-0001) and the email used for booking. We'll generate your invoice instantly.",
+  vn:"Nhập mã đặt phòng (VD: MCH-SPR-0001 hoặc MCOQ-OLQ-0001) và email đã dùng khi đặt phòng. Chúng tôi sẽ tạo hóa đơn ngay lập tức."
+},
+
+'invoice-lbl-booking-id': {en:"Booking ID", vn:"Mã đặt phòng"},
+'invoice-lbl-email': {en:"Email Address", vn:"Địa chỉ Email"},
+
+'invoice-placeholder-bid': {
+  en:"e.g. MCH-SPR-0001 or MCOQ-OLQ-0001",
+  vn:"VD: MCH-SPR-0001 hoặc MCOQ-OLQ-0001"
+},
+'invoice-placeholder-email': {
+  en:"Email used for booking",
+  vn:"Email đã dùng khi đặt phòng"
+},
+
+'invoice-err-bid': {en:"Please enter your Booking ID.", vn:"Vui lòng nhập mã đặt phòng."},
+'invoice-err-email': {en:"Please enter the email used for booking.", vn:"Vui lòng nhập email đã dùng khi đặt phòng."},
+
+'invoice-btn-generate': {en:"Generate Invoice →", vn:"Tạo hóa đơn →"},
+'invoice-loading': {en:"⏳ Looking up your booking…", vn:"⏳ Đang tra cứu đặt phòng…"},
+
+'invoice-help-text': {
+  en:"Your Booking ID is in your confirmation email/message. If you can't find it, <a href=\"https://wa.me/84869922261\" target=\"_blank\" rel=\"noopener\">contact us on WhatsApp</a>.",
+  vn:"Mã đặt phòng có trong email/tin nhắn xác nhận. Nếu không tìm thấy, <a href=\"https://wa.me/84869922261\" target=\"_blank\" rel=\"noopener\">liên hệ WhatsApp</a>."
+},
+
+'invoice-download-btn': {en:"⬇ Download Invoice PDF", vn:"⬇ Tải hóa đơn PDF"},
+
+'invoice-qr-title': {en:"Share your experience", vn:"Chia sẻ trải nghiệm của bạn"},
+
+'invoice-hanoi-name': {en:"MiaCasa Hanoi", vn:"MiaCasa Hà Nội"},
+'invoice-oq-name': {en:"MiaCasa Old Quarter", vn:"MiaCasa Phố Cổ"},
+
+'invoice-review-text': {en:"Scan to leave a review", vn:"Quét mã để để lại đánh giá"},
+'invoice-review-btn': {en:"⭐ Write a Review", vn:"⭐ Viết đánh giá"},
+
+'invoice-reminder-text': {
+  en:"✨ Loved your stay? Help other travelers find us — leave a Google review! ✨",
+  vn:"✨ Thích kỳ nghỉ của bạn? Hãy giúp khách khác tìm thấy chúng tôi — để lại đánh giá Google nhé! ✨"
+},
+
+'admin-login-logo': {en:"MiaCasa Admin", vn:"Quản trị MiaCasa"},
+'admin-login-sub': {en:"Owner access only", vn:"Chỉ dành cho chủ nhà"},
+
+'admin-lbl-username': {en:"Username", vn:"Tên đăng nhập"},
+'admin-lbl-password': {en:"Password", vn:"Mật khẩu"},
+'admin-btn-signin': {en:"Sign In", vn:"Đăng nhập"},
+'admin-login-error': {en:"Incorrect username or password.", vn:"Tên đăng nhập hoặc mật khẩu không đúng."},
+
+'admin-admin-page-title': {en:"Property Management", vn:"Quản lý chỗ nghỉ"},
+'admin-admin-page-sub': {en:"Open or close rooms · Set custom prices for specific dates", vn:"Mở hoặc đóng phòng · Đặt giá tùy chỉnh cho các ngày cụ thể"},
+
+'admin-tab-rooms': {en:"Room Status", vn:"Trạng thái phòng"},
+'admin-tab-prices': {en:"Price Overrides", vn:"Giá tùy chỉnh"},
+'admin-logout': {en:"Sign out", vn:"Đăng xuất"},
+
+'admin-rs-form-title': {en:"Set room availability for a date range", vn:"Đặt tình trạng phòng theo khoảng ngày"},
+
+'admin-lbl-rs-room': {en:"Room", vn:"Phòng"},
+'admin-lbl-rs-from': {en:"From date", vn:"Từ ngày"},
+'admin-lbl-rs-to': {en:"To date", vn:"Đến ngày"},
+'admin-lbl-rs-status': {en:"Status", vn:"Trạng thái"},
+'admin-lbl-rs-note': {en:"Note (optional)", vn:"Ghi chú (tùy chọn)"},
+
+'admin-btn-rs-apply': {en:"Apply changes", vn:"Áp dụng thay đổi"},
+
+'admin-rs-list-title': {en:"Current room status rules", vn:"Danh sách quy tắc trạng thái phòng"},
+'admin-no-rules': {en:"No rules set. All rooms are open by default.", vn:"Chưa có quy tắc nào. Tất cả phòng đang mở mặc định."},
+
+'admin-ov-form-title': {en:"Add price override", vn:"Thêm giá tùy chỉnh"},
+
+'admin-lbl-ov-room': {en:"Room", vn:"Phòng"},
+'admin-lbl-ov-rule-type': {en:"Rule type", vn:"Loại quy tắc"},
+'admin-lbl-ov-from': {en:"From date", vn:"Từ ngày"},
+'admin-lbl-ov-to': {en:"To date", vn:"Đến ngày"},
+'admin-lbl-ov-weekdays': {en:"Apply on weekdays", vn:"Áp dụng theo thứ trong tuần"},
+'admin-lbl-ov-months': {en:"Apply in months", vn:"Áp dụng theo tháng"},
+'admin-lbl-ov-price': {en:"Price per night (VND)", vn:"Giá mỗi đêm (VND)"},
+'admin-lbl-ov-note': {en:"Note (optional)", vn:"Ghi chú (tùy chọn)"},
+
+'admin-btn-ov-add': {en:"Add override", vn:"Thêm"},
+
+'admin-ov-list-title': {en:"Active price overrides", vn:"Giá tùy chỉnh hiện tại"},
+'admin-no-overrides': {en:"No overrides set. Standard rates apply.", vn:"Chưa có giá tùy chỉnh. Áp dụng giá tiêu chuẩn."},
+
+'admin-room-spring': {en:"Spring Room (MCH)", vn:"Phòng Xuân (MCH)"},
+'admin-room-summer': {en:"Summer Room (MCH)", vn:"Phòng Hạ (MCH)"},
+'admin-room-autumn': {en:"Autumn Room (MCH)", vn:"Phòng Thu (MCH)"},
+'admin-room-oq': {en:"Old Quarter Apartment", vn:"Căn hộ Phố Cổ"},
+
+'admin-th-room': {en:"Room", vn:"Phòng"},
+'admin-th-from': {en:"From", vn:"Từ ngày"},
+'admin-th-to': {en:"To", vn:"Đến ngày"},
+'admin-th-status': {en:"Status", vn:"Trạng thái"},
+'admin-th-note': {en:"Note", vn:"Ghi chú"},
+'admin-th-price': {en:"Price / night", vn:"Giá / đêm"},
+'admin-th-usd': {en:"~USD", vn:"~USD"},
+'admin-th-rule': {en:"Rule", vn:"Quy tắc"},
+
+'admin-rule-once': {en:"Specific dates", vn:"Ngày cụ thể"},
+'admin-rule-weekday': {en:"Recurring weekdays", vn:"Lặp lại theo thứ"},
+
+'admin-opt-rs-closed': {en:"🔒 Closed (unavailable)", vn:"🔒 Đóng (không nhận khách)"},
+'admin-opt-rs-open': {en:"🔓 Open (available)", vn:"🔓 Mở (nhận khách)"},
+
+'admin-maintenance-on': {en:"Turn maintenance off", vn:"Tắt chế độ bảo trì"},
+'admin-maintenance-off': {en:"Turn maintenance on", vn:"Bật chế độ bảo trì"},
+
+'admin-maintenance-on-status': {en:"ON", vn:"BẬT"},
+'admin-maintenance-off-status': {en:"OFF", vn:"TẮT"},
+
+  'auto-best-cafes-hanoi-001': {en:"Hanoi is a city best experienced slowly.", vn:"Hà Nội là thành phố nên được cảm nhận thật chậm."},
+
+'auto-best-cafes-hanoi-002': {
+en:"Not only through its landmarks and busy streets, but through its cafés — hidden courtyards, quiet upper floors, old apartments overlooking tree-lined roads, and small local spaces where conversations last longer than expected.",
+vn:"Không chỉ qua những địa danh nổi tiếng hay các con phố nhộn nhịp, mà còn qua những quán cà phê ẩn mình, những khoảng sân yên tĩnh, các tầng lầu cũ nhìn ra hàng cây xanh, và những không gian nhỏ nơi cuộc trò chuyện kéo dài hơn dự định."
+},
+
+'auto-best-cafes-hanoi-003': {
+en:"Whether you are visiting Hanoi for a few days or staying longer, finding the right café often becomes part of the rhythm of your trip.",
+vn:"Dù bạn đến Hà Nội vài ngày hay ở lại lâu hơn, việc tìm được một quán cà phê phù hợp thường trở thành một phần nhịp điệu của chuyến đi."
+},
+
+'auto-best-cafes-hanoi-004': {en:"☕ LOCAL GUIDE", vn:"☕ HƯỚNG DẪN ĐỊA PHƯƠNG"},
+
+'auto-best-cafes-hanoi-005': {
+en:"📅 Updated May 2026 · ☕ 8 min read · ✍️ By MiaCasa Team",
+vn:"📅 Cập nhật Tháng 5/2026 · ☕ Đọc 8 phút · ✍️ Đội ngũ MiaCasa"
+},
+
+'auto-best-cafes-hanoi-006': {
+en:"<h3>Contents</h3>\n\n<ul>\n<li><a href=\"#loading-t\">Loading T Café</a></li>\n<li><a href=\"#tranquil\">Tranquil Books & Coffee</a></li>\n<li><a href=\"#giang\">Café Giảng</a></li>\n<li><a href=\"#note-coffee\">The Note Coffee</a></li>\n<li><a href=\"#blackbird\">Blackbird Coffee</a></li>\n<li><a href=\"#train-street\">Train Street Cafés</a></li>\n<li><a href=\"#remote-work\">Best Cafés for Remote Work</a></li>\n<li><a href=\"#where-to-stay\">Where to Stay</a></li>\n</ul>",
+vn:"<h3>Mục Lục</h3>\n\n<ul>\n<li><a href=\"#loading-t\">Loading T Café</a></li>\n<li><a href=\"#tranquil\">Tranquil Books & Coffee</a></li>\n<li><a href=\"#giang\">Café Giảng</a></li>\n<li><a href=\"#note-coffee\">The Note Coffee</a></li>\n<li><a href=\"#blackbird\">Blackbird Coffee</a></li>\n<li><a href=\"#train-street\">Quán Cà Phê gần Train Street</a></li>\n<li><a href=\"#remote-work\">Cà Phê làm việc từ xa</a></li>\n<li><a href=\"#where-to-stay\">Nên ở đâu</a></li>\n</ul>"
+},
+
+'auto-best-cafes-hanoi-007': {en:"Old Quarter Favorite", vn:"Yêu thích tại Phố Cổ"},
+
+'auto-best-cafes-hanoi-008': {
+en:"Closest stay:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>",
+vn:"Gần nhất:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>"
+},
+
+'auto-best-cafes-hanoi-009': {en:"Remote Work Favorite", vn:"Phù hợp làm việc từ xa"},
+
+'auto-best-cafes-hanoi-010': {
+en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
+vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+},
+
+'auto-best-cafes-hanoi-011': {en:"Historic Hanoi Café", vn:"Quán cà phê mang tính lịch sử"},
+
+'auto-best-cafes-hanoi-012': {
+en:"Closest stay:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>",
+vn:"Gần nhất:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>"
+},
+
+'auto-best-cafes-hanoi-013': {en:"Colorful Café Experience", vn:"Trải nghiệm quán cà phê nhiều màu sắc"},
+
+'auto-best-cafes-hanoi-014': {
+en:"Closest stay:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>",
+vn:"Gần nhất:\n<a href=\"old-quarter.html\">MiaCasa Old Quarter</a>"
+},
+
+'auto-best-cafes-hanoi-015': {en:"Specialty Coffee", vn:"Cà phê specialty"},
+
+'auto-best-cafes-hanoi-016': {
+en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
+vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+},
+
+'auto-best-cafes-hanoi-017': {en:"Hidden Local Spots", vn:"Góc cà phê địa phương ẩn mình"},
+
+'auto-best-cafes-hanoi-018': {
+en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
+vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+},
+
+'auto-best-cafes-hanoi-019': {
+en:"From hidden Old Quarter cafés and authentic Vietnamese egg coffee to peaceful remote work spaces near Văn Miếu, this guide explores the best cafés in Hanoi for travelers who want to experience the city slowly.",
+vn:"Từ những quán cà phê ẩn mình trong khu phố cổ đến không gian yên tĩnh gần Văn Miếu dành cho làm việc từ xa, đây là hướng dẫn dành cho những ai muốn cảm nhận Hà Nội một cách chậm rãi hơn."
+},
+
+'auto-best-cafes-hanoi-020': {
+en:"Tucked inside a restored French colonial villa, Loading T Café is known for its quiet atmosphere, vintage interiors, and excellent Vietnamese egg coffee.",
+vn:"Ẩn mình trong một căn biệt thự Pháp cổ được phục chế, Loading T Café nổi tiếng với không gian yên tĩnh, nội thất vintage và cà phê trứng đậm chất Hà Nội."
+},
+
+'auto-best-cafes-hanoi-021': {
+en:"Tranquil offers one of the quietest café environments in Hanoi, with bookshelves, warm lighting, and reliable WiFi.",
+vn:"Tranquil mang đến một trong những không gian cà phê yên tĩnh nhất Hà Nội, với kệ sách, ánh sáng ấm và WiFi ổn định."
+},
+  'auto-best-cafes-hanoi-022': {
+en:"Famous for creating Vietnamese egg coffee decades ago, Café Giảng still preserves a nostalgic and distinctly local atmosphere.",
+vn:"Café Giảng nổi tiếng là nơi khai sinh cà phê trứng và vẫn giữ được không khí hoài niệm rất riêng của Hà Nội xưa."
+},
+
+'auto-best-cafes-hanoi-023': {
+en:"Covered in handwritten notes from travelers around the world, The Note Coffee is one of the most recognizable cafés near Hoàn Kiếm Lake.",
+vn:"Được phủ kín bởi những mảnh giấy nhắn từ du khách khắp nơi trên thế giới, The Note Coffee là một trong những quán nổi bật gần Hồ Hoàn Kiếm."
+},
+
+'auto-best-cafes-hanoi-024': {
+en:"Blackbird Coffee is known for carefully brewed Vietnamese coffee and a minimalist design loved by coffee enthusiasts.",
+vn:"Blackbird Coffee nổi tiếng với cà phê Việt Nam pha thủ công cùng thiết kế tối giản được nhiều người yêu thích."
+},
+
+'auto-best-cafes-hanoi-025': {
+en:"Exploring the quieter lanes around Train Street often leads to some of the most memorable coffee experiences in Hanoi.",
+vn:"Những con ngõ nhỏ quanh Train Street thường mang đến các trải nghiệm cà phê đáng nhớ nhất tại Hà Nội."
+},
+
+'auto-best-cafes-hanoi-026': {
+en:"Explore Hanoi slowly with boutique stays designed for travelers, remote workers, couples, and longer visits.",
+vn:"Khám phá Hà Nội thật chậm với những homestay boutique dành cho du khách, người làm việc từ xa, cặp đôi và lưu trú dài ngày."
+},
+
+'auto-best-cafes-hanoi-027': {
+en:"Hanoi’s café culture is not simply about coffee. It is about slowing down long enough to notice the rhythm of the city.",
+vn:"Văn hóa cà phê Hà Nội không chỉ là cà phê, mà còn là việc chậm lại đủ lâu để cảm nhận nhịp sống của thành phố."
+},
+
+'auto-best-cafes-hanoi-028': {
+en:"Best Cafés in Hanoi for Coffee, Work & Quiet Mornings",
+vn:"Những Quán Cà Phê Đẹp Nhất Hà Nội Để Làm Việc & Thư Giãn"
+},
+
+'auto-best-cafes-hanoi-029': {en:"1. Loading T Café", vn:"1. Loading T Café"},
+
+'auto-best-cafes-hanoi-030': {
+en:"6. Hidden Cafés Around Train Street",
+vn:"6. Những Quán Cà Phê Nhỏ Quanh Train Street"
+},
+
+'auto-best-cafes-hanoi-031': {
+en:"Best Cafés in Hanoi for Remote Work",
+vn:"Những Quán Cà Phê Phù Hợp Để Làm Việc"
+},
+
+'auto-best-cafes-hanoi-032': {
+en:"Where to Stay in Hanoi for Café Lovers",
+vn:"Nên Ở Đâu Tại Hà Nội Nếu Bạn Yêu Cà Phê?"
+},
+
+'auto-best-cafes-hanoi-033': {en:"Final Thoughts", vn:"Lời Kết"},
+
+'auto-best-cafes-hanoi-034': {
+en:"One of the most peaceful hidden cafés in the Old Quarter.",
+vn:"Một trong những quán cà phê yên bình nhất giữa lòng Phố Cổ."
+},
+
+'auto-best-cafes-hanoi-035': {
+en:"An ideal café near Văn Miếu for reading and remote work.",
+vn:"Quán lý tưởng gần Văn Miếu để đọc sách và làm việc từ xa."
+},
+
+'auto-best-cafes-hanoi-036': {
+en:"The original home of Hanoi egg coffee.",
+vn:"Nơi khai sinh cà phê trứng Hà Nội."
+},
+
+'auto-best-cafes-hanoi-037': {
+en:"Stay Near Hanoi’s Best Cafés",
+vn:"Lưu Trú Gần Những Quán Cà Phê Đẹp Nhất Hà Nội"
+},
+
+'auto-best-cafes-hanoi-038': {en:"Explore Old Quarter", vn:"Khám Phá Old Quarter"},
+
+'auto-best-cafes-hanoi-039': {en:"Explore MiaCasa Hanoi", vn:"Khám Phá MiaCasa Hanoi"},
+
+'auto-best-cafes-hanoi-040': {en:"Book MiaCasa Hanoi", vn:"Đặt MiaCasa Hanoi"},
+
+'auto-best-cafes-hanoi-041': {en:"Book Old Quarter", vn:"Đặt Old Quarter"},
+
+'auto-best-cafes-hanoi-042': {en:"← Back to Blog", vn:"← Quay Lại Blog"},
+
+'auto-best-cafes-hanoi-043': {
+en:"<li>Beautiful colonial architecture</li>\n<li>Excellent egg coffee</li>\n<li>Peaceful atmosphere</li>",
+vn:"<li>Kiến trúc Pháp cổ đẹp mắt</li>\n<li>Cà phê trứng nổi tiếng</li>\n<li>Không gian yên tĩnh</li>"
+},
+
+'auto-best-cafes-hanoi-044': {
+en:"<li>Walk to Hoàn Kiếm Lake</li>\n<li>Historic café culture</li>\n<li>Easy sightseeing access</li>",
+vn:"<li>Đi bộ đến Hồ Hoàn Kiếm</li>\n<li>Không khí cà phê lịch sử</li>\n<li>Thuận tiện tham quan</li>"
+},
+
+'auto-best-cafes-hanoi-045': {
+en:"<li>Quiet residential atmosphere</li>\n<li>Near Văn Miếu & Train Street</li>\n<li>Slower pace while still central</li>",
+vn:"<li>Khu dân cư yên tĩnh</li>\n<li>Gần Văn Miếu & Train Street</li>\n<li>Nhịp sống chậm hơn nhưng vẫn trung tâm</li>"
+},
+};
+
+window.TRANSLATIONS = TRANSLATIONS;
+function getMiaTranslation(key, lang) {
+  var entry = TRANSLATIONS[key];
+  var activeLang = lang || currentLang || 'en';
+  return entry && entry[activeLang] !== undefined ? entry[activeLang] : '';
+}
+function buildMiaTranslations(keyMap) {
+  var out = { en: {}, vn: {} };
+  Object.keys(keyMap).forEach(function(alias) {
+    var key = keyMap[alias];
+    var entry = TRANSLATIONS[key];
+    if (entry) {
+      out.en[alias] = entry.en;
+      out.vn[alias] = entry.vn;
+    }
+  });
+  return out;
+}
+window.getMiaTranslation = getMiaTranslation;
+window.buildMiaTranslations = buildMiaTranslations;
+
+/* ── Engine ────────────────────────────────────────────────────────────────── */
+var currentLang = (function(){
+  try{ return localStorage.getItem('mia_lang')||'en'; }catch(e){ return 'en'; }
+})();
+
+function setLang(lang){
+    currentLang = lang;
+    window.currentLang = lang;  // Make sure window.currentLang is also set
+    
+    // Save to localStorage
+    try{ 
+        localStorage.setItem('mia_lang', lang); 
+    } catch(e){}
+    
+    // Update active button styles
+    var en = document.getElementById('lang-en');
+    var vn = document.getElementById('lang-vn');
+    var zh = document.getElementById('lang-zh');
+    if(en) en.classList.toggle('active', lang === 'en');
+    if(vn) vn.classList.toggle('active', lang === 'vn');
+    if(zh) zh.classList.toggle('active', lang === 'zh');
+    // Apply translations to the page
+    applyTranslations();
+
+    if (typeof window.updateMiaCasaChatbotLanguage === 'function') {
+        try { window.updateMiaCasaChatbotLanguage(lang); } catch(e) {}
+    }
+  
+  // Re-render dynamic sections - ONLY if the grid exists on this page
+  /* if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
+    renderProperties();  // Remove the false parameter
+  } */
+  if (typeof renderAmenities === 'function') renderAmenities();
+  if (typeof renderBookingSelector === 'function' && document.getElementById('booking-prop-sel')) {
+    renderBookingSelector();
+  }
+  if (typeof activeProp !== 'undefined' && typeof selectProp === 'function' && document.getElementById('properties-grid')) {
+    try { selectProp(activeProp); } catch(e) {}
+}
+  
+  // Force body class or attribute to help with any CSS-based language rules
+  document.documentElement.setAttribute('data-lang', lang);
+}
+
+function applyTranslations(){
+    var lang = currentLang;
+    
+    // data-t → textContent
+    document.querySelectorAll('[data-t]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-t')];
+        if(e && e[lang]!==undefined) el.textContent = e[lang];
+    });
+    
+    // data-th → innerHTML
+    document.querySelectorAll('[data-th]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-th')];
+        if(e && e[lang]!==undefined) el.innerHTML = e[lang];
+    });
+    
+    // Translate placeholders
+    document.querySelectorAll('[data-t-placeholder]').forEach(function(el){
+        var key = el.getAttribute('data-t-placeholder');
+        var e = TRANSLATIONS[key];
+        if(e && e[lang]!==undefined) el.placeholder = e[lang];
+    });
+    
+    // Translate attributes
+    document.querySelectorAll('[data-t-alt]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-t-alt')];
+        if(e && e[lang]!==undefined) el.alt = e[lang];
+    });
+    document.querySelectorAll('[data-t-title]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-t-title')];
+        if(e && e[lang]!==undefined) el.title = e[lang];
+    });
+    document.querySelectorAll('[data-t-aria]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-t-aria')];
+        if(e && e[lang]!==undefined) el.setAttribute('aria-label', e[lang]);
+    });
+
+    // Translate select options
+    document.querySelectorAll('select option[data-t]').forEach(function(opt){
+        var key = opt.getAttribute('data-t');
+        var e = TRANSLATIONS[key];
+        if(e && e[lang]!==undefined) opt.textContent = e[lang];
+    });
+    
+    // ADD THIS - Re-render properties when language changes
+    if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
+        try {
+            renderProperties();
+            console.log('Properties re-rendered after language change');
+        } catch(e) {
+            console.warn('Failed to re-render properties:', e.message);
+        }
+    }
+    
+    // Re-run FAQ toggle display to ensure content is visible after translation
+    document.querySelectorAll('.faq-item.open .faq-a').forEach(function(el){
+        el.style.maxHeight = el.scrollHeight + 'px';
+    });
+    
+    // page-specific hooks
+    _hooks.forEach(function(fn){ 
+        try{ 
+            fn(lang); 
+        } catch(e){ 
+            console.warn('hook err:', e.message); 
+        } 
+    });
+}
+
+var _hooks = [];
+function registerTranslationHook(fn){ _hooks.push(fn); }
+
+// Register hooks for FAQ and Rules translation
+registerTranslationHook(function(lang) {
+  // Re-translate FAQ questions and answers
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    var questionSpan = btn.querySelector('span:first-child');
+    if (questionSpan && questionSpan.hasAttribute('data-t')) {
+      var key = questionSpan.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        var currentText = questionSpan.innerHTML;
+        var hasEmoji = currentText.match(/^[❓\s]*/);
+        if (hasEmoji && hasEmoji[0]) {
+          questionSpan.innerHTML = hasEmoji[0] + ' ' + e[lang];
+        } else {
+          questionSpan.textContent = e[lang];
+        }
+      }
+    }
+  });
+  
+  // Re-translate FAQ answers
+  document.querySelectorAll('.faq-a p').forEach(function(p) {
+    if (p.hasAttribute('data-t')) {
+      var key = p.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) p.textContent = e[lang];
+    }
+  });
+  
+  // Re-translate House Rules
+  document.querySelectorAll('.rule-card .rule-title, .rule-card .rule-list li').forEach(function(el) {
+    if (el.hasAttribute('data-t')) {
+      var key = el.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        if (el.tagName === 'LI') {
+          var hasPrefix = el.innerHTML.match(/^[•\-\s]*/);
+          if (hasPrefix) {
+            el.innerHTML = hasPrefix[0] + ' ' + e[lang];
+          } else {
+            el.textContent = e[lang];
+          }
+        } else {
+          el.textContent = e[lang];
+        }
+      }
+    }
+  });
+});
+
+// Register hook for Our Story page
+registerTranslationHook(function(lang) {
+  var storyElements = [
+    'story-hero-title', 'story-hero-subtitle', 'story-tag', 'story-h1', 'story-lead',
+    'story-back', 'story-p1', 'story-mobile-line1', 'story-mobile-line2', 'story-mobile-line3',
+    'story-mobile-line4', 'story-mobile-line5', 'story-mobile-line6', 'story-mobile-line7',
+    'story-mobile-line8', 'story-mobile-line9', 'story-p1-line1', 'story-p1-line2', 'story-p1-line3',
+    'story-p1-line4', 'story-quote', 'story-how-title', 'story-how-p1', 'story-how-p2', 'story-how-p3',
+    'story-building-title', 'story-building-p1', 'story-building-p1b', 'story-pause-2',
+    'story-before-title', 'story-before-desc', 'story-messy-title', 'story-messy-desc',
+    'story-furniture-title', 'story-furniture-desc', 'story-after-title', 'story-after-desc',
+    'story-pause-1', 'story-different-title', 'story-diff-1-title', 'story-diff-1-desc',
+    'story-diff-2-title', 'story-diff-2-desc', 'story-diff-3-title', 'story-diff-3-desc',
+    'story-diff-4-title', 'story-diff-4-desc', 'story-why-title', 'story-why-1-title',
+    'story-why-1-desc', 'story-why-2-title', 'story-why-2-desc', 'story-why-3-title',
+    'story-why-3-desc', 'story-why-4-title', 'story-why-4-desc', 'story-properties-title',
+    'story-hanoi-subtitle', 'story-oq-subtitle', 'story-hanoi-bullet-1', 'story-hanoi-bullet-2',
+    'story-hanoi-bullet-3', 'story-oq-bullet-1', 'story-oq-bullet-2', 'story-oq-bullet-3',
+    'story-hanoi-title', 'story-hanoi-p1', 'story-hanoi-gallery', 'story-oq-title', 'story-oq-p1',
+    'story-oq-p2', 'story-oq-p3', 'story-oq-gallery', 'story-hosts-title', 'story-hosts-p1',
+    'story-linh-detail', 'story-ngoc-detail', 'story-hosts-p2', 'story-same-title', 'story-same-p1',
+    'story-same-1', 'story-same-2', 'story-same-3', 'story-same-p2', 'story-belief',
+    'story-growing-title', 'story-growing-p1', 'story-growing-p2', 'story-growing-p3',
+    'story-growing-p4', 'story-growing-quote', 'story-closing-emphasis', 'story-closing-sub',
+    'story-cta-view-h', 'story-cta-view-oq', 'story-cta-avail', 'story-cta-wa',
+    'story-before', 'story-during', 'story-after', 'story-oq-before', 'story-oq-during', 'story-oq-after'
+  ];
+  
+  storyElements.forEach(function(key) {
+    var elements = document.querySelectorAll('[data-t="' + key + '"], [data-th="' + key + '"]');
+    elements.forEach(function(el) {
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        if (el.hasAttribute('data-th')) {
+          el.innerHTML = e[lang];
+        } else {
+          el.textContent = e[lang];
+        }
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function(){
+  // Get saved language or default to 'en'
+  var savedLang = 'en';
+  try{ 
+    savedLang = localStorage.getItem('mia_lang') || 'en'; 
+  } catch(e){}
+  
+  // Set the language (this will update buttons and content)
+  setLang(savedLang);
+  
+  // Double-check button states after a short delay (fixes sync issues)
+  setTimeout(function() {
+    var en = document.getElementById('lang-en');
+    var vn = document.getElementById('lang-vn');
+    if(en && vn) {
+      en.classList.toggle('active', currentLang === 'en');
+      vn.classList.toggle('active', currentLang === 'vn');
+    }
+  }, 50);
+});

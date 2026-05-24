@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /maintenance
+Disallow: /invoice
+Disallow: /cancel-booking
+
+Sitemap: https://miacasahanoi.com/sitemap.xml
