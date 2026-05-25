@@ -1,6 +1,42 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-story",
+      "destination": "/our-story.html",
+      "permanent": true
+    },
+    {
+      "source": "/miacasa-hanoi",
+      "destination": "/miacasa-hanoi.html",
+      "permanent": true
+    },
+    {
+      "source": "/miacasa-oldquarter",
+      "destination": "/miacasa-oldquarter.html",
+      "permanent": true
+    },
+    {
+      "source": "/cancel-booking",
+      "destination": "/cancel-booking.html",
+      "permanent": true
+    },
+    {
+      "source": "/invoice",
+      "destination": "/invoice.html",
+      "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
