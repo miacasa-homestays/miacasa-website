@@ -4,7 +4,8 @@
 // ================================================================
 
 /* const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlgyCXc-S80tKtUgoX_8ZxnSRZl3rlCGoyaswB5NbK5cSqaoApZsHH8mg72Vmnok1pFA/exec'; */
-const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+//const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+const API_URL = '/api/log-booking';
 const ROOM_CALS = [
     {
         id: 'spring',
