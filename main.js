@@ -7,6 +7,8 @@
 // NAVIGATION
 // ================================================================
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 // Mobile menu toggle
 function toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
