@@ -121,9 +121,14 @@ function initCalendars() {
             
             // For dynamic MiaCasa feed from Google Script
             if (link.isDynamic && link.roomId) {
-                // Encode room name for URL
                 const encodedRoom = encodeURIComponent(link.roomId);
-                url = `${GOOGLE_SCRIPT_URL}?action=getIcal&room=${encodedRoom}`;
+                // Check if GOOGLE_SCRIPT_URL is defined
+                if (typeof GOOGLE_SCRIPT_URL !== 'undefined' && GOOGLE_SCRIPT_URL) {
+                    url = `${GOOGLE_SCRIPT_URL}?action=getIcal&room=${encodedRoom}`;
+                } else {
+                    // Fallback to API_URL
+                    url = `${API_URL}?action=getIcal&room=${encodedRoom}`;
+                }
                 platformName = currentLang === 'vn' ? 'Lịch MiaCasa' : 'MiaCasa iCal';
             }
             
