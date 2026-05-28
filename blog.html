@@ -1,3 +1,4 @@
+Give me the final version of blog.html - 
 <!DOCTYPE html>
 <html lang="en" data-lang="en">
 <head>
@@ -140,40 +141,6 @@
     margin-bottom: 0.5rem;
   }
 
-  .subscribe-text {
-    font-size: 0.9rem;
-    color: #6b5c47;
-    margin-bottom: 1rem;
-  }
-
-  .subscribe-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    margin: 1rem 0;
-  }
-
-  .subscribe-input {
-    padding: 0.75rem 1rem;
-    border: 1px solid #e5e0d8;
-    border-radius: 4px;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.85rem;
-    width: 260px;
-  }
-
-  .subscribe-btn {
-    padding: 0.75rem 1.5rem;
-    white-space: nowrap;
-  }
-
-  .subscribe-footer {
-    font-size: 0.7rem;
-    color: #8a6e4b;
-    margin-top: 1rem;
-  }
-
   @media (max-width: 768px) {
     .blog-grid {
       grid-template-columns: 1fr;
@@ -185,16 +152,6 @@
 
     .blog-header h1 {
       font-size: 2rem;
-    }
-
-    .subscribe-form {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .subscribe-input {
-      width: 100%;
-      max-width: 280px;
     }
   }
 </style>
@@ -249,21 +206,162 @@
   <div class="blog-grid">
 
     <!-- Hanoi Old Quarter Guide Blog Card -->
-<div class="blog-card">
-  <div class="blog-card-image">
-    <a href="blog-old-quarter-guide.html">
-      <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_600/v1779978683/hanoi-backpacker-district-beer-street4_olyuql.jpg" 
-           alt="Hanoi Old Quarter beer street with busy bars and backpackers" 
-           loading="lazy" decoding="async">
-    </a>
-  </div>
-  <div class="blog-card-content">
-    <div class="blog-card-category" data-t="blog-oq-card-category">📍 LOCAL GUIDE</div>
-    <h2 class="blog-card-title"><a href="blog-old-quarter-guide.html" data-t="blog-oq-card-title">Hanoi Old Quarter Guide (2026): Streets, Food, Cafés & Local Tips</a></h2>
-    <p class="blog-card-excerpt" data-t="blog-oq-card-excerpt">Complete guide to Hanoi Old Quarter — best streets to explore, what to eat, hidden cafés, common mistakes, and where to stay.</p>
-    <div class="blog-card-meta" data-t="blog-oq-card-meta">📅 May 28, 2026 · ☕ 12 min read</div>
-  </div>
-</div>
+    <div class="blog-card">
+      <div class="blog-card-image">
+        <a href="blog-old-quarter-guide.html">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_600/v1779978683/hanoi-backpacker-district-beer-street4_olyuql.jpg" 
+              alt="Hanoi Old Quarter beer street with busy bars and backpackers" 
+              loading="lazy" decoding="async">
+        </a>
+      </div>
+      <div class="blog-card-content">
+        <div class="blog-card-category" data-t="blog-oq-card-category">📍 LOCAL GUIDE</div>
+        <h2 class="blog-card-title"><a href="blog-old-quarter-guide.html" data-t="blog-oq-card-title">Hanoi Old Quarter Guide (2026): Streets, Food, Cafés & Local Tips</a></h2>
+        <p class="blog-card-excerpt" data-t="blog-oq-card-excerpt">Complete guide to Hanoi Old Quarter — best streets to explore, what to eat, hidden cafés, common mistakes, and where to stay.</p>
+        <div class="blog-card-meta" data-t="blog-oq-card-meta">📅 May 28, 2026 · ☕ 12 min read</div>
+      </div>
+    </div>
+
+
+    <!-- Best Cafes Blog Card -->
+    <div class="blog-card">
+
+      <div class="blog-card-image">
+        <a href="best-cafes-hanoi.html">
+          <img
+            src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_1200/v1778744563/coffee_blog_cover_c091p6.jpg"
+            alt="Beautiful cafe in Hanoi with Vietnamese coffee"
+            loading="lazy" decoding="async">
+        </a>
+      </div>
+
+      <div class="blog-card-content">
+
+        <div class="blog-card-category" data-t="cafes-category">
+          ☕ CAFÉ GUIDE
+        </div>
+
+        <h2 class="blog-card-title">
+          <a href="best-cafes-hanoi.html" data-t="cafes-title">
+            Best Cafés in Hanoi for Coffee, Work & Quiet Mornings (2026)
+          </a>
+        </h2>
+
+        <p class="blog-card-excerpt" data-t="cafes-excerpt">
+          Discover Hanoi's best cafés for egg coffee, remote work, quiet mornings, and hidden local atmosphere — from Old Quarter gems to calm cafés near Văn Miếu.
+        </p>
+
+        <div class="blog-card-meta" data-t="cafes-meta">
+          📅 May 1, 2026 · ☕ 6 min read
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3-Day Itinerary -->
+    <div class="blog-card">
+
+      <div class="blog-card-image">
+        <a href="blog-hanoi-3-days.html">
+          <img
+            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777441425/pexels-ama-journey-2157145868-35542949_naqizl.jpg"
+            alt="Hoan Kiem Lake Hanoi at sunrise"
+            loading="lazy" decoding="async">
+        </a>
+      </div>
+
+      <div class="blog-card-content">
+
+        <div class="blog-card-category" data-t="blog-card-3days-category">
+          📌 ITINERARY
+        </div>
+
+        <h2 class="blog-card-title">
+          <a href="blog-hanoi-3-days.html" data-t="blog-card-3days-title">
+            3 Days in Hanoi: A Complete Itinerary (2026)
+          </a>
+        </h2>
+
+        <p class="blog-card-excerpt" data-t="blog-card-3days-excerpt">
+          3 days in Hanoi itinerary: what to eat, where to go, and how to choose between Old Quarter and quiet local neighborhoods.
+        </p>
+
+        <div class="blog-card-meta" data-t="blog-card-3days-meta">
+          📅 April 15, 2026 · ☕ 7 min read
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Train Street -->
+    <div class="blog-card">
+
+      <div class="blog-card-image">
+        <a href="blog-train-street.html">
+          <img
+            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777442763/pexels-silverkblack-36713608_luztky.jpg"
+            alt="Train Street Hanoi"
+            loading="lazy" decoding="async">
+        </a>
+      </div>
+
+      <div class="blog-card-content">
+
+        <div class="blog-card-category" data-t="blog-card-train-category">
+          🚂 LOCAL GUIDE
+        </div>
+
+        <h2 class="blog-card-title">
+          <a href="blog-train-street.html" data-t="blog-card-train-title">
+            Train Street Hanoi: Full Guide (2026)
+          </a>
+        </h2>
+
+        <p class="blog-card-excerpt" data-t="blog-card-train-excerpt">
+          Complete guide to Train Street Hanoi: train times, safety tips, how to visit without crowds, and where to stay nearby.
+        </p>
+
+        <div class="blog-card-meta" data-t="blog-card-train-meta">
+          📅 April 22, 2026 · ☕ 6 min read
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Where to Stay -->
+    <div class="blog-card">
+
+      <div class="blog-card-image">
+        <a href="blog-where-to-stay.html">
+          <img
+            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777457960/quiet-vs-lively-hanoi.001_rvbgzb.jpg"
+            alt="Where to stay in Hanoi"
+            loading="lazy" decoding="async">
+        </a>
+      </div>
+
+      <div class="blog-card-content">
+
+        <div class="blog-card-category" data-t="blog-card-stay-category">
+          🏠 ACCOMMODATION
+        </div>
+
+        <h2 class="blog-card-title">
+          <a href="blog-where-to-stay.html" data-t="blog-card-stay-title">
+            Where to Stay in Hanoi: Old Quarter vs Local Areas
+          </a>
+        </h2>
+
+        <p class="blog-card-excerpt" data-t="blog-card-stay-excerpt">
+          Not sure where to stay? Compare Old Quarter vs quieter local areas to find your perfect match.
+        </p>
+
+        <div class="blog-card-meta" data-t="blog-card-stay-meta">
+          📅 April 29, 2026 · ☕ 5 min read
+        </div>
+
+      </div>
+    </div>
 
   </div>
 
