@@ -4,7 +4,8 @@
 // ================================================================
 
 /* const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlgyCXc-S80tKtUgoX_8ZxnSRZl3rlCGoyaswB5NbK5cSqaoApZsHH8mg72Vmnok1pFA/exec'; */
-const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+//const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+const API_URL = '/api/log-booking';
 const ROOM_CALS = [
     {
         id: 'spring',
@@ -120,9 +121,14 @@ function initCalendars() {
             
             // For dynamic MiaCasa feed from Google Script
             if (link.isDynamic && link.roomId) {
-                // Encode room name for URL
                 const encodedRoom = encodeURIComponent(link.roomId);
-                url = `${GOOGLE_SCRIPT_URL}?action=getIcal&room=${encodedRoom}`;
+                // Check if GOOGLE_SCRIPT_URL is defined
+                if (typeof GOOGLE_SCRIPT_URL !== 'undefined' && GOOGLE_SCRIPT_URL) {
+                    url = `${GOOGLE_SCRIPT_URL}?action=getIcal&room=${encodedRoom}`;
+                } else {
+                    // Fallback to API_URL
+                    url = `${API_URL}?action=getIcal&room=${encodedRoom}`;
+                }
                 platformName = currentLang === 'vn' ? 'Lịch MiaCasa' : 'MiaCasa iCal';
             }
             
