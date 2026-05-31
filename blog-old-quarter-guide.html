@@ -146,6 +146,53 @@
   .blog-image img { width: 100%; height: auto; display: block; }
   .blog-image-caption { font-size: 0.7rem; color: #6b5c47; text-align: center; margin-top: 0.5rem; }
   
+  /* Street Card Styles */
+  .street-card {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    align-items: center;
+    background: #faf8f5;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .street-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .street-card-image {
+    flex: 0 0 200px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .street-card-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  
+  .street-card-image img:hover {
+    transform: scale(1.03);
+  }
+  
+  .street-card-content {
+    flex: 1;
+  }
+  
+  .street-card-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+  
+  .street-card-content p {
+    margin-bottom: 0;
+  }
+  
   .info-box { background: #f5efe6; border-left: 4px solid #c17a5a; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
   .trust-signals { display: flex; gap: 1rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
   .trust-signals span { font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; }
@@ -166,7 +213,7 @@
   .blog-back { display: inline-block; margin-top: 2rem; color: #6b5c47; text-decoration: none; font-size: 0.8rem; }
   .blog-back:hover { color: #c17a5a; }
   
-  /* Bold text styling without strong tags */
+  /* Bold text styling */
   .blog-content li strong, .info-box p strong {
     font-weight: 600;
     color: #2c2416;
@@ -177,6 +224,22 @@
     .blog-cta { padding: 1.5rem; }
     .toc-box ul { columns: 1; }
     .related-card { width: 100%; }
+    
+    .street-card {
+      flex-direction: column;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .street-card-image {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    
+    .street-card-image img {
+      height: 200px;
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -264,14 +327,44 @@
       <h2 id="best-streets" data-t="blog-oq-h2-2">Best Streets to Explore in Hanoi Old Quarter</h2>
       <p data-t="blog-oq-p12">One mistake many visitors make is treating the Old Quarter like one giant area where every street feels the same. It doesn't. Different streets have completely different energy.</p>
 
-      <h3 data-t="blog-oq-h3-1">Hàng Mã Street: Colorful Hanoi</h3>
-      <p data-t="blog-oq-p13">If you visit Hanoi around Lunar New Year, Mid Autumn Festival or Christmas, this street becomes incredibly photogenic. You will find lanterns, red decorations, paper crafts, masks, lights and seasonal displays everywhere. Even when no festival is happening, it is one of the most visually interesting streets to wander through.</p>
+      <!-- Hàng Mã Street Card -->
+      <div class="street-card">
+        <div class="street-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780247364/hang_ma_street_ibyfhm.jpg" 
+               alt="Hàng Mã Street - colorful decorations and lanterns in Hanoi Old Quarter" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="street-card-content">
+          <h3 data-t="blog-oq-h3-1">Hàng Mã Street: Colorful Hanoi</h3>
+          <p data-t="blog-oq-p13">If you visit Hanoi around Lunar New Year, Mid Autumn Festival or Christmas, this street becomes incredibly photogenic. You will find lanterns, red decorations, paper crafts, masks, lights and seasonal displays everywhere. Even when no festival is happening, it is one of the most visually interesting streets to wander through.</p>
+        </div>
+      </div>
 
-      <h3 data-t="blog-oq-h3-2">Tạ Hiện Street: Hanoi Beer Street</h3>
-      <p data-t="blog-oq-p14">You will hear about this street before arriving. Locals call it Tạ Hiện, but many travelers know it as Beer Street Hanoi. At night, tiny plastic stools fill the sidewalks and people gather for cheap beer, grilled snacks and people watching. It is loud — very loud. If you enjoy nightlife and energy, visit at least once.</p>
+      <!-- Tạ Hiện Street Card -->
+      <div class="street-card">
+        <div class="street-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780247365/ta-hien-street-hanoioldquarterguide-4_chnpz7.jpg" 
+               alt="Tạ Hiện Street - Beer Street in Hanoi Old Quarter" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="street-card-content">
+          <h3 data-t="blog-oq-h3-2">Tạ Hiện Street: Hanoi Beer Street</h3>
+          <p data-t="blog-oq-p14">You will hear about this street before arriving. Locals call it Tạ Hiện, but many travelers know it as Beer Street Hanoi. At night, tiny plastic stools fill the sidewalks and people gather for cheap beer, grilled snacks and people watching. It is loud — very loud. If you enjoy nightlife and energy, visit at least once.</p>
+        </div>
+      </div>
 
-      <h3 data-t="blog-oq-h3-3">Hàng Gai Street: Shopping & Silk</h3>
-      <p data-t="blog-oq-p15">If you want shopping, start here. Hàng Gai is one of the better streets for silk products, handmade goods, small boutiques, gifts and souvenirs. Some shops are touristy. Some are genuinely high quality. Take your time instead of buying from the first place you see.</p>
+      <!-- Hàng Gai Street Card -->
+      <div class="street-card">
+        <div class="street-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780247364/hang-gai-street-is-a-visual-feast-for-photographers-with-colorful-silk-shops-historic-architecture-and-vibrant-street-scenes-best-captured-in-the-soft-morning-light-1753930816kplra_kpc2ag.jpg" 
+               alt="Hàng Gai Street - silk shops in Hanoi Old Quarter" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="street-card-content">
+          <h3 data-t="blog-oq-h3-3">Hàng Gai Street: Shopping & Silk</h3>
+          <p data-t="blog-oq-p15">If you want shopping, start here. Hàng Gai is one of the better streets for silk products, handmade goods, small boutiques, gifts and souvenirs. Some shops are touristy. Some are genuinely high quality. Take your time instead of buying from the first place you see.</p>
+        </div>
+      </div>
 
       <h2 id="what-to-eat" data-t="blog-oq-h2-3">What to Eat in Hanoi Old Quarter</h2>
       <p data-t="blog-oq-p16">You could spend an entire week eating in Hanoi and still leave feeling like you missed half the city. Food is one of the biggest reasons travelers love Hanoi.</p>
