@@ -146,8 +146,8 @@
   .blog-image img { width: 100%; height: auto; display: block; }
   .blog-image-caption { font-size: 0.7rem; color: #6b5c47; text-align: center; margin-top: 0.5rem; }
   
-  /* Street Card Styles */
-  .street-card {
+  /* Card Styles for Streets, Food, and Cafes */
+  .street-card, .food-card, .cafe-card, .market-card {
     display: flex;
     gap: 1.5rem;
     margin: 2rem 0;
@@ -158,17 +158,17 @@
     transition: transform 0.2s ease;
   }
   
-  .street-card:hover {
+  .street-card:hover, .food-card:hover, .cafe-card:hover, .market-card:hover {
     transform: translateY(-2px);
   }
   
-  .street-card-image {
+  .street-card-image, .food-card-image, .cafe-card-image, .market-card-image {
     flex: 0 0 200px;
     border-radius: 12px;
     overflow: hidden;
   }
   
-  .street-card-image img {
+  .street-card-image img, .food-card-image img, .cafe-card-image img, .market-card-image img {
     width: 100%;
     height: 150px;
     object-fit: cover;
@@ -176,20 +176,21 @@
     transition: transform 0.3s ease;
   }
   
-  .street-card-image img:hover {
+  .street-card-image img:hover, .food-card-image img:hover, 
+  .cafe-card-image img:hover, .market-card-image img:hover {
     transform: scale(1.03);
   }
   
-  .street-card-content {
+  .street-card-content, .food-card-content, .cafe-card-content, .market-card-content {
     flex: 1;
   }
   
-  .street-card-content h3 {
+  .street-card-content h3, .food-card-content h3, .cafe-card-content h3, .market-card-content h3 {
     margin-top: 0;
     margin-bottom: 0.75rem;
   }
   
-  .street-card-content p {
+  .street-card-content p, .food-card-content p, .cafe-card-content p, .market-card-content p {
     margin-bottom: 0;
   }
   
@@ -225,18 +226,18 @@
     .toc-box ul { columns: 1; }
     .related-card { width: 100%; }
     
-    .street-card {
+    .street-card, .food-card, .cafe-card, .market-card {
       flex-direction: column;
       padding: 1rem;
       gap: 1rem;
     }
     
-    .street-card-image {
+    .street-card-image, .food-card-image, .cafe-card-image, .market-card-image {
       flex: 0 0 auto;
       width: 100%;
     }
     
-    .street-card-image img {
+    .street-card-image img, .food-card-image img, .cafe-card-image img, .market-card-image img {
       height: 200px;
       width: 100%;
     }
@@ -369,20 +370,72 @@
       <h2 id="what-to-eat" data-t="blog-oq-h2-3">What to Eat in Hanoi Old Quarter</h2>
       <p data-t="blog-oq-p16">You could spend an entire week eating in Hanoi and still leave feeling like you missed half the city. Food is one of the biggest reasons travelers love Hanoi.</p>
       
-      <h3 data-t="blog-oq-h3-4">Start with phở in the morning</h3>
-      <p data-t="blog-oq-p17">Phở hits differently in Hanoi. Especially early in the morning when locals are heading to work and giant steaming pots are already busy. Forget fancy interiors. If you see office workers eating there at 7 AM, that is usually a good sign.</p>
+      <!-- Phở Card -->
+      <div class="food-card">
+        <div class="food-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1777443143/pexels-kaku-nguyen-1144098-2181428_smanuo.jpg" 
+               alt="Traditional Vietnamese Phở in Hanoi" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="food-card-content">
+          <h3 data-t="blog-oq-h3-4">Start with phở in the morning</h3>
+          <p data-t="blog-oq-p17">Phở hits differently in Hanoi. Especially early in the morning when locals are heading to work and giant steaming pots are already busy. Forget fancy interiors. If you see office workers eating there at 7 AM, that is usually a good sign.</p>
+        </div>
+      </div>
       
-      <h3 data-t="blog-oq-h3-5">Try bún chả for lunch</h3>
-      <p data-t="blog-oq-p18">If there is one dish visitors consistently remember, it is bún chả. Grilled pork, rice noodles, herbs, and dipping sauce. Simple and incredibly satisfying.</p>
+      <!-- Bún Chả Card -->
+      <div class="food-card">
+        <div class="food-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780249042/Bun-Cha_y5efp6.png" 
+               alt="Bún Chả - grilled pork with rice noodles in Hanoi" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="food-card-content">
+          <h3 data-t="blog-oq-h3-5">Try bún chả for lunch</h3>
+          <p data-t="blog-oq-p18">If there is one dish visitors consistently remember, it is bún chả. Grilled pork, rice noodles, herbs, and dipping sauce. Simple and incredibly satisfying.</p>
+        </div>
+      </div>
       
-      <h3 data-t="blog-oq-h3-6">Drink egg coffee at least once</h3>
-      <p data-t="blog-oq-p19">Yes, it sounds strange. Coffee with egg? But Hanoi egg coffee is creamy, rich and surprisingly comforting. The best experience is usually not in the biggest café but somewhere hidden upstairs with old walls and tiny balconies overlooking the street.</p>
+      <!-- Egg Coffee Card -->
+      <div class="food-card">
+        <div class="food-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780249041/egg-coffee_k3usnz.jpg" 
+               alt="Egg coffee - Hanoi's famous creamy coffee drink" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="food-card-content">
+          <h3 data-t="blog-oq-h3-6">Drink egg coffee at least once</h3>
+          <p data-t="blog-oq-p19">Yes, it sounds strange. Coffee with egg? But Hanoi egg coffee is creamy, rich and surprisingly comforting. The best experience is usually not in the biggest café but somewhere hidden upstairs with old walls and tiny balconies overlooking the street.</p>
+        </div>
+      </div>
 
       <h2 id="hidden-cafes" data-t="blog-oq-h2-4">Hidden Cafés: One of Hanoi's Best Experiences</h2>
-      <p data-t="blog-oq-p20">A lot of travelers search for "best cafés in Hanoi." But part of Hanoi café culture is not knowing exactly where you are going. Some of the best places are hidden upstairs behind tiny entrances that look easy to miss. You might walk into what seems like an old corridor and suddenly find a quiet café overlooking the street. Slow down here. Sit longer than planned. Hanoi reveals itself slowly.</p>
+      
+      <!-- Hidden Café Card -->
+      <div class="cafe-card">
+        <div class="cafe-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780249041/hidden-cafe-hanoi_p2vq3t.jpg" 
+               alt="Hidden café in Hanoi Old Quarter with vintage decor" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="cafe-card-content">
+          <p data-t="blog-oq-p20">A lot of travelers search for "best cafés in Hanoi." But part of Hanoi café culture is not knowing exactly where you are going. Some of the best places are hidden upstairs behind tiny entrances that look easy to miss. You might walk into what seems like an old corridor and suddenly find a quiet café overlooking the street. Slow down here. Sit longer than planned. Hanoi reveals itself slowly.</p>
+        </div>
+      </div>
 
       <h2 id="night-market" data-t="blog-oq-h2-5">Night Market & Shopping</h2>
-      <p data-t="blog-oq-p21">If you are in Hanoi on a weekend, you will likely hear about the night market. The atmosphere is lively. You will see souvenirs, clothes, accessories, street snacks, and sometimes street performances. But here is an honest take: the night market is more interesting for the experience of walking through than for serious shopping. Many items look similar between stalls. If you see something you love, try light negotiation with a smile.</p>
+      
+      <!-- Night Market Card -->
+      <div class="market-card">
+        <div class="market-card-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1780249042/night-market_z8j0aa.jpg" 
+               alt="Hanoi Night Market - busy stalls with colorful lanterns" 
+               loading="lazy" decoding="async">
+        </div>
+        <div class="market-card-content">
+          <p data-t="blog-oq-p21">If you are in Hanoi on a weekend, you will likely hear about the night market. The atmosphere is lively. You will see souvenirs, clothes, accessories, street snacks, and sometimes street performances. But here is an honest take: the night market is more interesting for the experience of walking through than for serious shopping. Many items look similar between stalls. If you see something you love, try light negotiation with a smile.</p>
+        </div>
+      </div>
 
       <h2 id="common-mistakes" data-t="blog-oq-h2-6">Common Tourist Mistakes in Hanoi Old Quarter</h2>
       
