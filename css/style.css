@@ -2660,10 +2660,11 @@ footer a,
 .image-card img,
 .building-card img {
     width: 100%;
-    height: auto;
+    height: 280px;  /* Fixed height for all images */
     border-radius: 8px;
     margin-bottom: 0.5rem;
-    object-fit: contain;
+    object-fit: cover;  /* Crops to fill the space */
+    object-position: center;  /* Centers the crop */
 }
 
 /* ============================================
