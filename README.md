@@ -250,4 +250,3 @@ Built for MiaCasa Homestays in Hanoi.
 ---
 
 **Made with ♡ in Hanoi** 🇻🇳 bottom
-8. Cleaned up formatting for better readability
