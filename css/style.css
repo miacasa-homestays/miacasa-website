@@ -2935,7 +2935,7 @@ footer a,
     border-radius: 20px;
     padding: 1.5rem;
     text-align: center;
-    cursor: pointer;
+    cursor: default;  /* ← CHANGE THIS from 'pointer' to 'default' */
     transition: all 0.3s ease;
     border: 2px solid transparent;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -2944,6 +2944,7 @@ footer a,
 .selector-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    /* Keep the visual hover effect but no hand cursor */
 }
 
 .selector-card.selected {
@@ -3011,6 +3012,12 @@ footer a,
     color: white;
 }
 
+/* Ensure buttons still show pointer cursor */
+.selector-card .btn-outline,
+.selector-card .selector-btn,
+.selector-actions a {
+    cursor: pointer;
+}
 /* ============================================
    DIFFERENTIATORS STRIP & TRUST BADGES
    ============================================ */
