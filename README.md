@@ -249,15 +249,5 @@ Built for MiaCasa Homestays in Hanoi.
 
 ---
 
-**Made with ♡ in Hanoi** 🇻🇳
-```
-
-Key improvements made:
-1. Added Chinese language to multilingual section
-2. Added troubleshooting table for common issues
-3. Added browser support section
-4. Clarified the `data-t` vs `data-th` distinction
-5. Added EmailJS and PayPal to integrations
-6. Organized future improvements as a checklist
-7. Added contact information at the bottom
+**Made with ♡ in Hanoi** 🇻🇳 bottom
 8. Cleaned up formatting for better readability
