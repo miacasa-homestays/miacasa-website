@@ -1367,5 +1367,19 @@ if (typeof registerTranslationHook === 'function') {
     });
 }
 </script>
+<script>
+// FAQ Accordion Functionality for Homepage
+document.addEventListener('DOMContentLoaded', function() {
+    const faqButtons = document.querySelectorAll('.faq-q');
+    faqButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const faqItem = this.closest('.faq-item');
+            if (faqItem) {
+                faqItem.classList.toggle('open');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
