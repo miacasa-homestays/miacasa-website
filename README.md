@@ -247,11 +247,6 @@ Private project for MiaCasa Homestays. All rights reserved.
 
 Built for MiaCasa Homestays in Hanoi.
 
-**Contact:**
-- Email: miacasahanoi@gmail.com
-- WhatsApp: +84 869 922 261
-- Website: [miacasahanoi.com](https://miacasahanoi.com)
-
 ---
 
 **Made with ♡ in Hanoi** 🇻🇳
