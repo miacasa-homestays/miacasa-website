@@ -3499,51 +3499,45 @@ select:focus-visible {
 }
 
 /* ============================================
-   BUILDING GRID - EQUAL BOXES WITH STACKED DURING IMAGES
+   BUILDING GRID - EQUAL HEIGHT BOXES
    ============================================ */
 
-/* 3-column grid - all boxes equal width */
 .building-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin: 1.5rem 0;
+    align-items: stretch;  /* Makes all boxes equal height */
 }
 
-/* All building cards have the same fixed height */
 .building-card {
     background: var(--sand);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     border: 1px solid var(--border);
-    height: 580px;  /* Fixed height for all three boxes */
     display: flex;
     flex-direction: column;
 }
 
-/* Before and After images - fill the space */
+/* Before and After images - original size, no change */
 .before-after-card img {
     width: 100%;
-    height: 480px;  /* Leaves room for titles */
-    object-fit: cover;
-    object-position: center;
+    height: auto;
     border-radius: 8px;
+    margin-bottom: 0.5rem;
 }
 
-/* During stack container - fills the same height */
+/* During stack - fills the same height as Before/After */
 .during-stack {
     display: flex;
     flex-direction: column;
-    gap: 1rem;  /* Slight gap between the two images */
-    height: 480px;  /* Matches the image height of Before/After */
+    gap: 0.75rem;  /* Slight gap between images */
+    flex: 1;  /* Takes full height of the card */
 }
 
-/* Individual During cards */
 .during-card {
-    flex: 1;
-    background: transparent;
-    padding: 0;
+    flex: 1;  /* Each image takes half the remaining space */
     display: flex;
     flex-direction: column;
 }
@@ -3551,12 +3545,12 @@ select:focus-visible {
 .during-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;  /* Crops to fill the space */
     object-position: center;
     border-radius: 8px;
 }
 
-/* Card titles - consistent positioning */
+/* Card titles stay at bottom */
 .card-title {
     font-weight: 600;
     margin-top: 0.75rem;
@@ -3577,17 +3571,7 @@ select:focus-visible {
         gap: 1rem;
     }
     
-    .building-card {
-        height: auto;
-        min-height: 500px;
-    }
-    
-    .before-after-card img {
-        height: 380px;
-    }
-    
     .during-stack {
-        height: 380px;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
 }
