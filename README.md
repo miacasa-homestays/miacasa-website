@@ -249,4 +249,4 @@ Built for MiaCasa Homestays in Hanoi.
 
 ---
 
-**Made with ♡ in Hanoi** 🇻🇳 bottom
+**Made with ♡ in Hanoi** 🇻🇳 
