@@ -2086,7 +2086,6 @@ const TRANSLATIONS = {
 
 /* ── FAQ ──────────────────────────────────────────────────────── */
 'faq-tag': {en:"FAQ", vn:"Câu hỏi thường gặp", zh:"常见问题"},
-'faq-title': {en:"Frequently Asked<br><em>Questions</em>", vn:"Câu Hỏi<br><em>Thường Gặp</em>", zh:"常见<br><em>问题</em>"},
 'faq-choosetitle': {en:'Not sure which property to choose?', vn:'Chưa biết chọn chỗ nghỉ nào?', zh:'不确定该选择哪一处住宿？'},
 'faq-choose-oq': {en:'Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife.', vn:'Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm.', zh:'如果您想住在市中心，靠近景点和夜生活，请选择 MiaCasa Old Quarter。'},
 'faq-choose-h': {en:'Choose MiaCasa Hanoi if you prefer a quieter, more local experience.', vn:'Chọn MiaCasa Hà Nội nếu bạn thích không khí yên tĩnh và đậm chất địa phương hơn.', zh:'如果您喜欢更安静、更有本地氛围的体验，请选择 MiaCasa Hanoi。'},
