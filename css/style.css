@@ -3499,52 +3499,75 @@ select:focus-visible {
 }
 
 /* ============================================
-   BUILDING GRID - BEFORE/DURING/AFTER LAYOUT
+   BUILDING GRID - EQUAL BOXES WITH STACKED DURING IMAGES
    ============================================ */
 
-/* 3-column grid layout */
+/* 3-column grid - all boxes equal width */
 .building-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin: 1.5rem 0;
-    align-items: start;
 }
 
-/* Before and After cards - single tall cards */
-.before-after-card {
+/* All building cards have the same fixed height */
+.building-card {
+    background: var(--sand);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid var(--border);
+    height: 580px;  /* Fixed height for all three boxes */
     display: flex;
     flex-direction: column;
-    height: auto;
 }
 
+/* Before and After images - fill the space */
 .before-after-card img {
     width: 100%;
-    height: 520px;
+    height: 480px;  /* Leaves room for titles */
     object-fit: cover;
     object-position: center;
+    border-radius: 8px;
 }
 
-/* During stack container - stacks 2 cards vertically WITH GAP */
+/* During stack container - fills the same height */
 .during-stack {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    height: 100%;
+    gap: 1rem;  /* Slight gap between the two images */
+    height: 480px;  /* Matches the image height of Before/After */
 }
 
-/* Individual During cards - both the same size */
+/* Individual During cards */
 .during-card {
     flex: 1;
+    background: transparent;
+    padding: 0;
     display: flex;
     flex-direction: column;
 }
 
 .during-card img {
     width: 100%;
-    height: 245px;
+    height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: 8px;
+}
+
+/* Card titles - consistent positioning */
+.card-title {
+    font-weight: 600;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--ink);
+}
+
+.card-desc {
+    font-size: 0.7rem;
+    color: var(--ink-light);
 }
 
 /* Mobile responsive */
@@ -3554,15 +3577,17 @@ select:focus-visible {
         gap: 1rem;
     }
     
-    .before-after-card img {
-        height: 400px;
+    .building-card {
+        height: auto;
+        min-height: 500px;
     }
     
-    .during-card img {
-        height: 185px;
+    .before-after-card img {
+        height: 380px;
     }
     
     .during-stack {
+        height: 380px;
         gap: 0.75rem;
     }
 }
