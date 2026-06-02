@@ -413,9 +413,9 @@ const TRANSLATIONS = {
   zh: '常见问题'
 },
 'faq-title': {
-  en: 'Frequently Asked Questions',
-  vn: 'Những Câu Hỏi Thường Gặp',
-  zh: '常见问题解答'
+  en: 'Frequently Asked <em>Questions</em>',
+  vn: 'Những Câu Hỏi <em>Thường Gặp</em>',
+  zh: '常见<em>问题</em>'
 },
 'faq-sub': {
   en: 'Quick answers to help you plan your stay in Hanoi.',
