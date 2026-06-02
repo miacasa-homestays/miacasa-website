@@ -1,5 +1,3 @@
-Here's your updated README with improved clarity and completeness:
-
 ```markdown
 # MiaCasa Homestays Website
 
