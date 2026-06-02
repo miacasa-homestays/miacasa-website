@@ -406,6 +406,85 @@ const TRANSLATIONS = {
   zh:'🔥 热门选择 — 本季多数周末已被预订'
 },
 
+// FAQ Section Translations
+'faq-tag': {
+  en: 'Common Questions',
+  vn: 'Câu Hỏi Thường Gặp',
+  zh: '常见问题'
+},
+'faq-title': {
+  en: 'Frequently Asked Questions',
+  vn: 'Những Câu Hỏi Thường Gặp',
+  zh: '常见问题解答'
+},
+'faq-sub': {
+  en: 'Quick answers to help you plan your stay in Hanoi.',
+  vn: 'Câu trả lời nhanh giúp bạn lên kế hoạch cho chuyến đi tại Hà Nội.',
+  zh: '快速解答，帮助您规划河内之旅。'
+},
+
+// FAQ Questions and Answers
+'faq-q-couples': {
+  en: 'Which property is better for couples?',
+  vn: 'Chỗ nghỉ nào phù hợp hơn cho các cặp đôi?',
+  zh: '哪个房源更适合情侣？'
+},
+'faq-a-couples': {
+  en: 'Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment right in the center of the action near Hoàn Kiếm Lake. It depends on whether you prefer peaceful local life or vibrant city energy.',
+  vn: 'Cả hai chỗ nghỉ đều tuyệt vời cho các cặp đôi! MiaCasa Hà Nội cung cấp phòng studio ấm cúng trong khu phố yên tĩnh gần Phố Tàu. MiaCasa Phố Cổ là căn hộ riêng hoàn toàn ngay trung tâm sầm uất gần Hồ Hoàn Kiếm. Tùy thuộc vào việc bạn thích cuộc sống địa phương yên bình hay năng lượng sôi động của thành phố.',
+  zh: '两个房源都非常适合情侣！MiaCasa Hanoi 在火车街附近安静的社区提供舒适的独立单间。MiaCasa Old Quarter 是位于还剑湖附近繁华中心的整套私人公寓。取决于您是喜欢宁静的本地生活还是充满活力的城市节奏。'
+},
+'faq-q-hotel': {
+  en: 'Is MiaCasa a hotel or homestay?',
+  vn: 'MiaCasa là khách sạn hay homestay?',
+  zh: 'MiaCasa 是酒店还是民宿？'
+},
+'faq-a-hotel': {
+  en: 'MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We\'re always available online or nearby if you need anything during your stay.',
+  vn: 'MiaCasa là homestay cao cấp, không phải khách sạn. Bạn có một chỗ nghỉ riêng tư, độc lập với chủ nhà địa phương quan tâm đến trải nghiệm của bạn. Chúng tôi luôn sẵn sàng trực tuyến hoặc gần đó nếu bạn cần bất cứ điều gì trong thời gian lưu trú.',
+  zh: 'MiaCasa 是一家精品民宿，不是酒店。您将享受私密、独立的住宿体验，当地房东关心您的入住体验。在您住宿期间，我们随时在线或在附近为您提供帮助。'
+},
+'faq-q-direct': {
+  en: 'Is direct booking cheaper than Airbnb?',
+  vn: 'Đặt phòng trực tiếp có rẻ hơn Airbnb không?',
+  zh: '直接预订比 Airbnb 更便宜吗？'
+},
+'faq-a-direct': {
+  en: 'Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.',
+  vn: 'Có! Đặt phòng trực tiếp qua website của chúng tôi giúp bạn tiết kiệm 10-15% vì không có phí nền tảng. Bạn nhận được trải nghiệm đáng tin cậy với giá tốt hơn và xác nhận ngay lập tức.',
+  zh: '是的！通过我们网站直接预订可节省 10-15%，因为没有任何平台佣金。您将以更优惠的价格获得同样值得信赖的体验，并立即确认预订。'
+},
+'faq-q-elevator': {
+  en: 'Do both properties have elevators?',
+  vn: 'Cả hai chỗ nghỉ đều có thang máy không?',
+  zh: '两个房源都有电梯吗？'
+},
+'faq-a-elevator': {
+  en: 'Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Our hosts are happy to help carry luggage up and down!',
+  vn: 'Cả hai chỗ nghỉ đều nằm trong những ngôi nhà truyền thống của Hà Nội và KHÔNG có thang máy. MiaCasa Hà Nội ở tầng 2 (có cầu thang). MiaCasa Phố Cổ ở tầng 3 với cầu thang hẹp và dốc. Chủ nhà của chúng tôi sẵn lòng giúp mang hành lý lên xuống!',
+  zh: '两个房源都在传统河内房屋中，没有电梯。MiaCasa Hanoi 在二楼（有一些楼梯）。MiaCasa Old Quarter 在三楼，楼梯陡峭狭窄。我们的房东很乐意帮您搬运行李上下楼！'
+},
+'faq-q-airport': {
+  en: 'Do you offer airport pickup?',
+  vn: 'Bạn có cung cấp dịch vụ đón sân bay không?',
+  zh: '你们提供机场接机服务吗？'
+},
+'faq-a-airport': {
+  en: 'Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we\'ll help arrange transportation for you.',
+  vn: 'Có! Chúng tôi có thể sắp xếp đón sân bay từ Sân bay Quốc tế Nội Bài. Chỉ cần liên hệ với chúng tôi sau khi đặt phòng và chúng tôi sẽ giúp sắp xếp phương tiện di chuyển cho bạn.',
+  zh: '是的！我们可以安排内排国际机场的接机服务。只需在预订后联系我们，我们将帮助您安排交通。'
+},
+'faq-q-cancellation': {
+  en: "What's the cancellation policy?",
+  vn: 'Chính sách hủy phòng là gì?',
+  zh: '取消政策是什么？'
+},
+'faq-a-cancellation': {
+  en: 'Free cancellation up to 48 hours before check-in. After that, the first night\'s rate applies. Contact us directly for any special circumstances.',
+  vn: 'Miễn phí hủy phòng đến 48 giờ trước khi nhận phòng. Sau đó, áp dụng giá của đêm đầu tiên. Liên hệ trực tiếp với chúng tôi cho bất kỳ trường hợp đặc biệt nào.',
+  zh: '入住前 48 小时可免费取消。之后将收取首晚房费。如有特殊情况，请直接联系我们。'
+},
+  
 /* ── CONTACT FORM LABELS ──────────────────────────────────────── */
 'lbl-cname':       {en:'Name', vn:'Họ và tên', zh:'姓名'},
 'lbl-cemail':      {en:'Email', vn:'Email', zh:'电子邮箱'},
