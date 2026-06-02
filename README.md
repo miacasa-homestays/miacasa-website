@@ -80,7 +80,9 @@ A fast, multilingual boutique homestay website for MiaCasa Hanoi built with vani
 
 ## Project Structure
 
-```
+## Project Structure
+
+```text
 /
 ├── index.html                 # Homepage
 ├── miacasa-hanoi.html         # Property: Hanoi location
