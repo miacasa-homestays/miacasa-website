@@ -10,5 +10,16 @@
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/miacasa-hanoi.html", "destination": "/miacasa-hanoi", "permanent": true },
+    { "source": "/miacasa-oldquarter.html", "destination": "/miacasa-oldquarter", "permanent": true },
+    { "source": "/our-story.html", "destination": "/our-story", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/blog-old-quarter-guide.html", "destination": "/blog-old-quarter-guide", "permanent": true },
+    { "source": "/blog-train-street.html", "destination": "/blog-train-street", "permanent": true },
+    { "source": "/blog-hanoi-3-days.html", "destination": "/blog-hanoi-3-days", "permanent": true },
+    { "source": "/best-cafes-hanoi.html", "destination": "/best-cafes-hanoi", "permanent": true },
+    { "source": "/blog-where-to-stay.html", "destination": "/blog-where-to-stay", "permanent": true }
   ]
 }

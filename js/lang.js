@@ -64,9 +64,9 @@ const TRANSLATIONS = {
                       zh:'在 MiaCasa，我们相信旅行应该是温暖且个性化的，而不仅仅是一场交易。'
                      },
   'wl-p2':           {
-                      en:'Our homes are designed to be comfortable, calm, and genuinely local — whether you are here for a short visit or a longer stay. Choose a <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">quiet room near Hanoi Railway Station</a>, or book our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">entire apartment in the Old Quarter</a>.',
+                      en:'Our homes are designed to be comfortable, calm, and genuinely local — whether you are here for a short visit or a longer stay. Choose a <a href="/miacasa-hanoi" style="color:var(--terracotta);text-decoration:none;font-weight:500;">quiet room near Hanoi Railway Station</a>, or book our <a href="/miacasa-oldquarter" style="color:var(--terracotta);text-decoration:none;font-weight:500;">entire apartment in the Old Quarter</a>.',
                       vn:'Những ngôi nhà được thiết kế để thoải mái, yên tĩnh và đậm chất địa phương — dù bạn ở ngắn hay dài ngày.',
-                      zh:'我们的住宿空间舒适、安静且充满本地特色，无论是短住还是长住都非常适合。您可以选择<a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">靠近河内火车站的安静房间</a>，或预订<a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">位于老城区的整套公寓</a>。'
+                      zh:'我们的住宿空间舒适、安静且充满本地特色，无论是短住还是长住都非常适合。您可以选择<a href="/miacasa-hanoi" style="color:var(--terracotta);text-decoration:none;font-weight:500;">靠近河内火车站的安静房间</a>，或预订<a href="/miacasa-oldquarter" style="color:var(--terracotta);text-decoration:none;font-weight:500;">位于老城区的整套公寓</a>。'
                      },
   'wl-cta':          {en:'Learn about Our Story →',      vn:'Tìm hiểu câu chuyện của chúng tôi →', zh:'了解我们的故事 →'},
 
@@ -925,9 +925,9 @@ const TRANSLATIONS = {
 },
 
 'h-loc-seo': {
-  en:'Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips. The neighbourhood of Văn Chương is quiet and residential — a welcome contrast to the buzzing streets of the Old Quarter. If you prefer to be right in the centre of Hàng Buồm and Hoàn Kiếm, our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter apartment</a> may suit you better.',
-  vn:'Ở gần Ga Hà Nội nghĩa là bạn chỉ cách Phố Cổ 5–10 phút, gần Văn Miếu – Quốc Tử Giám và thuận tiện cho việc đi tàu cũng như các chuyến đi trong ngày. Khu phố Văn Chương yên tĩnh và mang đậm tính dân cư — một sự tương phản dễ chịu với những con phố nhộn nhịp của Phố Cổ. Nếu bạn muốn ở ngay trung tâm Hàng Buồm và Hồ Hoàn Kiếm, căn hộ <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Phố Cổ</a> có thể phù hợp hơn với bạn.',
-  zh:'住在河内火车站附近，距离老城区仅5-10分钟，靠近文庙，且方便乘坐火车和一日游。文罗坊的社区安静宜居 — 与老城区繁华街道形成鲜明对比。如果您更喜欢住在行帆坊和还剑区的中心，我们的<a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter公寓</a>可能更适合您。'
+  en:'Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips. The neighbourhood of Văn Chương is quiet and residential — a welcome contrast to the buzzing streets of the Old Quarter. If you prefer to be right in the centre of Hàng Buồm and Hoàn Kiếm, our <a href="/miacasa-oldquarter" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter apartment</a> may suit you better.',
+  vn:'Ở gần Ga Hà Nội nghĩa là bạn chỉ cách Phố Cổ 5–10 phút, gần Văn Miếu – Quốc Tử Giám và thuận tiện cho việc đi tàu cũng như các chuyến đi trong ngày. Khu phố Văn Chương yên tĩnh và mang đậm tính dân cư — một sự tương phản dễ chịu với những con phố nhộn nhịp của Phố Cổ. Nếu bạn muốn ở ngay trung tâm Hàng Buồm và Hồ Hoàn Kiếm, căn hộ <a href="/miacasa-oldquarter" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Phố Cổ</a> có thể phù hợp hơn với bạn.',
+  zh:'住在河内火车站附近，距离老城区仅5-10分钟，靠近文庙，且方便乘坐火车和一日游。文罗坊的社区安静宜居 — 与老城区繁华街道形成鲜明对比。如果您更喜欢住在行帆坊和还剑区的中心，我们的<a href="/miacasa-oldquarter" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter公寓</a>可能更适合您。'
 },
 
 'h-book-tag': {
@@ -1373,9 +1373,9 @@ const TRANSLATIONS = {
 },
 
 'oq-loc-seo': {
-  en:'Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. If you prefer a quieter, residential base away from the tourist crowds, our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.',
-  vn:'Ở Hoàn Kiếm, bạn có thể dễ dàng đi bộ đến Hồ Hoàn Kiếm, khám phá chợ đêm và ẩm thực đường phố, đồng thời tận hưởng trọn vẹn không khí Phố Cổ. Nếu bạn thích một nơi yên tĩnh hơn, mang tính địa phương và tránh xa đám đông du lịch, các phòng <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hà Nội gần Phố Tàu</a> sẽ là lựa chọn phù hợp.',
-  zh:'住在还剑郡，步行即可到达还剑湖，轻松前往夜市和街头美食，享受完全沉浸式的老城区体验。如果您更喜欢安静、远离游客人群的住宅区，我们的<a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi靠近火车街的房间</a>是绝佳选择。'
+  en:'Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. If you prefer a quieter, residential base away from the tourist crowds, our <a href="/miacasa-hanoi" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.',
+  vn:'Ở Hoàn Kiếm, bạn có thể dễ dàng đi bộ đến Hồ Hoàn Kiếm, khám phá chợ đêm và ẩm thực đường phố, đồng thời tận hưởng trọn vẹn không khí Phố Cổ. Nếu bạn thích một nơi yên tĩnh hơn, mang tính địa phương và tránh xa đám đông du lịch, các phòng <a href="/miacasa-hanoi" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hà Nội gần Phố Tàu</a> sẽ là lựa chọn phù hợp.',
+  zh:'住在还剑郡，步行即可到达还剑湖，轻松前往夜市和街头美食，享受完全沉浸式的老城区体验。如果您更喜欢安静、远离游客人群的住宅区，我们的<a href="/miacasa-hanoi" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi靠近火车街的房间</a>是绝佳选择。'
 },
 
 'oq-book-tag': {
