@@ -2393,6 +2393,47 @@ const TRANSLATIONS = {
   vn: 'Quay lại trung tâm thành phố theo nhịp của riêng bạn. Mua sắm nhẹ — lụa, đồ thủ công, hoặc tranh nghệ thuật. Quay lại những con phố hoặc quán cà phê yêu thích. Thử món ăn còn thiếu (bánh cuốn, bún riêu, hoặc chè). Đây là cơ hội để trải nghiệm Hà Nội mà không cần lịch trình, để thành phố tự mở ra một cách tự nhiên.',
   zh: '按自己的节奏返回市中心。轻松购物——寻找丝绸、手工艺品或当地艺术品。重访之前让你印象深刻的街道或咖啡馆。尝试之前错过的美食（如越南蒸粉卷、蟹汤粉或甜品）。这是你无需计划地体验河内的机会，让城市自然地展现自己。'
 },
+// FAQ - 3 Days Itinerary
+'faq-q-3days': {
+  en: 'Are 3 days enough for Hanoi?',
+  vn: '3 ngày có đủ để tham quan Hà Nội không?',
+  zh: '3天足够游览河内吗？'
+},
+'faq-a-3days': {
+  en: 'Yes, 3 days are enough to experience Hanoi\'s highlights including the Old Quarter, Hoàn Kiếm Lake, Train Street, Văn Miếu (Temple of Literature), and West Lake, plus enjoy the local food scene.',
+  vn: 'Có, 3 ngày đủ để trải nghiệm những điểm nổi bật của Hà Nội bao gồm Phố Cổ, Hồ Hoàn Kiếm, Train Street, Văn Miếu – Quốc Tử Giám, và Hồ Tây, cùng với thưởng thức ẩm thực địa phương.',
+  zh: '是的，3天足够体验河内的亮点，包括老城区、还剑湖、火车街、文庙国子监和西湖，还能享受当地美食。'
+},
+'faq-q-area': {
+  en: 'What is the best area to stay in Hanoi for 3 days?',
+  vn: 'Khu vực nào tốt nhất để ở trong 3 ngày tại Hà Nội?',
+  zh: '在河内住3天，哪个区域最好？'
+},
+'faq-a-area': {
+  en: 'The Old Quarter is best for first-time visitors who want to be in the center of food, nightlife, and attractions. For a quieter, more local experience, stay near Văn Miếu or Ba Đình areas — like MiaCasa Hanoi. If you prefer to be in the heart of the action, MiaCasa Old Quarter puts you steps from Hoàn Kiếm Lake and the nightlife.',
+  vn: 'Phố Cổ là tốt nhất cho du khách lần đầu muốn ở trung tâm ẩm thực, cuộc sống về đêm và các điểm tham quan. Để có trải nghiệm yên tĩnh và địa phương hơn, hãy ở gần khu Văn Miếu hoặc Ba Đình — như MiaCasa Hanoi. Nếu bạn muốn ở trung tâm của mọi hoạt động, MiaCasa Old Quarter đặt bạn cách Hồ Hoàn Kiếm và cuộc sống về đêm chỉ vài bước chân.',
+  zh: '对于首次来访的游客，老城区是最好的选择，这里位于美食、夜生活和景点的中心。如果想要更安静、更本地化的体验，可以住在文庙或巴亭附近——比如MiaCasa Hanoi。如果您想置身于活动中心，MiaCasa Old Quarter将您置于距离还剑湖和夜生活仅几步之遥的位置。'
+},
+'faq-q-train': {
+  en: 'Is Train Street worth visiting?',
+  vn: 'Train Street có đáng để tham quan không?',
+  zh: '火车街值得参观吗？'
+},
+'faq-a-train': {
+  en: 'Yes, Train Street is one of Hanoi\'s most unique attractions. Visit early morning or late evening to avoid crowds. Always follow safety instructions from local café owners.',
+  vn: 'Có, Train Street là một trong những điểm tham quan độc đáo nhất của Hà Nội. Ghé thăm vào sáng sớm hoặc tối muộn để tránh đông đúc. Luôn tuân thủ hướng dẫn an toàn từ chủ quán cà phê địa phương.',
+  zh: '是的，火车街是河内最独特的景点之一。建议清晨或深夜前往以避开人群。务必遵守当地咖啡馆老板的安全指示。'
+},
+'faq-q-food': {
+  en: 'What should I eat in Hanoi?',
+  vn: 'Nên ăn gì ở Hà Nội?',
+  zh: '在河内应该吃什么？'
+},
+'faq-a-food': {
+  en: 'Must-try dishes include: Phở (noodle soup), Bún chả (grilled pork with noodles), Bánh mì (Vietnamese sandwich), and Cà phê trứng (egg coffee).',
+  vn: 'Các món nhất định phải thử bao gồm: Phở, Bún chả, Bánh mì và Cà phê trứng.',
+  zh: '必尝美食包括：河粉（Phở）、烤肉米粉（Bún chả）、越南法棍三明治（Bánh mì）和蛋咖啡（Cà phê trứng）。'
+},
 'auto-blog-train-street-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-train-street-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-train-street-003': {en:"Train Street Hanoi Guide", vn:"Hướng Dẫn Train Street Hà Nội", zh:"河内火车街指南"},
