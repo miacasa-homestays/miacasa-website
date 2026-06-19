@@ -2342,6 +2342,57 @@ const TRANSLATIONS = {
 'auto-blog-hanoi-3-days-074': {en:"⭐ 4.9★ from 200+ guests", vn:"⭐ 4.9★ từ hơn 200 khách", zh:"⭐ 200多位客人评分4.9★"},
 'auto-blog-hanoi-3-days-075': {en:"💰 Direct booking = better rate", vn:"💰 Đặt trực tiếp = giá tốt hơn", zh:"💰 直接预订 = 更优惠价格"},
 'auto-blog-hanoi-3-days-076': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
+// 3 Days Itinerary - Extended
+'auto-blog-hanoi-3-days-085': {
+  en: 'Hanoi is a city of contrasts. Modern skyscrapers stand alongside ancient temples. Bustling markets coexist with peaceful lakes. The energy of the streets is matched only by the tranquility of its green spaces. Three days is enough time to experience the best of what Hanoi has to offer, provided you plan wisely.',
+  vn: 'Hà Nội là thành phố của những sự tương phản. Nhà cao tầng hiện đại bên cạnh những ngôi chùa cổ kính. Khu chợ nhộn nhịp bên cạnh những hồ nước yên bình. Năng lượng của đường phố chỉ được sánh bằng sự tĩnh lặng của không gian xanh. Ba ngày là đủ để trải nghiệm những điều tốt nhất mà Hà Nội mang lại, nếu bạn lên kế hoạch hợp lý.',
+  zh: '河内是一座充满对比的城市。现代摩天大楼与古老寺庙并存。繁华市场与宁静湖泊共存。街道的活力与绿色空间的宁静相得益彰。如果规划得当，三天时间足够体验河内最精华的部分。'
+},
+'auto-blog-hanoi-3-days-086': {
+  en: 'Begin at Hoàn Kiếm Lake (Lake of the Restored Sword) before the crowds arrive. The lake is the spiritual heart of Hanoi, and early morning is the best time to experience its peaceful beauty. Walk across the red Thê Húc Bridge to Ngọc Sơn Temple, a small but significant temple located on an island in the lake. The temple is dedicated to the military leader Trần Hưng Đạo and offers a glimpse into Vietnam\'s rich history.',
+  vn: 'Bắt đầu tại Hồ Hoàn Kiếm từ sớm, trước khi đông đúc. Hồ là trái tim tinh thần của Hà Nội, và buổi sáng sớm là thời điểm tốt nhất để cảm nhận vẻ đẹp yên bình của nó. Đi qua Cầu Thê Húc màu đỏ sang Đền Ngọc Sơn, một ngôi đền nhỏ nhưng quan trọng nằm trên một hòn đảo trong hồ. Đền thờ danh tướng Trần Hưng Đạo và mang đến cái nhìn về lịch sử phong phú của Việt Nam.',
+  zh: '在人群到来之前，先前往还剑湖开始一天。还剑湖是河内的精神中心，清晨是体验其宁静之美的最佳时间。走过红色的栖旭桥前往玉山祠，这座位于湖中小岛上的小巧但重要的寺庙。寺庙供奉着军事领袖陈兴道，让人一窥越南丰富的历史。'
+},
+'auto-blog-hanoi-3-days-087': {
+  en: 'These streets form the backbone of the Old Quarter and are a living museum of Hanoi\'s commercial history. The names are still visible on street signs — Hàng Bạc (Silver Street), Hàng Gai (Silk Street), Hàng Mã (Paper Offerings Street) — and give a sense of what life was like centuries ago.',
+  vn: 'Những con phố này là xương sống của Phố Cổ và là bảo tàng sống về lịch sử thương mại của Hà Nội. Tên phố vẫn còn trên biển — Hàng Bạc, Hàng Gai, Hàng Mã — và mang lại cảm giác về cuộc sống hàng thế kỷ trước.',
+  zh: '这些街道构成了老城区的主干，也是河内商业历史的活博物馆。街名至今仍保留在路牌上——银街、丝绸街、纸扎街——让人感受到几个世纪前的生活气息。'
+},
+'auto-blog-hanoi-3-days-088': {
+  en: 'The broth should be clear, aromatic, and deeply flavorful. Add fresh herbs, chili, and a squeeze of lime to taste.',
+  vn: 'Nước dùng phải trong, thơm và đậm đà. Thêm rau thơm, ớt và một chút chanh tùy khẩu vị.',
+  zh: '汤底要清澈、香气浓郁、味道深厚。根据口味加入香草、辣椒和青柠汁。'
+},
+'auto-blog-hanoi-3-days-089': {
+  en: 'This dish consists of grilled pork patties and slices served with rice noodles, fresh herbs, and a tangy dipping sauce. It\'s a Hanoi specialty that has gained international fame.',
+  vn: 'Món này gồm thịt nướng và chả ăn với bún, rau thơm và nước chấm chua ngọt. Đây là đặc sản Hà Nội đã nổi tiếng quốc tế.',
+  zh: '这道菜包括烤猪肉饼和肉片，配以米粉、新鲜香草和酸甜蘸酱。这是河内特色菜，已享誉国际。'
+},
+'auto-blog-hanoi-3-days-090': {
+  en: 'Slow things down on your second day. This is when Hanoi starts to feel real. The initial excitement of arrival gives way to a deeper appreciation for the city\'s rhythms and hidden corners.',
+  vn: 'Chậm lại một chút vào ngày thứ hai. Đây là lúc Hà Nội bắt đầu trở nên chân thật. Sự háo hức ban đầu nhường chỗ cho sự trân trọng sâu sắc hơn đối với nhịp điệu và những góc khuất của thành phố.',
+  zh: '第二天放慢脚步，这时你会开始感受到真正的河内。初到时的兴奋让位于对城市节奏和隐秘角落的更深刻欣赏。'
+},
+'auto-blog-hanoi-3-days-091': {
+  en: 'Visit Văn Miếu – Quốc Tử Giám (Temple of Literature), Vietnam\'s first university — one of Hanoi\'s most peaceful sites. The temple complex is a serene oasis in the middle of the city, with ancient trees, tranquil ponds, and well-preserved architecture.',
+  vn: 'Tham quan Văn Miếu – Quốc Tử Giám — trường đại học đầu tiên của Việt Nam, một trong những nơi yên bình nhất Hà Nội. Khu di tích là một ốc đảo thanh bình giữa lòng thành phố, với cây cổ thụ, ao tĩnh lặng và kiến trúc được bảo tồn tốt.',
+  zh: '参观文庙国子监——越南第一所大学，也是河内最宁静的地方之一。这座寺庙建筑群是城市中心的一片宁静绿洲，有古树、宁静的池塘和保存完好的建筑。'
+},
+'auto-blog-hanoi-3-days-092': {
+  en: 'By the third day, you\'ll want to slow down. That\'s exactly the right instinct. The best way to experience Hanoi is not to rush through it but to let it unfold at its own pace.',
+  vn: 'Đến ngày thứ ba, bạn sẽ muốn chậm lại. Đó chính xác là cảm giác đúng. Cách tốt nhất để trải nghiệm Hà Nội không phải là đi vội vã mà là để thành phố tự mở ra theo nhịp của nó.',
+  zh: '到了第三天，你会想放慢节奏，这正是正确的感觉。体验河内的最佳方式不是匆忙地穿过它，而是让它以自己的节奏展开。'
+},
+'auto-blog-hanoi-3-days-093': {
+  en: 'Head to Hồ Tây (West Lake) — Hanoi\'s largest lake, surrounded by quiet neighborhoods. The lake is a popular spot for locals who come to exercise, relax, and enjoy the views.',
+  vn: 'Ra Hồ Tây — hồ lớn nhất Hà Nội, quanh là những khu phố yên tĩnh. Hồ là điểm đến phổ biến cho người dân đến tập thể dục, thư giãn và ngắm cảnh.',
+  zh: '前往西湖——河内最大的湖，周围是安静的居民区。湖是当地人来锻炼、放松和欣赏风景的热门地点。'
+},
+'auto-blog-hanoi-3-days-094': {
+  en: 'Return to the city center at your own pace. Do some light shopping — look for silk, handicrafts, or local art. Revisit any streets or cafés that caught your attention earlier. Try any food you missed (bánh cuốn, bún riêu, or chè for dessert). This is your chance to experience Hanoi without a schedule, allowing the city to reveal itself naturally.',
+  vn: 'Quay lại trung tâm thành phố theo nhịp của riêng bạn. Mua sắm nhẹ — lụa, đồ thủ công, hoặc tranh nghệ thuật. Quay lại những con phố hoặc quán cà phê yêu thích. Thử món ăn còn thiếu (bánh cuốn, bún riêu, hoặc chè). Đây là cơ hội để trải nghiệm Hà Nội mà không cần lịch trình, để thành phố tự mở ra một cách tự nhiên.',
+  zh: '按自己的节奏返回市中心。轻松购物——寻找丝绸、手工艺品或当地艺术品。重访之前让你印象深刻的街道或咖啡馆。尝试之前错过的美食（如越南蒸粉卷、蟹汤粉或甜品）。这是你无需计划地体验河内的机会，让城市自然地展现自己。'
+},
 'auto-blog-train-street-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-train-street-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-train-street-003': {en:"Train Street Hanoi Guide", vn:"Hướng Dẫn Train Street Hà Nội", zh:"河内火车街指南"},
@@ -2427,7 +2478,57 @@ const TRANSLATIONS = {
 'auto-blog-train-street-082': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
 'auto-blog-train-street-083': {en:"Old Quarter vs quiet local areas", vn:"Phố Cổ hay khu phố yên tĩnh", zh:"老城区 vs 安静本地区域"},
 'auto-blog-train-street-084': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
-
+// Train Street - Extended
+'auto-blog-train-street-085': {
+  en: 'The allure of Train Street lies in its authenticity. It is not a theme park or a manufactured attraction; it is a living, breathing neighborhood where daily life continues in the shadow of a railway.',
+  vn: 'Sức hấp dẫn của Train Street nằm ở tính chân thật. Đây không phải là công viên giải trí hay điểm tham quan nhân tạo; mà là một khu phố sống động, nơi cuộc sống hàng ngày tiếp diễn bên cạnh đường ray.',
+  zh: '火车街的魅力在于它的真实性。这不是一个主题公园或人造景点；而是一个充满活力的社区，日常生活就在铁路旁继续。'
+},
+'auto-blog-train-street-086': {
+  en: 'The street has become increasingly famous in recent years, with travelers from around the world coming to witness the spectacle of a train passing through such a narrow space. Yet despite its fame, Train Street remains a functional railway line, carrying passengers and goods to destinations across Vietnam.',
+  vn: 'Con phố đã trở nên nổi tiếng trong những năm gần đây, với du khách từ khắp nơi trên thế giới đến để chứng kiến cảnh tượng đoàn tàu chạy qua không gian hẹp như vậy. Dù nổi tiếng, Train Street vẫn là tuyến đường sắt hoạt động, chở hành khách và hàng hóa đi khắp Việt Nam.',
+  zh: '这条街近年来变得越来越出名，来自世界各地的旅行者前来目睹火车穿过如此狭窄空间的景象。尽管有名，火车街仍然是一条运营中的铁路线，运送乘客和货物前往越南各地。'
+},
+'auto-blog-train-street-087': {
+  en: 'The authorities have implemented measures to ensure safety while still allowing visitors to experience this unique attraction. The key is to be respectful of the local community and follow all safety guidelines.',
+  vn: 'Chính quyền đã triển khai các biện pháp để đảm bảo an toàn trong khi vẫn cho phép du khách trải nghiệm điểm tham quan độc đáo này. Điều quan trọng là tôn trọng cộng đồng địa phương và tuân thủ mọi hướng dẫn an toàn.',
+  zh: '当局已采取措施确保安全，同时允许游客体验这一独特景点。关键是尊重当地社区并遵守所有安全指南。'
+},
+'auto-blog-train-street-088': {
+  en: 'The proximity to the Old Quarter makes it easy to incorporate a visit to Train Street into your Hanoi itinerary. Many travelers combine a visit with exploring the surrounding neighborhood, which is full of interesting cafés and local shops.',
+  vn: 'Vị trí gần Phố Cổ giúp dễ dàng kết hợp chuyến tham quan Train Street vào lịch trình Hà Nội của bạn. Nhiều du khách kết hợp thăm quan với khám phá khu phố xung quanh, nơi có nhiều quán cà phê thú vị và cửa hàng địa phương.',
+  zh: '靠近老城区的位置使得参观火车街很容易融入您的河内行程。许多旅行者将参观与探索周边社区结合起来，那里有许多有趣的咖啡馆和当地商店。'
+},
+'auto-blog-train-street-089': {
+  en: 'The train moves surprisingly fast and is much larger than it appears from a distance. It can be dangerous to be too close when it passes. Always maintain a safe distance and follow instructions from locals.',
+  vn: 'Tàu di chuyển rất nhanh và lớn hơn nhiều so với vẻ ngoài từ xa. Có thể nguy hiểm nếu đứng quá gần khi tàu đi qua. Luôn giữ khoảng cách an toàn và làm theo hướng dẫn của người dân.',
+  zh: '火车的移动速度惊人，比从远处看起来要大得多。火车经过时靠得太近可能很危险。始终保持安全距离并遵循当地人的指示。'
+},
+'auto-blog-train-street-090': {
+  en: 'The feeling is indescribable. The train seems impossibly close, and the noise is overwhelming. But just as quickly as it arrives, it disappears, and the street returns to its usual rhythm. It is a moment of pure intensity that lingers long after the train has gone.',
+  vn: 'Cảm giác thật khó tả. Đoàn tàu dường như gần đến mức không tưởng, và tiếng ồn thật ấn tượng. Nhưng nhanh như khi nó đến, nó biến mất, và con phố trở lại nhịp điệu thường ngày. Đó là một khoảnh khắc căng thẳng mãnh liệt kéo dài trong tâm trí rất lâu sau khi tàu đã đi.',
+  zh: '这种感觉难以形容。火车似乎近得不可思议，噪音令人难忘。但它来得快去得也快，街道又恢复了往常的节奏。这是一个纯粹紧张的时刻，在火车离开后很久仍留在记忆中。'
+},
+'auto-blog-train-street-091': {
+  en: 'The best time ultimately depends on your preference. If you want a quieter experience, go early in the morning. If you enjoy a lively atmosphere, visit in the evening.',
+  vn: 'Thời điểm tốt nhất phụ thuộc vào sở thích của bạn. Nếu bạn muốn trải nghiệm yên tĩnh hơn, hãy đi vào sáng sớm. Nếu bạn thích không khí sôi động, hãy tham quan vào buổi tối.',
+  zh: '最佳时间最终取决于您的偏好。如果您想要更安静的体验，请早上去。如果您喜欢热闹的氛围，请在晚上参观。'
+},
+'auto-blog-train-street-092': {
+  en: 'The train passes quickly, but the experience is unforgettable.',
+  vn: 'Tàu đi qua rất nhanh, nhưng trải nghiệm thì khó quên.',
+  zh: '火车经过得很快，但体验令人难忘。'
+},
+'auto-blog-train-street-093': {
+  en: 'The early morning light also provides beautiful photo opportunities.',
+  vn: 'Ánh sáng buổi sáng cũng mang đến cơ hội chụp ảnh đẹp.',
+  zh: '清晨的光线也提供了美丽的拍照机会。'
+},
+'auto-blog-train-street-094': {
+  en: 'The evening brings a different atmosphere, with more people out and about.',
+  vn: 'Buổi tối mang đến bầu không khí khác, với nhiều người đi lại hơn.',
+  zh: '傍晚带来不同的氛围，更多的人外出活动。'
+},
 'auto-blog-where-to-stay-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-where-to-stay-002': {en:"Blog", vn:"Blog", zh:"博客"},
   'auto-blog-where-to-stay-003': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
@@ -2495,6 +2596,72 @@ const TRANSLATIONS = {
 'auto-blog-where-to-stay-065': {en:"Train Street Guide", vn:"Hướng Dẫn Train Street", zh:"火车街指南"},
 'auto-blog-where-to-stay-066': {en:"Times, safety tips, and how to visit without crowds", vn:"Giờ tàu, mẹo an toàn, và cách tham quan tránh đông đúc", zh:"时间、安全提示以及避开人群的参观方式"},
 'auto-blog-where-to-stay-067': {en:"← Back to all blog posts", vn:"← Quay lại tất cả bài viết", zh:"← 返回所有博客文章"},
+// Where to Stay - Extended
+'auto-blog-where-to-stay-068': {
+  en: 'Hanoi is a city that rewards thoughtful planning. The neighborhood you choose for your stay will influence not just your sleep quality, but your entire experience of the city. Whether you\'re a first-time visitor eager to explore the bustling streets or a returning traveler seeking a more local rhythm, Hanoi has a neighborhood that fits.',
+  vn: 'Hà Nội là thành phố đền đáp sự lên kế hoạch kỹ lưỡng. Khu phố bạn chọn để ở không chỉ ảnh hưởng đến chất lượng giấc ngủ mà còn ảnh hưởng đến toàn bộ trải nghiệm của bạn về thành phố. Dù bạn là du khách lần đầu háo hức khám phá những con phố nhộn nhịp hay du khách quay lại tìm kiếm nhịp sống địa phương hơn, Hà Nội đều có một khu phố phù hợp với bạn.',
+  zh: '河内是一座回报精心规划的城市。您选择的住宿社区不仅会影响您的睡眠质量，还会影响您对这座城市的整体体验。无论您是渴望探索繁华街道的初次到访者，还是寻求更本地化节奏的回头客，河内都有一个适合您的社区。'
+},
+'auto-blog-where-to-stay-069': {
+  en: 'Most people end up choosing between two very different areas:',
+  vn: 'Hầu hết mọi người sẽ lựa chọn giữa hai khu vực rất khác nhau:',
+  zh: '大多数人最终会在两个完全不同的区域之间选择：'
+},
+'auto-blog-where-to-stay-070': {
+  en: 'The Old Quarter has been the commercial heart of Hanoi for over a thousand years. Its 36 streets were traditionally named after the goods sold there — silver, silk, paper, and more. Today, those streets are still alive with commerce, but now they also host some of the city\'s best restaurants, bars, and boutiques.',
+  vn: 'Phố Cổ đã là trung tâm thương mại của Hà Nội trong hơn một nghìn năm. 36 con phố của nó được đặt tên theo các mặt hàng bán ở đó — bạc, lụa, giấy và nhiều hơn nữa. Ngày nay, những con phố đó vẫn sống động với thương mại, nhưng bây giờ chúng cũng là nơi có một số nhà hàng, quán bar và cửa hàng tốt nhất của thành phố.',
+  zh: '老城区一千多年来一直是河内的商业中心。它的36条街道传统上以在那里出售的商品命名——银、丝绸、纸张等。如今，这些街道仍然充满商业活力，但现在它们也拥有城市中一些最好的餐厅、酒吧和精品店。'
+},
+'auto-blog-where-to-stay-071': {
+  en: 'Staying here means you\'re never far from something interesting. A bowl of phở at dawn, a late-night beer on Tạ Hiện Street, a quiet moment by Hoàn Kiếm Lake — everything is within walking distance. The energy is infectious, and the convenience is unmatched.',
+  vn: 'Ở đây có nghĩa là bạn không bao giờ xa những điều thú vị. Một bát phở lúc bình minh, một ly bia đêm trên phố Tạ Hiện, một khoảnh khắc yên tĩnh bên Hồ Hoàn Kiếm — mọi thứ đều trong khoảng cách đi bộ. Năng lượng thật sôi động và sự tiện lợi là vô song.',
+  zh: '住在这里意味着您永远离有趣的事物不远。黎明的一碗河粉，谢现街深夜的一杯啤酒，还剑湖边的宁静时刻——一切都在步行距离之内。这里的活力感染人心，便利性无与伦比。'
+},
+'auto-blog-where-to-stay-072': {
+  en: 'The Old Quarter is not for everyone. If you\'re a light sleeper or prefer peace and quiet, you might find the constant hum of the city overwhelming. But if you thrive on energy and want to be where the action is, there\'s no better place to stay.',
+  vn: 'Phố Cổ không phải dành cho tất cả mọi người. Nếu bạn là người ngủ nhẹ hoặc thích yên tĩnh, bạn có thể thấy tiếng ồn liên tục của thành phố quá sức chịu đựng. Nhưng nếu bạn sống nhờ năng lượng và muốn ở nơi có hoạt động sôi động, không có nơi nào tốt hơn để ở.',
+  zh: '老城区并不适合所有人。如果您睡眠浅或喜欢安静，您可能会觉得城市持续的喧嚣让人难以承受。但如果您在活力中茁壮成长并想身处活动中心，没有比这更好的住宿地点了。'
+},
+'auto-blog-where-to-stay-073': {
+  en: 'The Văn Miếu area is named after the Temple of Literature, Vietnam\'s first university. This neighborhood has a different energy — slower, more residential, and deeply connected to the city\'s history. The streets are tree-lined, the pace is relaxed, and the people you\'ll encounter are more likely to be locals than tourists.',
+  vn: 'Khu Văn Miếu được đặt tên theo Văn Miếu – Quốc Tử Giám, trường đại học đầu tiên của Việt Nam. Khu phố này có một năng lượng khác — chậm hơn, nhiều nhà ở hơn và gắn bó sâu sắc với lịch sử của thành phố. Những con phố có nhiều cây xanh, nhịp sống thư thái và những người bạn gặp có nhiều khả năng là người dân địa phương hơn là du khách.',
+  zh: '文庙区以越南第一所大学文庙国子监命名。这个社区有着不同的能量——更慢、更多住宅、与城市历史紧密相连。街道两旁绿树成荫，节奏放松，您遇到的人更可能是当地人而不是游客。'
+},
+'auto-blog-where-to-stay-074': {
+  en: 'The quieter areas of Hanoi offer a different kind of magic. You\'ll wake up to the sound of birds rather than motorbikes. You\'ll find local cafés where the same people gather every morning. And you\'ll experience a side of the city that most tourists never see.',
+  vn: 'Những khu vực yên tĩnh hơn của Hà Nội mang đến một loại phép thuật khác. Bạn sẽ thức dậy với tiếng chim thay vì tiếng xe máy. Bạn sẽ tìm thấy những quán cà phê địa phương nơi những người giống nhau tụ tập mỗi sáng. Và bạn sẽ trải nghiệm một khía cạnh của thành phố mà hầu hết du khách không bao giờ thấy.',
+  zh: '河内更安静的区域提供了另一种魔力。您将醒来听到鸟鸣而不是摩托车声。您会发现当地咖啡馆，每天早晨相同的人聚集在那里。您将体验到大多数游客从未见过的城市的一面。'
+},
+'auto-blog-where-to-stay-075': {
+  en: 'Think about what matters most to you. Do you want to step out of your door and be surrounded by energy, food, and activity? Or do you prefer to retreat to a quiet space after a day of exploration? Both options are valid, and both can lead to a memorable trip.',
+  vn: 'Hãy nghĩ về điều quan trọng nhất đối với bạn. Bạn có muốn bước ra khỏi cửa và được bao quanh bởi năng lượng, ẩm thực và hoạt động? Hay bạn thích rút lui về một không gian yên tĩnh sau một ngày khám phá? Cả hai lựa chọn đều hợp lệ và cả hai đều có thể dẫn đến một chuyến đi đáng nhớ.',
+  zh: '想想什么对您最重要。您想走出家门就被活力、美食和活动包围吗？还是您更喜欢在一天的探索之后退回到安静的空间？两种选择都有效，两者都可以带来难忘的旅行。'
+},
+'auto-blog-where-to-stay-076': {
+  en: 'Many travelers choose to split their stay — a few nights in the Old Quarter for the excitement, followed by a few nights in a quieter area for rest and reflection. This gives you the best of both worlds.',
+  vn: 'Nhiều du khách chọn chia kỳ lưu trú của họ — vài đêm ở Phố Cổ cho sự sôi động, tiếp theo là vài đêm ở khu vực yên tĩnh hơn để nghỉ ngơi và suy ngẫm. Điều này mang lại cho bạn những điều tốt nhất của cả hai thế giới.',
+  zh: '许多旅行者选择分开住宿——在老城区住几晚体验热闹，然后在更安静的区域住几晚休息和反思。这为您提供了两全其美的选择。'
+},
+'auto-blog-where-to-stay-077': {
+  en: 'This is the choice for travelers who want to be in the thick of it. You\'ll have a private apartment in the heart of the Old Quarter, surrounded by the city\'s best food, nightlife, and culture.',
+  vn: 'Đây là lựa chọn cho những du khách muốn ở trung tâm của mọi thứ. Bạn sẽ có một căn hộ riêng ngay giữa lòng Phố Cổ, được bao quanh bởi ẩm thực, cuộc sống về đêm và văn hóa tốt nhất của thành phố.',
+  zh: '这是为想要置身于一切中心的旅行者的选择。您将在老城区中心拥有一套私人公寓，周围环绕着城市最好的美食、夜生活和文化。'
+},
+'auto-blog-where-to-stay-078': {
+  en: 'This is the choice for travelers who want to experience Hanoi like a local. You\'ll stay in a quiet residential neighborhood, close to the city\'s cultural landmarks but away from the crowds. Perfect for couples, remote workers, and anyone who values a good night\'s sleep.',
+  vn: 'Đây là lựa chọn cho những du khách muốn trải nghiệm Hà Nội như người dân địa phương. Bạn sẽ ở trong một khu dân cư yên tĩnh, gần các địa danh văn hóa của thành phố nhưng tránh xa đám đông. Hoàn hảo cho các cặp đôi, người làm việc từ xa và bất kỳ ai coi trọng giấc ngủ ngon.',
+  zh: '这是为想要像当地人一样体验河内的旅行者的选择。您将住在一个安静的住宅区，靠近城市的文化地标但远离人群。非常适合情侣、远程工作者和任何重视良好睡眠的人。'
+},
+'auto-blog-where-to-stay-079': {
+  en: 'The Old Quarter and the quieter neighborhoods offer two completely different experiences of Hanoi. One is loud, vibrant, and full of energy. The other is calm, local, and deeply authentic. Neither is better — they\'re just different.',
+  vn: 'Phố Cổ và những khu phố yên tĩnh hơn mang đến hai trải nghiệm hoàn toàn khác nhau về Hà Nội. Một nơi thì ồn ào, sôi động và tràn đầy năng lượng. Nơi kia thì yên tĩnh, địa phương và vô cùng chân thực. Không nơi nào tốt hơn — chúng chỉ khác nhau.',
+  zh: '老城区和更安静的社区提供了两种完全不同的河内体验。一个热闹、充满活力和能量。另一个平静、本地化和非常真实。没有哪个更好——它们只是不同。'
+},
+'auto-blog-where-to-stay-080': {
+  en: 'Whatever you choose, we hope you fall in love with Hanoi the way we have. It\'s a city that rewards curiosity, patience, and an open heart. And wherever you stay, you\'ll find that the people, the food, and the rhythm of daily life make it a place you\'ll never forget.',
+  vn: 'Dù bạn chọn gì, chúng tôi hy vọng bạn sẽ yêu Hà Nội theo cách chúng tôi đã yêu. Đó là thành phố đền đáp sự tò mò, kiên nhẫn và một trái tim rộng mở. Và dù bạn ở đâu, bạn sẽ thấy rằng con người, ẩm thực và nhịp sống hàng ngày khiến nó trở thành một nơi bạn sẽ không bao giờ quên.',
+  zh: '无论您选择什么，我们希望您能像我们一样爱上河内。这是一座回报好奇心、耐心和开放心态的城市。无论您住在哪里，您都会发现这里的人、食物和日常生活的节奏使它成为一个您永远不会忘记的地方。'
+},
 'auto-index-001': {
   en:"Book Now",
   vn:"Đặt ngay",
@@ -3493,7 +3660,92 @@ en:"<li>Quiet residential atmosphere</li>\n<li>Near Văn Miếu & Train Street</
 vn:"<li>Khu dân cư yên tĩnh</li>\n<li>Gần Văn Miếu & Train Street</li>\n<li>Nhịp sống chậm hơn nhưng vẫn trung tâm</li>",
 zh:"<li>安静的居住氛围</li>\n<li>靠近文庙和火车街</li>\n<li>节奏较慢但仍在中心地带</li>"
 },
-
+// Best Cafés - Extended
+'auto-best-cafes-hanoi-046': {
+  en: 'The Vietnamese coffee culture is rich, deep, and woven into the fabric of daily life. From the bustling streets of the Old Quarter to the quieter lanes near Văn Miếu, there is a café for every mood, every time of day, and every type of traveler.',
+  vn: 'Văn hóa cà phê Việt Nam phong phú, sâu sắc và gắn liền với nhịp sống hàng ngày. Từ những con phố sôi động của Phố Cổ đến những ngõ nhỏ yên bình gần Văn Miếu, có một quán cà phê cho mọi tâm trạng, mọi thời điểm và mọi loại du khách.',
+  zh: '越南咖啡文化丰富、深厚，并融入日常生活。从老城区繁华的街道到文庙附近安静的小巷，总有一家咖啡馆适合您的心情、时间和旅行风格。'
+},
+'auto-best-cafes-hanoi-047': {
+  en: 'Why Hanoi\'s Café Culture is Unique',
+  vn: 'Tại Sao Văn Hóa Cà Phê Hà Nội Lại Đặc Biệt',
+  zh: '为什么河内的咖啡文化如此独特'
+},
+'auto-best-cafes-hanoi-048': {
+  en: 'Vietnamese coffee is not just a drink; it\'s a ritual. The slow drip of a phin filter, the sweet richness of condensed milk, the intense bitterness of robusta beans — these elements come together to create something that is distinctly Vietnamese. But beyond the coffee itself, it\'s the experience that matters.',
+  vn: 'Cà phê Việt Nam không chỉ là một thức uống; nó là một nghi thức. Giọt cà phê chảy chậm qua phin, vị ngọt béo của sữa đặc, vị đắng đậm của cà phê robusta — những yếu tố này kết hợp tạo nên hương vị đặc trưng của Việt Nam. Nhưng hơn cả cà phê, chính trải nghiệm mới là điều quan trọng.',
+  zh: '越南咖啡不仅仅是一种饮料；它是一种仪式。滴漏壶中缓慢滴落的咖啡、炼乳的甜香、罗布斯塔豆的浓烈苦味——这些元素结合在一起，创造出独特的越南风味。但更重要的是咖啡之外的体验。'
+},
+'auto-best-cafes-hanoi-049': {
+  en: 'In Hanoi, cafés are places where people read, work, meet friends, or simply sit and watch the world go by. Many of the best cafés are hidden in plain sight — tucked inside old buildings, up narrow staircases, or behind unassuming facades that give no hint of the beauty within.',
+  vn: 'Ở Hà Nội, quán cà phê là nơi người ta đọc sách, làm việc, gặp gỡ bạn bè, hay đơn giản là ngồi ngắm cuộc sống trôi qua. Nhiều quán cà phê đẹp nhất ẩn mình ngay trước mắt — bên trong những tòa nhà cũ, trên những cầu thang hẹp, hoặc phía sau những mặt tiền khiêm nhường không hé lộ vẻ đẹp bên trong.',
+  zh: '在河内，咖啡馆是人们阅读、工作、会友或只是坐着看世界的地方。许多最好的咖啡馆藏在显而易见的地方——藏在老建筑内、狭窄的楼梯上，或是不起眼的外墙后面，完全看不出内在的美丽。'
+},
+'auto-best-cafes-hanoi-050': {
+  en: 'The café culture in Hanoi has evolved over decades, blending French colonial influences with Vietnamese traditions. The result is a unique coffee experience that cannot be found anywhere else in the world.',
+  vn: 'Văn hóa cà phê Hà Nội đã phát triển qua nhiều thập kỷ, pha trộn ảnh hưởng thuộc địa Pháp với truyền thống Việt Nam. Kết quả là một trải nghiệm cà phê độc đáo không thể tìm thấy ở bất kỳ nơi nào khác trên thế giới.',
+  zh: '河内的咖啡文化经过几十年的发展，融合了法国殖民影响和越南传统。结果是一种世界上任何其他地方都找不到的独特咖啡体验。'
+},
+'auto-best-cafes-hanoi-051': {
+  en: 'The café is popular among locals and tourists alike, but it never feels crowded. There is a sense of space and calm that is rare in the bustling Old Quarter. Many visitors find themselves returning multiple times during their stay in Hanoi, drawn back by the peaceful atmosphere and the excellent coffee.',
+  vn: 'Quán được yêu thích bởi cả người địa phương và du khách, nhưng không bao giờ có cảm giác quá đông đúc. Có một cảm giác không gian và sự yên tĩnh hiếm có ở Phố Cổ sôi động. Nhiều du khách tìm đến đây nhiều lần trong thời gian ở Hà Nội, bị thu hút bởi không khí yên bình và cà phê tuyệt hảo.',
+  zh: '这家咖啡馆深受当地人和游客的喜爱，但从不显得拥挤。在繁华的老城区，这种空间感和宁静感实属罕见。许多游客在河内期间会多次光顾，被宁静的氛围和出色的咖啡所吸引。'
+},
+'auto-best-cafes-hanoi-052': {
+  en: 'The café is also known for its friendly staff and community feel. Regulars often strike up conversations with newcomers, creating a warm and welcoming environment. For digital nomads looking for a place to call their temporary office, Tranquil Books & Coffee is a perfect choice.',
+  vn: 'Quán cũng nổi tiếng với nhân viên thân thiện và không khí cộng đồng. Khách quen thường bắt chuyện với người mới, tạo ra môi trường ấm áp và thân thiện. Đối với những du khách sống và làm việc từ xa, Tranquil Books & Coffee là lựa chọn hoàn hảo.',
+  zh: '这家咖啡馆还以友好的员工和社区氛围而闻名。常客经常与新来的客人交谈，营造出温暖、热情的环境。对于寻找临时办公室的数字游民，Tranquil Books & Coffee 是完美的选择。'
+},
+'auto-best-cafes-hanoi-053': {
+  en: 'The story of egg coffee is fascinating. It was created during a time when milk was scarce, and the owner of Café Giảng, Nguyen Van Giang, experimented with whipping egg yolks with sugar and condensed milk to create a creamy topping for coffee. The result was a sensation that has stood the test of time.',
+  vn: 'Câu chuyện về cà phê trứng thật thú vị. Nó được tạo ra trong thời kỳ sữa khan hiếm, và chủ quán Café Giảng, ông Nguyễn Văn Giảng, đã thử nghiệm đánh lòng đỏ trứng với đường và sữa đặc để tạo ra lớp kem phủ cho cà phê. Kết quả là một thức uống đã trường tồn với thời gian.',
+  zh: '蛋咖啡的故事很有趣。它是在牛奶稀缺的时代创造的，Café Giảng 的主人阮文江尝试将蛋黄与糖和炼乳打发，制作出咖啡的奶油顶料。结果是一种经得起时间考验的饮品。'
+},
+'auto-best-cafes-hanoi-054': {
+  en: 'The concept is simple yet powerful: visitors are invited to write notes and stick them to the walls, creating a living tapestry of human experience. Over the years, the café has become a repository of stories, a place where the past and present intersect in colorful, heartfelt ways.',
+  vn: 'Ý tưởng đơn giản nhưng mạnh mẽ: du khách được mời viết ghi chú và dán lên tường, tạo nên một bức tranh sống động về trải nghiệm con người. Qua nhiều năm, quán đã trở thành nơi lưu giữ những câu chuyện, nơi quá khứ và hiện tại giao thoa một cách đầy màu sắc và chân thành.',
+  zh: '这个概念简单而有力：邀请访客写便条并贴在墙上，创造了一幅人类经验的生动画卷。多年来，这家咖啡馆已成为故事的宝库，过去与现在以丰富多彩、真诚的方式交汇。'
+},
+'auto-best-cafes-hanoi-055': {
+  en: 'The atmosphere is modern and clean, with large windows that let in plenty of natural light. It\'s a popular spot for both locals and expats who appreciate good coffee and a quiet space to work or relax.',
+  vn: 'Không gian hiện đại và sạch sẽ, với cửa sổ lớn đón nhiều ánh sáng tự nhiên. Đây là điểm đến phổ biến cho cả người địa phương và người nước ngoài yêu thích cà phê ngon và không gian yên tĩnh để làm việc hoặc thư giãn.',
+  zh: '氛围现代而干净，大窗户让充足的自然光线进入。这里是当地人和外籍人士的热门去处，他们欣赏好咖啡和安静的工作或放松空间。'
+},
+'auto-best-cafes-hanoi-056': {
+  en: 'The Train Street area offers a unique blend of local life and tourist curiosity. The cafés here have become famous for their proximity to the railway, but they remain deeply rooted in the community. Visiting one of these cafés is not just about watching the train; it\'s about experiencing a way of life that has persisted for generations.',
+  vn: 'Khu vực Train Street mang đến sự kết hợp độc đáo giữa cuộc sống địa phương và sự tò mò của du khách. Những quán cà phê ở đây trở nên nổi tiếng vì gần đường ray, nhưng vẫn gắn bó sâu sắc với cộng đồng. Ghé thăm một trong những quán cà phê này không chỉ là để xem tàu chạy; mà là để trải nghiệm một cách sống đã tồn tại qua nhiều thế hệ.',
+  zh: '火车街地区提供了本地生活和游客好奇心的独特融合。这里的咖啡馆因其靠近铁路而闻名，但仍然深深扎根于社区。参观这些咖啡馆不仅仅是看火车；而是体验一种持续了几代人的生活方式。'
+},
+'auto-best-cafes-hanoi-057': {
+  en: 'For digital nomads and remote workers, finding the right café is essential. Fortunately, Hanoi is full of spaces that cater to this need. Besides Tranquil Books & Coffee and Blackbird Coffee, other notable mentions include The Hanoi Social Club and Kone Café, both of which offer fast WiFi, comfortable seating, and a productive atmosphere.',
+  vn: 'Đối với dân số và làm việc từ xa, tìm được quán cà phê phù hợp là điều cần thiết. May mắn thay, Hà Nội có rất nhiều không gian đáp ứng nhu cầu này. Bên cạnh Tranquil Books & Coffee và Blackbird Coffee, còn có The Hanoi Social Club và Kone Café, cả hai đều có WiFi nhanh, ghế ngồi thoải mái và không gian làm việc hiệu quả.',
+  zh: '对于数字游民和远程工作者来说，找到合适的咖啡馆至关重要。幸运的是，河内有很多满足这一需求的空间。除了 Tranquil Books & Coffee 和 Blackbird Coffee，其他值得注意的还包括 The Hanoi Social Club 和 Kone Café，两者都提供快速的 WiFi、舒适的座位和高效的工作氛围。'
+},
+'auto-best-cafes-hanoi-058': {
+  en: 'Remote work has become increasingly popular in recent years, and Hanoi has embraced this trend with open arms. The city\'s cafés have adapted to accommodate the needs of digital nomads, offering reliable internet, plenty of power outlets, and comfortable workspaces.',
+  vn: 'Làm việc từ xa đã trở nên phổ biến trong những năm gần đây, và Hà Nội đã đón nhận xu hướng này. Các quán cà phê của thành phố đã thích nghi để đáp ứng nhu cầu của dân số, cung cấp internet ổn định, nhiều ổ cắm điện và không gian làm việc thoải mái.',
+  zh: '近年来，远程办公变得越来越流行，河内也热情地接受了这一趋势。城市的咖啡馆已经适应了数字游民的需求，提供可靠的互联网、充足的电源插座和舒适的工作空间。'
+},
+'auto-best-cafes-hanoi-059': {
+  en: 'If you love coffee and want to be close to Hanoi\'s best cafés, MiaCasa Old Quarter places you at the heart of the action — steps from Hoàn Kiếm Lake, historic cafés, and the vibrant energy of the city center.',
+  vn: 'Nếu bạn yêu thích cà phê và muốn ở gần những quán cà phê đẹp nhất Hà Nội, MiaCasa Old Quarter đặt bạn ngay trung tâm — cách Hồ Hoàn Kiếm, các quán cà phê lịch sử và năng lượng sôi động của trung tâm thành phố chỉ vài bước chân.',
+  zh: '如果您喜欢咖啡并想靠近河内最好的咖啡馆，MiaCasa Old Quarter 将您置于一切的中心——距离还剑湖、历史悠久的咖啡馆和市中心充满活力的能量仅几步之遥。'
+},
+'auto-best-cafes-hanoi-060': {
+  en: 'Alternatively, MiaCasa Hanoi offers a quieter, more local experience near Văn Miếu and Train Street, with easy access to hidden gems that most tourists never discover.',
+  vn: 'Ngoài ra, MiaCasa Hanoi mang đến trải nghiệm yên tĩnh và gần gũi hơn gần Văn Miếu và Train Street, với đường đến những điểm ẩn mình mà hầu hết du khách không bao giờ khám phá được.',
+  zh: '另外，MiaCasa Hanoi 在文庙和火车街附近提供更安静、更本地化的体验，方便前往大多数游客从未发现的隐藏宝藏。'
+},
+'auto-best-cafes-hanoi-061': {
+  en: 'Both properties are perfectly positioned for café lovers. Whether you prefer the bustling energy of the Old Quarter or the peaceful charm of the Văn Miếu area, you will find yourself surrounded by excellent coffee options.',
+  vn: 'Cả hai chỗ nghỉ đều có vị trí lý tưởng cho những người yêu cà phê. Dù bạn thích năng lượng sôi động của Phố Cổ hay sự yên bình của khu Văn Miếu, bạn sẽ luôn có những lựa chọn cà phê tuyệt vời xung quanh.',
+  zh: '这两个住宿位置都非常适合咖啡爱好者。无论您喜欢老城区的繁华活力还是文庙区的宁静魅力，您都会发现自己周围都是优质的咖啡选择。'
+},
+'auto-best-cafes-hanoi-062': {
+  en: 'The city\'s café culture is a reflection of its people — warm, welcoming, and full of stories waiting to be shared. Every cup of coffee tells a story, and every café has its own unique character. In Hanoi, coffee is more than a beverage; it is a way of life.',
+  vn: 'Văn hóa cà phê của thành phố phản ánh con người nơi đây — ấm áp, thân thiện và đầy những câu chuyện đang chờ được chia sẻ. Mỗi tách cà phê đều kể một câu chuyện, và mỗi quán cà phê đều có nét riêng. Ở Hà Nội, cà phê không chỉ là đồ uống; nó là một cách sống.',
+  zh: '城市的咖啡文化反映了它的人民——温暖、热情、充满等待分享的故事。每一杯咖啡都讲述一个故事，每一家咖啡馆都有自己独特的个性。在河内，咖啡不仅仅是一种饮料；它是一种生活方式。'
+},
 /* ── OLD QUARTER BLOG PAGE ──────────────────────────────────────── */
 
 // Blog metadata & header
