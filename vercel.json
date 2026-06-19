@@ -21,5 +21,16 @@
     { "source": "/blog-hanoi-3-days.html", "destination": "/blog-hanoi-3-days", "permanent": true },
     { "source": "/best-cafes-hanoi.html", "destination": "/best-cafes-hanoi", "permanent": true },
     { "source": "/blog-where-to-stay.html", "destination": "/blog-where-to-stay", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/miacasa-hanoi", "destination": "/miacasa-hanoi.html" },
+    { "source": "/miacasa-oldquarter", "destination": "/miacasa-oldquarter.html" },
+    { "source": "/our-story", "destination": "/our-story.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog-old-quarter-guide", "destination": "/blog-old-quarter-guide.html" },
+    { "source": "/blog-train-street", "destination": "/blog-train-street.html" },
+    { "source": "/blog-hanoi-3-days", "destination": "/blog-hanoi-3-days.html" },
+    { "source": "/best-cafes-hanoi", "destination": "/best-cafes-hanoi.html" },
+    { "source": "/blog-where-to-stay", "destination": "/blog-where-to-stay.html" }
   ]
 }
