@@ -112,10 +112,10 @@
   .blog-breadcrumb a:hover { color: #c17a5a; }
   .blog-breadcrumb-current { color: #c17a5a; }
   .blog-header { text-align: center; margin-bottom: 2rem; }
-  .blog-category { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #c17a5a; margin-bottom: 1rem; }
-  .blog-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 400; color: #2c2416; line-height: 1.2; margin-bottom: 1rem; }
-  .blog-subtitle { font-size: 1rem; line-height: 1.8; color: #6b5c47; max-width: 700px; margin: 0 auto; }
-  .blog-meta { font-size: 0.75rem; color: #6b5c47; border-top: 1px solid #e5e0d8; border-bottom: 1px solid #e5e0d8; padding: 0.5rem 0; margin: 1rem 0; }
+  .blog-category { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #c17a5a; margin-bottom: 1rem; }
+  .blog-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; color: #2c2416; line-height: 1.15; margin-bottom: 1rem; }
+  .blog-subtitle { font-size: 1rem; line-height: 1.9; color: #6b5c47; max-width: 700px; margin: 0 auto 1.5rem; }
+  .blog-meta { font-size: 0.76rem; color: #6b5c47; border-top: 1px solid #e5e0d8; border-bottom: 1px solid #e5e0d8; padding: 0.65rem 0; margin: 1rem 0; }
   
   .toc-box { background: #f5efe6; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
   .toc-box h3 { margin-top: 0; margin-bottom: 1rem; }
@@ -134,7 +134,7 @@
   .blog-image img { width: 100%; height: auto; display: block; }
   .blog-image-caption { font-size: 0.7rem; color: #6b5c47; text-align: center; margin-top: 0.5rem; }
   
-  /* Day Cards - FIXED */
+  /* Day Cards */
   .day-card {
     background: white;
     border: 1px solid #e5e0d8;
@@ -226,7 +226,7 @@
     font-size: 0.85rem;
   }
 
-  /* Property CTA button */
+  /* Property CTA button - consistent with other pages */
   .cta-property {
     display: inline-block;
     background: #c17a5a;
@@ -244,6 +244,69 @@
     background: #a85e3e;
     color: white;
   }
+
+  /* Stay Cards - consistent with property cards */
+  .stay-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .stay-card {
+    background: #f5efe6;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e5e0d8;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stay-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: #2c2416;
+  }
+
+  .stay-card p {
+    font-size: 0.9rem;
+    color: #6b5c47;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .stay-card ul {
+    margin: 0.75rem 0 0.75rem 1.25rem;
+    padding: 0;
+  }
+
+  .stay-card li {
+    font-size: 0.85rem;
+    color: #6b5c47;
+    line-height: 1.6;
+    margin-bottom: 0.3rem;
+  }
+
+  .stay-card .btn {
+    display: block;
+    text-align: center;
+    background: #c17a5a;
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: auto;
+    transition: background 0.2s;
+  }
+
+  .stay-card .btn:hover {
+    background: #a85e3e;
+  }
   
   .related-posts { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
   .related-card { background: white; border-radius: 12px; padding: 1rem; width: 200px; border: 1px solid #e5e0d8; text-decoration: none; }
@@ -254,6 +317,10 @@
   .blog-back:hover { color: #c17a5a; }
   
   hr { margin: 2rem 0; border: none; border-top: 1px solid #e5e0d8; }
+
+  .day-cta {
+    margin: 0.75rem 0 0.25rem;
+  }
   
   @media (max-width: 768px) { 
     .blog-container { padding: 1rem; } 
@@ -263,6 +330,7 @@
     .day-card { padding: 1rem; }
     .day-card h2 { font-size: 1.2rem; }
     .day-card h3 { font-size: 1rem; }
+    .stay-cards { grid-template-columns: 1fr; }
   }
   
   .lang-toggle { display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; }
@@ -329,7 +397,7 @@
     <div class="blog-content">
       <p data-t="auto-blog-hanoi-3-days-008">Planning 3 days in Hanoi? This itinerary helps you experience the city beyond the usual tourist checklist—with local food, quieter neighborhoods, and places that make Hanoi memorable.</p>
 
-      <!-- NEW: Extended introduction -->
+      <!-- Extended introduction -->
       <p data-t="auto-blog-hanoi-3-days-085">Hanoi is a city of contrasts. Modern skyscrapers stand alongside ancient temples. Bustling markets coexist with peaceful lakes. The energy of the streets is matched only by the tranquility of its green spaces. Three days is enough time to experience the best of what Hanoi has to offer, provided you plan wisely.</p>
 
       <!-- Day 1 -->
@@ -353,6 +421,12 @@
         
         <h3 data-t="auto-blog-hanoi-3-days-023">🌙 Evening</h3>
         <p data-t="auto-blog-hanoi-3-days-024">Walk through the night market (weekends only) or find a rooftop café with lake views. The Old Quarter glows at night, with lanterns casting warm light over the streets and the sounds of live music drifting from bars and restaurants. It's the perfect way to end your first day in Hanoi.</p>
+
+        <!-- Day 1 Accommodation Suggestion -->
+        <div class="day-cta">
+          <p><strong>🏠 Stay near the Old Quarter:</strong> <a href="/miacasa-oldquarter">MiaCasa Old Quarter</a> puts you right in the center of all the action, steps from Hoàn Kiếm Lake.</p>
+          <a href="/miacasa-oldquarter" class="cta-property">📅 Explore MiaCasa Old Quarter →</a>
+        </div>
       </div>
 
       <!-- Day 2 -->
@@ -364,7 +438,6 @@
         <p data-t="auto-blog-hanoi-3-days-091">Visit Văn Miếu – Quốc Tử Giám (Temple of Literature), Vietnam's first university — one of Hanoi's most peaceful sites. The temple complex is a serene oasis in the middle of the city, with ancient trees, tranquil ponds, and well-preserved architecture. It was founded in 1070 and was Vietnam's first national university, dedicated to Confucius and scholars.</p>
         <p data-t="auto-blog-hanoi-3-days-029">Afterward, walk through the surrounding streets. This area feels calmer, more residential, and genuinely local. It's a stark contrast to the bustling Old Quarter and offers a glimpse into everyday Hanoi life. Stop at a small café that doesn't cater to tourists. These hidden gems often serve the best coffee and offer the most authentic experiences.</p>
         <p data-t="auto-blog-hanoi-3-days-031">💡 <strong>Tip:</strong> MiaCasa Hanoi is located in this neighborhood — you can see what local life actually looks like.</p>
-        <a href="/miacasa-hanoi" class="cta-property">🏠 Explore MiaCasa Hanoi →</a>
         
         <h3 data-t="auto-blog-hanoi-3-days-032">🚂 Afternoon: Train Street</h3>
         <p data-t="auto-blog-hanoi-3-days-033">Head to one of Hanoi's most unique attractions — Train Street, where trains pass just inches from homes and cafés. This narrow stretch of railway has become a symbol of Hanoi's resilience and character. The trains still run regularly, and the street comes alive with anticipation before each passing.</p>
@@ -375,11 +448,16 @@
           <li data-t="auto-blog-hanoi-3-days-038">Follow every instruction from café owners — they know when it's safe. The train passes quickly, but the experience is unforgettable.</li>
         </ul>
         <p data-t="auto-blog-hanoi-3-days-041">📍 Train Street is just a 5-minute walk from MiaCasa Hanoi. Many guests visit at 6am or 8pm to avoid crowds.</p>
-        <a href="/miacasa-hanoi" class="cta-property">🏠 Stay near Train Street →</a>
         <p><a href="/blog-train-street" data-t="auto-blog-hanoi-3-days-034">Read our full guide to Train Street Hanoi →</a></p>
         
         <h3 data-t="auto-blog-hanoi-3-days-042">🌙 Evening</h3>
         <p data-t="auto-blog-hanoi-3-days-043">Take a Grab to Hồ Tây (West Lake) for sunset. Walk along the water, find a lakeside café, and enjoy Hanoi at its calmest. The lake is surrounded by quiet neighborhoods and offers a peaceful escape from the city center. Dinner: Try chả cá (turmeric fish with dill) or revisit a favorite street food spot.</p>
+
+        <!-- Day 2 Accommodation Suggestion -->
+        <div class="day-cta">
+          <p><strong>🏠 Stay near Train Street & Văn Miếu:</strong> <a href="/miacasa-hanoi">MiaCasa Hanoi</a> is in a quiet residential neighborhood, just minutes from both attractions.</p>
+          <a href="/miacasa-hanoi" class="cta-property">📅 Explore MiaCasa Hanoi →</a>
+        </div>
       </div>
 
       <!-- Day 3 -->
@@ -396,22 +474,38 @@
         
         <h3 data-t="auto-blog-hanoi-3-days-057">🌙 Evening</h3>
         <p data-t="auto-blog-hanoi-3-days-058">End your trip with a relaxed dinner — no rushing, no schedule. Just enjoy Hanoi one last time. Reflect on your experiences and savor the flavors of the city. Consider a local cooking class or water puppet show if time allows. These activities offer deeper insight into Vietnamese culture and make for lasting memories.</p>
+
+        <!-- Day 3 Accommodation Suggestion -->
+        <div class="day-cta">
+          <p><strong>🏠 Stay for a quieter Hanoi experience:</strong> <a href="/miacasa-hanoi">MiaCasa Hanoi</a> offers a calm, residential retreat near West Lake and Văn Miếu.</p>
+          <a href="/miacasa-hanoi" class="cta-property">📅 Explore MiaCasa Hanoi →</a>
+        </div>
       </div>
 
       <!-- Where to Stay Section -->
       <h2 id="where-to-stay" data-t="auto-blog-hanoi-3-days-060">🏠 Where to Stay During Your 3 Days in Hanoi</h2>
       <p data-t="auto-blog-hanoi-3-days-061">Where you stay shapes your entire experience. Choose based on your travel style:</p>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
-        <div style="background: #f5efe6; border-radius: 12px; padding: 1.25rem;">
-          <h3 style="margin-top: 0;" data-t="auto-blog-hanoi-3-days-063">🛵 MiaCasa Old Quarter</h3>
-          <p data-t="auto-blog-hanoi-3-days-064"><strong>Stay in the center of everything.</strong> A full apartment in the heart of Hoàn Kiếm, steps from the lake and nightlife. Best for groups and travelers who want energy at their doorstep.</p>
-          <a href="/miacasa-oldquarter" class="cta-property" style="display: block; text-align: center;">📅 Explore Old Quarter →</a>
+      <div class="stay-cards">
+        <div class="stay-card">
+          <h3 data-t="auto-blog-hanoi-3-days-063">🛵 MiaCasa Old Quarter</h3>
+          <p data-t="auto-blog-hanoi-3-days-064">Stay in the center of everything. A full apartment in the heart of Hoàn Kiếm, steps from the lake and nightlife.</p>
+          <ul>
+            <li>3 queen beds · Sleeps up to 6</li>
+            <li>Private terrace</li>
+            <li>Ideal for groups and short stays</li>
+          </ul>
+          <a href="/miacasa-oldquarter" class="btn">📅 Explore Old Quarter →</a>
         </div>
-        <div style="background: #f5efe6; border-radius: 12px; padding: 1.25rem;">
-          <h3 style="margin-top: 0;" data-t="auto-blog-hanoi-3-days-066">🌿 MiaCasa Hanoi</h3>
-          <p data-t="auto-blog-hanoi-3-days-067"><strong>Prefer a quieter, more local experience?</strong> Three private rooms near Văn Miếu and Train Street. A calm, residential neighborhood that's still a quick ride from everything. Best for couples, solo travelers, and anyone who needs good sleep.</p>
-          <a href="/miacasa-hanoi" class="cta-property" style="display: block; text-align: center;">📅 Explore MiaCasa Hanoi →</a>
+        <div class="stay-card">
+          <h3 data-t="auto-blog-hanoi-3-days-066">🌿 MiaCasa Hanoi</h3>
+          <p data-t="auto-blog-hanoi-3-days-067">A quieter, more local experience. Three private rooms near Văn Miếu and Train Street in a calm, residential neighborhood.</p>
+          <ul>
+            <li>Private rooms with kitchenettes</li>
+            <li>Free laundry</li>
+            <li>Best for couples, solo travelers, and good sleep</li>
+          </ul>
+          <a href="/miacasa-hanoi" class="btn">📅 Explore MiaCasa Hanoi →</a>
         </div>
       </div>
 
