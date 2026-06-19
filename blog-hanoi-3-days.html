@@ -245,7 +245,7 @@
     color: white;
   }
 
-  /* Stay Cards - consistent with property cards */
+    /* Stay Cards - consistent with property cards */
   .stay-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -254,12 +254,20 @@
   }
 
   .stay-card {
-    background: #f5efe6;
+    background: white;
     border-radius: 16px;
     padding: 1.5rem;
     border: 1px solid #e5e0d8;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .stay-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #c17a5a;
   }
 
   .stay-card h3 {
@@ -301,11 +309,14 @@
     font-size: 0.8rem;
     font-weight: 500;
     margin-top: auto;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+    border: 1px solid #c17a5a;
   }
 
   .stay-card .btn:hover {
     background: #a85e3e;
+    border-color: #a85e3e;
+    transform: translateY(-2px);
   }
   
   .related-posts { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
