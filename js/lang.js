@@ -3363,9 +3363,9 @@ zh:"最近的住宿：\n<a href=\"miacasa-oldquarter.html\">MiaCasa Old Quarter<
 'auto-best-cafes-hanoi-009': {en:"Remote Work Favorite", vn:"Phù hợp làm việc từ xa", zh:"远程办公最爱"},
 
 'auto-best-cafes-hanoi-010': {
-en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-zh:"最近的住宿：\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+  en: 'Closest stay:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  vn: 'Gần nhất:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  zh: '最近的住宿：\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>'
 },
 
 'auto-best-cafes-hanoi-011': {en:"Historic Hanoi Café", vn:"Quán cà phê mang tính lịch sử", zh:"河内历史咖啡馆"},
@@ -3387,17 +3387,17 @@ zh:"最近的住宿：\n<a href=\"miacasa-oldquarter.html\">MiaCasa Old Quarter<
 'auto-best-cafes-hanoi-015': {en:"Specialty Coffee", vn:"Cà phê specialty", zh:"精品咖啡"},
 
 'auto-best-cafes-hanoi-016': {
-en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-zh:"最近的住宿：\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+  en: 'Closest stay:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  vn: 'Gần nhất:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  zh: '最近的住宿：\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>'
 },
 
 'auto-best-cafes-hanoi-017': {en:"Hidden Local Spots", vn:"Góc cà phê địa phương ẩn mình", zh:"隐藏的本地咖啡角"},
 
 'auto-best-cafes-hanoi-018': {
-en:"Closest stay:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-vn:"Gần nhất:\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>",
-zh:"最近的住宿：\n<a href=\"index.html?property=hanoi\">MiaCasa Hanoi</a>"
+  en: 'Closest stay:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  vn: 'Gần nhất:\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>',
+  zh: '最近的住宿：\n<a href="/miacasa-hanoi">MiaCasa Hanoi</a>'
 },
 
 'auto-best-cafes-hanoi-019': {
