@@ -879,7 +879,23 @@ const TRANSLATIONS = {
   vn:'Máy giặt và máy sấy kèm bột giặt',
   zh:'洗衣机、烘干机及洗衣液'
 },
-
+// Add these to lang.js
+'h-am9': {
+  en: 'WiFi Projector',
+  vn: 'Máy chiếu WiFi',
+  zh: 'WiFi投影仪'
+},
+'h-am9s': {
+  en: 'Netflix & YouTube ready',
+  vn: 'Sẵn sàng Netflix & YouTube',
+  zh: '支持Netflix和YouTube'
+},
+// Update this existing key
+'h-room-s4': {
+  en: '📺 WiFi projector · Netflix & YouTube · AC · Fan',
+  vn: '📺 Máy chiếu WiFi · Netflix & YouTube · Điều hòa · Quạt',
+  zh: '📺 WiFi投影仪 · Netflix和YouTube · 空调 · 风扇'
+},
 /* FINAL location section (duplicates resolved) */
 
 'h-loc-tag': {
@@ -1316,16 +1332,16 @@ const TRANSLATIONS = {
   zh:'步行即可享用河内最地道美食'
 },
 
+// Update this existing key
 'oq-am8': {
-  en:'Smart TV',
-  vn:'TV thông minh',
-  zh:'智能电视'
+  en: 'WiFi Projector',
+  vn: 'Máy chiếu WiFi',
+  zh: 'WiFi投影仪'
 },
-
 'oq-am8s': {
-  en:'Netflix & YouTube ready',
-  vn:'Sẵn sàng Netflix & YouTube',
-  zh:'支持Netflix和YouTube'
+  en: 'Pre-logged in Netflix & YouTube',
+  vn: 'Đã đăng nhập sẵn Netflix & YouTube',
+  zh: '预登录Netflix和YouTube'
 },
 
 /* ── LOCATION ───────────────────────────────────────── */
