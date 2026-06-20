@@ -340,7 +340,28 @@ const TRANSLATIONS = {
   vn:'Khuyến khích tái sử dụng khăn tắm',
   zh:'鼓励重复使用毛巾'
 },
+  // ── PROPERTY-SPECIFIC RULES ────────────────────────────────────
 
+  // MiaCasa Hanoi - Check-out (replaces rule-cio-2)
+  'h-rule-cio-2': {
+    en: 'Check-out by 12:00 PM (noon)',
+    vn: 'Trả phòng trước 12:00 (trưa)',
+    zh: '中午 12:00 前退房'
+  },
+
+  // MiaCasa Old Quarter - Check-out (replaces rule-cio-3)
+  'oq-rule-cio-2': {
+    en: 'Check-out by 11:00 AM',
+    vn: 'Trả phòng trước 11:00',
+    zh: '上午 11:00 前退房'
+  },
+
+  // MiaCasa Old Quarter - Luggage Storage Note (replaces rule-cio-5)
+  'oq-rule-cio-5': {
+    en: '⚠️ No luggage storage at Old Quarter property. You can store luggage at MiaCasa Hanoi (about 2km away) — please contact us in advance.',
+    vn: '⚠️ Không có dịch vụ gửi hành lý tại Phố Cổ. Bạn có thể gửi hành lý tại MiaCasa Hà Nội (cách khoảng 2km) — vui lòng liên hệ trước.',
+    zh: '⚠️ 老城区住宿不提供行李寄存。您可以将行李寄存在 MiaCasa Hanoi（约2公里外）— 请提前联系我们。'
+  },
 
 
   /* ── CONTACT FORM ─────────────────────────────────────────────── */
