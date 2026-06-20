@@ -349,11 +349,25 @@ const TRANSLATIONS = {
     zh: '中午 12:00 前退房'
   },
 
+  // MiaCasa Hanoi - Early/Late Check-in/out
+  'h-rule-cio-4': {
+    en: 'Early check-in (before 2:00 PM) or late check-out (after 12:00 PM) available on request — subject to availability and additional fee. Please contact us in advance.',
+    vn: 'Nhận phòng sớm (trước 14:00) hoặc trả phòng muộn (sau 12:00) theo yêu cầu — tùy theo tình trạng phòng và phí bổ sung. Vui lòng liên hệ trước.',
+    zh: '可提前入住（下午2:00前）或延迟退房（中午12:00后）— 视空房情况而定，需额外付费。请提前联系我们。'
+  },
+
   // MiaCasa Old Quarter - Check-out (replaces rule-cio-3)
   'oq-rule-cio-2': {
     en: 'Check-out by 11:00 AM',
     vn: 'Trả phòng trước 11:00',
     zh: '上午 11:00 前退房'
+  },
+
+  // MiaCasa Old Quarter - Early/Late Check-in/out
+  'oq-rule-cio-4': {
+    en: 'Early check-in (before 2:00 PM) or late check-out (after 11:00 AM) available on request — subject to availability and additional fee. Please contact us in advance.',
+    vn: 'Nhận phòng sớm (trước 14:00) hoặc trả phòng muộn (sau 11:00) theo yêu cầu — tùy theo tình trạng phòng và phí bổ sung. Vui lòng liên hệ trước.',
+    zh: '可提前入住（下午2:00前）或延迟退房（上午11:00后）— 视空房情况而定，需额外付费。请提前联系我们。'
   },
 
   // MiaCasa Old Quarter - Luggage Storage Note (replaces rule-cio-5)
