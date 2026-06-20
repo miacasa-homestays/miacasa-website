@@ -879,23 +879,23 @@ const TRANSLATIONS = {
   vn:'Máy giặt và máy sấy kèm bột giặt',
   zh:'洗衣机、烘干机及洗衣液'
 },
-// Add these to lang.js
-'h-am9': {
-  en: 'WiFi Projector',
-  vn: 'Máy chiếu WiFi',
-  zh: 'WiFi投影仪'
-},
-'h-am9s': {
-  en: 'Netflix & YouTube ready',
-  vn: 'Sẵn sàng Netflix & YouTube',
-  zh: '支持Netflix和YouTube'
-},
-// Update this existing key
-'h-room-s4': {
-  en: '📺 WiFi projector · Netflix & YouTube · AC · Fan',
-  vn: '📺 Máy chiếu WiFi · Netflix & YouTube · Điều hòa · Quạt',
-  zh: '📺 WiFi投影仪 · Netflix和YouTube · 空调 · 风扇'
-},
+// MiaCasa Hanoi - WiFi Projector Amenity
+  'h-am9': {
+    en: 'WiFi Projector',
+    vn: 'Máy chiếu WiFi',
+    zh: 'WiFi投影仪'
+  },
+  'h-am9s': {
+    en: 'Pre-logged in Netflix & YouTube',
+    vn: 'Đã đăng nhập sẵn Netflix & YouTube',
+    zh: '预登录Netflix和YouTube'
+  },
+// MiaCasa Hanoi - Room spec (updated)
+  'h-room-s4': {
+    en: '📺 WiFi projector · Pre-logged in Netflix & YouTube · AC · Fan',
+    vn: '📺 Máy chiếu WiFi · Đã đăng nhập sẵn Netflix & YouTube · Điều hòa · Quạt',
+    zh: '📺 WiFi投影仪 · 预登录Netflix和YouTube · 空调 · 风扇'
+  },
 /* FINAL location section (duplicates resolved) */
 
 'h-loc-tag': {
@@ -1332,17 +1332,17 @@ const TRANSLATIONS = {
   zh:'步行即可享用河内最地道美食'
 },
 
-// Update this existing key
-'oq-am8': {
-  en: 'WiFi Projector',
-  vn: 'Máy chiếu WiFi',
-  zh: 'WiFi投影仪'
-},
-'oq-am8s': {
-  en: 'Pre-logged in Netflix & YouTube',
-  vn: 'Đã đăng nhập sẵn Netflix & YouTube',
-  zh: '预登录Netflix和YouTube'
-},
+// MiaCasa Old Quarter - WiFi Projector Amenity (updated)
+  'oq-am8': {
+    en: 'WiFi Projector',
+    vn: 'Máy chiếu WiFi',
+    zh: 'WiFi投影仪'
+  },
+  'oq-am8s': {
+    en: 'Pre-logged in Netflix & YouTube',
+    vn: 'Đã đăng nhập sẵn Netflix & YouTube',
+    zh: '预登录Netflix和YouTube'
+  },
 
 /* ── LOCATION ───────────────────────────────────────── */
 
