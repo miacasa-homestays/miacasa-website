@@ -3010,6 +3010,38 @@ const TRANSLATIONS = {
     vn: '📅 Đặt phòng cho chuyến ăn uống của bạn →',
     zh: '📅 预订您的美食之旅住宿 →'
   },
+  // ── BLOG - WHAT TO EAT IN HANOI - CTA BUTTONS ──────────────────
+
+'hanoi-cta-pho-btn': {
+  en: 'View MiaCasa Hanoi →',
+  vn: 'Xem MiaCasa Hà Nội →',
+  zh: '查看 MiaCasa Hanoi →'
+},
+'hanoi-cta-egg-btn': {
+  en: 'View MiaCasa Hanoi →',
+  vn: 'Xem MiaCasa Hà Nội →',
+  zh: '查看 MiaCasa Hanoi →'
+},
+'hanoi-cta-oq-btn': {
+  en: 'View Old Quarter →',
+  vn: 'Xem Phố Cổ →',
+  zh: '查看老城区 →'
+},
+'hanoi-cta-btn-hanoi': {
+  en: '🌿 MiaCasa Hanoi',
+  vn: '🌿 MiaCasa Hà Nội',
+  zh: '🌿 MiaCasa Hanoi'
+},
+'hanoi-cta-btn-oq': {
+  en: '🏙️ MiaCasa Old Quarter',
+  vn: '🏙️ MiaCasa Phố Cổ',
+  zh: '🏙️ MiaCasa Old Quarter'
+},
+'hanoi-cta-btn-avail': {
+  en: '📅 Check Availability',
+  vn: '📅 Kiểm tra lịch trống',
+  zh: '📅 查看空房情况'
+},
   // Introduction
   'hanoi-intro-p1': {
     en: 'People often remember their first impression of Hanoi through food.',
