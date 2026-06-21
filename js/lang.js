@@ -2857,6 +2857,1242 @@ const TRANSLATIONS = {
   vn: 'Dù bạn chọn gì, chúng tôi hy vọng bạn sẽ yêu Hà Nội theo cách chúng tôi đã yêu. Đó là thành phố đền đáp sự tò mò, kiên nhẫn và một trái tim rộng mở. Và dù bạn ở đâu, bạn sẽ thấy rằng con người, ẩm thực và nhịp sống hàng ngày khiến nó trở thành một nơi bạn sẽ không bao giờ quên.',
   zh: '无论您选择什么，我们希望您能像我们一样爱上河内。这是一座回报好奇心、耐心和开放心态的城市。无论您住在哪里，您都会发现这里的人、食物和日常生活的节奏使它成为一个您永远不会忘记的地方。'
 },
+  // ── BLOG - WHAT TO EAT IN HANOI ──────────────────────────────────
+
+  // Meta & Header
+  'hanoi-food-title': {
+    en: 'What to Eat in Hanoi (2026): 15 Local Dishes You Shouldn\'t Miss | MiaCasa',
+    vn: 'Ăn Gì Ở Hà Nội (2026): 15 Món Ăn Địa Phương Không Thể Bỏ Lỡ | MiaCasa',
+    zh: '河内吃什么（2026）：15种不容错过的当地美食 | MiaCasa'
+  },
+  'hanoi-food-category': {
+    en: '🍜 HANOI FOOD GUIDE',
+    vn: '🍜 HƯỚNG DẪN ẨM THỰC HÀ NỘI',
+    zh: '🍜 河内美食指南'
+  },
+  'hanoi-food-title-h1': {
+    en: 'What to Eat in Hanoi (2026): 15 Local Dishes You Shouldn\'t Miss',
+    vn: 'Ăn Gì Ở Hà Nội (2026): 15 Món Ăn Địa Phương Không Thể Bỏ Lỡ',
+    zh: '河内吃什么（2026）：15种不容错过的当地美食'
+  },
+  'hanoi-food-subtitle': {
+    en: 'A local food guide to Hanoi\'s street food, traditional dishes, and everyday meals.',
+    vn: 'Hướng dẫn ẩm thực địa phương về đồ ăn đường phố, món ăn truyền thống và bữa ăn hàng ngày ở Hà Nội.',
+    zh: '河内街头美食、传统菜肴和日常餐点的本地美食指南。'
+  },
+  'hanoi-food-meta': {
+    en: '📅 June 21, 2026 · ☕ 10 min read · ✍️ By MiaCasa Team',
+    vn: '📅 21 Tháng 6, 2026 · ☕ Đọc 10 phút · ✍️ Đội ngũ MiaCasa',
+    zh: '📅 2026年6月21日 · ☕ 阅读10分钟 · ✍️ MiaCasa团队'
+  },
+
+  // Table of Contents
+  'hanoi-toc-title': {
+    en: '📚 In this guide:',
+    vn: '📚 Trong hướng dẫn này:',
+    zh: '📚 本指南包含：'
+  },
+  'hanoi-toc-intro': {
+    en: 'Hanoi Is a City You Taste Before You Understand',
+    vn: 'Hà Nội Là Thành Phố Bạn Nếm Trước Khi Hiểu',
+    zh: '河内是一座你先品尝后理解的城市'
+  },
+  'hanoi-toc-pho': {
+    en: '1. Pho: Hanoi\'s Most Famous Dish',
+    vn: '1. Phở: Món Ăn Nổi Tiếng Nhất Hà Nội',
+    zh: '1. 河粉：河内最著名的菜肴'
+  },
+  'hanoi-toc-bun-cha': {
+    en: '2. Bun Cha: The Dish That Locals Love',
+    vn: '2. Bún Chả: Món Ăn Được Người Địa Phương Yêu Thích',
+    zh: '2. 烤肉米粉：当地人喜爱的菜肴'
+  },
+  'hanoi-toc-banh-mi': {
+    en: '3. Banh Mi: Vietnam\'s Famous Sandwich',
+    vn: '3. Bánh Mì: Bánh Sandwich Nổi Tiếng Việt Nam',
+    zh: '3. 越南法棍：越南著名的三明治'
+  },
+  'hanoi-toc-egg-coffee': {
+    en: '4. Egg Coffee: Hanoi\'s Most Famous Drink',
+    vn: '4. Cà Phê Trứng: Đồ Uống Nổi Tiếng Nhất Hà Nội',
+    zh: '4. 蛋咖啡：河内最著名的饮品'
+  },
+  'hanoi-toc-bun-bo': {
+    en: '5. Bun Bo Nam Bo',
+    vn: '5. Bún Bò Nam Bộ',
+    zh: '5. 南部牛肉米粉'
+  },
+  'hanoi-toc-cha-ca': {
+    en: '6. Cha Ca: One of Hanoi\'s Historic Dishes',
+    vn: '6. Chả Cá: Một Trong Những Món Ăn Lịch Sử Của Hà Nội',
+    zh: '6. 煎鱼饼：河内的历史名菜之一'
+  },
+  'hanoi-toc-banh-cuon': {
+    en: '7. Banh Cuon',
+    vn: '7. Bánh Cuốn',
+    zh: '7. 越南蒸粉卷'
+  },
+  'hanoi-toc-xoi': {
+    en: '8. Xoi: Sticky Rice for Breakfast',
+    vn: '8. Xôi: Món Xôi Cho Bữa Sáng',
+    zh: '8. 糯米饭：早餐的糯米饭'
+  },
+  'hanoi-toc-nem-ran': {
+    en: '9. Nem Ran: Northern Spring Rolls',
+    vn: '9. Nem Rán: Chả Giò Miền Bắc',
+    zh: '9. 炸春卷：北方春卷'
+  },
+  'hanoi-toc-bun-rieu': {
+    en: '10. Bun Rieu',
+    vn: '10. Bún Riêu',
+    zh: '10. 蟹汤粉'
+  },
+  'hanoi-toc-etiquette': {
+    en: 'Street Food Etiquette',
+    vn: 'Nghi Thức Ẩm Thực Đường Phố',
+    zh: '街头美食礼仪'
+  },
+  'hanoi-toc-safe': {
+    en: 'Is Street Food Safe?',
+    vn: 'Đồ Ăn Đường Phố Có An Toàn Không?',
+    zh: '街头食品安全吗？'
+  },
+  'hanoi-toc-morning-evening': {
+    en: 'Morning Food vs Evening Food',
+    vn: 'Đồ Ăn Sáng Và Đồ Ăn Tối',
+    zh: '早餐与晚餐'
+  },
+  'hanoi-toc-faq': {
+    en: 'Frequently Asked Questions',
+    vn: 'Câu Hỏi Thường Gặp',
+    zh: '常见问题'
+  },
+  'hanoi-toc-final': {
+    en: 'Final Thoughts',
+    vn: 'Lời Kết',
+    zh: '最后的话'
+  },
+
+  // Introduction
+  'hanoi-intro-p1': {
+    en: 'People often remember their first impression of Hanoi through food.',
+    vn: 'Mọi người thường nhớ ấn tượng đầu tiên về Hà Nội qua ẩm thực.',
+    zh: '人们通常通过美食来记住对河内的第一印象。'
+  },
+  'hanoi-intro-p2': {
+    en: 'Maybe it is the smell of broth coming from a tiny pho shop at six in the morning. Maybe it is smoke rising from a grill on a narrow street. Or perhaps it is sitting on a small plastic stool with a cup of strong coffee while thousands of motorbikes pass by.',
+    vn: 'Có thể là mùi nước dùng từ một quán phở nhỏ lúc sáu giờ sáng. Có thể là khói từ bếp nướng trên một con phố nhỏ. Hoặc có lẽ là ngồi trên chiếc ghế nhựa nhỏ với tách cà phê đậm trong khi hàng nghìn xe máy lướt qua.',
+    zh: '也许是清晨六点小河粉店里飘出的汤香。也许是窄街上烧烤升起的烟雾。又或者是坐在小塑料凳上，端着一杯浓咖啡，看着成千上万的摩托车经过。'
+  },
+  'hanoi-intro-p3': {
+    en: 'Food in Hanoi is not separated from daily life.',
+    vn: 'Ẩm thực ở Hà Nội không tách rời khỏi cuộc sống hàng ngày.',
+    zh: '河内的美食与日常生活密不可分。'
+  },
+  'hanoi-intro-p4': {
+    en: 'Restaurants spill onto sidewalks. Grandmothers prepare breakfast at dawn. Office workers gather for lunch at the same family-run shops every day. Small cafés hide inside old apartment buildings. Entire streets become known for a single dish.',
+    vn: 'Nhà hàng tràn ra vỉa hè. Những bà cụ chuẩn bị bữa sáng từ lúc bình minh. Nhân viên văn phòng tụ tập ăn trưa tại cùng quán ăn gia đình mỗi ngày. Những quán cà phê nhỏ ẩn mình trong các tòa nhà cũ. Cả con phố trở nên nổi tiếng với một món ăn duy nhất.',
+    zh: '餐厅延伸到人行道上。老奶奶在黎明时分准备早餐。上班族每天在同一家家庭式餐厅吃午餐。小咖啡馆藏身于老旧的公寓楼中。整条街道因一道菜而闻名。'
+  },
+  'hanoi-intro-p5': {
+    en: 'Many visitors arrive expecting Vietnamese food to be the same everywhere in the country. It is not.',
+    vn: 'Nhiều du khách đến với kỳ vọng ẩm thực Việt Nam giống nhau ở mọi nơi. Thực tế không phải vậy.',
+    zh: '许多游客以为越南菜在全国各地都一样。事实并非如此。'
+  },
+  'hanoi-intro-p6': {
+    en: 'Northern Vietnamese cuisine, especially in Hanoi, tends to be:',
+    vn: 'Ẩm thực miền Bắc Việt Nam, đặc biệt là ở Hà Nội, thường có xu hướng:',
+    zh: '越南北部美食，尤其是河内，往往：'
+  },
+  'hanoi-intro-li1': {
+    en: 'Less sweet',
+    vn: 'Ít ngọt hơn',
+    zh: '不那么甜'
+  },
+  'hanoi-intro-li2': {
+    en: 'More balanced',
+    vn: 'Cân bằng hơn',
+    zh: '更平衡'
+  },
+  'hanoi-intro-li3': {
+    en: 'Lighter in seasoning',
+    vn: 'Gia vị nhẹ hơn',
+    zh: '调味更清淡'
+  },
+  'hanoi-intro-li4': {
+    en: 'Focused on fresh herbs and broth',
+    vn: 'Tập trung vào rau thơm tươi và nước dùng',
+    zh: '注重新鲜香草和汤底'
+  },
+  'hanoi-intro-li5': {
+    en: 'Deeply connected to local traditions',
+    vn: 'Gắn bó sâu sắc với truyền thống địa phương',
+    zh: '与当地传统紧密相连'
+  },
+  'hanoi-intro-p7': {
+    en: 'The best meals in Hanoi are not always found on social media.',
+    vn: 'Những bữa ăn ngon nhất ở Hà Nội không phải lúc nào cũng được tìm thấy trên mạng xã hội.',
+    zh: '河内最好的美食并不总是在社交媒体上能找到。'
+  },
+  'hanoi-intro-p8': {
+    en: 'Sometimes the most memorable dish comes from a place with no English menu, a few plastic stools, and three generations of one family cooking together.',
+    vn: 'Đôi khi món ăn đáng nhớ nhất đến từ một nơi không có menu tiếng Anh, vài chiếc ghế nhựa và ba thế hệ trong một gia đình cùng nấu ăn.',
+    zh: '有时最令人难忘的菜肴来自一个没有英文菜单、只有几个塑料凳子和三代人一起做饭的地方。'
+  },
+  'hanoi-intro-p9': {
+    en: 'This guide covers the foods that first-time visitors should try, along with practical advice from a local perspective.',
+    vn: 'Hướng dẫn này bao gồm những món ăn mà du khách lần đầu nên thử, cùng với lời khuyên thực tế từ góc nhìn địa phương.',
+    zh: '本指南涵盖了初次到访者应该尝试的美食，以及来自本地视角的实用建议。'
+  },
+
+  // Pho
+  'hanoi-pho-title': {
+    en: '1. Pho: Hanoi\'s Most Famous Dish',
+    vn: '1. Phở: Món Ăn Nổi Tiếng Nhất Hà Nội',
+    zh: '1. 河粉：河内最著名的菜肴'
+  },
+  'hanoi-pho-p1': {
+    en: 'If there is one dish everyone associates with Vietnam, it is pho.',
+    vn: 'Nếu có một món ăn mà mọi người đều liên tưởng đến Việt Nam, đó là phở.',
+    zh: '如果有一道菜让人联想到越南，那就是河粉。'
+  },
+  'hanoi-pho-p2': {
+    en: 'But pho in Hanoi is different from pho in southern Vietnam.',
+    vn: 'Nhưng phở ở Hà Nội khác với phở ở miền Nam Việt Nam.',
+    zh: '但河内的河粉与越南南部的河粉不同。'
+  },
+  'hanoi-pho-p3': {
+    en: 'The broth is usually clearer and less sweet. The flavors are more delicate. The focus is on the beef, the broth, and the noodles rather than a large plate of herbs and sauces.',
+    vn: 'Nước dùng thường trong hơn và ít ngọt hơn. Hương vị tinh tế hơn. Tập trung vào thịt bò, nước dùng và sợi phở hơn là một đĩa rau thơm và nước chấm lớn.',
+    zh: '汤底通常更清澈，不那么甜。味道更精致。重点在牛肉、汤底和面条上，而不是一大盘香草和酱料。'
+  },
+  'hanoi-pho-p4': {
+    en: 'A typical bowl contains:',
+    vn: 'Một tô phở điển hình gồm:',
+    zh: '一碗典型的河粉包含：'
+  },
+  'hanoi-pho-li1': {
+    en: 'Rice noodles',
+    vn: 'Bánh phở',
+    zh: '米粉'
+  },
+  'hanoi-pho-li2': {
+    en: 'Slow-cooked beef broth',
+    vn: 'Nước dùng bò ninh chậm',
+    zh: '慢炖牛肉汤'
+  },
+  'hanoi-pho-li3': {
+    en: 'Thin slices of beef',
+    vn: 'Thịt bò thái mỏng',
+    zh: '薄切牛肉'
+  },
+  'hanoi-pho-li4': {
+    en: 'Green onions',
+    vn: 'Hành lá',
+    zh: '葱花'
+  },
+  'hanoi-pho-li5': {
+    en: 'Fresh herbs',
+    vn: 'Rau thơm tươi',
+    zh: '新鲜香草'
+  },
+  'hanoi-pho-li6': {
+    en: 'Optional chili and lime',
+    vn: 'Ớt và chanh tùy chọn',
+    zh: '可选辣椒和青柠'
+  },
+  'hanoi-pho-p5': {
+    en: 'Many locals still consider pho a breakfast food.',
+    vn: 'Nhiều người dân địa phương vẫn coi phở là món ăn sáng.',
+    zh: '许多当地人仍然把河粉当作早餐。'
+  },
+  'hanoi-pho-p6': {
+    en: 'Walking through Hanoi at seven in the morning, you will see restaurants already full of office workers, students, and elderly residents enjoying their daily bowl.',
+    vn: 'Đi dạo qua Hà Nội lúc bảy giờ sáng, bạn sẽ thấy các quán ăn đã đầy dân văn phòng, sinh viên và người già đang thưởng thức tô phở hàng ngày của họ.',
+    zh: '早上七点走在河内街头，你会看到餐厅里已经坐满了上班族、学生和老年居民，享受他们日常的一碗河粉。'
+  },
+  'hanoi-pho-varieties': {
+    en: 'Popular varieties include:',
+    vn: 'Các loại phở phổ biến gồm:',
+    zh: '常见的河粉品种包括：'
+  },
+  'hanoi-pho-bo': {
+    en: 'Phở bò — beef pho',
+    vn: 'Phở bò — phở với thịt bò',
+    zh: '牛肉河粉'
+  },
+  'hanoi-pho-ga': {
+    en: 'Phở gà — chicken pho',
+    vn: 'Phở gà — phở với thịt gà',
+    zh: '鸡肉河粉'
+  },
+  'hanoi-pho-tai': {
+    en: 'Phở tái — rare beef',
+    vn: 'Phở tái — thịt bò tái',
+    zh: '生牛肉河粉'
+  },
+  'hanoi-pho-chin': {
+    en: 'Phở chín — well-cooked beef',
+    vn: 'Phở chín — thịt bò chín',
+    zh: '熟牛肉河粉'
+  },
+  'hanoi-pho-p7': {
+    en: 'The experience matters as much as the dish itself.',
+    vn: 'Trải nghiệm quan trọng không kém món ăn.',
+    zh: '体验和菜肴本身一样重要。'
+  },
+  'hanoi-pho-p8': {
+    en: 'Sit on a small stool. Watch the street wake up. Listen to the sounds of the city.',
+    vn: 'Ngồi trên chiếc ghế nhỏ. Nhìn con phố thức dậy. Lắng nghe âm thanh của thành phố.',
+    zh: '坐在小凳子上。看着街道苏醒。聆听城市的声音。'
+  },
+  'hanoi-pho-p9': {
+    en: 'That is Hanoi.',
+    vn: 'Đó là Hà Nội.',
+    zh: '这就是河内。'
+  },
+
+  // Bun Cha
+  'hanoi-bun-cha-title': {
+    en: '2. Bun Cha: The Dish That Locals Love',
+    vn: '2. Bún Chả: Món Ăn Được Người Địa Phương Yêu Thích',
+    zh: '2. 烤肉米粉：当地人喜爱的菜肴'
+  },
+  'hanoi-bun-cha-p1': {
+    en: 'Many international travelers discovered bun cha after the famous dinner involving Barack Obama and Anthony Bourdain.',
+    vn: 'Nhiều du khách quốc tế đã phát hiện ra bún chả sau bữa tối nổi tiếng của Barack Obama và Anthony Bourdain.',
+    zh: '许多国际旅行者是在奥巴马和安东尼·波登那顿著名晚餐之后才发现烤肉米粉的。'
+  },
+  'hanoi-bun-cha-p2': {
+    en: 'Hanoians had loved it long before.',
+    vn: 'Người Hà Nội đã yêu thích nó từ lâu trước đó.',
+    zh: '河内人早就爱上这道菜了。'
+  },
+  'hanoi-bun-cha-p3': {
+    en: 'Bun cha consists of:',
+    vn: 'Bún chả gồm:',
+    zh: '烤肉米粉包含：'
+  },
+  'hanoi-bun-cha-li1': {
+    en: 'Grilled pork',
+    vn: 'Thịt heo nướng',
+    zh: '烤猪肉'
+  },
+  'hanoi-bun-cha-li2': {
+    en: 'Rice noodles',
+    vn: 'Bún',
+    zh: '米粉'
+  },
+  'hanoi-bun-cha-li3': {
+    en: 'Fresh herbs',
+    vn: 'Rau thơm tươi',
+    zh: '新鲜香草'
+  },
+  'hanoi-bun-cha-li4': {
+    en: 'Dipping sauce',
+    vn: 'Nước chấm',
+    zh: '蘸酱'
+  },
+  'hanoi-bun-cha-li5': {
+    en: 'Fried spring rolls in some restaurants',
+    vn: 'Chả giò trong một số nhà hàng',
+    zh: '一些餐厅会配炸春卷'
+  },
+  'hanoi-bun-cha-p4': {
+    en: 'The pork is grilled over charcoal, giving it a smoky flavor that mixes beautifully with the sweet and savory dipping broth.',
+    vn: 'Thịt được nướng trên than, tạo nên hương vị khói hòa quyện tuyệt vời với nước chấm chua ngọt.',
+    zh: '猪肉在炭火上烤制，赋予其烟熏风味，与酸甜蘸酱完美融合。'
+  },
+  'hanoi-bun-cha-p5': {
+    en: 'Unlike pho, which is commonly eaten in the morning, bun cha is traditionally a lunch dish.',
+    vn: 'Khác với phở thường được ăn vào buổi sáng, bún chả theo truyền thống là món ăn trưa.',
+    zh: '与通常早上吃的河粉不同，烤肉米粉传统上是午餐。'
+  },
+  'hanoi-bun-cha-p6': {
+    en: 'Around noon, many bun cha restaurants become crowded with office workers.',
+    vn: 'Khoảng trưa, nhiều quán bún chả trở nên đông đúc với dân văn phòng.',
+    zh: '中午时分，许多烤肉米粉店挤满了上班族。'
+  },
+  'hanoi-bun-cha-p7': {
+    en: 'The meal is simple: Dip the noodles into the bowl, add herbs, eat the grilled pork, and enjoy everything together.',
+    vn: 'Bữa ăn rất đơn giản: Nhúng bún vào bát, thêm rau thơm, ăn thịt nướng và thưởng thức tất cả cùng nhau.',
+    zh: '吃法很简单：将米粉蘸入碗中，加入香草，吃烤猪肉，一起享用。'
+  },
+  'hanoi-bun-cha-p8': {
+    en: 'For many visitors, bun cha becomes their favorite meal in Hanoi.',
+    vn: 'Đối với nhiều du khách, bún chả trở thành bữa ăn yêu thích của họ ở Hà Nội.',
+    zh: '对许多游客来说，烤肉米粉成为他们在河内最喜欢的食物。'
+  },
+
+  // Banh Mi
+  'hanoi-banh-mi-title': {
+    en: '3. Banh Mi: Vietnam\'s Famous Sandwich',
+    vn: '3. Bánh Mì: Bánh Sandwich Nổi Tiếng Việt Nam',
+    zh: '3. 越南法棍：越南著名的三明治'
+  },
+  'hanoi-banh-mi-p1': {
+    en: 'Banh mi may have French origins, but today it is completely Vietnamese.',
+    vn: 'Bánh mì có nguồn gốc từ Pháp, nhưng ngày nay nó hoàn toàn là của Việt Nam.',
+    zh: '越南法棍可能起源于法国，但今天它完全是越南的了。'
+  },
+  'hanoi-banh-mi-p2': {
+    en: 'The bread is lighter than a French baguette and has an incredibly crispy crust.',
+    vn: 'Bánh mì nhẹ hơn bánh mì Pháp và có lớp vỏ giòn tan.',
+    zh: '面包比法式长棍面包更轻，有令人难以置信的酥脆外皮。'
+  },
+  'hanoi-banh-mi-p3': {
+    en: 'Inside you might find:',
+    vn: 'Bên trong bạn có thể tìm thấy:',
+    zh: '里面可能有：'
+  },
+  'hanoi-banh-mi-li1': {
+    en: 'Grilled pork',
+    vn: 'Thịt heo nướng',
+    zh: '烤猪肉'
+  },
+  'hanoi-banh-mi-li2': {
+    en: 'Pâté',
+    vn: 'Pâté',
+    zh: '肉酱'
+  },
+  'hanoi-banh-mi-li3': {
+    en: 'Eggs',
+    vn: 'Trứng',
+    zh: '鸡蛋'
+  },
+  'hanoi-banh-mi-li4': {
+    en: 'Pickled vegetables',
+    vn: 'Đồ chua',
+    zh: '腌菜'
+  },
+  'hanoi-banh-mi-li5': {
+    en: 'Fresh herbs',
+    vn: 'Rau thơm tươi',
+    zh: '新鲜香草'
+  },
+  'hanoi-banh-mi-li6': {
+    en: 'Chili sauce',
+    vn: 'Tương ớt',
+    zh: '辣椒酱'
+  },
+  'hanoi-banh-mi-li7': {
+    en: 'Cucumber',
+    vn: 'Dưa chuột',
+    zh: '黄瓜'
+  },
+  'hanoi-banh-mi-p4': {
+    en: 'Every shop makes it differently.',
+    vn: 'Mỗi cửa hàng làm bánh mì khác nhau.',
+    zh: '每家店的做法都不同。'
+  },
+  'hanoi-banh-mi-p5': {
+    en: 'Some are simple street stalls. Others specialize in one filling.',
+    vn: 'Một số là quầy hàng đơn giản. Một số khác chuyên về một loại nhân.',
+    zh: '有些是简单的街边摊位。有些则专注于一种馅料。'
+  },
+  'hanoi-banh-mi-p6': {
+    en: 'A banh mi is perfect when:',
+    vn: 'Bánh mì là lựa chọn hoàn hảo khi:',
+    zh: '越南法棍在以下情况下是完美的选择：'
+  },
+  'hanoi-banh-mi-li8': {
+    en: 'You need a quick meal',
+    vn: 'Bạn cần một bữa ăn nhanh',
+    zh: '你需要一顿快餐'
+  },
+  'hanoi-banh-mi-li9': {
+    en: 'You are exploring the Old Quarter',
+    vn: 'Bạn đang khám phá Phố Cổ',
+    zh: '你在探索老城区'
+  },
+  'hanoi-banh-mi-li10': {
+    en: 'You want breakfast on the go',
+    vn: 'Bạn muốn ăn sáng mang đi',
+    zh: '你想吃随身早餐'
+  },
+  'hanoi-banh-mi-li11': {
+    en: 'You want something inexpensive',
+    vn: 'Bạn muốn một món ăn giá rẻ',
+    zh: '你想吃价格实惠的东西'
+  },
+  'hanoi-banh-mi-p7': {
+    en: 'Many travelers end up eating banh mi several times during their trip because it is convenient, affordable, and delicious.',
+    vn: 'Nhiều du khách ăn bánh mì nhiều lần trong chuyến đi vì nó tiện lợi, giá cả phải chăng và ngon miệng.',
+    zh: '许多旅行者在旅途中会多次吃越南法棍，因为它方便、实惠又美味。'
+  },
+
+  // Egg Coffee
+  'hanoi-egg-coffee-title': {
+    en: '4. Egg Coffee: Hanoi\'s Most Famous Drink',
+    vn: '4. Cà Phê Trứng: Đồ Uống Nổi Tiếng Nhất Hà Nội',
+    zh: '4. 蛋咖啡：河内最著名的饮品'
+  },
+  'hanoi-egg-coffee-p1': {
+    en: 'Egg coffee sounds strange the first time you hear about it.',
+    vn: 'Cà phê trứng nghe có vẻ lạ lần đầu tiên bạn nghe về nó.',
+    zh: '蛋咖啡第一次听说时听起来很奇怪。'
+  },
+  'hanoi-egg-coffee-p2': {
+    en: 'Coffee and egg?',
+    vn: 'Cà phê và trứng?',
+    zh: '咖啡和鸡蛋？'
+  },
+  'hanoi-egg-coffee-p3': {
+    en: 'But once you try it, the idea makes more sense.',
+    vn: 'Nhưng một khi bạn thử, ý tưởng đó trở nên hợp lý hơn.',
+    zh: '但一旦你尝试了，这个想法就变得合理了。'
+  },
+  'hanoi-egg-coffee-p4': {
+    en: 'The drink was created in Hanoi decades ago when milk was difficult to obtain.',
+    vn: 'Đồ uống này được tạo ra ở Hà Nội hàng chục năm trước khi sữa khó kiếm.',
+    zh: '这种饮料是几十年前在河内创造的，当时牛奶很难获得。'
+  },
+  'hanoi-egg-coffee-p5': {
+    en: 'Instead, egg yolk was whipped with sugar to create a creamy topping.',
+    vn: 'Thay vào đó, lòng đỏ trứng được đánh với đường để tạo lớp kem phủ.',
+    zh: '相反，蛋黄与糖一起打发，制成奶油状的顶层。'
+  },
+  'hanoi-egg-coffee-p6': {
+    en: 'Today, egg coffee combines:',
+    vn: 'Ngày nay, cà phê trứng kết hợp:',
+    zh: '如今，蛋咖啡结合了：'
+  },
+  'hanoi-egg-coffee-li1': {
+    en: 'Strong Vietnamese coffee',
+    vn: 'Cà phê Việt Nam đậm đặc',
+    zh: '浓郁的越南咖啡'
+  },
+  'hanoi-egg-coffee-li2': {
+    en: 'Whipped egg cream',
+    vn: 'Kem trứng đánh bông',
+    zh: '打发的蛋奶霜'
+  },
+  'hanoi-egg-coffee-li3': {
+    en: 'Sweetness',
+    vn: 'Vị ngọt',
+    zh: '甜味'
+  },
+  'hanoi-egg-coffee-li4': {
+    en: 'Rich texture',
+    vn: 'Kết cấu béo ngậy',
+    zh: '浓郁的口感'
+  },
+  'hanoi-egg-coffee-p7': {
+    en: 'The result tastes almost like coffee and dessert combined.',
+    vn: 'Kết quả có vị gần như sự kết hợp giữa cà phê và món tráng miệng.',
+    zh: '结果尝起来几乎像咖啡和甜点的结合。'
+  },
+  'hanoi-egg-coffee-p8': {
+    en: 'Some visitors love it immediately. Others prefer traditional Vietnamese coffee.',
+    vn: 'Một số du khách yêu thích nó ngay lập tức. Những người khác thích cà phê truyền thống Việt Nam.',
+    zh: '有些游客立刻爱上了它。其他人则更喜欢传统的越南咖啡。'
+  },
+  'hanoi-egg-coffee-p9': {
+    en: 'Either way, it is worth trying at least once.',
+    vn: 'Dù thế nào, nó cũng đáng để thử ít nhất một lần.',
+    zh: '无论如何，至少值得尝试一次。'
+  },
+  'hanoi-egg-coffee-p10': {
+    en: 'The experience often matters as much as the flavor.',
+    vn: 'Trải nghiệm thường quan trọng không kém hương vị.',
+    zh: '体验往往和味道一样重要。'
+  },
+  'hanoi-egg-coffee-p11': {
+    en: 'Many egg coffee cafés are located inside old buildings, hidden courtyards, or upper floors overlooking the city.',
+    vn: 'Nhiều quán cà phê trứng nằm bên trong các tòa nhà cũ, sân trong ẩn mình hoặc tầng trên cao nhìn ra thành phố.',
+    zh: '许多蛋咖啡店位于老建筑内、隐藏的庭院中或俯瞰城市的楼上。'
+  },
+
+  // Bun Bo Nam Bo
+  'hanoi-bun-bo-title': {
+    en: '5. Bun Bo Nam Bo',
+    vn: '5. Bún Bò Nam Bộ',
+    zh: '5. 南部牛肉米粉'
+  },
+  'hanoi-bun-bo-p1': {
+    en: 'Despite the name, this dish is a Hanoi specialty.',
+    vn: 'Mặc dù tên gọi, món ăn này là đặc sản của Hà Nội.',
+    zh: '尽管名字如此，这道菜是河内特色。'
+  },
+  'hanoi-bun-bo-p2': {
+    en: 'Bun bo Nam Bo contains:',
+    vn: 'Bún bò Nam Bộ gồm:',
+    zh: '南部牛肉米粉包含：'
+  },
+  'hanoi-bun-bo-li1': {
+    en: 'Rice noodles',
+    vn: 'Bún',
+    zh: '米粉'
+  },
+  'hanoi-bun-bo-li2': {
+    en: 'Stir-fried beef',
+    vn: 'Thịt bò xào',
+    zh: '炒牛肉'
+  },
+  'hanoi-bun-bo-li3': {
+    en: 'Peanuts',
+    vn: 'Đậu phộng',
+    zh: '花生'
+  },
+  'hanoi-bun-bo-li4': {
+    en: 'Fresh herbs',
+    vn: 'Rau thơm tươi',
+    zh: '新鲜香草'
+  },
+  'hanoi-bun-bo-li5': {
+    en: 'Pickled vegetables',
+    vn: 'Đồ chua',
+    zh: '腌菜'
+  },
+  'hanoi-bun-bo-li6': {
+    en: 'Fish sauce dressing',
+    vn: 'Nước mắm pha',
+    zh: '鱼露调料'
+  },
+  'hanoi-bun-bo-p3': {
+    en: 'Unlike pho, there is no broth.',
+    vn: 'Khác với phở, món này không có nước dùng.',
+    zh: '与河粉不同，这道菜没有汤。'
+  },
+  'hanoi-bun-bo-p4': {
+    en: 'Everything is mixed together before eating.',
+    vn: 'Tất cả được trộn đều trước khi ăn.',
+    zh: '所有食材在食用前混合在一起。'
+  },
+  'hanoi-bun-bo-p5': {
+    en: 'The combination of warm beef, fresh herbs, crunchy peanuts, and noodles creates a balanced meal that many visitors find easier to eat during hot weather.',
+    vn: 'Sự kết hợp giữa thịt bò ấm nóng, rau thơm tươi, đậu phộng giòn và bún tạo nên một bữa ăn cân bằng mà nhiều du khách thấy dễ ăn hơn trong thời tiết nóng.',
+    zh: '热牛肉、新鲜香草、脆花生和米粉的组合创造了一顿平衡的餐食，许多游客发现在炎热的天气里更容易享用。'
+  },
+  'hanoi-bun-bo-p6': {
+    en: 'It is especially popular at lunchtime.',
+    vn: 'Món này đặc biệt phổ biến vào giờ ăn trưa.',
+    zh: '它在午餐时间特别受欢迎。'
+  },
+
+  // Cha Ca
+  'hanoi-cha-ca-title': {
+    en: '6. Cha Ca: One of Hanoi\'s Historic Dishes',
+    vn: '6. Chả Cá: Một Trong Những Món Ăn Lịch Sử Của Hà Nội',
+    zh: '6. 煎鱼饼：河内的历史名菜之一'
+  },
+  'hanoi-cha-ca-p1': {
+    en: 'Cha ca has been associated with Hanoi for more than a century.',
+    vn: 'Chả cá đã gắn liền với Hà Nội hơn một thế kỷ.',
+    zh: '煎鱼饼与河内已有超过一个世纪的联系。'
+  },
+  'hanoi-cha-ca-p2': {
+    en: 'The dish features:',
+    vn: 'Món ăn bao gồm:',
+    zh: '这道菜包含：'
+  },
+  'hanoi-cha-ca-li1': {
+    en: 'Turmeric-marinated fish',
+    vn: 'Cá ướp nghệ',
+    zh: '姜黄腌制鱼'
+  },
+  'hanoi-cha-ca-li2': {
+    en: 'Dill',
+    vn: 'Thì là',
+    zh: '莳萝'
+  },
+  'hanoi-cha-ca-li3': {
+    en: 'Green onions',
+    vn: 'Hành lá',
+    zh: '葱花'
+  },
+  'hanoi-cha-ca-li4': {
+    en: 'Rice noodles',
+    vn: 'Bún',
+    zh: '米粉'
+  },
+  'hanoi-cha-ca-li5': {
+    en: 'Peanuts',
+    vn: 'Đậu phộng',
+    zh: '花生'
+  },
+  'hanoi-cha-ca-li6': {
+    en: 'Shrimp paste sauce',
+    vn: 'Mắm tôm',
+    zh: '虾酱'
+  },
+  'hanoi-cha-ca-p3': {
+    en: 'The fish is often cooked directly at your table.',
+    vn: 'Cá thường được nấu ngay tại bàn của bạn.',
+    zh: '鱼通常在您的餐桌上直接烹制。'
+  },
+  'hanoi-cha-ca-p4': {
+    en: 'The aroma of dill and turmeric fills the room.',
+    vn: 'Mùi thơm của thì là và nghệ tràn ngập căn phòng.',
+    zh: '莳萝和姜黄的香气充满整个房间。'
+  },
+  'hanoi-cha-ca-p5': {
+    en: 'For visitors, cha ca feels different from many other Vietnamese dishes because the cooking itself becomes part of the experience.',
+    vn: 'Đối với du khách, chả cá có cảm giác khác với nhiều món ăn Việt Nam khác vì quá trình nấu nướng tự nó trở thành một phần của trải nghiệm.',
+    zh: '对于游客来说，煎鱼饼的感觉不同于许多其他越南菜，因为烹饪本身就成为体验的一部分。'
+  },
+
+  // Banh Cuon
+  'hanoi-banh-cuon-title': {
+    en: '7. Banh Cuon',
+    vn: '7. Bánh Cuốn',
+    zh: '7. 越南蒸粉卷'
+  },
+  'hanoi-banh-cuon-p1': {
+    en: 'Banh cuon is one of Hanoi\'s most underrated breakfast dishes.',
+    vn: 'Bánh cuốn là một trong những món ăn sáng bị đánh giá thấp nhất ở Hà Nội.',
+    zh: '越南蒸粉卷是河内最被低估的早餐之一。'
+  },
+  'hanoi-banh-cuon-p2': {
+    en: 'Thin rice sheets are steamed and filled with:',
+    vn: 'Bánh tráng mỏng được hấp và cuốn với nhân:',
+    zh: '薄米皮蒸熟后填入：'
+  },
+  'hanoi-banh-cuon-li1': {
+    en: 'Ground pork',
+    vn: 'Thịt heo băm',
+    zh: '猪肉末'
+  },
+  'hanoi-banh-cuon-li2': {
+    en: 'Mushrooms',
+    vn: 'Nấm',
+    zh: '蘑菇'
+  },
+  'hanoi-banh-cuon-li3': {
+    en: 'Shallots',
+    vn: 'Hành tím',
+    zh: '红葱头'
+  },
+  'hanoi-banh-cuon-p3': {
+    en: 'They are served with:',
+    vn: 'Chúng được phục vụ cùng:',
+    zh: '配上：'
+  },
+  'hanoi-banh-cuon-li4': {
+    en: 'Fish sauce',
+    vn: 'Nước mắm',
+    zh: '鱼露'
+  },
+  'hanoi-banh-cuon-li5': {
+    en: 'Fresh herbs',
+    vn: 'Rau thơm tươi',
+    zh: '新鲜香草'
+  },
+  'hanoi-banh-cuon-li6': {
+    en: 'Fried shallots',
+    vn: 'Hành phi',
+    zh: '炸红葱'
+  },
+  'hanoi-banh-cuon-li7': {
+    en: 'Vietnamese sausage',
+    vn: 'Chả lụa',
+    zh: '越南香肠'
+  },
+  'hanoi-banh-cuon-p4': {
+    en: 'The texture is incredibly soft.',
+    vn: 'Kết cấu vô cùng mềm mại.',
+    zh: '口感非常柔软。'
+  },
+  'hanoi-banh-cuon-p5': {
+    en: 'Many visitors never discover banh cuon because it receives less international attention than pho.',
+    vn: 'Nhiều du khách không bao giờ khám phá bánh cuốn vì nó nhận được ít sự chú ý quốc tế hơn phở.',
+    zh: '许多游客从未发现越南蒸粉卷，因为它比河粉受到的国际关注要少。'
+  },
+  'hanoi-banh-cuon-p6': {
+    en: 'Locals know otherwise.',
+    vn: 'Người dân địa phương biết điều ngược lại.',
+    zh: '当地人知道它的好。'
+  },
+
+  // Xoi
+  'hanoi-xoi-title': {
+    en: '8. Xoi: Sticky Rice for Breakfast',
+    vn: '8. Xôi: Món Xôi Cho Bữa Sáng',
+    zh: '8. 糯米饭：早餐的糯米饭'
+  },
+  'hanoi-xoi-p1': {
+    en: 'Sticky rice is a common breakfast throughout Vietnam.',
+    vn: 'Xôi là món ăn sáng phổ biến trên khắp Việt Nam.',
+    zh: '糯米饭是越南各地常见的早餐。'
+  },
+  'hanoi-xoi-p2': {
+    en: 'In Hanoi, xoi vendors appear very early in the morning.',
+    vn: 'Ở Hà Nội, những người bán xôi xuất hiện từ rất sớm.',
+    zh: '在河内，卖糯米饭的摊贩很早就出现了。'
+  },
+  'hanoi-xoi-p3': {
+    en: 'Popular toppings include:',
+    vn: 'Các loại topping phổ biến gồm:',
+    zh: '常见的配料包括：'
+  },
+  'hanoi-xoi-li1': {
+    en: 'Chicken',
+    vn: 'Gà',
+    zh: '鸡肉'
+  },
+  'hanoi-xoi-li2': {
+    en: 'Pork floss',
+    vn: 'Chà bông',
+    zh: '猪肉松'
+  },
+  'hanoi-xoi-li3': {
+    en: 'Mung beans',
+    vn: 'Đậu xanh',
+    zh: '绿豆'
+  },
+  'hanoi-xoi-li4': {
+    en: 'Fried shallots',
+    vn: 'Hành phi',
+    zh: '炸红葱'
+  },
+  'hanoi-xoi-li5': {
+    en: 'Eggs',
+    vn: 'Trứng',
+    zh: '鸡蛋'
+  },
+  'hanoi-xoi-p4': {
+    en: 'It is inexpensive, filling, and easy to carry.',
+    vn: 'Nó rẻ, no và dễ mang theo.',
+    zh: '它价格便宜、饱腹且易于携带。'
+  },
+  'hanoi-xoi-p5': {
+    en: 'Many office workers grab xoi on their way to work.',
+    vn: 'Nhiều nhân viên văn phòng mua xôi trên đường đi làm.',
+    zh: '许多上班族在上班路上买糯米饭。'
+  },
+
+  // Nem Ran
+  'hanoi-nem-ran-title': {
+    en: '9. Nem Ran: Northern Spring Rolls',
+    vn: '9. Nem Rán: Chả Giò Miền Bắc',
+    zh: '9. 炸春卷：北方春卷'
+  },
+  'hanoi-nem-ran-p1': {
+    en: 'These crispy fried spring rolls are often called Vietnamese spring rolls.',
+    vn: 'Những cuốn chả giò chiên giòn này thường được gọi là chả giò Việt Nam.',
+    zh: '这些酥脆的炸春卷通常被称为越南春卷。'
+  },
+  'hanoi-nem-ran-p2': {
+    en: 'The northern version usually contains:',
+    vn: 'Phiên bản miền Bắc thường chứa:',
+    zh: '北方版本通常包含：'
+  },
+  'hanoi-nem-ran-li1': {
+    en: 'Pork',
+    vn: 'Thịt heo',
+    zh: '猪肉'
+  },
+  'hanoi-nem-ran-li2': {
+    en: 'Mushrooms',
+    vn: 'Nấm',
+    zh: '蘑菇'
+  },
+  'hanoi-nem-ran-li3': {
+    en: 'Vermicelli',
+    vn: 'Miến',
+    zh: '粉丝'
+  },
+  'hanoi-nem-ran-li4': {
+    en: 'Vegetables',
+    vn: 'Rau củ',
+    zh: '蔬菜'
+  },
+  'hanoi-nem-ran-p3': {
+    en: 'They are wrapped in rice paper and fried until golden.',
+    vn: 'Chúng được cuốn trong bánh tráng và chiên đến khi vàng giòn.',
+    zh: '它们用米纸包裹，炸至金黄色。'
+  },
+  'hanoi-nem-ran-p4': {
+    en: 'Nem ran is commonly served during family gatherings and celebrations.',
+    vn: 'Nem rán thường được phục vụ trong các bữa tiệc gia đình và lễ kỷ niệm.',
+    zh: '炸春卷通常在家庭聚会和庆祝活动中出现。'
+  },
+  'hanoi-nem-ran-p5': {
+    en: 'Many restaurants serve them alongside bun cha.',
+    vn: 'Nhiều nhà hàng phục vụ chúng kèm với bún chả.',
+    zh: '许多餐厅将它们与烤肉米粉一起供应。'
+  },
+
+  // Bun Rieu
+  'hanoi-bun-rieu-title': {
+    en: '10. Bun Rieu',
+    vn: '10. Bún Riêu',
+    zh: '10. 蟹汤粉'
+  },
+  'hanoi-bun-rieu-p1': {
+    en: 'Bun rieu is a tomato-based noodle soup.',
+    vn: 'Bún riêu là món súp bún nấu với cà chua.',
+    zh: '蟹汤粉是一种以番茄为基础的米粉汤。'
+  },
+  'hanoi-bun-rieu-p2': {
+    en: 'The broth has a slightly sour flavor and often contains:',
+    vn: 'Nước dùng có vị chua nhẹ và thường chứa:',
+    zh: '汤底有微酸的味道，通常包含：'
+  },
+  'hanoi-bun-rieu-li1': {
+    en: 'Crab',
+    vn: 'Cua',
+    zh: '螃蟹'
+  },
+  'hanoi-bun-rieu-li2': {
+    en: 'Tofu',
+    vn: 'Đậu phụ',
+    zh: '豆腐'
+  },
+  'hanoi-bun-rieu-li3': {
+    en: 'Tomatoes',
+    vn: 'Cà chua',
+    zh: '番茄'
+  },
+  'hanoi-bun-rieu-li4': {
+    en: 'Rice noodles',
+    vn: 'Bún',
+    zh: '米粉'
+  },
+  'hanoi-bun-rieu-li5': {
+    en: 'Herbs',
+    vn: 'Rau thơm',
+    zh: '香草'
+  },
+  'hanoi-bun-rieu-p3': {
+    en: 'The flavor is completely different from pho.',
+    vn: 'Hương vị hoàn toàn khác so với phở.',
+    zh: '味道完全不同于河粉。'
+  },
+  'hanoi-bun-rieu-p4': {
+    en: 'Some travelers actually prefer it.',
+    vn: 'Một số du khách thực sự thích nó hơn.',
+    zh: '有些游客实际上更喜欢它。'
+  },
+
+  // Street Food Etiquette
+  'hanoi-etiquette-title': {
+    en: 'Street Food Etiquette in Hanoi',
+    vn: 'Nghi Thức Ẩm Thực Đường Phố Ở Hà Nội',
+    zh: '河内街头美食礼仪'
+  },
+  'hanoi-etiquette-p1': {
+    en: 'Eating in Hanoi can feel different if it is your first time.',
+    vn: 'Ăn uống ở Hà Nội có thể có cảm giác khác nếu bạn lần đầu đến.',
+    zh: '如果你是第一次来河内，在这里吃饭可能会有不同的感觉。'
+  },
+  'hanoi-etiquette-p2': {
+    en: 'Some things to remember:',
+    vn: 'Một số điều cần nhớ:',
+    zh: '一些需要记住的事情：'
+  },
+  'hanoi-etiquette-li1': {
+    en: 'Small stools are normal',
+    vn: 'Ghế nhựa nhỏ là bình thường',
+    zh: '小塑料凳是正常的'
+  },
+  'hanoi-etiquette-li2': {
+    en: 'Shared tables are common',
+    vn: 'Bàn ăn chung là phổ biến',
+    zh: '拼桌很常见'
+  },
+  'hanoi-etiquette-li3': {
+    en: 'Menus may be limited',
+    vn: 'Thực đơn có thể hạn chế',
+    zh: '菜单可能有限'
+  },
+  'hanoi-etiquette-li4': {
+    en: 'Cash is sometimes preferred',
+    vn: 'Tiền mặt đôi khi được ưu tiên',
+    zh: '有时更倾向于现金支付'
+  },
+  'hanoi-etiquette-li5': {
+    en: 'Local restaurants often specialize in one dish',
+    vn: 'Nhà hàng địa phương thường chuyên về một món ăn',
+    zh: '当地餐厅通常专营一道菜'
+  },
+  'hanoi-etiquette-p3': {
+    en: 'If a restaurant only serves one thing, that is usually a good sign.',
+    vn: 'Nếu một nhà hàng chỉ phục vụ một món, đó thường là dấu hiệu tốt.',
+    zh: '如果一家餐厅只卖一样东西，那通常是个好兆头。'
+  },
+
+  // Is Street Food Safe?
+  'hanoi-safe-title': {
+    en: 'Is Street Food Safe?',
+    vn: 'Đồ Ăn Đường Phố Có An Toàn Không?',
+    zh: '街头食品安全吗？'
+  },
+  'hanoi-safe-p1': {
+    en: 'This is one of the most common questions.',
+    vn: 'Đây là một trong những câu hỏi phổ biến nhất.',
+    zh: '这是最常见的问题之一。'
+  },
+  'hanoi-safe-p2': {
+    en: 'In general:',
+    vn: 'Nhìn chung:',
+    zh: '一般来说：'
+  },
+  'hanoi-safe-li1': {
+    en: 'Busy restaurants are safer',
+    vn: 'Nhà hàng đông khách an toàn hơn',
+    zh: '繁忙的餐厅更安全'
+  },
+  'hanoi-safe-li2': {
+    en: 'Freshly cooked food is best',
+    vn: 'Đồ ăn mới nấu là tốt nhất',
+    zh: '新鲜烹制的食物最好'
+  },
+  'hanoi-safe-li3': {
+    en: 'Popular local shops usually have high turnover',
+    vn: 'Các cửa hàng địa phương nổi tiếng thường có lượng khách cao',
+    zh: '受欢迎的本地店铺通常周转快'
+  },
+  'hanoi-safe-li4': {
+    en: 'Bottled water is widely available',
+    vn: 'Nước đóng chai có sẵn rộng rãi',
+    zh: '瓶装水随处可见'
+  },
+  'hanoi-safe-p3': {
+    en: 'Many travelers eat street food throughout their stay without problems.',
+    vn: 'Nhiều du khách ăn đồ ăn đường phố trong suốt thời gian lưu trú mà không gặp vấn đề gì.',
+    zh: '许多旅行者在整个住宿期间都在吃街头食品，没有遇到任何问题。'
+  },
+  'hanoi-safe-p4': {
+    en: 'Trust your instincts.',
+    vn: 'Hãy tin vào bản năng của bạn.',
+    zh: '相信你的直觉。'
+  },
+  'hanoi-safe-p5': {
+    en: 'If a place looks busy and locals are eating there, it is usually a good sign.',
+    vn: 'Nếu một nơi trông đông đúc và người địa phương đang ăn ở đó, đó thường là dấu hiệu tốt.',
+    zh: '如果一家店看起来很忙，而且当地人都在那里吃，那通常是个好兆头。'
+  },
+
+  // Morning vs Evening
+  'hanoi-morning-title': {
+    en: 'Morning Food vs Evening Food',
+    vn: 'Đồ Ăn Sáng Và Đồ Ăn Tối',
+    zh: '早餐与晚餐'
+  },
+  'hanoi-morning-label': {
+    en: 'Morning:',
+    vn: 'Buổi sáng:',
+    zh: '早餐：'
+  },
+  'hanoi-morning-1': {
+    en: 'Pho',
+    vn: 'Phở',
+    zh: '河粉'
+  },
+  'hanoi-morning-2': {
+    en: 'Xoi',
+    vn: 'Xôi',
+    zh: '糯米饭'
+  },
+  'hanoi-morning-3': {
+    en: 'Banh cuon',
+    vn: 'Bánh cuốn',
+    zh: '蒸粉卷'
+  },
+  'hanoi-morning-4': {
+    en: 'Coffee',
+    vn: 'Cà phê',
+    zh: '咖啡'
+  },
+  'hanoi-lunch-label': {
+    en: 'Lunch:',
+    vn: 'Buổi trưa:',
+    zh: '午餐：'
+  },
+  'hanoi-lunch-1': {
+    en: 'Bun cha',
+    vn: 'Bún chả',
+    zh: '烤肉米粉'
+  },
+  'hanoi-lunch-2': {
+    en: 'Bun bo Nam Bo',
+    vn: 'Bún bò Nam Bộ',
+    zh: '南部牛肉米粉'
+  },
+  'hanoi-evening-label': {
+    en: 'Evening:',
+    vn: 'Buổi tối:',
+    zh: '晚餐：'
+  },
+  'hanoi-evening-1': {
+    en: 'Grilled dishes',
+    vn: 'Món nướng',
+    zh: '烧烤菜肴'
+  },
+  'hanoi-evening-2': {
+    en: 'Street food',
+    vn: 'Đồ ăn đường phố',
+    zh: '街头小吃'
+  },
+  'hanoi-evening-3': {
+    en: 'Beer snacks',
+    vn: 'Đồ nhậu',
+    zh: '啤酒小吃'
+  },
+  'hanoi-evening-4': {
+    en: 'Desserts',
+    vn: 'Tráng miệng',
+    zh: '甜点'
+  },
+  'hanoi-morning-p': {
+    en: 'Hanoi changes throughout the day, and so does its food.',
+    vn: 'Hà Nội thay đổi suốt cả ngày, và ẩm thực cũng vậy.',
+    zh: '河内一天中不断变化，美食也是如此。'
+  },
+
+  // FAQ - Already exists in your lang.js, but adding if missing
+  'faq-q-hanoi-food': {
+    en: 'What food is Hanoi famous for?',
+    vn: 'Hà Nội nổi tiếng với món ăn gì?',
+    zh: '河内以什么美食闻名？'
+  },
+  'faq-a-hanoi-food': {
+    en: 'Pho, bun cha, egg coffee, cha ca, and banh cuon are among Hanoi\'s most famous dishes.',
+    vn: 'Phở, bún chả, cà phê trứng, chả cá và bánh cuốn là những món ăn nổi tiếng nhất của Hà Nội.',
+    zh: '河粉、烤肉米粉、蛋咖啡、煎鱼饼和蒸粉卷是河内最著名的菜肴。'
+  },
+  'faq-q-hanoi-price': {
+    en: 'Is street food in Hanoi expensive?',
+    vn: 'Đồ ăn đường phố ở Hà Nội có đắt không?',
+    zh: '河内的街头食品贵吗？'
+  },
+  'faq-a-hanoi-price': {
+    en: 'No. Many local meals cost significantly less than restaurant meals in tourist areas.',
+    vn: 'Không. Nhiều bữa ăn địa phương có giá thấp hơn đáng kể so với nhà hàng ở khu du lịch.',
+    zh: '不贵。许多当地餐食的价格远低于旅游区的餐厅。'
+  },
+  'faq-q-hanoi-breakfast': {
+    en: 'What is the best breakfast in Hanoi?',
+    vn: 'Bữa sáng ngon nhất ở Hà Nội là gì?',
+    zh: '河内最好的早餐是什么？'
+  },
+  'faq-a-hanoi-breakfast': {
+    en: 'Pho and banh cuon are two of the most popular breakfast dishes.',
+    vn: 'Phở và bánh cuốn là hai trong những món ăn sáng phổ biến nhất.',
+    zh: '河粉和蒸粉卷是最受欢迎的两种早餐。'
+  },
+  'faq-q-hanoi-vegetarian': {
+    en: 'Is Hanoi good for vegetarians?',
+    vn: 'Hà Nội có phù hợp cho người ăn chay không?',
+    zh: '河内适合素食者吗？'
+  },
+  'faq-a-hanoi-vegetarian': {
+    en: 'It can be, although traditional cuisine uses fish sauce frequently. Vegetarian restaurants are becoming more common.',
+    vn: 'Có thể, mặc dù ẩm thực truyền thống thường sử dụng nước mắm. Nhà hàng chay đang trở nên phổ biến hơn.',
+    zh: '可以，尽管传统菜肴经常使用鱼露。素食餐厅正变得越来越普遍。'
+  },
+
+  // Final Thoughts
+  'hanoi-final-title': {
+    en: 'Final Thoughts',
+    vn: 'Lời Kết',
+    zh: '最后的话'
+  },
+  'hanoi-final-p1': {
+    en: 'You do not need to eat at famous restaurants to experience Hanoi.',
+    vn: 'Bạn không cần phải ăn ở những nhà hàng nổi tiếng để trải nghiệm Hà Nội.',
+    zh: '你不需要在著名的餐厅吃饭就能体验河内。'
+  },
+  'hanoi-final-p2': {
+    en: 'Some of the city\'s best meals come from:',
+    vn: 'Một số bữa ăn ngon nhất của thành phố đến từ:',
+    zh: '这座城市最好的美食来自：'
+  },
+  'hanoi-final-li1': {
+    en: 'Tiny family shops',
+    vn: 'Cửa hàng gia đình nhỏ',
+    zh: '小型家庭店铺'
+  },
+  'hanoi-final-li2': {
+    en: 'Sidewalk kitchens',
+    vn: 'Bếp vỉa hè',
+    zh: '人行道厨房'
+  },
+  'hanoi-final-li3': {
+    en: 'Hidden alleys',
+    vn: 'Ngõ nhỏ ẩn mình',
+    zh: '隐藏的小巷'
+  },
+  'hanoi-final-li4': {
+    en: 'Local markets',
+    vn: 'Chợ địa phương',
+    zh: '当地市场'
+  },
+  'hanoi-final-p3': {
+    en: 'The best approach is simple.',
+    vn: 'Cách tiếp cận tốt nhất rất đơn giản.',
+    zh: '最好的方法很简单。'
+  },
+  'hanoi-final-p4': {
+    en: 'Walk. Look for places filled with locals. Sit down. Order something. Try it.',
+    vn: 'Đi bộ. Tìm những nơi đông người địa phương. Ngồi xuống. Gọi món. Thử nó.',
+    zh: '走走。找当地人多的地方。坐下来。点些东西。尝一尝。'
+  },
+  'hanoi-final-p5': {
+    en: 'Food in Hanoi is not just about eating. It is one of the easiest ways to understand the city itself.',
+    vn: 'Ẩm thực ở Hà Nội không chỉ là ăn uống. Đó là một trong những cách dễ nhất để hiểu thành phố này.',
+    zh: '河内的美食不仅仅是吃。它是了解这座城市本身的最简单方式之一。'
+  },
+
+  // CTA
+  'hanoi-cta-title': {
+    en: '✨ Planning Your Trip to Hanoi?',
+    vn: '✨ Đang Lên Kế Hoạch Cho Chuyến Đi Hà Nội?',
+    zh: '✨ 正在计划你的河内之旅？'
+  },
+  'hanoi-cta-text': {
+    en: 'Book your stay directly with MiaCasa for the best rates — no platform fees, instant confirmation.',
+    vn: 'Đặt phòng trực tiếp với MiaCasa để có giá tốt nhất — không phí nền tảng, xác nhận ngay lập tức.',
+    zh: '直接通过MiaCasa预订您的住宿，享受最优价格 — 无平台费用，即时确认。'
+  },
+  'hanoi-cta-btn1': {
+    en: 'Check Availability →',
+    vn: 'Kiểm tra lịch trống →',
+    zh: '查看空房情况 →'
+  },
+  'hanoi-cta-btn2': {
+    en: 'Ask a Question on WhatsApp →',
+    vn: 'Đặt câu hỏi qua WhatsApp →',
+    zh: '通过WhatsApp提问 →'
+  },
+
+  // Related Posts
+  'hanoi-related-1': {
+    en: '3 Days in Hanoi Itinerary',
+    vn: 'Lịch Trình 3 Ngày Ở Hà Nội',
+    zh: '河内3日行程'
+  },
+  'hanoi-related-1-text': {
+    en: 'Complete travel guide',
+    vn: 'Hướng dẫn du lịch đầy đủ',
+    zh: '完整旅行指南'
+  },
+  'hanoi-related-2': {
+    en: 'Best Cafés in Hanoi',
+    vn: 'Quán Cà Phê Đẹp Nhất Hà Nội',
+    zh: '河内最佳咖啡馆'
+  },
+  'hanoi-related-2-text': {
+    en: 'For coffee, work & quiet mornings',
+    vn: 'Cho cà phê, làm việc & buổi sáng yên tĩnh',
+    zh: '适合咖啡、工作和安静早晨'
+  },
+  'hanoi-related-3': {
+    en: 'Where to Stay in Hanoi',
+    vn: 'Nên Ở Đâu Ở Hà Nội',
+    zh: '河内住宿推荐'
+  },
+  'hanoi-related-3-text': {
+    en: 'Old Quarter vs local areas',
+    vn: 'Phố Cổ hay khu địa phương',
+    zh: '老城区 vs 本地社区'
+  },
+  'hanoi-back': {
+    en: '← Back to all blog posts',
+    vn: '← Quay lại tất cả bài viết',
+    zh: '← 返回所有博客文章'
+  },
 'auto-index-001': {
   en:"Book Now",
   vn:"Đặt ngay",
