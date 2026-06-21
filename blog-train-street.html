@@ -102,6 +102,44 @@
   html[data-lang="en"] .en-only-inline { display: inline; }
   html[data-lang="vn"] .vn-only { display: block; }
   html[data-lang="vn"] .vn-only-inline { display: inline; }
+
+  /* Stay CTA Box */
+  .stay-cta-box {
+    background: #f5efe6;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    border: 2px solid #c17a5a;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .stay-cta-box .content { flex: 1; min-width: 200px; }
+  .stay-cta-box .badge { font-size: 0.75rem; color: #c17a5a; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .stay-cta-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #2c2416; margin: 0 0 0.25rem 0; }
+  .stay-cta-box p { font-size: 0.9rem; color: #6b5c47; margin: 0; }
+  .stay-cta-box ul { margin: 0.5rem 0 0 1.25rem; font-size: 0.85rem; color: #6b5c47; line-height: 1.6; }
+  .stay-cta-box .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .stay-cta-box .btn-primary-box { background: #c17a5a; color: white; padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: inline-block; border: 1px solid #c17a5a; transition: all 0.2s; white-space: nowrap; }
+  .stay-cta-box .btn-primary-box:hover { background: #a85e3e; border-color: #a85e3e; }
+  .stay-cta-box .btn-secondary-box { background: white; color: #c17a5a; padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: inline-block; border: 1px solid #c17a5a; transition: all 0.2s; white-space: nowrap; }
+  .stay-cta-box .btn-secondary-box:hover { background: #f5efe6; }
+
+  .location-highlight {
+    background: #f5efe6;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #c17a5a;
+  }
+  .location-highlight p { margin: 0; font-size: 0.95rem; color: #6b5c47; }
+  .location-highlight a { color: #c17a5a; text-decoration: underline; font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .stay-cta-box { padding: 1.25rem; flex-direction: column; align-items: stretch; }
+    .stay-cta-box .buttons { justify-content: center; }
+  }
 </style>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Train Street Hanoi: The Complete Visitor Guide (2026)", "description": "Complete guide to Train Street Hanoi: train times, safety tips, how to visit without crowds, and where to stay nearby.", "datePublished": "2025-10-05", "dateModified": "2026-05-01", "url": "https://miacasahanoi.com/blog-train-street", "author": {"@type": "Organization", "name": "MiaCasa Homestays", "url": "https://miacasahanoi.com"}, "publisher": {"@type": "Organization", "name": "MiaCasa Homestays", "url": "https://miacasahanoi.com"}, "image": "https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg"}</script>
@@ -173,7 +211,6 @@
       <p data-t="auto-blog-train-street-009">A narrow residential street. Homes just inches from the tracks. Cafés set up right beside them. And a train that passes through it all, just a few times each day.</p>
       <p data-t="auto-blog-train-street-010">It's not built for tourists—but that's exactly why people come.</p>
 
-      <!-- NEW: Extended introduction -->
       <p data-t="auto-blog-train-street-085">The allure of Train Street lies in its authenticity. It is not a theme park or a manufactured attraction; it is a living, breathing neighborhood where daily life continues in the shadow of a railway.</p>
 
       <h2 data-t="auto-blog-train-street-011">What is Train Street?</h2>
@@ -206,7 +243,7 @@
         <span data-t="auto-blog-train-street-028">👉 The best way to know the exact timing is simple: Ask a café owner when you arrive—they always have the most accurate information.</span>
       </div>
 
-      <h2 data-t="auto-blog-train-street-029">Where is Train Street?</h2>
+      <h2 data-t="auto-blog-train-street-029">📍 Where is Train Street?</h2>
       <p data-t="auto-blog-train-street-030">Train Street is located near Hanoi Railway Station, not far from the Old Quarter.</p>
       <p data-t="auto-blog-train-street-031">The most visited sections are along:</p>
       <ul>
@@ -214,7 +251,11 @@
         <li data-t="auto-blog-train-street-033">Phùng Hưng Street</li>
       </ul>
       <p data-t="auto-blog-train-street-088">The proximity to the Old Quarter makes it easy to incorporate a visit to Train Street into your Hanoi itinerary. Many travelers combine a visit with exploring the surrounding neighborhood, which is full of interesting cafés and local shops.</p>
-      <p><em data-th="auto-blog-train-street-034">📍 From <a href="/miacasa-hanoi" style="color: #c17a5a; text-decoration: underline;">MiaCasa Hanoi</a>, it's about a 5-minute walk. <a href="/?property=hanoi#booking" style="color: #c17a5a; text-decoration: underline;">Book Your Dates →</a></em></p>
+
+      <!-- UPDATED: More prominent location highlight -->
+      <div class="location-highlight">
+        <p data-th="auto-blog-train-street-034">📍 From <a href="/miacasa-hanoi">MiaCasa Hanoi</a>, it's about a <strong>5-minute walk</strong> to Train Street. <a href="/?property=hanoi#booking">Check availability →</a></p>
+      </div>
 
       <h2 data-t="auto-blog-train-street-035">How to visit Train Street safely</h2>
       <p data-t="auto-blog-train-street-036">This is not a controlled tourist attraction—it's an active railway. Therefore, safety should always be your top priority.</p>
@@ -261,14 +302,30 @@
       </ul>
       <p>The best time ultimately depends on your preference. If you want a quieter experience, go early in the morning. If you enjoy a lively atmosphere, visit in the evening.</p>
 
-      <h2 data-t="auto-blog-train-street-063">Staying near Train Street</h2>
-      <p data-t="auto-blog-train-street-064">If you want to visit easily, staying nearby makes a big difference.</p>
-      <p data-t="auto-blog-train-street-065">MiaCasa Hanoi is located in the Văn Miếu area, within walking distance of Train Street. This allows you to visit early or late, avoid crowds, and experience the area more naturally.</p>
-      <ul>
-        <li data-t="auto-blog-train-street-066">Visit early or late</li>
-        <li data-t="auto-blog-train-street-067">Avoid crowds</li>
-        <li data-t="auto-blog-train-street-068">Experience the area more naturally</li>
-      </ul>
+      <!-- UPDATED: Prominent Accommodation CTA Box -->
+      <h2 data-t="auto-blog-train-street-063">🏠 Where to Stay Near Train Street</h2>
+      <p data-t="auto-blog-train-street-064">If you want to visit Train Street easily, staying nearby makes a big difference. You can visit early in the morning or late in the evening to avoid the crowds, and experience the area at its most authentic.</p>
+
+      <div class="stay-cta-box">
+        <div class="content">
+          <div class="badge">📍 Best Location for Train Street</div>
+          <h3>MiaCasa Hanoi</h3>
+          <p data-t="auto-blog-train-street-065">Just a 5-minute walk from Train Street</p>
+          <ul>
+            <li>🚶 5-min walk to Train Street</li>
+            <li>🕐 Visit at 6am or 8pm to avoid crowds</li>
+            <li>🏠 Quiet residential neighborhood near Văn Miếu</li>
+          </ul>
+        </div>
+        <div class="buttons">
+          <a href="/miacasa-hanoi" class="btn-primary-box">📅 View Rooms →</a>
+          <a href="/?property=hanoi#booking" class="btn-secondary-box">Check Availability →</a>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: #6b5c47; margin: 0.5rem 0 0 0;">
+        <span data-t="auto-blog-train-street-066">💡 <strong>Pro tip:</strong> Many guests visit Train Street at 6am or 8pm to avoid crowds. Staying at MiaCasa Hanoi makes this easy — you're just minutes away.</span>
+      </p>
 
       <h2 data-t="auto-blog-train-street-069">Final thoughts</h2>
       <p data-t="auto-blog-train-street-070">Train Street is not just about the train.</p>
