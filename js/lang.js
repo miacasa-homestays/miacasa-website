@@ -2978,7 +2978,38 @@ const TRANSLATIONS = {
     vn: 'Lời Kết',
     zh: '最后的话'
   },
+  // ── BLOG - WHAT TO EAT IN HANOI - PROPERTY CTAs ──────────────────
 
+  'hanoi-cta-pho': {
+    en: '🍜 Want to wake up to pho at dawn? Stay at MiaCasa Hanoi — just a short walk from the best local pho spots.',
+    vn: '🍜 Muốn thức dậy với phở lúc bình minh? Ở tại MiaCasa Hà Nội — chỉ cách vài bước đến những quán phở ngon nhất.',
+    zh: '🍜 想清晨醒来就能吃到河粉？入住 MiaCasa Hanoi — 离最好的本地河粉店仅几步之遥。'
+  },
+  'hanoi-cta-egg-coffee': {
+    en: '☕ Start your morning with a hidden egg coffee experience. MiaCasa Hanoi is surrounded by the city\'s best cafés.',
+    vn: '☕ Bắt đầu buổi sáng với trải nghiệm cà phê trứng ẩn. MiaCasa Hà Nội được bao quanh bởi những quán cà phê ngon nhất thành phố.',
+    zh: '☕ 从隐藏的蛋咖啡体验开始你的早晨。MiaCasa Hanoi 周围环绕着城市最好的咖啡馆。'
+  },
+  'hanoi-cta-oq-food': {
+    en: '🏙️ Craving street food at every turn? MiaCasa Old Quarter puts you in the heart of Hanoi\'s food scene — walk to bún chả, bánh mì, and more.',
+    vn: '🏙️ Thèm đồ ăn đường phố mọi lúc? MiaCasa Phố Cổ đưa bạn vào trung tâm ẩm thực Hà Nội — đi bộ đến bún chả, bánh mì và hơn thế nữa.',
+    zh: '🏙️ 随时想吃街头美食？MiaCasa Old Quarter 将您置于河内美食中心 — 步行即可到达烤肉米粉、越南法棍等。'
+  },
+  'hanoi-cta-food-guide': {
+    en: '📍 Stay where the food is. Both properties are steps from Hanoi\'s best street food — choose your base and start eating.',
+    vn: '📍 住在美食中心。Cả hai chỗ nghỉ đều gần những món ăn đường phố ngon nhất Hà Nội — chọn nơi ở và bắt đầu thưởng thức.',
+    zh: '📍 住在美食中心。两处住宿都靠近河内最好的街头美食 — 选择您的基地，开始美食之旅。'
+  },
+  'hanoi-cta-explore': {
+    en: '✨ Explore both properties →',
+    vn: '✨ Khám phá cả hai chỗ nghỉ →',
+    zh: '✨ 探索两处住宿 →'
+  },
+  'hanoi-cta-book-food': {
+    en: '📅 Book your foodie stay →',
+    vn: '📅 Đặt phòng cho chuyến ăn uống của bạn →',
+    zh: '📅 预订您的美食之旅住宿 →'
+  },
   // Introduction
   'hanoi-intro-p1': {
     en: 'People often remember their first impression of Hanoi through food.',
