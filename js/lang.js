@@ -2861,9 +2861,9 @@ const TRANSLATIONS = {
 
   // Meta & Header
   'hanoi-food-title': {
-    en: 'What to Eat in Hanoi (2026): 15 Local Dishes You Shouldn\'t Miss | MiaCasa',
-    vn: 'Ăn Gì Ở Hà Nội (2026): 15 Món Ăn Địa Phương Không Thể Bỏ Lỡ | MiaCasa',
-    zh: '河内吃什么（2026）：15种不容错过的当地美食 | MiaCasa'
+    en: 'What to Eat in Hanoi (2026): 10 Local Dishes You Shouldn\'t Miss | MiaCasa',
+    vn: 'Ăn Gì Ở Hà Nội (2026): 10 Món Ăn Địa Phương Không Thể Bỏ Lỡ | MiaCasa',
+    zh: '河内吃什么（2026）：10种不容错过的当地美食 | MiaCasa'
   },
   'hanoi-food-category': {
     en: '🍜 HANOI FOOD GUIDE',
@@ -2871,9 +2871,9 @@ const TRANSLATIONS = {
     zh: '🍜 河内美食指南'
   },
   'hanoi-food-title-h1': {
-    en: 'What to Eat in Hanoi (2026): 15 Local Dishes You Shouldn\'t Miss',
-    vn: 'Ăn Gì Ở Hà Nội (2026): 15 Món Ăn Địa Phương Không Thể Bỏ Lỡ',
-    zh: '河内吃什么（2026）：15种不容错过的当地美食'
+    en: 'What to Eat in Hanoi (2026): 10 Local Dishes You Shouldn\'t Miss',
+    vn: 'Ăn Gì Ở Hà Nội (2026): 10 Món Ăn Địa Phương Không Thể Bỏ Lỡ',
+    zh: '河内吃什么（2026）：10种不容错过的当地美食'
   },
   'hanoi-food-subtitle': {
     en: 'A local food guide to Hanoi\'s street food, traditional dishes, and everyday meals.',
