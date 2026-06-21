@@ -2444,6 +2444,99 @@ const TRANSLATIONS = {
   vn: 'Quay lại trung tâm thành phố theo nhịp của riêng bạn. Mua sắm nhẹ — lụa, đồ thủ công, hoặc tranh nghệ thuật. Quay lại những con phố hoặc quán cà phê yêu thích. Thử món ăn còn thiếu (bánh cuốn, bún riêu, hoặc chè). Đây là cơ hội để trải nghiệm Hà Nội mà không cần lịch trình, để thành phố tự mở ra một cách tự nhiên.',
   zh: '按自己的节奏返回市中心。轻松购物——寻找丝绸、手工艺品或当地艺术品。重访之前让你印象深刻的街道或咖啡馆。尝试之前错过的美食（如越南蒸粉卷、蟹汤粉或甜品）。这是你无需计划地体验河内的机会，让城市自然地展现自己。'
 },
+// ── BLOG - 3 DAYS HANOI - DAY 2 FOOD ──────────────────────────
+
+  'auto-blog-hanoi-3-days-095': {
+    en: '🍜 What to Eat on Day 2',
+    vn: '🍜 Ăn gì ngày thứ 2',
+    zh: '🍜 第二天吃什么'
+  },
+  'auto-blog-hanoi-3-days-096': {
+    en: '🍳 Breakfast: Bánh cuốn (steamed rice rolls) — a Hanoi breakfast classic. Thin, delicate rice rolls filled with minced pork and wood ear mushrooms, served with fried shallots and fish sauce.',
+    vn: '🍳 Bữa sáng: Bánh cuốn — món ăn sáng kinh điển của Hà Nội. Những cuốn bánh mỏng mịn nhân thịt heo băm và mộc nhĩ, ăn kèm hành phi và nước mắm.',
+    zh: '🍳 早餐：越南蒸粉卷（Bánh cuốn）— 河内经典早餐。薄而细腻的米卷包裹着猪肉末和木耳，配以炸葱和鱼露。'
+  },
+  'auto-blog-hanoi-3-days-097': {
+    en: '☕ Mid-morning: Cà phê trứng (egg coffee) at a hidden café — the perfect pick-me-up. Creamy, rich, and surprisingly comforting, this Hanoi specialty is best enjoyed in a quiet corner away from the crowds.',
+    vn: '☕ Giữa buổi: Cà phê trứng tại một quán ẩn — thức uống hoàn hảo để tiếp thêm năng lượng. Béo ngậy, đậm đà và dễ chịu, đặc sản Hà Nội này được thưởng thức tốt nhất trong một góc yên tĩnh tránh xa đám đông.',
+    zh: '☕ 上午：在隐藏咖啡馆享用蛋咖啡（Cà phê trứng）— 完美的提神饮品。奶香浓郁、口感丰富，这种河内特色最好在远离人群的安静角落享用。'
+  },
+  'auto-blog-hanoi-3-days-098': {
+    en: '🍲 Lunch: Bún riêu (crab noodle soup) — a tangy, tomato-based broth with crab, tofu, and fresh herbs. This lesser-known Hanoi specialty is a favorite among locals and offers a lighter alternative to bún chả or phở.',
+    vn: '🍲 Bữa trưa: Bún riêu — nước dùng chua thanh từ cà chua với cua, đậu phụ và rau thơm. Món đặc sản Hà Nội ít được biết đến này được người dân địa phương yêu thích và là lựa chọn nhẹ nhàng hơn so với bún chả hay phở.',
+    zh: '🍲 午餐：蟹汤粉（Bún riêu）— 酸甜的番茄汤底配以螃蟹、豆腐和新鲜香草。这道不太为人所知的河内特色菜深受当地人喜爱，是比烤肉米粉或河粉更清淡的选择。'
+  },
+  'auto-blog-hanoi-3-days-099': {
+    en: '🍖 Dinner: Chả cá (turmeric fish with dill) — a Hanoi specialty where fish is grilled at your table with fresh dill and spring onions. The combination of turmeric, dill, and fish is unique to Hanoi and completely unforgettable.',
+    vn: '🍖 Bữa tối: Chả cá — đặc sản Hà Nội với cá được nướng ngay tại bàn cùng thì là và hành lá tươi. Sự kết hợp giữa nghệ, thì là và cá độc đáo của Hà Nội và hoàn toàn khó quên.',
+    zh: '🍖 晚餐：煎鱼饼（Chả cá）— 河内特色菜，鱼肉在餐桌上与新鲜莳萝和葱一起烤制。姜黄、莳萝和鱼的组合是河内独有的，令人难以忘怀。'
+  },
+
+  // ── BLOG - 3 DAYS HANOI - DAY 3 FOOD ──────────────────────────
+
+  'auto-blog-hanoi-3-days-100': {
+    en: '🍜 What to Eat on Day 3',
+    vn: '🍜 Ăn gì ngày thứ 3',
+    zh: '🍜 第三天吃什么'
+  },
+  'auto-blog-hanoi-3-days-101': {
+    en: '🍳 Breakfast: Xôi (sticky rice) with toppings — a hearty way to start your day. Choose from savory options like xôi mặn (with pork, egg, and sausage) or sweet versions with mung bean and coconut.',
+    vn: '🍳 Bữa sáng: Xôi — cách bắt đầu ngày mới đầy năng lượng. Chọn từ các lựa chọn mặn như xôi mặn (với thịt, trứng và xúc xích) hoặc các phiên bản ngọt với đậu xanh và dừa.',
+    zh: '🍳 早餐：糯米饭（Xôi）— 开始新一天的丰盛方式。选择咸味如猪肉糯米饭（配猪肉、鸡蛋和香肠）或甜味版本配绿豆和椰子。'
+  },
+  'auto-blog-hanoi-3-days-102': {
+    en: '☕ Late morning: Slow coffee by West Lake — sit back, relax, and watch the lake. Hanoi\'s coffee culture is best experienced unhurriedly, and the lakeside cafés offer the perfect setting for reflection.',
+    vn: '☕ Cuối buổi sáng: Cà phê bên Hồ Tây — ngồi thư giãn và ngắm nhìn mặt hồ. Văn hóa cà phê Hà Nội được trải nghiệm tốt nhất một cách thư thái, và những quán cà phê ven hồ mang đến khung cảnh hoàn hảo để chiêm nghiệm.',
+    zh: '☕ 上午晚些时候：在西湖边享受慢咖啡 — 坐下来放松，欣赏湖景。河内的咖啡文化最好在不慌不忙中体验，湖边的咖啡馆提供了完美的反思场景。'
+  },
+  'auto-blog-hanoi-3-days-103': {
+    en: '🍜 Lunch: Bún bò Nam Bộ (Southern-style beef noodle salad) — a refreshing combination of noodles, beef, herbs, and a sweet-sour dressing. A lighter option that doesn\'t compromise on flavor.',
+    vn: '🍜 Bữa trưa: Bún bò Nam Bộ — sự kết hợp tươi mát giữa bún, thịt bò, rau thơm và nước sốt chua ngọt. Một lựa chọn nhẹ nhàng nhưng không kém phần hương vị.',
+    zh: '🍜 午餐：南部风味牛肉米粉沙拉（Bún bò Nam Bộ）— 米粉、牛肉、香草和酸甜酱汁的清爽组合。清淡但不失风味的选择。'
+  },
+  'auto-blog-hanoi-3-days-104': {
+    en: '🍮 Dessert: Chè (sweet dessert soup) — a perfect way to end your Hanoi food journey. Try chè xoài (mango sweet soup with coconut milk) or chè đậu đen (black bean sweet soup) from a street vendor.',
+    vn: '🍮 Tráng miệng: Chè — cách hoàn hảo để kết thúc hành trình ẩm thực Hà Nội của bạn. Thử chè xoài (chè xoài với nước cốt dừa) hoặc chè đậu đen từ một quầy hàng rong.',
+    zh: '🍮 甜点：甜品汤（Chè）— 结束您河内美食之旅的完美方式。尝试街头小贩的芒果西米露（椰奶芒果甜汤）或黑豆甜汤。'
+  },
+  'auto-blog-hanoi-3-days-105': {
+    en: '🍽️ Final dinner: Choose your favorite from the past three days — revisit a dish you loved or try something new. Hanoi\'s food scene is worth returning for, so save room for one last memorable meal.',
+    vn: '🍽️ Bữa tối cuối cùng: Chọn món yêu thích của bạn trong ba ngày qua — quay lại món bạn đã yêu thích hoặc thử một món mới. Ẩm thực Hà Nội đáng để quay lại, vì vậy hãy để dành chỗ cho một bữa ăn đáng nhớ cuối cùng.',
+    zh: '🍽️ 最后一顿晚餐：选择过去三天里您最喜欢的菜 — 重新品尝您喜欢的菜或尝试新菜。河内的美食值得再次光顾，所以为最后一顿难忘的餐食留点空间。'
+  },
+
+  // ── BLOG - 3 DAYS HANOI - VEGETARIAN OPTIONS ──────────────────
+
+  'auto-blog-hanoi-3-days-106': {
+    en: '🌱 Vegetarian? Hanoi has plenty of options too!',
+    vn: '🌱 Ăn chay? Hà Nội cũng có rất nhiều lựa chọn!',
+    zh: '🌱 素食者？河内也有很多选择！'
+  },
+  'auto-blog-hanoi-3-days-107': {
+    en: '🥣 Phở chay (vegetarian phở) — available at many phở stalls, especially near temples. The broth is made from mushrooms and vegetables, and it\'s just as flavorful as the meat version.',
+    vn: '🥣 Phở chay — có sẵn tại nhiều quán phở, đặc biệt gần chùa. Nước dùng được nấu từ nấm và rau củ, hương vị cũng đậm đà không kém phiên bản thịt.',
+    zh: '🥣 素食河粉（Phở chay）— 许多河粉摊都有提供，尤其是寺庙附近。汤底由蘑菇和蔬菜熬制，味道不亚于肉汤版本。'
+  },
+  'auto-blog-hanoi-3-days-108': {
+    en: '🥖 Bánh mì chay (vegetarian bánh mì) — filled with tofu, mushrooms, and pickled vegetables instead of meat. Many bánh mì stalls offer this option, and it\'s equally delicious.',
+    vn: '🥖 Bánh mì chay — nhân đậu phụ, nấm và rau củ muối thay vì thịt. Nhiều quán bánh mì có lựa chọn này, và hương vị cũng ngon không kém.',
+    zh: '🥖 素食法棍（Bánh mì chay）— 夹入豆腐、蘑菇和腌菜代替肉类。许多法棍摊位提供这种选择，同样美味。'
+  },
+  'auto-blog-hanoi-3-days-109': {
+    en: '🍲 Bún riêu chay (vegetarian crab noodle soup) — tofu and tomato-based broth instead of crab. A lighter but equally satisfying alternative to the traditional version.',
+    vn: '🍲 Bún riêu chay — đậu phụ và nước dùng cà chua thay vì cua. Một lựa chọn nhẹ nhàng hơn nhưng cũng không kém phần hấp dẫn so với phiên bản truyền thống.',
+    zh: '🍲 素食蟹汤粉（Bún riêu chay）— 用豆腐和番茄汤底代替螃蟹。比传统版本更清淡，但同样令人满足。'
+  },
+  'auto-blog-hanoi-3-days-110': {
+    en: '🍛 Cơm chay (vegetarian rice dishes) — many temples and specialized vegetarian restaurants serve affordable and delicious rice plates with a variety of vegetable and tofu dishes.',
+    vn: '🍛 Cơm chay — nhiều chùa và nhà hàng chay chuyên biệt phục vụ đĩa cơm giá phải chăng và ngon miệng với nhiều món rau củ và đậu phụ.',
+    zh: '🍛 素食米饭（Cơm chay）— 许多寺庙和专门的素食餐厅提供价格实惠、美味的米饭套餐，配以各种蔬菜和豆腐菜肴。'
+  },
+  'auto-blog-hanoi-3-days-111': {
+    en: '🌿 Vegetarian-friendly tip: Look for "Ăn chay" signs, and don\'t be afraid to ask "Có món chay không?" (Do you have vegetarian dishes?) — locals are usually helpful!',
+    vn: '🌿 Mẹo cho người ăn chay: Tìm biển "Ăn chay" và đừng ngại hỏi "Có món chay không?" — người dân địa phương thường rất nhiệt tình!',
+    zh: '🌿 素食小贴士：寻找"Ăn chay"（素食）标志，不要害怕问"Có món chay không?"（有素食吗？）— 当地人通常很乐意帮助！'
+  },
 // FAQ - 3 Days Itinerary
 'faq-q-3days': {
   en: 'Are 3 days enough for Hanoi?',
@@ -2485,6 +2578,16 @@ const TRANSLATIONS = {
   vn: 'Các món nhất định phải thử bao gồm: Phở, Bún chả, Bánh mì và Cà phê trứng.',
   zh: '必尝美食包括：河粉（Phở）、烤肉米粉（Bún chả）、越南法棍三明治（Bánh mì）和蛋咖啡（Cà phê trứng）。'
 },
+'faq-q-vegetarian': {
+    en: 'Are there vegetarian options in Hanoi?',
+    vn: 'Có lựa chọn chay ở Hà Nội không?',
+    zh: '河内有素食选择吗？'
+  },
+  'faq-a-vegetarian': {
+    en: 'Yes! Hanoi has a growing vegetarian food scene. Look for "Ăn chay" signs, try phở chay (vegetarian phở), bánh mì chay (vegetarian bánh mì), and cơm chay (vegetarian rice plates). Many Buddhist temples also serve affordable vegetarian meals.',
+    vn: 'Có! Hà Nội có phong trào ẩm thực chay ngày càng phát triển. Tìm biển "Ăn chay", thử phở chay, bánh mì chay và cơm chay. Nhiều chùa Phật giáo cũng phục vụ các bữa ăn chay với giá cả phải chăng.',
+    zh: '是的！河内的素食餐饮业正在不断发展。寻找"Ăn chay"（素食）标志，尝试素食河粉、素食法棍和素食米饭套餐。许多佛教寺庙也提供价格实惠的素食餐。'
+  },
 'auto-blog-train-street-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-train-street-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-train-street-003': {en:"Train Street Hanoi Guide", vn:"Hướng Dẫn Train Street Hà Nội", zh:"河内火车街指南"},
