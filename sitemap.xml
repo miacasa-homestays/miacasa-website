@@ -5,85 +5,82 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://miacasahanoi.com/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://miacasahanoi.com/"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://miacasahanoi.com/?lang=vn"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://miacasahanoi.com/?lang=zh"/>
   </url>
 
   <!-- Core Property Pages -->
   <url>
-    <loc>https://miacasahanoi.com/miacasa-hanoi</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/miacasa-hanoi</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/miacasa-oldquarter</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/miacasa-oldquarter</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- About Pages -->
   <url>
-    <loc>https://miacasahanoi.com/our-story</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/our-story</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog Listing -->
   <url>
-    <loc>https://miacasahanoi.com/blog</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/blog</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Blog Posts -->
   <url>
-    <loc>https://miacasahanoi.com/hanoi-food-guide</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://www.miacasahanoi.com/hanoi-food-guide</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/best-cafes-hanoi</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/best-cafes-hanoi</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/blog-hanoi-3-days</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/blog-hanoi-3-days</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/blog-train-street</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/blog-train-street</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/blog-where-to-stay</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://www.miacasahanoi.com/blog-where-to-stay</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://miacasahanoi.com/blog-old-quarter-guide</loc>
-    <lastmod>2026-05-28</lastmod>
+    <loc>https://www.miacasahanoi.com/blog-old-quarter-guide</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

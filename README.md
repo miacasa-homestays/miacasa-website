@@ -15,7 +15,7 @@ A fast, multilingual boutique homestay website for MiaCasa Hanoi built with vani
 
 ## Live Website
 
-- **Production:** [miacasahanoi.com](https://miacasahanoi.com)
+- **Production:** [miacasahanoi.com](https://www.miacasahanoi.com)
 
 ## Features
 

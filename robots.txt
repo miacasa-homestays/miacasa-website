@@ -6,4 +6,4 @@ Disallow: /maintenance
 Disallow: /invoice
 Disallow: /cancel-booking
 
-Sitemap: https://miacasahanoi.com/sitemap.xml
+Sitemap: https://www.miacasahanoi.com/sitemap.xml
