@@ -2885,6 +2885,13 @@ const TRANSLATIONS = {
     vn: '📅 21 Tháng 6, 2026 · ☕ Đọc 10 phút · ✍️ Đội ngũ MiaCasa',
     zh: '📅 2026年6月21日 · ☕ 阅读10分钟 · ✍️ MiaCasa团队'
   },
+  // ── BLOG CARD - WHAT TO EAT IN HANOI ─────────────────────────────
+
+'hanoi-food-meta-short': {
+  en: '📅 June 21, 2026 · ☕ 10 min read',
+  vn: '📅 21 Tháng 6, 2026 · ☕ Đọc 10 phút',
+  zh: '📅 2026年6月21日 · ☕ 阅读10分钟'
+},
   // ── BLOG - WHAT TO EAT IN HANOI - BREADCRUMB ──────────────────
 
   'hanoi-food-breadcrumb': {
