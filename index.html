@@ -28,8 +28,57 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
-<!-- JSON-LD Structured Data -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"MiaCasa Homestays","url":"https://www.miacasahanoi.com/","telephone":"+84869922261","email":"miacasahanoi@gmail.com","address":{"@type":"PostalAddress","streetAddress":"92 Ngh. 51 Ng. Linh Quang, Văn Chương","addressLocality":"Hanoi","addressCountry":"VN"}},{"@type":"LodgingBusiness","name":"MiaCasa Hanoi","description":"Boutique homestay near Hanoi Railway Station. Private rooms with en-suite bathrooms.","url":"https://www.miacasahanoi.com/miacasa-hanoi","priceRange":"$$ (550,000₫ - 900,000₫)","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"50"}},{"@type":"LodgingBusiness","name":"MiaCasa Old Quarter","description":"Entire 3-bedroom apartment in Hanoi Old Quarter. Open terrace, sleeps up to 6.","url":"https://www.miacasahanoi.com/miacasa-oldquarter","priceRange":"$$ (900,000₫ - 1,400,000₫)","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"30"}}]}</script>
+<!-- JSON-LD Structured Data (UPDATED with logo) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "MiaCasa Homestays",
+      "url": "https://www.miacasahanoi.com/",
+      "logo": "https://res.cloudinary.com/dczfocztf/image/upload/v1779191606/miacasa-hanoi-logo.png",
+      "telephone": "+84869922261",
+      "email": "miacasahanoi@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "92 Ngh. 51 Ng. Linh Quang, Văn Chương",
+        "addressLocality": "Hanoi",
+        "addressCountry": "VN"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61558873260616",
+        "https://www.instagram.com/miacasahanoi/",
+        "https://www.tiktok.com/@miacasahanoi"
+      ]
+    },
+    {
+      "@type": "LodgingBusiness",
+      "name": "MiaCasa Hanoi",
+      "description": "Boutique homestay near Hanoi Railway Station. Private rooms with en-suite bathrooms.",
+      "url": "https://www.miacasahanoi.com/miacasa-hanoi",
+      "priceRange": "$$ (550,000₫ - 900,000₫)",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "50"
+      }
+    },
+    {
+      "@type": "LodgingBusiness",
+      "name": "MiaCasa Old Quarter",
+      "description": "Entire 3-bedroom apartment in Hanoi Old Quarter. Open terrace, sleeps up to 6.",
+      "url": "https://www.miacasahanoi.com/miacasa-oldquarter",
+      "priceRange": "$$ (900,000₫ - 1,400,000₫)",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "30"
+      }
+    }
+  ]
+}
+</script>
 
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
