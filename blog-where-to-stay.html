@@ -112,11 +112,110 @@
     border-radius: 30px;
   }
   
+  /* ─── COMPARISON TABLE COLOR CODING ─── */
+  .comparison-table .best {
+    color: #059669;
+    font-weight: 500;
+  }
+
+  .comparison-table .good {
+    color: #f59e0b;
+    font-weight: 500;
+  }
+
+  .comparison-table .high-energy {
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  .comparison-table .low-energy {
+    color: #059669;
+    font-weight: 500;
+  }
+
+  /* Optional: Add a subtle hover effect */
+  .comparison-table tr:hover td {
+    background: #faf6f0;
+  }
+
+  /* ─── COMPARE GRID (for the "Choose If..." cards) ─── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .compare-card {
+    background: #f5efe6;
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid #e5e0d8;
+  }
+
+  .compare-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .compare-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .compare-card ul li {
+    font-size: 0.85rem;
+    color: #6b5c47;
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .compare-card ul li::before {
+    content: '✓';
+    color: #c17a5a;
+    position: absolute;
+    left: 0;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e5e0d8;
+    text-align: left;
+  }
+
+  .comparison-table th {
+    background: #2c2416;
+    color: white;
+    font-weight: 600;
+  }
+
+  .comparison-table tr:nth-child(even) {
+    background: #faf6f0;
+  }
+
+  /* ─── MOBILE RESPONSIVE ─── */
   @media (max-width: 768px) {
     .blog-container { padding: 1rem; }
     .blog-cta { padding: 1.5rem; }
     .comparison-box { flex-direction: column; }
     .property-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .comparison-table { font-size: 0.7rem; }
+    .comparison-table th,
+    .comparison-table td { padding: 0.3rem 0.4rem; }
   }
   
   .en-only, .vn-only { display: none; }
@@ -367,52 +466,52 @@
       </div>
 
       <h2 data-t="blog-stay-table-title">Quick Comparison Table</h2>
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th data-t="blog-stay-table-feature">Feature</th>
-            <th data-t="blog-stay-table-oq">Old Quarter</th>
-            <th data-t="blog-stay-table-quiet">Quiet Areas (Văn Miếu)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-t="blog-stay-table-energy">Energy</td>
-            <td data-t="blog-stay-table-energy-oq">High - 24/7</td>
-            <td data-t="blog-stay-table-energy-quiet">Low - peaceful</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-walk">Walkability</td>
-            <td>⭐⭐⭐⭐⭐</td>
-            <td>⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-sleep">Sleep Quality</td>
-            <td>⭐</td>
-            <td>⭐⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-local">Local Experience</td>
-            <td>⭐⭐⭐</td>
-            <td>⭐⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-value">Value for Money</td>
-            <td>⭐⭐</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-food">Food Options</td>
-            <td>⭐⭐⭐⭐⭐</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td data-t="blog-stay-table-ideal">Ideal for</td>
-            <td data-t="blog-stay-table-ideal-oq">Short stays, groups, nightlife lovers</td>
-            <td data-t="blog-stay-table-ideal-quiet">Long stays, couples, remote workers</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th data-t="blog-stay-table-feature">Feature</th>
+              <th data-t="blog-stay-table-oq">Old Quarter</th>
+              <th data-t="blog-stay-table-quiet">Quiet Areas (Văn Miếu)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-t="blog-stay-table-energy">Energy</td>
+              <td class="high-energy">⚡ High - 24/7</td>
+              <td class="low-energy">🌿 Low - peaceful</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-walk">Walkability</td>
+              <td class="best">👣 Walk everywhere</td>
+              <td class="good">🚗 Short Grab rides</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-sleep">Sleep Quality</td>
+              <td class="good">😴 Good (earplugs recommended)</td>
+              <td class="best">🛌 Excellent</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-local">Local Experience</td>
+              <td class="good">🌆 Vibrant & touristy</td>
+              <td class="best">🏡 Authentic local life</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-value">Value for Money</td>
+              <td class="good">💰 Fair</td>
+              <td class="best">💰💰 Better value</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-food">Food Options</td>
+              <td class="best">🍜 Endless choices</td>
+              <td class="good">🍛 Plenty, less crowded</td>
+            </tr>
+            <tr>
+              <td data-t="blog-stay-table-ideal">Ideal for</td>
+              <td class="best">Short stays, groups, nightlife lovers</td>
+              <td class="best">Long stays, couples, remote workers</td>
+            </tr>
+          </tbody>
+        </table>
       <!-- FINAL THOUGHTS IMAGE -->
       <div class="blog-image">
         <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_1200/v1782454154/hanoi_lantern_street_egjwl5.jpg" 

@@ -2302,7 +2302,7 @@ const TRANSLATIONS = {
 'blog-card-stay-category': {en:"🏠 ACCOMMODATION", vn:"🏠 CHỖ Ở", zh:"🏠 住宿指南"},
 'blog-card-stay-title': {en:"Where to Stay in Hanoi: Old Quarter vs Local Areas", vn:"Nên ở đâu tại Hà Nội: Phố Cổ hay khu địa phương", zh:"河内住哪里：老城区 vs 本地社区"},
 'blog-card-stay-excerpt': {en:"Not sure where to stay? Compare Old Quarter vs quieter local areas to find your perfect match.", vn:"Chưa biết nên ở đâu? So sánh Phố Cổ với khu địa phương yên tĩnh hơn để chọn nơi phù hợp.", zh:"不知道该住哪里？对比老城区和更安静的本地社区，找到最适合您的住宿。"},
-'blog-card-stay-meta': {en:"📅 April 29, 2026 · ☕ 5 min read", vn:"📅 29 Tháng 4, 2026 · ☕ Đọc 5 phút", zh:"📅 2026年4月29日 · ☕ 阅读约5分钟"},
+'blog-card-stay-meta': {en:"📅 April 29, 2026 · ☕ 8 min read", vn:"📅 29 Tháng 4, 2026 · ☕ Đọc 8 phút", zh:"📅 2026年4月29日 · ☕ 阅读约8分钟"},
 
 'subscribe-title': {en:"📬 New posts, straight to your inbox", vn:"📬 Bài viết mới gửi thẳng đến hộp thư của bạn", zh:"📬 最新文章直达您的邮箱"},
 'subscribe-text': {en:"Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.", vn:"Nhận mẹo du lịch Hà Nội và cập nhật bài viết mới. Không spam. Hủy đăng ký bất cứ lúc nào.", zh:"获取河内旅行建议和博客更新。不发送垃圾邮件，可随时取消订阅。"},
@@ -2975,7 +2975,7 @@ const TRANSLATIONS = {
   'auto-blog-where-to-stay-003': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
 'auto-blog-where-to-stay-004': {en:"🏠 ACCOMMODATION GUIDE", vn:"🏠 HƯỚNG DẪN CHỖ Ở", zh:"🏠 住宿指南"},
 'auto-blog-where-to-stay-005': {en:"Where to Stay in Hanoi: Old Quarter vs Local Areas", vn:"Nên Ở Đâu Khi Đến Hà Nội: Phố Cổ Hay Khu Yên Tĩnh", zh:"河内住宿选择：老城区 vs 本地安静区域"},
-'auto-blog-where-to-stay-006': {en:"📅 April 29, 2026 · ☕ 5 min read · ✍️ By MiaCasa Team", vn:"📅 29 Tháng 4, 2026 · ☕ 5 phút đọc · ✍️ MiaCasa Team", zh:"📅 2026年4月29日 · ☕ 5分钟阅读 · ✍️ MiaCasa团队"},
+'auto-blog-where-to-stay-006': {en:"📅 April 29, 2026 · ☕ 8 min read · ✍️ By MiaCasa Team", vn:"📅 29 Tháng 4, 2026 · ☕ 8 phút đọc · ✍️ MiaCasa Team", zh:"📅 2026年4月29日 · ☕ 8分钟阅读 · ✍️ MiaCasa团队"},
 'auto-blog-where-to-stay-007': {en:"Choosing where to stay in Hanoi can completely shape your experience.", vn:"Chỗ ở sẽ ảnh hưởng rất nhiều đến trải nghiệm của bạn ở Hà Nội.", zh:"选择在河内的住宿会彻底影响你的旅行体验。"},
 'auto-blog-where-to-stay-008': {en:"Some travelers want to be in the center of everything. Others prefer a quieter, more local atmosphere.", vn:"Có người muốn ở ngay trung tâm. Có người thích không gian yên tĩnh hơn.", zh:"有些旅行者想住在城市中心，有些则更喜欢安静、当地化的氛围。"},
 'auto-blog-where-to-stay-009': {en:"Most people end up choosing between two very different areas:", vn:"Hầu hết mọi người sẽ lựa chọn giữa hai khu vực rất khác nhau:", zh:"大多数人最终会在两个完全不同的区域之间选择："},
@@ -3102,6 +3102,58 @@ const TRANSLATIONS = {
   en: 'Whatever you choose, we hope you fall in love with Hanoi the way we have. It\'s a city that rewards curiosity, patience, and an open heart. And wherever you stay, you\'ll find that the people, the food, and the rhythm of daily life make it a place you\'ll never forget.',
   vn: 'Dù bạn chọn gì, chúng tôi hy vọng bạn sẽ yêu Hà Nội theo cách chúng tôi đã yêu. Đó là thành phố đền đáp sự tò mò, kiên nhẫn và một trái tim rộng mở. Và dù bạn ở đâu, bạn sẽ thấy rằng con người, ẩm thực và nhịp sống hàng ngày khiến nó trở thành một nơi bạn sẽ không bao giờ quên.',
   zh: '无论您选择什么，我们希望您能像我们一样爱上河内。这是一座回报好奇心、耐心和开放心态的城市。无论您住在哪里，您都会发现这里的人、食物和日常生活的节奏使它成为一个您永远不会忘记的地方。'
+},
+/* ── BLOG - WHERE TO STAY - TABLE COLOR CODING ──────────────────── */
+
+'blog-stay-table-walk-oq': {
+  en: '👣 Walk everywhere',
+  vn: '👣 Đi bộ mọi nơi',
+  zh: '👣 步行可达各处'
+},
+'blog-stay-table-walk-quiet': {
+  en: '🚗 Short Grab rides',
+  vn: '🚗 Đi Grab ngắn',
+  zh: '🚗 短途 Grab 出行'
+},
+'blog-stay-table-sleep-oq': {
+  en: '😴 Good (earplugs recommended)',
+  vn: '😴 Tốt (nên mang nút tai)',
+  zh: '😴 良好（建议戴耳塞）'
+},
+'blog-stay-table-sleep-quiet': {
+  en: '🛌 Excellent',
+  vn: '🛌 Tuyệt vời',
+  zh: '🛌 极好'
+},
+'blog-stay-table-local-oq': {
+  en: '🌆 Vibrant & touristy',
+  vn: '🌆 Sôi động & đông du khách',
+  zh: '🌆 充满活力 & 游客众多'
+},
+'blog-stay-table-local-quiet': {
+  en: '🏡 Authentic local life',
+  vn: '🏡 Cuộc sống địa phương chân thực',
+  zh: '🏡 真实的本地生活'
+},
+'blog-stay-table-value-oq': {
+  en: '💰 Fair',
+  vn: '💰 Hợp lý',
+  zh: '💰 合理'
+},
+'blog-stay-table-value-quiet': {
+  en: '💰💰 Better value',
+  vn: '💰💰 Giá trị tốt hơn',
+  zh: '💰💰 性价比更高'
+},
+'blog-stay-table-food-oq': {
+  en: '🍜 Endless choices',
+  vn: '🍜 Vô số lựa chọn',
+  zh: '🍜 无尽的选择'
+},
+'blog-stay-table-food-quiet': {
+  en: '🍛 Plenty, less crowded',
+  vn: '🍛 Nhiều, ít đông đúc hơn',
+  zh: '🍛 丰富，人少'
 },
   // ── BLOG - WHAT TO EAT IN HANOI ──────────────────────────────────
 
