@@ -4832,9 +4832,9 @@ const TRANSLATIONS = {
 },
 
 'auto-our-story-001': {
-en:"The Story Behind <em>MiaCasa</em> — A Boutique Homestay in Hanoi",
-vn:"Câu chuyện phía sau <em>MiaCasa</em> — Boutique Homestay tại Hà Nội",
-zh:"MiaCasa背后的故事 —— 河内精品民宿"
+  en: 'The Story Behind <em>MiaCasa</em> — Boutique Homestays in Hanoi',
+  vn: 'Câu Chuyện Phía Sau <em>MiaCasa</em> — Boutique Homestays tại Hà Nội',
+  zh: '<em>MiaCasa</em> 背后的故事 — 河内精品民宿'
 },
 
 'auto-our-story-002': {
