@@ -2970,6 +2970,58 @@ const TRANSLATIONS = {
   vn: 'Lưu trú dài, cặp đôi, làm việc từ xa',
   zh: '长期住宿、情侣、远程工作者'
 },
+/* ── BLOG - WHERE TO STAY - TABLE COLOR CODING ──────────────────── */
+
+'blog-stay-table-walk-oq': {
+  en: '👣 Walk everywhere',
+  vn: '👣 Đi bộ mọi nơi',
+  zh: '👣 步行可达各处'
+},
+'blog-stay-table-walk-quiet': {
+  en: '🚗 Short Grab rides',
+  vn: '🚗 Đi Grab ngắn',
+  zh: '🚗 短途 Grab 出行'
+},
+'blog-stay-table-sleep-oq': {
+  en: '😴 Good (earplugs recommended)',
+  vn: '😴 Tốt (nên mang nút tai)',
+  zh: '😴 良好（建议戴耳塞）'
+},
+'blog-stay-table-sleep-quiet': {
+  en: '🛌 Excellent',
+  vn: '🛌 Tuyệt vời',
+  zh: '🛌 极好'
+},
+'blog-stay-table-local-oq': {
+  en: '🌆 Vibrant & touristy',
+  vn: '🌆 Sôi động & đông du khách',
+  zh: '🌆 充满活力 & 游客众多'
+},
+'blog-stay-table-local-quiet': {
+  en: '🏡 Authentic local life',
+  vn: '🏡 Cuộc sống địa phương chân thực',
+  zh: '🏡 真实的本地生活'
+},
+'blog-stay-table-value-oq': {
+  en: '💰 Fair',
+  vn: '💰 Hợp lý',
+  zh: '💰 合理'
+},
+'blog-stay-table-value-quiet': {
+  en: '💰💰 Better value',
+  vn: '💰💰 Giá trị tốt hơn',
+  zh: '💰💰 性价比更高'
+},
+'blog-stay-table-food-oq': {
+  en: '🍜 Endless choices',
+  vn: '🍜 Vô số lựa chọn',
+  zh: '🍜 无尽的选择'
+},
+'blog-stay-table-food-quiet': {
+  en: '🍛 Plenty, less crowded',
+  vn: '🍛 Nhiều, ít đông đúc hơn',
+  zh: '🍛 丰富，人少'
+},
 'auto-blog-where-to-stay-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-where-to-stay-002': {en:"Blog", vn:"Blog", zh:"博客"},
   'auto-blog-where-to-stay-003': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
