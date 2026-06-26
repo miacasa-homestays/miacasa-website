@@ -2391,6 +2391,48 @@ const TRANSLATIONS = {
   vn: 'Ăn Gì Ở Hà Nội: 10 Món Không Thể Bỏ Lỡ',
   zh: '河内吃什么：10种不容错过的美食'
 },
+/* ── BLOG - 3 DAYS IN HANOI - NEW TRANSLATIONS ──────────────────── */
+
+'blog-3days-hero-caption': {
+  en: "Hanoi's highlights in 3 days: Hoàn Kiếm Lake, Văn Miếu, Train Street, and West Lake",
+  vn: 'Những điểm nhấn của Hà Nội trong 3 ngày: Hồ Hoàn Kiếm, Văn Miếu, Phố Tàu, và Hồ Tây',
+  zh: '河内3日精华：还剑湖、文庙、火车街和西湖'
+},
+'blog-3days-toc-title': {
+  en: '📚 In this itinerary:',
+  vn: '📚 Trong lịch trình này:',
+  zh: '📚 此行程包含：'
+},
+'blog-3days-toc-day1': {
+  en: 'Day 1: Old Quarter & Street Food',
+  vn: 'Ngày 1: Phố Cổ & Ẩm Thực Đường Phố',
+  zh: '第1天：老城区与街头美食'
+},
+'blog-3days-toc-day2': {
+  en: 'Day 2: Culture, Cafés & Train Street',
+  vn: 'Ngày 2: Văn Hóa, Cà Phê & Phố Tàu',
+  zh: '第2天：文化、咖啡馆与火车街'
+},
+'blog-3days-toc-day3': {
+  en: 'Day 3: West Lake & Slow Hanoi',
+  vn: 'Ngày 3: Hồ Tây & Hà Nội Chậm Rãi',
+  zh: '第3天：西湖与慢河内'
+},
+'blog-3days-toc-veg': {
+  en: '🌱 Vegetarian Options',
+  vn: '🌱 Lựa Chọn Chay',
+  zh: '🌱 素食选择'
+},
+'blog-3days-toc-stay': {
+  en: 'Where to Stay',
+  vn: 'Nơi Ở',
+  zh: '住宿推荐'
+},
+'blog-3days-toc-faq': {
+  en: 'FAQs',
+  vn: 'Câu Hỏi Thường Gặp',
+  zh: '常见问题'
+},
   'auto-blog-hanoi-3-days-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-hanoi-3-days-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-hanoi-3-days-003': {en:"3 Days in Hanoi Itinerary", vn:"Lịch Trình 3 Ngày Ở Hà Nội", zh:"河内三日行程"},
