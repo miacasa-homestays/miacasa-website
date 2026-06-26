@@ -2334,7 +2334,28 @@ const TRANSLATIONS = {
 'reviews-loadmore': {en:"Load more reviews", vn:"Xem thêm đánh giá", zh:"查看更多评价"},
 'oq-gal-title': {en:"A look<br><em>inside</em>", vn:"Một góc nhìn<br><em>bên trong</em>", zh:"看看<br><em>内部</em>"},
 'reviews-title': {en:"Stories from our <em>guests</em>", vn:"Câu chuyện từ <em>khách của chúng tôi</em>", zh:"来自<em>住客</em>的故事"},
+/* ── AUTHOR EXPERTISE SECTION ────────────────────────────────────── */
 
+'author-title': {
+  en: 'Written by the MiaCasa Team',
+  vn: 'Được viết bởi Đội ngũ MiaCasa',
+  zh: '由 MiaCasa 团队撰写'
+},
+'author-desc': {
+  en: 'Local hosts in Hanoi who have welcomed hundreds of guests. We share neighborhood recommendations, cafés, and honest travel advice from years of living in and exploring the city.',
+  vn: 'Chủ nhà địa phương tại Hà Nội đã chào đón hàng trăm du khách. Chúng tôi chia sẻ các gợi ý về khu phố, quán cà phê và lời khuyên du lịch chân thật từ nhiều năm sống và khám phá thành phố.',
+  zh: '河内本地房东，已接待数百位客人。我们分享社区推荐、咖啡馆和真实的旅行建议，来自多年在河内生活和探索的经验。'
+},
+'author-blog': {
+  en: 'Read more from us',
+  vn: 'Đọc thêm từ chúng tôi',
+  zh: '阅读更多'
+},
+'author-homestay': {
+  en: 'Stay with us',
+  vn: 'Ở cùng chúng tôi',
+  zh: '入住我们的民宿'
+},
   'auto-blog-hanoi-3-days-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-hanoi-3-days-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-hanoi-3-days-003': {en:"3 Days in Hanoi Itinerary", vn:"Lịch Trình 3 Ngày Ở Hà Nội", zh:"河内三日行程"},
