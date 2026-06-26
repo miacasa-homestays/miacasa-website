@@ -9,9 +9,73 @@
 
 <link rel="canonical" href="https://www.miacasahanoi.com/blog">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=block" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" type="image/png" 
+      href="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_64/v1779191606/miacasa-hanoi-logo.png">
+<link rel="apple-touch-icon" 
+      href="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_180/v1779191606/miacasa-hanoi-logo.png">
 
+<!-- Preconnect for faster loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Hanoi Travel Blog | Local Tips & Homestay Guides | MiaCasa">
+<meta property="og:description" content="Honest Hanoi travel advice, local food guides, Train Street tips, and homestay recommendations from locals who live in Hanoi.">
+<meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
+<meta property="og:url" content="https://www.miacasahanoi.com/blog">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hanoi Travel Blog | Local Tips & Homestay Guides | MiaCasa">
+<meta name="twitter:description" content="Honest Hanoi travel advice, local food guides, Train Street tips, and homestay recommendations from locals who live in Hanoi.">
+<meta name="twitter:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "MiaCasa Homestays",
+      "url": "https://www.miacasahanoi.com/",
+      "logo": "https://res.cloudinary.com/dczfocztf/image/upload/v1779191606/miacasa-hanoi-logo.png",
+      "image": "https://res.cloudinary.com/dczfocztf/image/upload/v1779191606/miacasa-hanoi-logo.png",
+      "telephone": "+84869922261",
+      "email": "miacasahanoi@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "92 Ngh. 51 Ng. Linh Quang, Văn Chương",
+        "addressLocality": "Hanoi",
+        "addressCountry": "VN"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61558873260616",
+        "https://www.instagram.com/miacasahanoi/",
+        "https://www.tiktok.com/@miacasahanoi"
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "name": "Hanoi Travel Blog",
+      "description": "Honest Hanoi travel tips, local food guides, Train Street advice, and homestay recommendations from locals who live in Hanoi.",
+      "url": "https://www.miacasahanoi.com/blog",
+      "about": {
+        "@type": "Thing",
+        "name": "Hanoi Travel Guide"
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
 <style>
   .blog-container {
@@ -33,13 +97,28 @@
     margin-bottom: 0.5rem;
   }
 
-  .blog-header p {
+  .blog-header .blog-subtitle {
     font-family: 'Jost', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    color: #6b5c47;
+    max-width: 650px;
+    margin: 0 auto 0.5rem;
+    line-height: 1.6;
+  }
+
+  .blog-header .blog-tags {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
     color: #8a6e4b;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0.5rem auto 0;
     line-height: 1.6;
+    letter-spacing: 0.02em;
+  }
+
+  .blog-header .blog-tags span {
+    display: inline-block;
+    margin: 0 0.15rem;
   }
 
   .blog-grid {
@@ -140,6 +219,55 @@
     margin-bottom: 0.5rem;
   }
 
+  .subscribe-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    color: #6b5c47;
+    margin-bottom: 1rem;
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .subscribe-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #d9cfbf;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    background: white;
+  }
+
+  .subscribe-btn {
+    background: #c17a5a;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .subscribe-btn:hover {
+    background: #a85e3e;
+  }
+
+  .subscribe-footer {
+    font-size: 0.7rem;
+    color: #8a6e4b;
+    margin-top: 0.75rem;
+  }
+
   @media (max-width: 768px) {
     .blog-grid {
       grid-template-columns: 1fr;
@@ -151,6 +279,24 @@
 
     .blog-header h1 {
       font-size: 2rem;
+    }
+
+    .blog-header .blog-subtitle {
+      font-size: 1rem;
+    }
+
+    .blog-header .blog-tags {
+      font-size: 0.75rem;
+    }
+
+    .subscribe-form {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .subscribe-input {
+      width: 100%;
+      min-width: unset;
     }
   }
 </style>
@@ -197,14 +343,26 @@
       MiaCasa Journal
     </h1>
 
-    <p data-t="blog-header-sub">
-      Honest travel tips, local guides, and stories from Hanoi — written by locals who know the city best.
+    <p class="blog-subtitle" data-t="blog-header-sub">
+      Hanoi Travel Guides &amp; Local Tips
+    </p>
+
+    <p data-t="blog-header-desc">
+      Honest travel advice, local recommendations, and neighborhood guides from hosts who live in Hanoi.
+    </p>
+
+    <p class="blog-tags">
+      <span>🍜 Food</span> <span>·</span>
+      <span>☕ Cafés</span> <span>·</span>
+      <span>🚂 Attractions</span> <span>·</span>
+      <span>📍 Neighborhoods</span> <span>·</span>
+      <span>🏠 Where to Stay</span>
     </p>
   </div>
 
   <div class="blog-grid">
 
-   <!-- ─── WHAT TO EAT IN HANOI ─── (FIXED - MATCHES OTHER CARDS) -->
+   <!-- ─── WHAT TO EAT IN HANOI ─── -->
 
     <div class="blog-card">
       <div class="blog-card-image">
@@ -332,7 +490,7 @@
         class="subscribe-input">
       <button
         type="submit"
-        class="btn-primary subscribe-btn"
+        class="subscribe-btn"
         data-t="subscribe-button">
         Subscribe →
       </button>
