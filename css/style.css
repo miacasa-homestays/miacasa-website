@@ -4873,3 +4873,86 @@ html {
     gap: 0.25rem;
   }
 }
+/* ============================================
+   COMPARISON TABLE & CARDS
+   ============================================ */
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.compare-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.compare-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.compare-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.compare-card ul li {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  padding: 0.3rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.compare-card ul li::before {
+  content: '✓';
+  color: var(--terracotta);
+  position: absolute;
+  left: 0;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.comparison-table th {
+  background: var(--sand);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.comparison-table tr:nth-child(even) {
+  background: var(--cream);
+}
+
+@media (max-width: 768px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-table {
+    font-size: 0.7rem;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.3rem 0.4rem;
+  }
+}

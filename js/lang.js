@@ -2798,6 +2798,178 @@ const TRANSLATIONS = {
   vn: 'Buổi tối mang đến bầu không khí khác, với nhiều người đi lại hơn.',
   zh: '傍晚带来不同的氛围，更多的人外出活动。'
 },
+/* ── BLOG - WHERE TO STAY - NEW SECTIONS ────────────────────────── */
+
+'blog-stay-consider-title': {
+  en: 'What to Consider When Choosing Your Stay',
+  vn: 'Những Điều Cần Cân Nhắc Khi Chọn Nơi Ở',
+  zh: '选择住宿时需要考虑的因素'
+},
+'blog-stay-consider-1': {
+  en: 'Noise levels: Old Quarter is lively 24/7, quiet areas are peaceful',
+  vn: 'Mức độ ồn: Phố Cổ nhộn nhịp 24/7, khu yên tĩnh thì thanh bình',
+  zh: '噪音水平：老城区24/7热闹，安静区域则平和'
+},
+'blog-stay-consider-2': {
+  en: 'Walking distance: Old Quarter = walk everywhere, quiet areas = short Grab rides',
+  vn: 'Khoảng cách đi bộ: Phố Cổ = đi bộ mọi nơi, khu yên tĩnh = đi Grab ngắn',
+  zh: '步行距离：老城区 = 步行可达各处，安静区域 = 短途Grab出行'
+},
+'blog-stay-consider-3': {
+  en: 'Group size: Old Quarter apartments for groups, quiet areas for couples',
+  vn: 'Quy mô nhóm: Phố Cổ cho nhóm đông, khu yên tĩnh cho cặp đôi',
+  zh: '团体规模：老城区适合团体，安静区域适合情侣'
+},
+'blog-stay-consider-4': {
+  en: 'Budget: Quiet areas often offer better value for money',
+  vn: 'Ngân sách: Khu yên tĩnh thường có giá trị tốt hơn',
+  zh: '预算：安静区域通常性价比更高'
+},
+'blog-stay-consider-5': {
+  en: 'Length of stay: Quiet areas are better for 3+ days',
+  vn: 'Thời gian lưu trú: Khu yên tĩnh tốt hơn cho 3+ ngày',
+  zh: '住宿时长：安静区域更适合3天以上的入住'
+},
+'blog-stay-style-title': {
+  en: 'How to Choose Based on Your Travel Style',
+  vn: 'Cách Chọn Dựa Trên Phong Cách Du Lịch Của Bạn',
+  zh: '如何根据您的旅行风格选择'
+},
+'blog-stay-oq-choose': {
+  en: '🏙️ Choose Old Quarter If...',
+  vn: '🏙️ Chọn Phố Cổ Nếu...',
+  zh: '🏙️ 选择老城区如果...'
+},
+'blog-stay-oq-1': {
+  en: 'You want to be in the center of everything',
+  vn: 'Bạn muốn ở trung tâm của mọi thứ',
+  zh: '你想置身于一切的中心'
+},
+'blog-stay-oq-2': {
+  en: 'You enjoy nightlife and street energy',
+  vn: 'Bạn thích cuộc sống về đêm và năng lượng đường phố',
+  zh: '你喜欢夜生活和街头活力'
+},
+'blog-stay-oq-3': {
+  en: "You're a first-time visitor",
+  vn: "Bạn là du khách lần đầu",
+  zh: '你是初次到访的游客'
+},
+'blog-stay-oq-4': {
+  en: "You're traveling with friends or family",
+  vn: 'Bạn đi du lịch cùng bạn bè hoặc gia đình',
+  zh: '你和朋友或家人一起旅行'
+},
+'blog-stay-oq-5': {
+  en: "You're only in Hanoi for 1-2 days",
+  vn: 'Bạn chỉ ở Hà Nội 1-2 ngày',
+  zh: '你只在河内停留1-2天'
+},
+'blog-stay-quiet-choose': {
+  en: '🌿 Choose Quiet Areas If...',
+  vn: '🌿 Chọn Khu Yên Tĩnh Nếu...',
+  zh: '🌿 选择安静区域如果...'
+},
+'blog-stay-quiet-1': {
+  en: 'You need good sleep',
+  vn: 'Bạn cần ngủ ngon',
+  zh: '你需要良好的睡眠'
+},
+'blog-stay-quiet-2': {
+  en: 'You prefer local neighborhoods',
+  vn: 'Bạn thích khu phố địa phương',
+  zh: '你更喜欢本地社区'
+},
+'blog-stay-quiet-3': {
+  en: "You're staying for more than 3 days",
+  vn: 'Bạn ở lại hơn 3 ngày',
+  zh: '你停留超过3天'
+},
+'blog-stay-quiet-4': {
+  en: "You're a digital nomad or remote worker",
+  vn: 'Bạn là dân số hoặc làm việc từ xa',
+  zh: '你是数字游民或远程工作者'
+},
+'blog-stay-quiet-5': {
+  en: 'You want to experience real local life',
+  vn: 'Bạn muốn trải nghiệm cuộc sống địa phương thực sự',
+  zh: '你想体验真正的当地生活'
+},
+'blog-stay-table-title': {
+  en: 'Quick Comparison Table',
+  vn: 'Bảng So Sánh Nhanh',
+  zh: '快速对比表'
+},
+'blog-stay-table-feature': {
+  en: 'Feature',
+  vn: 'Đặc điểm',
+  zh: '特点'
+},
+'blog-stay-table-oq': {
+  en: 'Old Quarter',
+  vn: 'Phố Cổ',
+  zh: '老城区'
+},
+'blog-stay-table-quiet': {
+  en: 'Quiet Areas (Văn Miếu)',
+  vn: 'Khu Yên Tĩnh (Văn Miếu)',
+  zh: '安静区域（文庙）'
+},
+'blog-stay-table-energy': {
+  en: 'Energy',
+  vn: 'Năng lượng',
+  zh: '活力'
+},
+'blog-stay-table-energy-oq': {
+  en: 'High - 24/7',
+  vn: 'Cao - 24/7',
+  zh: '高 - 24/7'
+},
+'blog-stay-table-energy-quiet': {
+  en: 'Low - peaceful',
+  vn: 'Thấp - yên bình',
+  zh: '低 - 平和'
+},
+'blog-stay-table-walk': {
+  en: 'Walkability',
+  vn: 'Đi bộ',
+  zh: '步行便利性'
+},
+'blog-stay-table-sleep': {
+  en: 'Sleep Quality',
+  vn: 'Chất lượng giấc ngủ',
+  zh: '睡眠质量'
+},
+'blog-stay-table-local': {
+  en: 'Local Experience',
+  vn: 'Trải nghiệm địa phương',
+  zh: '本地体验'
+},
+'blog-stay-table-value': {
+  en: 'Value for Money',
+  vn: 'Giá trị',
+  zh: '性价比'
+},
+'blog-stay-table-food': {
+  en: 'Food Options',
+  vn: 'Lựa chọn ẩm thực',
+  zh: '餐饮选择'
+},
+'blog-stay-table-ideal': {
+  en: 'Ideal for',
+  vn: 'Phù hợp cho',
+  zh: '适合人群'
+},
+'blog-stay-table-ideal-oq': {
+  en: 'Short stays, groups, nightlife lovers',
+  vn: 'Lưu trú ngắn, nhóm, yêu thích cuộc sống về đêm',
+  zh: '短期住宿、团体、夜生活爱好者'
+},
+'blog-stay-table-ideal-quiet': {
+  en: 'Long stays, couples, remote workers',
+  vn: 'Lưu trú dài, cặp đôi, làm việc từ xa',
+  zh: '长期住宿、情侣、远程工作者'
+},
 'auto-blog-where-to-stay-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-where-to-stay-002': {en:"Blog", vn:"Blog", zh:"博客"},
   'auto-blog-where-to-stay-003': {en:"Where to Stay in Hanoi", vn:"Nên Ở Đâu Ở Hà Nội", zh:"河内住宿推荐"},
