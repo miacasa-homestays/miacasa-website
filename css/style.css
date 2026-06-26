@@ -4649,3 +4649,97 @@ html {
     gap: 0.5rem !important;
   }
 }
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: block !important;
+  }
+  .text-center-mobile {
+    text-align: center !important;
+  }
+  .full-width-mobile {
+    width: 100% !important;
+  }
+  .gap-sm-mobile {
+    gap: 0.5rem !important;
+  }
+}
+/* ============================================
+   FLOATING BUTTONS MOBILE FIX
+   ============================================ */
+
+/* Mobile - ensure back-to-top and chatbot don't overlap */
+@media (max-width: 768px) {
+  /* Move back-to-top UP */
+  .back-to-top {
+    bottom: 100px !important;
+    right: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1rem !important;
+    z-index: 99 !important;
+  }
+  
+  /* Chatbot stays in position, but we add margin */
+  .chatbot-fab {
+    bottom: 200px !important;
+    right: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1rem !important;
+    z-index: 100 !important;
+  }
+  
+  /* Chatbot window - adjust position */
+  .chatbot-window {
+    bottom: 200px !important;
+    right: 10px !important;
+    width: 320px !important;
+    max-height: 70vh !important;
+  }
+  
+  /* WhatsApp float - adjust */
+  .whatsapp-float {
+    bottom: 150px !important;
+    right: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+    z-index: 98 !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .back-to-top {
+    bottom: 90px !important;
+    right: 12px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .chatbot-fab {
+    bottom: 180px !important;
+    right: 12px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .chatbot-window {
+    bottom: 180px !important;
+    right: 8px !important;
+    width: 290px !important;
+  }
+  
+  .whatsapp-float {
+    bottom: 135px !important;
+    right: 12px !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 16px !important;
+  }
+}
