@@ -2356,6 +2356,41 @@ const TRANSLATIONS = {
   vn: 'Ở cùng chúng tôi',
   zh: '入住我们的民宿'
 },
+'related-posts-title': {
+  en: '📖 You might also like',
+  vn: '📖 Có thể bạn cũng thích',
+  zh: '📖 你可能也喜欢'
+},
+'related-train': {
+  en: 'Train Street Hanoi: Full Guide',
+  vn: 'Train Street Hà Nội: Hướng Dẫn Chi Tiết',
+  zh: '河内火车街：完整指南'
+},
+'related-3days': {
+  en: '3 Days in Hanoi: Complete Itinerary',
+  vn: '3 Ngày Ở Hà Nội: Lịch Trình Chi Tiết',
+  zh: '河内3日游：完整行程'
+},
+'related-stay': {
+  en: 'Where to Stay in Hanoi: Old Quarter vs Local',
+  vn: 'Nên Ở Đâu Ở Hà Nội: Phố Cổ Hay Khu Yên Tĩnh',
+  zh: '河内住哪里：老城区 vs 本地社区'
+},
+'related-cafes': {
+  en: 'Best Cafés in Hanoi for Coffee & Work',
+  vn: 'Quán Cà Phê Đẹp Nhất Hà Nội Để Làm Việc',
+  zh: '河内最佳咖啡馆：咖啡与工作'
+},
+'related-oq': {
+  en: 'Hanoi Old Quarter Guide: Streets, Food & Tips',
+  vn: 'Hướng Dẫn Phố Cổ Hà Nội: Đường Phố, Ẩm Thực & Mẹo',
+  zh: '河内老城区指南：街道、美食与贴士'
+},
+'related-food': {
+  en: 'What to Eat in Hanoi: 10 Dishes You Can\'t Miss',
+  vn: 'Ăn Gì Ở Hà Nội: 10 Món Không Thể Bỏ Lỡ',
+  zh: '河内吃什么：10种不容错过的美食'
+},
   'auto-blog-hanoi-3-days-001': {en:"Home", vn:"Trang chủ", zh:"首页"},
 'auto-blog-hanoi-3-days-002': {en:"Blog", vn:"Blog", zh:"博客"},
 'auto-blog-hanoi-3-days-003': {en:"3 Days in Hanoi Itinerary", vn:"Lịch Trình 3 Ngày Ở Hà Nội", zh:"河内三日行程"},

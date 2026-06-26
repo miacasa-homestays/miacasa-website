@@ -4743,3 +4743,133 @@ html {
     font-size: 16px !important;
   }
 }
+/* ============================================
+   AUTHOR EXPERTISE BOX
+   ============================================ */
+
+.author-box {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  margin: 2.5rem 0 2rem;
+  background: var(--sand);
+  border-radius: 12px;
+  border-left: 4px solid var(--terracotta);
+  align-items: flex-start;
+}
+
+.author-avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.author-content h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.author-content p {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.author-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+}
+
+.author-links a {
+  color: var(--terracotta);
+  text-decoration: none;
+}
+
+.author-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .author-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.25rem;
+  }
+  
+  .author-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+/* ============================================
+   RELATED POSTS GRID
+   ============================================ */
+
+.related-posts-grid {
+  margin: 2rem 0 2.5rem;
+  padding: 1.5rem;
+  background: var(--sand);
+  border-radius: 12px;
+}
+
+.related-posts-grid h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.related-posts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem 1.5rem;
+}
+
+.related-post {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.related-post:last-child {
+  border-bottom: none;
+}
+
+.related-post a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.related-post a:hover {
+  color: var(--terracotta);
+}
+
+.related-post span:first-child {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .related-posts-list {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
