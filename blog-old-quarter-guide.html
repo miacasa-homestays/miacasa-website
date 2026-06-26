@@ -219,6 +219,51 @@
     font-weight: 600;
     color: #2c2416;
   }
+
+  /* ─── BACK TO TOP BUTTON ─── */
+  .back-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--terracotta, #c17a5a);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .back-to-top:hover {
+    background: #a85e3e;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 80px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
   
   @media (max-width: 768px) { 
     .blog-container { padding: 1rem; } 
@@ -600,9 +645,33 @@
 
 <script>
   function toggleMenu() { document.querySelector('.nav-links').classList.toggle('show'); }
+
+  // ─── BACK TO TOP BUTTON ───
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    
+    if (backToTopBtn) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  });
 </script>
 
 <a href="index.html?property=hanoi#booking" class="sticky-book-btn" data-t="sticky-book">📅 Book Now</a>
+
+<!-- Back to Top Button -->
+<button id="backToTopBtn" class="back-to-top" aria-label="Scroll to top">
+  ↑
+</button>
 
 </body>
 </html>
