@@ -179,9 +179,13 @@ function renderBookingFormLanguage() {
 // Register with the translation hook
 function registerTranslationHook(fn) {
     if (typeof window.registerTranslationHook === 'function') {
+        // Use the existing registration system
         window.registerTranslationHook(fn);
     } else {
-        if (!window._pendingHooks) window._pendingHooks = [];
+        // Initialize pending hooks if they don't exist
+        if (!window._pendingHooks) {
+            window._pendingHooks = [];
+        }
         window._pendingHooks.push(fn);
     }
 }
@@ -574,6 +578,7 @@ function fmtDateVN(dateStr) {
 }
 
 let activeProp = 'hanoi';
+window.activeProp = activeProp;
 let currentBookingId = '';
 let currentBookingKey = '';
 let lastPriceResult = null;
