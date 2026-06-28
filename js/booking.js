@@ -1146,52 +1146,24 @@ function renderBookingSelector() {
 // ================================================================
 
 function selectProp(id) {
-    //console.log('=== selectProp DEBUG ===');
-    //console.log('1. Selected property ID:', id);
-    
     activeProp = id;
     document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
     const activeBtn = document.getElementById('bsb-' + id);
     if (activeBtn) activeBtn.classList.add('active');
     
     const p = PROPERTIES.find(x => x.id === id);
-    //console.log('2. Found property object:', p);
-    //console.log('3. p.rooms:', p?.rooms);
-    //console.log('4. p.vn?.rooms:', p?.vn?.rooms);
-    
     const lang = window.currentLang || 'en';
-    //console.log('5. Current language:', lang);
     
-    const rooms = getField(p, 'rooms', lang);
-    //console.log('6. getField returned rooms:', rooms);
+    // CRITICAL FIX: Call renderBookingFormLanguage FIRST to set up the dropdowns with correct language
+    // This ensures rooms and guests are displayed in the current language
+    renderBookingFormLanguage();
     
-    const roomSelect = document.getElementById('room-type-sel');
-    if (roomSelect) {
-        roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
-        //console.log('7. Room dropdown updated with:', rooms);
-        //console.log('8. Room dropdown HTML:', roomSelect.innerHTML);
-    } else {
-        //console.log('8. roomSelect element not found!');
-    }
-    
-    const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
-    const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
-    const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
-    const guestSelect = document.getElementById('guests-sel');
-    if (guestSelect) {
-        guestSelect.innerHTML = Array.from({ length: bookingMaxGuests }, (_, i) => 
-            `<option value="${i + 1}">${i + 1} ${i === 0 ? guestWord : guestWordPl}</option>`
-        ).join('');
-    }
-    
+    // Then update the pricing note separately
     const priceNote = getField(p, 'priceNote', lang);
     const pricingNote = document.getElementById('pricing-note');
     if (pricingNote) {
         pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
     }
-    
-    // Call the language render function to keep everything in sync
-    renderBookingFormLanguage();
     
     updateAvailabilityAndUI();
 }
