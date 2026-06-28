@@ -98,6 +98,104 @@ const PROPERTIES = [
     }
 ];
 
+// ── BOOKING FORM LANGUAGE RENDER ──────────────────────────────
+
+/**
+ * Re-render the booking form dropdowns with current language
+ * This ensures room names and guest counts update when language changes
+ */
+function renderBookingFormLanguage() {
+    const lang = window.currentLang || 'en';
+    
+    // Get the current property
+    const prop = PROPERTIES.find(p => p.id === activeProp);
+    if (!prop) return;
+    
+    // 1. Update room options
+    const roomSelect = document.getElementById('room-type-sel');
+    if (roomSelect) {
+        // Store current selection
+        const currentVal = roomSelect.value;
+        
+        // Get translated room names
+        const rooms = getField(prop, 'rooms', lang);
+        
+        // Rebuild options
+        roomSelect.innerHTML = rooms.map(r => `<option value="${r}">${r}</option>`).join('');
+        
+        // Restore selection if still valid
+        if (currentVal && rooms.includes(currentVal)) {
+            roomSelect.value = currentVal;
+        } else if (rooms.length > 0) {
+            roomSelect.value = rooms[0];
+        }
+    }
+    
+    // 2. Update guest options
+    const guestSelect = document.getElementById('guests-sel');
+    if (guestSelect) {
+        const currentVal = guestSelect.value;
+        const maxGuests = prop.maxGuestsPerRoom || prop.maxGuests || 3;
+        const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
+        const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
+        
+        guestSelect.innerHTML = '';
+        for (let i = 1; i <= maxGuests; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i + ' ' + (i === 1 ? guestWord : guestWordPl);
+            guestSelect.appendChild(opt);
+        }
+        
+        // Restore selection
+        if (currentVal && parseInt(currentVal) <= maxGuests) {
+            guestSelect.value = currentVal;
+        } else {
+            guestSelect.value = Math.min(maxGuests, 2);
+        }
+    }
+    
+    // 3. Update property selector buttons (if they exist)
+    document.querySelectorAll('.prop-select-btn').forEach(btn => {
+        const propId = btn.id?.replace('bsb-', '');
+        const propData = PROPERTIES.find(p => p.id === propId);
+        if (propData && btn) {
+            const badge = getField(propData, 'badge', lang);
+            const nameSpan = btn.querySelector('.pbn');
+            const badgeSpan = btn.querySelector('.pbs');
+            if (nameSpan) nameSpan.textContent = propData.name;
+            if (badgeSpan) badgeSpan.textContent = badge + ' · ' + propData.rating + '★';
+        }
+    });
+    
+    // 4. Update pricing note
+    const pricingNote = document.getElementById('pricing-note');
+    if (pricingNote && prop) {
+        const priceNote = getField(prop, 'priceNote', lang);
+        pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú.' : 'Final pricing depends on dates, number of guests, and length of stay.'}`;
+    }
+}
+
+// Register with the translation hook
+function registerTranslationHook(fn) {
+    if (typeof window.registerTranslationHook === 'function') {
+        window.registerTranslationHook(fn);
+    } else {
+        if (!window._pendingHooks) window._pendingHooks = [];
+        window._pendingHooks.push(fn);
+    }
+}
+
+// When language changes, re-render booking form
+registerTranslationHook(function(lang) {
+    renderBookingFormLanguage();
+    // Also refresh availability to update any UI text
+    updateAvailabilityAndUI();
+});
+
+// Make function globally available
+window.renderBookingFormLanguage = renderBookingFormLanguage;
+
 // PRICING ENGINE
 const SPECIAL_RANGES = [
     ['2025-01-28', '2025-02-04'], ['2026-02-14', '2026-02-21'],
@@ -1085,6 +1183,9 @@ function selectProp(id) {
         pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
     }
     
+    // Call the language render function to keep everything in sync
+    renderBookingFormLanguage();
+    
     updateAvailabilityAndUI();
 }
 
@@ -2067,3 +2168,4 @@ window.generateQRCode = generateQRCode;
 window.processPayPal = processPayPal;
 window.submitBankTransferProof = submitBankTransferProof;
 window.confirmCashBooking = confirmCashBooking;
+window.renderBookingFormLanguage = renderBookingFormLanguage;
