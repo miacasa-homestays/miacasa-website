@@ -354,19 +354,19 @@
       <!-- Row 1: Room, Check-in, Check-out, Guests -->
       <div class="form-grid">
         <div class="form-group">
-          <label id="lbl-room">Room / Space</label>
+          <label id="lbl-room" data-t="lbl-room">Room / Space</label>
           <select id="room-type-sel" aria-label="Select room type"></select>
         </div>
         <div class="form-group">
-          <label id="lbl-checkin">Check-in</label>
-          <input type="date" id="checkin" aria-label="Check-in date" onfocus="this.showPicker?.()">
+          <label id="lbl-checkin" data-t="lbl-checkin">Check-in</label>
+          <input type="date" id="checkin" aria-label="Check-in date" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
         </div>
         <div class="form-group">
-          <label id="lbl-checkout">Check-out</label>
-          <input type="date" id="checkout" onfocus="this.showPicker?.()">
+          <label id="lbl-checkout" data-t="lbl-checkout">Check-out</label>
+          <input type="date" id="checkout" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
         </div>
         <div class="form-group">
-          <label id="lbl-guests">Guests</label>
+          <label id="lbl-guests" data-t="lbl-guests">Guests</label>
           <select id="guests-sel"></select>
         </div>
       </div>
@@ -384,15 +384,15 @@
         
         <div class="form-grid">
           <div class="form-group">
-            <label id="lbl-name">Full Name *</label>
-            <input type="text" id="guest-name" placeholder="Your full name">
+            <label id="lbl-name" data-t="lbl-name">Full Name *</label>
+            <input type="text" id="guest-name" data-t-placeholder="ph-name" placeholder="Your full name">
           </div>
           <div class="form-group">
-            <label id="lbl-email">Email Address *</label>
-            <input type="email" id="guest-email" placeholder="your@email.com">
+            <label id="lbl-email" data-t="lbl-email">Email Address *</label>
+            <input type="email" id="guest-email" data-t-placeholder="ph-email" placeholder="your@email.com">
           </div>
           <div class="form-group">
-            <label id="lbl-phone">Phone Number *</label>
+            <label id="lbl-phone" data-t="lbl-phone">Phone Number *</label>
             <div class="phone-wrapper">
               <select id="guest-phone-code">
                   <optgroup label="── Common ──">
@@ -490,7 +490,7 @@
                     <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
                   </optgroup>
                 </select>
-              <input type="tel" id="guest-phone-number" placeholder="Phone number">
+              <input type="tel" id="guest-phone-number" data-t-placeholder="ph-phone" placeholder="Phone number">
             </div>
           </div>
         </div>

@@ -2314,7 +2314,68 @@ const TRANSLATIONS = {
 'tease-tag': {en:"A Glimpse Inside", vn:"Một góc nhìn bên trong", zh:"内部一瞥"},
 'tease-sub': {en:"Handcrafted spaces designed to feel lived-in and effortlessly beautiful.", vn:"Những không gian được chăm chút thủ công, có cảm giác sống động và đẹp tự nhiên.", zh:"精心打造的空间，既有生活气息，又自然舒适。"},
 'tease-title': {en:"A peek <em>inside</em>", vn:"Một góc nhìn <em>bên trong</em>", zh:"看看<em>内部</em>"},
+/* ── BOOKING FORM TRANSLATIONS ────────────────────────────────── */
 
+'lbl-room': {
+  en: 'Room / Space',
+  vn: 'Phòng / Không gian',
+  zh: '房间 / 空间'
+},
+'lbl-checkin': {
+  en: 'Check-in',
+  vn: 'Nhận phòng',
+  zh: '入住'
+},
+'lbl-checkout': {
+  en: 'Check-out',
+  vn: 'Trả phòng',
+  zh: '退房'
+},
+'date-placeholder': {
+  en: 'mm/dd/yyyy',
+  vn: 'dd/mm/yyyy',
+  zh: '年/月/日'
+},
+'lbl-guests': {
+  en: 'Guests',
+  vn: 'Khách',
+  zh: '客人'
+},
+'lbl-name': {
+  en: 'Full Name *',
+  vn: 'Họ và tên *',
+  zh: '全名 *'
+},
+'ph-name': {
+  en: 'Your full name',
+  vn: 'Họ và tên của bạn',
+  zh: '您的全名'
+},
+'lbl-email': {
+  en: 'Email Address *',
+  vn: 'Địa chỉ Email *',
+  zh: '电子邮箱 *'
+},
+'ph-email': {
+  en: 'your@email.com',
+  vn: 'email@cuaban.com',
+  zh: '您的电子邮箱'
+},
+'lbl-phone': {
+  en: 'Phone Number *',
+  vn: 'Số điện thoại *',
+  zh: '电话号码 *'
+},
+'ph-phone': {
+  en: 'Phone number',
+  vn: 'Số điện thoại',
+  zh: '电话号码'
+},
+'pay-label': {
+  en: 'Complete your booking:',
+  vn: 'Hoàn tất đặt phòng:',
+  zh: '完成预订：'
+},
 'h-gal-tag': {en:"Gallery", vn:"Thư viện ảnh", zh:"图片集"},
 'h-faq-tag': {en:"FAQ", vn:"Câu hỏi thường gặp", zh:"常见问题"},
 'h-reviews-tag': {en:"Guest Reviews", vn:"Đánh giá của khách", zh:"住客评价"},
