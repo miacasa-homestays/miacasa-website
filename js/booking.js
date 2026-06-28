@@ -176,26 +176,26 @@ function renderBookingFormLanguage() {
     }
 }
 
-// Register with the translation hook
-function registerTranslationHook(fn) {
-    if (typeof window.registerTranslationHook === 'function') {
-        // Use the existing registration system
-        window.registerTranslationHook(fn);
+// Register with the translation hook - FIXED VERSION (no recursion)
+(function registerTranslationHook() {
+    const hookFn = function(lang) {
+        renderBookingFormLanguage();
+        // Also refresh availability to update any UI text
+        updateAvailabilityAndUI();
+    };
+    
+    // Check if lang.js already loaded and has registerTranslationHook
+    if (typeof window.registerTranslationHook === 'function' && 
+        window.registerTranslationHook !== registerTranslationHook) {
+        window.registerTranslationHook(hookFn);
     } else {
-        // Initialize pending hooks if they don't exist
+        // Store pending hooks for when lang.js loads
         if (!window._pendingHooks) {
             window._pendingHooks = [];
         }
-        window._pendingHooks.push(fn);
+        window._pendingHooks.push(hookFn);
     }
-}
-
-// When language changes, re-render booking form
-registerTranslationHook(function(lang) {
-    renderBookingFormLanguage();
-    // Also refresh availability to update any UI text
-    updateAvailabilityAndUI();
-});
+})();
 
 // Make function globally available
 window.renderBookingFormLanguage = renderBookingFormLanguage;
@@ -300,10 +300,13 @@ const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
 // Pre-populate from synchronous cache injected by index.html before this script loads.
 // This gives getEffectiveFromPrice() the correct values on the very first call,
 // so prices never flicker from default → overridden.
-let _priceOverrides = (function () {
+let _priceOverrides = [];
+
+// Immediately populate from cache
+(function initPriceOverrides() {
     try {
         if (window._cachedPriceOverrides && Array.isArray(window._cachedPriceOverrides)) {
-            return window._cachedPriceOverrides
+            _priceOverrides = window._cachedPriceOverrides
                 .map(function (row) {
                     return {
                         id:    row[0],
@@ -312,14 +315,13 @@ let _priceOverrides = (function () {
                         to:    String(row[3] || '').trim(),
                         price: Number(row[4]) || 0,
                         note:  row[5] || '',
-                        rule:  null   // parsePriceOverrideRule not yet defined here
+                        rule:  null
                     };
                 })
                 .filter(function (o) { return o.room && o.from && o.to && o.price > 0; });
         }
     } catch (e) { /* ignore */ }
-    return [];
-}());
+})();
 let _overridesFetched = false;
 let _captchaValidated  = false;  // true after captcha passes for the current booking
 
