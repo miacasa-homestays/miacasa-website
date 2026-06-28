@@ -2287,7 +2287,7 @@ const TRANSLATIONS = {
 'cafes-category': {en:"☕ CAFÉ GUIDE", vn:"☕ HƯỚNG DẪN CÀ PHÊ", zh:"☕ 咖啡馆指南"},
 'cafes-title': {en:"Best Cafés in Hanoi for Coffee, Work & Quiet Mornings (2026)", vn:"Những quán cà phê đẹp ở Hà Nội để uống cà phê, làm việc và tận hưởng buổi sáng yên tĩnh (2026)", zh:"河内最适合咖啡、办公与安静早晨的咖啡馆（2026）"},
 'cafes-excerpt': {en:"Discover Hanoi's best cafés for egg coffee, remote work, quiet mornings, and hidden local atmosphere — from Old Quarter gems to calm cafés near Văn Miếu.", vn:"Khám phá những quán cà phê đáng ghé ở Hà Nội cho cà phê trứng, làm việc từ xa, buổi sáng yên tĩnh và không khí địa phương — từ Phố Cổ đến khu Văn Miếu.", zh:"探索河内最值得去的咖啡馆，适合蛋咖啡、远程办公、安静早晨和本地氛围——从老城区宝藏咖啡馆到文庙附近的安静小店。"},
-'cafes-meta': {en:"📅 May 1, 2026 · ☕ 6 min read", vn:"📅 1 Tháng 5, 2026 · ☕ Đọc 6 phút", zh:"📅 2026年5月1日 · ☕ 阅读约6分钟"},
+'cafes-meta': {en:"📅 May 1, 2026 · ☕ 8 min read", vn:"📅 1 Tháng 5, 2026 · ☕ Đọc 8 phút", zh:"📅 2026年5月1日 · ☕ 阅读约8分钟"},
 
 'blog-card-3days-category': {en:"📌 ITINERARY", vn:"📌 LỊCH TRÌNH", zh:"📌 行程指南"},
 'blog-card-3days-title': {en:"3 Days in Hanoi: A Complete Itinerary (2026)", vn:"3 ngày ở Hà Nội: Lịch trình đầy đủ (2026)", zh:"河内 3 日游：完整行程指南（2026）"},
