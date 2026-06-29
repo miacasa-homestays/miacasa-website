@@ -583,9 +583,9 @@ const TRANSLATIONS = {
   zh:'河内两处独特的民宿 — 为寻求真正家的旅行者用心打造，而不仅仅是一张床。'
 },
 'footer-copy': {
-  en:'© 2025 MiaCasa Homestays. All rights reserved.',
-  vn:'© 2025 MiaCasa Homestays. Bảo lưu mọi quyền.',
-  zh:'© 2025 MiaCasa Homestays。版权所有。'
+  en:'© 2026 MiaCasa Homestays. All rights reserved.',
+  vn:'© 2026 MiaCasa Homestays. Bảo lưu mọi quyền.',
+  zh:'© 2026 MiaCasa Homestays。版权所有。'
 },
 'footer-made': {
   en:'Made with ♡ in Hanoi',
@@ -1631,9 +1631,9 @@ const TRANSLATIONS = {
 },
 
 'footer-copyright': {
-  en:'© 2025 MiaCasa Homestays',
-  vn:'© 2025 MiaCasa Homestays',
-  zh:'© 2025 MiaCasa Homestays'
+  en:'© 2026 MiaCasa Homestays',
+  vn:'© 2026 MiaCasa Homestays',
+  zh:'© 2026 MiaCasa Homestays'
 },
 
 'story-hero-title': {
