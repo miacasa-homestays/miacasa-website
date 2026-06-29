@@ -141,10 +141,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is MiaCasa Hanoi?",
+          "name": "What is MiaCasa?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MiaCasa Hanoi is a boutique homestay offering private rooms and apartments in Hanoi. We are more personal than a hotel, with local hosts who live in the city and personally manage two distinct properties."
+            "text": "MiaCasa is a boutique homestay in Hanoi offering private rooms and apartments with local hosts who live in the city and personally manage two distinct properties."
           }
         },
         {
@@ -153,6 +153,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No, MiaCasa is a boutique homestay — smaller and more personal than a hotel. We offer private rooms and apartments with the independence of a rental, plus the local knowledge and attention of hosts who live in Hanoi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is MiaCasa on Airbnb?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can find MiaCasa on Airbnb, Booking.com, Agoda, Trip.com, and DayLaDau. However, booking directly through our website offers better rates, flexible payment options, and direct communication with hosts."
           }
         },
         {
@@ -427,7 +435,6 @@
     line-height: 1.6;
   }
 
-  /* SHORTENED FAQ SECTION */
   .faq-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -505,7 +512,6 @@
     text-decoration: underline;
   }
 
-  /* NEW: Planning Your Trip Section */
   .trip-planner-section {
     background: #f9f6f0;
     border-radius: 16px;
@@ -582,9 +588,6 @@
   }
 
   .google-maps-section .map-item p {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.8rem;
-    color: #6b5c47;
     margin-bottom: 0.5rem;
   }
 
@@ -652,7 +655,6 @@
     margin-top: 2rem;
   }
 
-  /* NEW: Languages section */
   .languages-section {
     text-align: center;
     padding: 1rem;
@@ -761,17 +763,17 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
 
   <ul class="nav-links">
-    <li><a href="index.html" data-t="nav-home">Home</a></li>
+    <li><a href="/" data-t="nav-home">Home</a></li>
     <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
     <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
     <li><a href="/blog" data-t="nav-blog">Blog</a></li>
     <li><a href="/about" class="active" data-t="nav-about">About</a></li>
-    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
-    <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+    <li><a href="/#contact" data-t="nav-contact">Contact Us</a></li>
+    <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
 
   <div class="lang-toggle">
@@ -984,7 +986,7 @@
     <p data-t="about-direct-p2">Book direct and experience the same trusted MiaCasa stay with more flexibility and better value.</p>
   </div>
 
-  <!-- NEW: PLANNING YOUR TRIP SECTION -->
+  <!-- PLANNING YOUR TRIP SECTION -->
   <div class="trip-planner-section">
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:#2c2416;margin-bottom:0.5rem;" data-t="about-trip-title">Planning Your Trip to Hanoi?</h2>
     <p style="font-family:'Jost',sans-serif;color:#6b5c47;font-size:0.95rem;" data-t="about-trip-desc">Everything you need to plan your Hanoi visit:</p>
@@ -1017,7 +1019,7 @@
     </div>
   </div>
 
-  <!-- WHERE ARE WE? -->
+  <!-- WHERE ARE WE? - Google Maps Section with Business Profile URLs -->
   <div class="google-maps-section">
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:#2c2416;margin-bottom:0.5rem;" data-t="about-maps-title">
       Where Are We?
@@ -1036,20 +1038,20 @@
 
         <p>
           <a href="https://maps.app.goo.gl/YeeXuSpTikm19XMGA"
-            target="_blank"
-            rel="noopener"
-            style="color:#6b5c47;text-decoration:none;"
-            data-t="about-maps-hanoi-desc">
+             target="_blank"
+             rel="noopener"
+             style="color:#6b5c47;text-decoration:none;"
+             data-t="about-maps-hanoi-desc">
             92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội
           </a>
         </p>
 
         <a href="https://maps.app.goo.gl/YeeXuSpTikm19XMGA"
-          target="_blank"
-          rel="noopener"
-          class="map-link"
-          data-t="about-maps-hanoi-link">
-          View location & directions →
+           target="_blank"
+           rel="noopener"
+           class="map-link"
+           data-t="about-maps-hanoi-link">
+           View location & directions →
         </a>
       </div>
 
@@ -1060,27 +1062,27 @@
 
         <p>
           <a href="https://maps.app.goo.gl/YKRyFz8MPkc9LDYv6"
-            target="_blank"
-            rel="noopener"
-            style="color:#6b5c47;text-decoration:none;"
-            data-t="about-maps-oq-desc">
+             target="_blank"
+             rel="noopener"
+             style="color:#6b5c47;text-decoration:none;"
+             data-t="about-maps-oq-desc">
             38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội
           </a>
         </p>
 
         <a href="https://maps.app.goo.gl/YKRyFz8MPkc9LDYv6"
-          target="_blank"
-          rel="noopener"
-          class="map-link"
-          data-t="about-maps-oq-link">
-          View location & directions →
+           target="_blank"
+           rel="noopener"
+           class="map-link"
+           data-t="about-maps-oq-link">
+           View location & directions →
         </a>
       </div>
 
     </div>
   </div>
 
-  <!-- NEW: LANGUAGES SECTION -->
+  <!-- LANGUAGES SECTION -->
   <div class="languages-section">
     <p data-t="about-languages">
       <span class="lang-flags">🇬🇧 🇻🇳 🇨🇳</span>
@@ -1105,13 +1107,18 @@
       </div>
       
       <div class="faq-item">
+        <h4 data-t="about-faq-q3">Is MiaCasa on Airbnb?</h4>
+        <p data-th="about-faq-a3">Yes, you can find MiaCasa on <strong>Airbnb</strong>, <strong>Booking.com</strong>, <strong>Agoda</strong>, <strong>Trip.com</strong>, and <strong>DayLaDau</strong>. However, booking directly through our website offers better rates, flexible payment options, and direct communication with hosts.</p>
+      </div>
+      
+      <div class="faq-item">
         <h4 data-t="about-faq-q6">Which property should I choose?</h4>
         <p data-t="about-faq-a6">Choose MiaCasa Hanoi for a quieter, local neighborhood experience near Văn Miếu and Train Street. Choose MiaCasa Old Quarter for staying in the heart of Hanoi's historic district.</p>
       </div>
       
       <div class="faq-item">
-        <h4 data-t="about-faq-q3">Is MiaCasa on Airbnb?</h4>
-        <p data-th="about-faq-a3">Yes, you can find MiaCasa on <strong>Airbnb</strong>, <strong>Booking.com</strong>, <strong>Agoda</strong>, <strong>Trip.com</strong>, and <strong>DayLaDau</strong>. However, booking directly through our website offers better rates, flexible payment options, and direct communication with hosts.</p>
+        <h4 data-t="about-faq-q3">Why book direct?</h4>
+        <p data-t="about-faq-a3">Booking directly through our website offers better rates, flexible payment options, and direct communication with hosts. No platform commissions means lower prices for you.</p>
       </div>
     </div>
   </div>
@@ -1129,7 +1136,7 @@
 
   <!-- CTA -->
   <div class="about-cta">
-    <a href="index.html?property=hanoi#booking" class="btn-primary" data-t="about-cta-book">📅 Book Your Stay</a>
+    <a href="/?property=hanoi#booking" class="btn-primary" data-t="about-cta-book">📅 Book Your Stay</a>
     <a href="/blog" class="btn-secondary" data-t="about-cta-blog">📖 Read Our Hanoi Travel Guides</a>
   </div>
 
@@ -1139,7 +1146,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
                 <div style="margin-top: 1rem;">
                     <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
@@ -1151,7 +1158,7 @@
                 <ul>
                     <li><a href="/miacasa-hanoi" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
                     <li><a href="/miacasa-oldquarter" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
-                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                    <li><a href="/#booking" data-t="footer-book-direct">Book Direct</a></li>
                 </ul>
             </div>
             
@@ -1161,16 +1168,16 @@
                     <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
                     <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
                     <li><a href="/blog" data-t="footer-blog">Blog</a></li>
-                    <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
+                    <li><a href="/#contact" data-t="footer-contact">Contact</a></li>
                 </ul>
             </div>
             
             <div class="footer-col">
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
-                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
-                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
-                    <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com" aria-label="Email MiaCasa">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" aria-label="Contact MiaCasa on WhatsApp" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" aria-label="Call MiaCasa" data-t="footer-call">Call +84 869 922 261</a></li>
                     <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
             </div>
@@ -1178,14 +1185,14 @@
         
         <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
             <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
-                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <span data-t="footer-copyright">© 2026 MiaCasa Homestays</span>
+            <span data-t="footer-copyright">© 2025 MiaCasa Homestays</span>
             <span data-t="footer-made">Made with ♡ in Hanoi</span>
         </div>
     </div>
@@ -1200,8 +1207,9 @@
   }
 </script>
 
-<a href="index.html?property=hanoi#booking"
+<a href="/?property=hanoi#booking"
    class="floating-book-btn"
+   aria-label="Book your stay at MiaCasa"
    data-t="floating-book">
   📅 Book Now
 </a>
