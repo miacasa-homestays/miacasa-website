@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About MiaCasa  | Boutique Homestay | Local Hosts</title>
+<title>About MiaCasa Hanoi | Boutique Homestay | Local Hosts</title>
 
 <meta name="description" content="MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city. Book directly for the best rates.">
 
@@ -21,14 +21,14 @@
 <link rel="preconnect" href="https://res.cloudinary.com">
 
 <!-- Open Graph -->
-<meta property="og:title" content="About MiaCasa | Boutique Homestay | Local Hosts">
+<meta property="og:title" content="About MiaCasa Hanoi | Boutique Homestay | Local Hosts">
 <meta property="og:description" content="MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city. Book directly for the best rates.">
 <meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
 <meta property="og:url" content="https://www.miacasahanoi.com/about-miacasa">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About MiaCasa | Boutique Homestay | Local Hosts">
+<meta name="twitter:title" content="About MiaCasa Hanoi | Boutique Homestay | Local Hosts">
 <meta name="twitter:description" content="MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city. Book directly for the best rates.">
 <meta name="twitter:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
 
@@ -63,7 +63,7 @@
     },
     {
       "@type": "AboutPage",
-      "name": "About MiaCasa",
+      "name": "About MiaCasa Hanoi",
       "description": "MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city.",
       "url": "https://www.miacasahanoi.com/about-miacasa",
       "mainEntity": {
@@ -77,10 +77,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is MiaCasa?",
+          "name": "What is MiaCasa Hanoi?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MiaCasa is a boutique homestay offering private rooms and apartments in Hanoi. We are more personal than a hotel, with local hosts who live in the city and personally manage two distinct properties."
+            "text": "MiaCasa Hanoi is a boutique homestay offering private rooms and apartments in Hanoi. We are more personal than a hotel, with local hosts who live in the city and personally manage two distinct properties."
           }
         },
         {
@@ -309,12 +309,12 @@
   }
 
   .hosts-section .host-avatar {
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    background: #d9cfbf;
-    margin: 0 auto 0.5rem;
     overflow: hidden;
+    margin: 0 auto 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .hosts-section .host-avatar img {
@@ -325,15 +325,23 @@
 
   .hosts-section .host-name {
     font-family: 'Jost', sans-serif;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #2c2416;
   }
 
   .hosts-section .host-role {
     font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #6b5c47;
+  }
+
+  .hosts-section .host-description {
+    font-size: 0.85rem;
+    color: #6b5c47;
+    max-width: 280px;
+    margin: 0.25rem auto 0;
+    line-height: 1.6;
   }
 
   .faq-grid {
@@ -380,10 +388,25 @@
     text-align: center;
     border: 1px solid #e5e0d8;
     transition: transform 0.2s;
+    overflow: hidden;
   }
 
   .blog-link-card:hover {
     transform: translateY(-2px);
+  }
+
+  .blog-link-card .blog-link-image {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-link-card .blog-link-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .blog-link-card .blog-emoji {
@@ -496,6 +519,11 @@
       padding: 1.5rem;
     }
 
+    .hosts-section .host-avatar {
+      width: 120px;
+      height: 120px;
+    }
+
     .blog-links-grid {
       grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
@@ -518,6 +546,11 @@
   @media (max-width: 480px) {
     .blog-links-grid {
       grid-template-columns: 1fr;
+    }
+
+    .hosts-section .host-avatar {
+      width: 100px;
+      height: 100px;
     }
   }
 </style>
@@ -569,13 +602,13 @@
       width="120"
       height="120"
       loading="lazy">
-    <h1 data-t="about-title">About MiaCasa </h1>
+    <h1 data-t="about-title">About MiaCasa Hanoi</h1>
     <p class="tagline" data-t="about-tagline">More Than a Place to Sleep</p>
   </div>
 
   <!-- WHAT IS MIACASA? -->
   <div class="about-section">
-    <h2 data-t="about-what-title">What Is MiaCasa?</h2>
+    <h2 data-t="about-what-title">What Is MiaCasa Hanoi?</h2>
     
     <div class="highlight-box">
       <p data-th="about-what-p1"><strong>MiaCasa is a boutique homestay in Hanoi</strong> — not a large hotel chain, not a faceless rental. We are local hosts who live in the city and personally manage two distinct stays in different parts of Hanoi.</p>
@@ -599,35 +632,40 @@
     <p data-t="about-personal-p3">Over the years, we have welcomed solo travelers, couples, families, remote workers, and long-term visitors from dozens of countries. Many guests arrive as visitors and leave feeling connected to the city in a completely different way.</p>
   </div>
 
-  <!-- MEET YOUR HOSTS (BRIEF) -->
+  <!-- MEET YOUR HOSTS (UPDATED WITH SAME PHOTOS AS OUR STORY) -->
   <div class="hosts-section">
     <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;color:#2c2416;margin-bottom:0.5rem;" data-t="about-hosts-title">Meet Your Hosts</h2>
     <p style="font-family:'Jost',sans-serif;color:#6b5c47;font-size:0.95rem;" data-t="about-hosts-desc">We live in Hanoi and personally care for our guests and properties.</p>
     
     <div class="hosts-grid">
+      <!-- Linh's Card -->
       <div class="host-item">
         <div class="host-avatar">
           <img 
-            src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_200/v1779191606/miacasa-hanoi-logo.png" 
-            alt="Host" 
+            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_200,f_auto,q_auto/v1777476687/IMG_3136_fg6pmo.jpg" 
+            alt="Linh - Co-founder and interior designer of MiaCasa homestay Hanoi" 
             loading="lazy"
-            width="80"
-            height="80">
+            width="200"
+            height="200">
         </div>
-        <div class="host-name" data-t="about-host-name">Ngọc</div>
+        <div class="host-name" data-t="about-host-name">Linh</div>
         <div class="host-role" data-t="about-host-role">Co-founder · MiaCasa Hanoi</div>
+        <p class="host-description" data-t="about-host-desc-linh">Linh is a professional interior designer who focuses on creating warm, comfortable environments with natural textures, soft lighting, and quiet details.</p>
       </div>
+      
+      <!-- Ngọc's Card -->
       <div class="host-item">
         <div class="host-avatar">
           <img 
-            src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_200/v1779191606/miacasa-hanoi-logo.png" 
-            alt="Host" 
+            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_200,f_auto,q_auto/v1777477440/IMG_3152_r4vryr.jpg" 
+            alt="Ngoc - Co-founder of MiaCasa homestay and hospitality expert" 
             loading="lazy"
-            width="80"
-            height="80">
+            width="200"
+            height="200">
         </div>
-        <div class="host-name" data-t="about-host-name-2">Linh</div>
+        <div class="host-name" data-t="about-host-name-2">Ngọc</div>
         <div class="host-role" data-t="about-host-role-2">Co-founder · MiaCasa Old Quarter</div>
+        <p class="host-description" data-t="about-host-desc-ngoc">Ngọc works in hospitality and focuses on the guest experience behind the scenes — communication, comfort, flexibility, and the small details that make a stay feel smooth and personal.</p>
       </div>
     </div>
     
@@ -668,7 +706,7 @@
     </div>
   </div>
 
-  <!-- LOCAL KNOWLEDGE WITH BLOG LINKS -->
+  <!-- LOCAL KNOWLEDGE WITH BLOG LINKS (UPDATED WITH IMAGES) -->
   <div class="about-section">
     <h2 data-t="about-knowledge-title">Local Knowledge Matters</h2>
     <p data-t="about-knowledge-p1">Living in Hanoi allows us to help guests discover experiences that many visitors miss. We regularly share recommendations about cafés, street food, neighborhood walks, hidden restaurants, day trips, transportation, and cultural etiquette.</p>
@@ -677,28 +715,40 @@
     
     <div class="blog-links-grid">
       <div class="blog-link-card">
-        <span class="blog-emoji">🍜</span>
-        <a href="/hanoi-food-guide" data-t="about-blog-food">What to Eat in Hanoi</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_800/v1782064517/hero_image_what_to_eat_hanoi_onhvi0.jpg" alt="What to Eat in Hanoi" loading="lazy" decoding="async">
+        </div>
+        <a href="/hanoi-food-guide" data-t="about-blog-food">🍜 What to Eat in Hanoi</a>
       </div>
       <div class="blog-link-card">
-        <span class="blog-emoji">📍</span>
-        <a href="/blog-old-quarter-guide" data-t="about-blog-oq">Old Quarter Guide</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_600/v1779978683/hanoi-backpacker-district-beer-street4_olyuql.jpg" alt="Old Quarter Guide" loading="lazy" decoding="async">
+        </div>
+        <a href="/blog-old-quarter-guide" data-t="about-blog-oq">📍 Old Quarter Guide</a>
       </div>
       <div class="blog-link-card">
-        <span class="blog-emoji">☕</span>
-        <a href="/best-cafes-hanoi" data-t="about-blog-cafes">Best Cafés in Hanoi</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_1200/v1778744563/coffee_blog_cover_c091p6.jpg" alt="Best Cafés in Hanoi" loading="lazy" decoding="async">
+        </div>
+        <a href="/best-cafes-hanoi" data-t="about-blog-cafes">☕ Best Cafés in Hanoi</a>
       </div>
       <div class="blog-link-card">
-        <span class="blog-emoji">🚂</span>
-        <a href="/blog-train-street" data-t="about-blog-train">Train Street Guide</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777442763/pexels-silverkblack-36713608_luztky.jpg" alt="Train Street Guide" loading="lazy" decoding="async">
+        </div>
+        <a href="/blog-train-street" data-t="about-blog-train">🚂 Train Street Guide</a>
       </div>
       <div class="blog-link-card">
-        <span class="blog-emoji">📌</span>
-        <a href="/blog-hanoi-3-days" data-t="about-blog-itinerary">3-Day Itinerary</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777441425/pexels-ama-journey-2157145868-35542949_naqizl.jpg" alt="3-Day Itinerary" loading="lazy" decoding="async">
+        </div>
+        <a href="/blog-hanoi-3-days" data-t="about-blog-itinerary">📌 3-Day Itinerary</a>
       </div>
       <div class="blog-link-card">
-        <span class="blog-emoji">🏠</span>
-        <a href="/blog-where-to-stay" data-t="about-blog-stay">Where to Stay in Hanoi</a>
+        <div class="blog-link-image">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777457960/quiet-vs-lively-hanoi.001_rvbgzb.jpg" alt="Where to Stay in Hanoi" loading="lazy" decoding="async">
+        </div>
+        <a href="/blog-where-to-stay" data-t="about-blog-stay">🏠 Where to Stay in Hanoi</a>
       </div>
     </div>
     
@@ -725,7 +775,7 @@
     
     <div class="faq-grid">
       <div class="faq-item">
-        <h4 data-t="about-faq-q1">What is MiaCasa?</h4>
+        <h4 data-t="about-faq-q1">What is MiaCasa Hanoi?</h4>
         <p data-t="about-faq-a1">MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city and personally manage two distinct properties.</p>
       </div>
       
