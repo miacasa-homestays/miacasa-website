@@ -140,7 +140,7 @@ const TRANSLATIONS = {
   'h-badge-1': { en: '🛏️ PRIVATE ROOMS OR ENTIRE HOME*', vn: '🛏️ PHÒNG RIÊNG HOẶC TOÀN BỘ NHÀ*', zh:'🛏️ 独立房间或整套住房*' },
   'h-location': { en: 'Đống Đa · Near Train Street', vn: 'Đống Đa · Gần Phố Tàu', zh:'栋多郡 · 靠近火车街' },
   'h-feat4': { en: '🔑 Book 1 room OR book all 3 for the whole home*', vn: '🔑 Đặt 1 phòng HOẶC đặt cả 3 để có toàn bộ nhà*', zh:'🔑 预订 1 间房或预订全部 3 间获得整套住房*' },
-  'note-title': { en: '📌 *About MiaCasa Hanoi:', vn: '📌 *Về MiaCasa Hà Nội:', zh:'📌 *关于 MiaCasa Hanoi：' },
+  'note-title': { en: '📌 *About MiaCasa:', vn: '📌 *Về MiaCasa:', zh:'📌 *关于 MiaCasa：' },
   'from': { en: 'from', vn: 'từ', zh:'起' },
   /* ── HOUSE RULES ──────────────────────────────────────────────── */
 'sec-rules': {
@@ -6322,7 +6322,7 @@ zh:"<li>安静的居住氛围</li>\n<li>靠近文庙和火车街</li>\n<li>节�
 // NOTE: Keys marked with [HTML] contain HTML tags and should use data-th in HTML
 //       Keys without [HTML] are plain text and should use data-t in HTML
 
-'about-title': { en: 'About MiaCasa Hanoi', vn: 'Về MiaCasa Hà Nội', zh: '关于MiaCasa河内' },
+'about-title': { en: 'About MiaCasa', vn: 'Về MiaCasa', zh: '关于MiaCasa' },
 'about-tagline': { en: 'More Than a Place to Sleep', vn: 'Hơn Cả Một Nơi Để Ngủ', zh: '不仅仅是睡觉的地方' },
 
 // What is MiaCasa?
