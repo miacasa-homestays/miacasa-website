@@ -2307,7 +2307,11 @@ const TRANSLATIONS = {
 'subscribe-title': {en:"📬 New posts, straight to your inbox", vn:"📬 Bài viết mới gửi thẳng đến hộp thư của bạn", zh:"📬 最新文章直达您的邮箱"},
 'subscribe-text': {en:"Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.", vn:"Nhận mẹo du lịch Hà Nội và cập nhật bài viết mới. Không spam. Hủy đăng ký bất cứ lúc nào.", zh:"获取河内旅行建议和博客更新。不发送垃圾邮件，可随时取消订阅。"},
 'subscribe-button': {en:"Subscribe →", vn:"Đăng ký →", zh:"订阅 →"},
-'subscribe-footer': {en:"Powered by Mailchimp (free up to 500 subscribers)", vn:"Được hỗ trợ bởi Mailchimp", zh:"由 Mailchimp 提供支持（免费支持最多 500 位订阅者）"},
+'subscribe-footer': {
+  en: 'No spam. Unsubscribe anytime.',
+  vn: 'Không spam. Hủy đăng ký bất kỳ lúc nào.',
+  zh: '没有垃圾邮件。随时取消订阅。'
+},
 'subscribe-email-placeholder': {en:"Your email address", vn:"Địa chỉ email của bạn", zh:"您的邮箱地址"},
 
 'guest-info-title': {en:"Your Information", vn:"Thông tin của bạn", zh:"您的信息"},
