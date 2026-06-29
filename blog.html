@@ -658,6 +658,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // YOUR BREVO FORM URL - Get this from Brevo > Forms > Publish > Embed code
   const BREVO_FORM_URL = 'https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==';
 
+  // Helper to get translation
+  function getTranslation(key) {
+    if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[key]) {
+      const lang = window.currentLang || 'en';
+      return TRANSLATIONS[key][lang] || TRANSLATIONS[key]['en'] || key;
+    }
+    return key;
+  }
+
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -665,19 +674,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const email = emailInput.value.trim();
       
       // Validate email
-      if (!email) {
-        messageDiv.textContent = window.currentLang === 'vn' 
-          ? 'Vui lòng nhập địa chỉ email.' 
-          : 'Please enter your email address.';
+      if (!email || !email.includes('@')) {
+        messageDiv.textContent = getTranslation('subscribe-email-error');
         messageDiv.className = 'subscribe-message error';
         return;
       }
 
       // Validate GDPR consent
       if (!gdprCheckbox.checked) {
-        messageDiv.textContent = window.currentLang === 'vn' 
-          ? 'Vui lòng đồng ý với điều khoản.' 
-          : 'Please agree to the terms.';
+        messageDiv.textContent = getTranslation('subscribe-gdpr-error');
         messageDiv.className = 'subscribe-message error';
         return;
       }
@@ -686,7 +691,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const submitBtn = form.querySelector('.subscribe-btn');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = window.currentLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
+      submitBtn.textContent = getTranslation('subscribe-processing');
       messageDiv.textContent = '';
       messageDiv.className = 'subscribe-message';
 
@@ -700,17 +705,13 @@ document.addEventListener('DOMContentLoaded', function() {
         body: `EMAIL=${encodeURIComponent(email)}&gdpr=${encodeURIComponent(gdprCheckbox.checked ? 'true' : 'false')}`
       })
       .then(() => {
-        messageDiv.textContent = window.currentLang === 'vn' 
-          ? '✅ Cảm ơn bạn! Vui lòng kiểm tra email để xác nhận đăng ký.' 
-          : '✅ Thank you! Please check your email to confirm your subscription.';
+        messageDiv.textContent = getTranslation('subscribe-success');
         messageDiv.className = 'subscribe-message success';
         emailInput.value = '';
         gdprCheckbox.checked = false;
       })
       .catch(() => {
-        messageDiv.textContent = window.currentLang === 'vn' 
-          ? '❌ Đã xảy ra lỗi. Vui lòng thử lại sau.' 
-          : '❌ Something went wrong. Please try again.';
+        messageDiv.textContent = getTranslation('subscribe-error');
         messageDiv.className = 'subscribe-message error';
       })
       .finally(() => {

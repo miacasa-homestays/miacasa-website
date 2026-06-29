@@ -2319,6 +2319,32 @@ const TRANSLATIONS = {
   zh: '没有垃圾邮件。随时取消订阅。'
 },
 'subscribe-email-placeholder': {en:"Your email address", vn:"Địa chỉ email của bạn", zh:"您的邮箱地址"},
+/* ── SUBSCRIPTION MESSAGES ── */
+'subscribe-success': {
+  en: '✅ Thank you! Please check your email to confirm your subscription.',
+  vn: '✅ Cảm ơn bạn! Vui lòng kiểm tra email để xác nhận đăng ký.',
+  zh: '✅ 谢谢！请检查您的邮箱以确认订阅。'
+},
+'subscribe-error': {
+  en: '❌ Something went wrong. Please try again.',
+  vn: '❌ Đã xảy ra lỗi. Vui lòng thử lại sau.',
+  zh: '❌ 出了点问题。请重试。'
+},
+'subscribe-email-error': {
+  en: 'Please enter a valid email address.',
+  vn: 'Vui lòng nhập địa chỉ email hợp lệ.',
+  zh: '请输入有效的电子邮件地址。'
+},
+'subscribe-gdpr-error': {
+  en: 'Please agree to the terms.',
+  vn: 'Vui lòng đồng ý với điều khoản.',
+  zh: '请同意条款。'
+},
+'subscribe-processing': {
+  en: 'Processing...',
+  vn: 'Đang xử lý...',
+  zh: '处理中...'
+},
 
 'guest-info-title': {en:"Your Information", vn:"Thông tin của bạn", zh:"您的信息"},
 'tease-tag': {en:"A Glimpse Inside", vn:"Một góc nhìn bên trong", zh:"内部一瞥"},
