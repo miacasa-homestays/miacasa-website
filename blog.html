@@ -226,40 +226,13 @@
     margin-bottom: 1rem;
   }
 
-  .subscribe-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .subscribe-input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.6rem 1rem;
-    border: 1px solid #d9cfbf;
-    border-radius: 6px;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    background: white;
-  }
-
-  .subscribe-btn {
-    background: #c17a5a;
-    color: white;
+  .subscribe-box iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
     border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 6px;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .subscribe-btn:hover {
-    background: #a85e3e;
+    background: transparent;
   }
 
   .subscribe-footer {
@@ -289,14 +262,15 @@
       font-size: 0.75rem;
     }
 
-    .subscribe-form {
-      flex-direction: column;
-      align-items: center;
+    .subscribe-box iframe {
+      width: 100% !important;
+      height: 400px !important;
     }
+  }
 
-    .subscribe-input {
-      width: 100%;
-      min-width: unset;
+  @media (max-width: 480px) {
+    .subscribe-box iframe {
+      height: 450px !important;
     }
   }
 </style>
@@ -308,13 +282,13 @@
   <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
 
   <ul class="nav-links">
-    <li><a href="index.html" class="active" data-t="nav-home">Home</a></li>
+    <li><a href="index.html" data-t="nav-home">Home</a></li>
     <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
     <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
-    <li><a href="/blog" data-t="nav-blog">Blog</a></li>
-    <li><a href="/about" class="active" data-t="nav-about">About</a></li>
-    <li><a href="#contact" data-t="nav-contact">Contact</a></li>
+    <li><a href="/blog" class="active" data-t="nav-blog">Blog</a></li>
+    <li><a href="/about" data-t="nav-about">About</a></li>
+    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
 
@@ -479,24 +453,22 @@
 
   </div>
 
+  <!-- Brevo Subscription Form (iframe) -->
   <div class="subscribe-box">
     <h3 data-t="subscribe-title">📬 New posts, straight to your inbox</h3>
     <p class="subscribe-text" data-t="subscribe-text">Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.</p>
-    <form action="#" method="post" class="subscribe-form">
-      <input
-        type="email"
-        placeholder="Your email address"
-        data-t-placeholder="subscribe-email-placeholder"
-        required
-        class="subscribe-input">
-      <button
-        type="submit"
-        class="subscribe-btn"
-        data-t="subscribe-button">
-        Subscribe →
-      </button>
-    </form>
-    <p class="subscribe-footer" data-t="subscribe-footer">Powered by Mailchimp (free up to 500 subscribers)</p>
+    
+    <iframe 
+      width="540" 
+      height="305" 
+      src="https://786ae337.sibforms.com/v2/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==" 
+      frameborder="0" 
+      scrolling="auto" 
+      allowfullscreen 
+      style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; border: none; background: transparent;">
+    </iframe>
+    
+    <p class="subscribe-footer" data-t="subscribe-footer">Powered by Brevo (free up to 300 emails/day)</p>
   </div>
 
 </main>
@@ -525,10 +497,10 @@
               <h4 data-t="footer-info">Information</h4>
               <ul>
                 <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
-                <li><a href="/about-miacasa" data-t="footer-about">About MiaCasa</a></li>
+                <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
                 <li><a href="/blog" data-t="footer-blog">Blog</a></li>
-                <li><a href="#contact" data-t="footer-contact">Contact</a></li>
-                <li><a href="#faq" data-t="footer-faq">FAQ</a></li>
+                <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
+                <li><a href="index.html#faq" data-t="footer-faq">FAQ</a></li>
               </ul>
             </div>
             
