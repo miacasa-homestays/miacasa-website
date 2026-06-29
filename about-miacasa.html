@@ -7,7 +7,7 @@
 
 <meta name="description" content="MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city. Book directly for the best rates.">
 
-<link rel="canonical" href="https://www.miacasahanoi.com/about-miacasa">
+<link rel="canonical" href="https://www.miacasahanoi.com/about">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" 
@@ -24,7 +24,7 @@
 <meta property="og:title" content="About MiaCasa Hanoi | Boutique Homestay | Local Hosts">
 <meta property="og:description" content="MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city. Book directly for the best rates.">
 <meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
-<meta property="og:url" content="https://www.miacasahanoi.com/about-miacasa">
+<meta property="og:url" content="https://www.miacasahanoi.com/about">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
@@ -65,7 +65,11 @@
       "@type": "AboutPage",
       "name": "About MiaCasa Hanoi",
       "description": "MiaCasa is a boutique homestay in Hanoi — more personal than a hotel, with local hosts who live in the city.",
-      "url": "https://www.miacasahanoi.com/about-miacasa",
+      "url": "https://www.miacasahanoi.com/about",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg"
+      },
       "mainEntity": {
         "@type": "Organization",
         "name": "MiaCasa Homestays",
@@ -96,7 +100,7 @@
           "name": "Is MiaCasa on Airbnb?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, you can find MiaCasa on Airbnb and Booking.com. However, booking directly through our website offers better rates, flexible payment options, and direct communication with hosts."
+            "text": "Yes, you can find MiaCasa on Airbnb, Booking.com, Agoda, Trip.com, and DayLaDau. However, booking directly through our website offers better rates, flexible payment options, and direct communication with hosts."
           }
         },
         {
@@ -150,12 +154,21 @@
     text-align: center;
     padding: 2rem 0 1.5rem;
     border-bottom: 1px solid #e5e0d8;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .about-hero .hero-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
   }
 
   .about-hero .about-logo {
-    max-width: 120px;
-    margin-bottom: 1rem;
+    max-width: 100px;
+    margin-bottom: 0.75rem;
   }
 
   .about-hero h1 {
@@ -172,6 +185,31 @@
     color: #6b5c47;
     font-weight: 300;
     letter-spacing: 0.05em;
+  }
+
+  .trust-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0 2rem;
+    padding: 0.75rem 1rem;
+    background: #f9f6f0;
+    border-radius: 8px;
+    border: 1px solid #e5e0d8;
+  }
+
+  .trust-bar-item {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #3d3527;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .trust-bar-item .icon {
+    font-size: 1rem;
   }
 
   .about-section {
@@ -300,12 +338,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     margin-top: 1rem;
   }
 
   .hosts-section .host-item {
     text-align: center;
+    max-width: 280px;
   }
 
   .hosts-section .host-avatar {
@@ -409,12 +448,6 @@
     object-fit: cover;
   }
 
-  .blog-link-card .blog-emoji {
-    font-size: 1.5rem;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-
   .blog-link-card a {
     font-family: 'Jost', sans-serif;
     font-size: 0.8rem;
@@ -424,6 +457,56 @@
   }
 
   .blog-link-card a:hover {
+    text-decoration: underline;
+  }
+
+  .google-maps-section {
+    background: #f9f6f0;
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+    border: 1px solid #e5e0d8;
+  }
+
+  .google-maps-section .map-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+
+  .google-maps-section .map-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #e5e0d8;
+  }
+
+  .google-maps-section .map-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c2416;
+    margin-bottom: 0.25rem;
+  }
+
+  .google-maps-section .map-item p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: #6b5c47;
+    margin-bottom: 0.5rem;
+  }
+
+  .google-maps-section .map-item .map-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: #c17a5a;
+    text-decoration: none;
+  }
+
+  .google-maps-section .map-item .map-link:hover {
     text-decoration: underline;
   }
 
@@ -505,6 +588,19 @@
       font-size: 2rem;
     }
 
+    .about-hero .hero-image {
+      max-height: 250px;
+    }
+
+    .trust-bar {
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .trust-bar-item {
+      font-size: 0.75rem;
+    }
+
     .property-highlight {
       grid-template-columns: 1fr;
       gap: 1rem;
@@ -524,9 +620,18 @@
       height: 120px;
     }
 
+    .hosts-section .hosts-grid {
+      gap: 2rem;
+    }
+
     .blog-links-grid {
       grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
+    }
+
+    .google-maps-section .map-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .about-cta .btn-primary,
@@ -567,7 +672,7 @@
     <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
     <li><a href="/blog" data-t="nav-blog">Blog</a></li>
-    <li><a href="/about-miacasa" class="active" data-t="nav-about">About</a></li>
+    <li><a href="/about" class="active" data-t="nav-about">About</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
@@ -596,14 +701,33 @@
   <!-- HERO -->
   <div class="about-hero">
     <img 
+      src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg" 
+      alt="MiaCasa Hanoi - Boutique homestay exterior" 
+      class="hero-image"
+      fetchpriority="high"
+      decoding="async"
+      width="1200"
+      height="400">
+    
+    <img 
       src="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_200/v1779191606/miacasa-hanoi-logo.png" 
       alt="MiaCasa Hanoi Logo" 
       class="about-logo"
-      width="120"
-      height="120"
-      loading="lazy">
+      width="100"
+      height="100"
+      fetchpriority="high"
+      decoding="async">
+    
     <h1 data-t="about-title">About MiaCasa Hanoi</h1>
     <p class="tagline" data-t="about-tagline">More Than a Place to Sleep</p>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+      <span class="trust-bar-item"><span class="icon">⭐</span> 4.9 ★ Rating</span>
+      <span class="trust-bar-item"><span class="icon">👥</span> 200+ Happy Guests</span>
+      <span class="trust-bar-item"><span class="icon">🏆</span> Airbnb Superhost</span>
+      <span class="trust-bar-item"><span class="icon">💬</span> Direct Booking Available</span>
+    </div>
   </div>
 
   <!-- WHAT IS MIACASA? -->
@@ -632,7 +756,7 @@
     <p data-t="about-personal-p3">Over the years, we have welcomed solo travelers, couples, families, remote workers, and long-term visitors from dozens of countries. Many guests arrive as visitors and leave feeling connected to the city in a completely different way.</p>
   </div>
 
-  <!-- MEET YOUR HOSTS (UPDATED WITH SAME PHOTOS AS OUR STORY) -->
+  <!-- MEET YOUR HOSTS -->
   <div class="hosts-section">
     <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;color:#2c2416;margin-bottom:0.5rem;" data-t="about-hosts-title">Meet Your Hosts</h2>
     <p style="font-family:'Jost',sans-serif;color:#6b5c47;font-size:0.95rem;" data-t="about-hosts-desc">We live in Hanoi and personally care for our guests and properties.</p>
@@ -706,7 +830,7 @@
     </div>
   </div>
 
-  <!-- LOCAL KNOWLEDGE WITH BLOG LINKS (UPDATED WITH IMAGES) -->
+  <!-- LOCAL KNOWLEDGE WITH BLOG LINKS -->
   <div class="about-section">
     <h2 data-t="about-knowledge-title">Local Knowledge Matters</h2>
     <p data-t="about-knowledge-p1">Living in Hanoi allows us to help guests discover experiences that many visitors miss. We regularly share recommendations about cafés, street food, neighborhood walks, hidden restaurants, day trips, transportation, and cultural etiquette.</p>
@@ -758,7 +882,7 @@
   <!-- WHY BOOK DIRECT -->
   <div class="about-section">
     <h2 data-t="about-direct-title">Why Book Direct?</h2>
-    <p data-th="about-direct-p1">Yes, you can find us on <strong>Airbnb</strong> and <strong>Booking.com</strong>. But direct booking offers clear advantages:</p>
+    <p data-th="about-direct-p1">Yes, you can find us on <strong>Airbnb</strong>, <strong>Booking.com</strong>, <strong>Agoda</strong>, <strong>Trip.com</strong>, and <strong>DayLaDau</strong>. But direct booking offers clear advantages:</p>
     <ul>
       <li data-th="about-direct-li1"><strong>Better rates</strong> — no platform commissions, lower prices</li>
       <li data-th="about-direct-li2"><strong>Flexible payment</strong> — more options, including cash at check-in</li>
@@ -767,6 +891,25 @@
       <li data-th="about-direct-li5"><strong>Personalized recommendations</strong> — tailored to your interests</li>
     </ul>
     <p data-t="about-direct-p2">Book direct and experience the same trusted MiaCasa stay with more flexibility and better value.</p>
+  </div>
+
+  <!-- WHERE ARE WE? - Google Maps Section -->
+  <div class="google-maps-section">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:#2c2416;margin-bottom:0.5rem;" data-t="about-maps-title">Where Are We?</h2>
+    <p style="font-family:'Jost',sans-serif;color:#6b5c47;font-size:0.95rem;" data-t="about-maps-desc">MiaCasa offers two different neighborhoods in Hanoi:</p>
+    
+    <div class="map-grid">
+      <div class="map-item">
+        <h4 data-t="about-maps-hanoi-title">📍 MiaCasa Hanoi</h4>
+        <p data-t="about-maps-hanoi-desc">92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội</p>
+        <a href="https://maps.google.com/maps?q=92+Ngh.+51+Ng.+Linh+Quang,+V%C4%83n+Ch%C6%B0%C6%A1ng,+V%C4%83n+Mi%E1%BA%BFu+%E2%80%93+Qu%E1%BB%91c+T%E1%BB%AD+Gi%C3%A1m,+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener" class="map-link" data-t="about-maps-hanoi-link">View on Google Maps →</a>
+      </div>
+      <div class="map-item">
+        <h4 data-t="about-maps-oq-title">📍 MiaCasa Old Quarter</h4>
+        <p data-t="about-maps-oq-desc">38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội</p>
+        <a href="https://maps.google.com/maps?q=38+P.+L%C6%B0%C6%A1ng+Ng%E1%BB%8Dc+Quy%E1%BA%BFn,+H%C3%A0ng+Bu%E1%BB%93m,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener" class="map-link" data-t="about-maps-oq-link">View on Google Maps →</a>
+      </div>
+    </div>
   </div>
 
   <!-- FAQ -->
@@ -854,7 +997,7 @@
                 <h4 data-t="footer-info">Information</h4>
                 <ul>
                     <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
-                    <li><a href="/about-miacasa" data-t="footer-about">About MiaCasa</a></li>
+                    <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
                     <li><a href="/blog" data-t="footer-blog">Blog</a></li>
                     <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
                 </ul>
