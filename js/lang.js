@@ -2134,7 +2134,41 @@ const TRANSLATIONS = {
 'story-oq-during': {en:'📷 During', vn:'📷 Trong quá trình', zh:'📷 改造中'},
 'story-oq-after': {en:'📷 After', vn:'📷 Sau', zh:'📷 完成后'},
 'story-grounding': {en:'A small homestay brand built in Hanoi by two friends who care about thoughtful spaces.', vn:'Một thương hiệu homestay nhỏ được xây dựng tại Hà Nội bởi hai người bạn, những người quan tâm đến không gian có chiều sâu.', zh:'一个由两位好友在河内创立的小型民宿品牌，用心打造温暖舒适的空间。'},
-
+'auto-our-story-008b': {
+  en: '"She chose natural textures because they feel honest. She kept lighting soft because it changes how a room feels at different times of day."',
+  vn: '"Cô ấy chọn chất liệu tự nhiên vì chúng mang lại cảm giác trung thực. Cô ấy giữ ánh sáng dịu nhẹ vì nó thay đổi cảm giác của căn phòng vào các thời điểm khác nhau trong ngày."',
+  zh: '"她选择天然材质是因为它们感觉真实。她保持灯光柔和是因为它能改变房间在不同时间的感觉。"'
+},
+'auto-our-story-009b': {
+  en: '"She pays attention to the things most guests don\'t notice — but would miss if they weren\'t there."',
+  vn: '"Cô ấy chú ý đến những điều mà hầu hết khách không để ý — nhưng sẽ nhớ nếu chúng không có ở đó."',
+  zh: '"她关注大多数客人不会注意到的事情——但如果它们不在那里，客人会想念。"'
+},
+'auto-our-story-082b': {
+  en: 'After years of welcoming guests through Airbnb and Booking.com, we wanted to create a simpler way for returning and future guests to book directly with us.',
+  vn: 'Sau nhiều năm đón tiếp khách qua Airbnb và Booking.com, chúng tôi muốn tạo ra một cách đơn giản hơn cho khách quay lại và khách tương lai để đặt phòng trực tiếp với chúng tôi.',
+  zh: '在通过Airbnb和Booking.com接待客人多年后，我们想为回头客和未来客人创造一种更简单的方式，直接与我们预订。'
+},
+'auto-our-story-083b': {
+  en: 'Our website lets guests communicate directly with us, enjoy better value, and plan their stay more personally.',
+  vn: 'Trang web của chúng tôi cho phép khách giao tiếp trực tiếp với chúng tôi, nhận được giá trị tốt hơn và lên kế hoạch lưu trú một cách cá nhân hơn.',
+  zh: '我们的网站让客人可以直接与我们沟通，享受更好的价值，并更个性化地规划他们的住宿。'
+},
+'auto-our-story-113b': {
+  en: 'We still notice the little things.',
+  vn: 'Chúng tôi vẫn chú ý đến những điều nhỏ nhặt.',
+  zh: '我们仍然关注那些小事。'
+},
+'auto-our-story-114b': {
+  en: 'We still rearrange furniture until a room feels right. We still ask ourselves how we can make tomorrow\'s guests feel more at home than yesterday\'s.',
+  vn: 'Chúng tôi vẫn sắp xếp lại đồ đạc cho đến khi căn phòng cảm thấy đúng. Chúng tôi vẫn tự hỏi làm thế nào để khách ngày mai cảm thấy như ở nhà hơn khách ngày hôm qua.',
+  zh: '我们仍然重新布置家具，直到房间感觉合适为止。我们仍然问自己，如何让明天的客人比昨天的客人感觉更像在家。'
+},
+'auto-our-story-114c': {
+  en: 'If our story resonates with you, we\'d be delighted to welcome you to Hanoi.',
+  vn: 'Nếu câu chuyện của chúng tôi đồng cảm với bạn, chúng tôi rất vui được chào đón bạn đến Hà Nội.',
+  zh: '如果我们的故事引起你的共鸣，我们很乐意在河内欢迎你。'
+},
 /* ── FAQ ──────────────────────────────────────────────────────── */
 'faq-tag': {en:"FAQ", vn:"Câu hỏi thường gặp", zh:"常见问题"},
 'faq-choosetitle': {en:'Not sure which property to choose?', vn:'Chưa biết chọn chỗ nghỉ nào?', zh:'不确定该选择哪一处住宿？'},

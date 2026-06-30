@@ -246,26 +246,6 @@
   }
 
   /* ============================================
-     SEO INTRO
-     ============================================ */
-  .story-seo-intro {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--ink-light);
-    margin-bottom: 2rem;
-    padding: 1rem 1.25rem;
-    background: var(--sand);
-    border-radius: 8px;
-    border-left: 3px solid var(--terracotta);
-  }
-
-  .story-seo-intro a {
-    color: var(--terracotta);
-    text-decoration: underline;
-    font-weight: 500;
-  }
-
-  /* ============================================
      SECTION HEADINGS & TEXT
      ============================================ */
   .story-section {
@@ -352,20 +332,6 @@
     color: var(--ink-light);
     margin-top: 0.25rem;
     font-style: normal;
-  }
-
-  /* ============================================
-     URGENCY NOTE
-     ============================================ */
-  .story-urgency-note {
-    font-size: 0.92rem;
-    color: var(--terracotta);
-    margin: 1rem 0;
-    padding: 0.6rem 1.2rem;
-    background: rgba(193, 122, 90, 0.08);
-    border-radius: 8px;
-    text-align: center;
-    line-height: 1.6;
   }
 
   /* ============================================
@@ -692,41 +658,6 @@
   }
 
   /* ============================================
-     FEATURE GRID
-     ============================================ */
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-
-  .feature-card {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    text-align: center;
-  }
-
-  .feature-card .feature-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .feature-card .feature-title {
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-    font-size: 0.9rem;
-  }
-
-  .feature-card .feature-desc {
-    font-size: 0.82rem;
-    color: var(--ink-light);
-    line-height: 1.5;
-  }
-
-  /* ============================================
      FAQ
      ============================================ */
   .faq-section {
@@ -887,11 +818,6 @@
       padding: 4rem 0 2.5rem;
     }
 
-    .story-seo-intro {
-      font-size: 0.95rem;
-      padding: 0.75rem 1rem;
-    }
-
     .story-section p {
       font-size: 0.95rem;
     }
@@ -1036,11 +962,6 @@
       height: 100px;
     }
 
-    .story-seo-intro {
-      font-size: 0.88rem;
-      padding: 0.6rem 0.75rem;
-    }
-
     .story-section p {
       font-size: 0.88rem;
     }
@@ -1067,7 +988,7 @@
     <li><a href="/our-story" class="active" data-t="nav-story">Our Story</a></li>
     <li><a href="/blog" data-t="nav-blog">Blog</a></li>
     <li><a href="/about" data-t="nav-about">About</a></li>
-    <li><a href="#contact" data-t="nav-contact">Contact</a></li>
+    <li><a href="/#contact" data-t="nav-contact">Contact</a></li>
     <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
@@ -1090,10 +1011,10 @@
     <div class="section-tag" style="color:rgba(255,255,255,0.4);">MiaCasa Homestays</div>
     <h1><span data-th="auto-our-story-001">The Story Behind <em>MiaCasa</em> — Boutique Homestays in Hanoi</span></h1>
     <p class="story-lead">
-      <span data-t="auto-our-story-002">MiaCasa did not begin as a business plan. It began as a simple idea of creating a place that feels calm, warm, and genuinely lived in.</span>
+      <span data-t="auto-our-story-002">MiaCasa did not begin as a business plan. It began with a simple idea of creating a place that feels calm, warm, and genuinely lived in.</span>
     </p>
     <p class="story-emotional-line">
-      <span data-t="auto-our-story-003">✨ Created slowly in Hanoi for travelers who want a stay that feels personal, calm, and real.</span>
+      <span data-t="auto-our-story-003">✨ What followed was a slow journey of designing spaces, learning from guests, and building a homestay that reflects how we believe hospitality should feel.</span>
     </p>
   </div>
 </section>
@@ -1102,11 +1023,6 @@
 <div class="story-container">
   <div class="story-content">
     <a href="/" class="back-link"><span data-t="auto-our-story-004">← MiaCasa Homestays</span></a>
-
-    <!-- SEO grounding sentence -->
-    <p class="story-seo-intro">
-      <span data-th="auto-our-story-005">MiaCasa is a <a href="/">boutique homestay brand in Hanoi</a> offering curated stays in both a quiet local area near Văn Miếu (Temple of Literature), Hanoi Train Street, and Ba Đình, plus a central Old Quarter apartment close to Hoàn Kiếm Lake.</span>
-    </p>
 
     <!-- Meet the Hosts -->
     <div class="story-section">
@@ -1125,6 +1041,9 @@
             <p style="font-size: 0.85rem; color: var(--ink-light); max-width: 280px; margin: 0 auto;">
               <span data-t="auto-our-story-008">Linh is a professional interior designer who focuses on creating warm, comfortable environments with natural textures, soft lighting, and quiet details. Her philosophy is simple: design spaces where people genuinely want to slow down and stay.</span>
             </p>
+            <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 0.5rem;">
+              <span data-t="auto-our-story-008b">"She chose natural textures because they feel honest. She kept lighting soft because it changes how a room feels at different times of day."</span>
+            </p>
           </div>
           
           <!-- Ngọc's Card -->
@@ -1135,6 +1054,9 @@
             <h3 class="host-name">Ngọc</h3>
             <p style="font-size: 0.85rem; color: var(--ink-light); max-width: 280px; margin: 0 auto;">
               <span data-t="auto-our-story-009">Ngọc works in hospitality and focuses on the guest experience behind the scenes — communication, comfort, flexibility, and the small details that make a stay feel smooth and personal.</span>
+            </p>
+            <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 0.5rem;">
+              <span data-t="auto-our-story-009b">"She pays attention to the things most guests don't notice — but would miss if they weren't there."</span>
             </p>
           </div>
         </div>
@@ -1154,7 +1076,7 @@
       </div>
     </div>
 
-    <!-- A Milestone of Guest Trust with Award Images and Guest Quotes -->
+    <!-- A Milestone of Guest Trust -->
     <div class="story-section">
       <h2><span data-t="auto-our-story-013">A Milestone of Guest Trust</span></h2>
       <p><span data-t="auto-our-story-014">Over time, MiaCasa welcomed guests from around the world and built a reputation through consistency, cleanliness, communication, and care.</span></p>
@@ -1208,7 +1130,7 @@
         </div>
       </div>
       
-      <p><span data-t="auto-our-story-022">More importantly, these recognitions reflect the trust guests place in us every time they choose to stay here.</span></p>
+      <p><span data-t="auto-our-story-022">These recognitions remind us that the small details guests notice every day are worth caring about.</span></p>
     </div>
 
     <!-- Social proof numbers -->
@@ -1286,228 +1208,55 @@
       </div>
     </div>
 
-      <!-- The Journey of the Space -->
-      <div class="story-section">
-        <h3><span data-t="auto-our-story-040">The Journey of the Space</span></h3>
-        
-        <div class="building-grid">
-  <!-- Before Box -->
-  <div class="building-card before-after-card">
-    <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476681/IMG_3144_r3nng1.jpg" 
-         alt="Before renovation">
-    <p class="card-title"><span data-t="auto-our-story-041">Before</span></p>
-    <p class="card-desc"><span data-t="auto-our-story-042">A blank space waiting to become something more</span></p>
-  </div>
-  
-  <!-- During Box (contains 2 stacked images) -->
-  <div class="building-card">
-    <div class="during-stack">
-      <div class="during-card">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476679/IMG_3146_wzpcft.jpg" 
-             alt="Renovation progress - framing">
-      </div>
-      <div class="during-card">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476684/IMG_3145_gm1sjj.jpg" 
-             alt="Renovation progress - finishing">
-      </div>
-    </div>
-    <p class="card-title"><span data-t="auto-our-story-043">During</span></p>
-    <p class="card-desc"><span data-t="auto-our-story-044">Slowly shaping the space</span></p>
-  </div>
-  
-  <!-- After Box -->
-  <div class="building-card before-after-card">
-    <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476677/IMG_3149_je7jcy.jpg" 
-         alt="After renovation">
-    <p class="card-title"><span data-t="auto-our-story-045">After</span></p>
-    <p class="card-desc"><span data-t="auto-our-story-046">A calm, comfortable space taking form</span></p>
-  </div>
-</div>
-      </div>
-
-      <!-- Two Different Experiences in Hanoi -->
-  <div class="story-section">
-    <h2><span data-t="auto-our-story-047">Two Different Experiences in Hanoi</span></h2>
-    <p><span data-t="auto-our-story-048">Today, MiaCasa offers two distinct stays in Hanoi.</span></p>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
-      
-      <!-- MiaCasa Hanoi Card -->
-      <div class="property-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; height: 100%; display: flex; flex-direction: column;">
-        <div style="position: relative; padding-bottom: 66%; background: var(--sand); overflow: hidden;">
-          <img 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;"
-            loading="lazy" 
-            decoding="async" 
-            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg" 
-            alt="MiaCasa Hanoi exterior">
-        </div>
-        <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
-          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌿</div>
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--ink);"><a href="/miacasa-hanoi" style="color: var(--ink); text-decoration: none;">MiaCasa Hanoi</a></h3>
-          <p style="font-size: 0.85rem; color: var(--ink-light); margin-bottom: 1rem; line-height: 1.5;">
-            <span data-t="auto-our-story-049">A quieter neighborhood stay near Văn Miếu and Train Street, designed for solo travelers and couples looking for a calmer rhythm within the city.</span>
-          </p>
-          <ul style="margin: 0 0 1rem 1rem; padding: 0; font-size: 0.8rem; color: var(--ink-light); line-height: 1.8;">
-            <li><span data-t="auto-our-story-050">3 private studio-style rooms</span></li>
-            <li><span data-t="auto-our-story-051">Kitchenettes in every room</span></li>
-            <li><span data-t="auto-our-story-052">Local cafés and residential atmosphere</span></li>
-            <li><span data-t="auto-our-story-053">Thoughtful, slower-paced stay experience</span></li>
-          </ul>
-          <div style="margin-top: auto;">
-            <a href="/miacasa-hanoi" class="btn-outline" style="display: inline-block; padding: 0.7rem 1.5rem; font-size: 0.85rem;">
-              <span data-t="auto-our-story-054">Explore MiaCasa Hanoi →</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- MiaCasa Old Quarter Card -->
-      <div class="property-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; height: 100%; display: flex; flex-direction: column;">
-        <div style="position: relative; padding-bottom: 66%; background: var(--sand); overflow: hidden;">
-          <img 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;"
-            loading="lazy" 
-            decoding="async" 
-            src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775735575/att.BhFY92BoKsFAnlEDBjXT0PNfz3MQoSwSUG1CcYPoAes_nizqxu.jpg"
-            srcset="
-              https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775735575/att.BhFY92BoKsFAnlEDBjXT0PNfz3MQoSwSUG1CcYPoAes_nizqxu.jpg 400w,
-              https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735575/att.BhFY92BoKsFAnlEDBjXT0PNfz3MQoSwSUG1CcYPoAes_nizqxu.jpg 600w,
-              https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775735575/att.BhFY92BoKsFAnlEDBjXT0PNfz3MQoSwSUG1CcYPoAes_nizqxu.jpg 800w,
-              https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775735575/att.BhFY92BoKsFAnlEDBjXT0PNfz3MQoSwSUG1CcYPoAes_nizqxu.jpg 1200w
-            "
-            sizes="(max-width: 640px) 300px, (max-width: 1000px) 600px, 800px"
-            alt="MiaCasa Old Quarter - Boutique homestay in Hanoi Old Quarter"
-            width="800"
-            height="600">
-        </div>
-        <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
-          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏙️</div>
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--ink);"><a href="/miacasa-oldquarter" style="color: var(--ink); text-decoration: none;">MiaCasa Old Quarter</a></h3>
-          <p style="font-size: 0.85rem; color: var(--ink-light); margin-bottom: 1rem; line-height: 1.5;">
-            <span data-t="auto-our-story-055">A larger group stay located in the heart of Hanoi's Old Quarter, designed for travelers who want to experience the city together — a boutique stay that feels like home.</span>
-          </p>
-          <ul style="margin: 0 0 1rem 1rem; padding: 0; font-size: 0.8rem; color: var(--ink-light); line-height: 1.8;">
-            <li><span data-t="auto-our-story-056">Entire 3-bedroom apartment</span></li>
-            <li><span data-t="auto-our-story-057">Ideal for families and groups</span></li>
-            <li><span data-t="auto-our-story-058">Open terrace space</span></li>
-            <li><span data-t="auto-our-story-059">Walking distance to Hoàn Kiếm Lake, food streets, and nightlife</span></li>
-          </ul>
-          <div style="margin-top: auto;">
-            <a href="/miacasa-oldquarter" class="btn-outline" style="display: inline-block; padding: 0.7rem 1.5rem; font-size: 0.85rem;">
-              <span data-t="auto-our-story-060">Explore Old Quarter →</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    
-    <p style="text-align: center; margin-top: 1rem;"><span data-t="auto-our-story-061">Different atmosphere. Same philosophy.</span></p>
-  </div>
-
-    <!-- SEO Section: Why Travelers Choose MiaCasa in Hanoi -->
+    <!-- The Journey of the Space -->
     <div class="story-section">
-      <h2>
-        <span data-t="auto-our-story-062">Why Travelers Choose MiaCasa in Hanoi</span>
-      </h2>
-
-      <div class="why-choose-grid">
-        <div class="why-choose-item">
-          <div class="why-choose-icon">🏡</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-063">Locally hosted, not remote</span></strong>
-            <span data-t="auto-our-story-064">Direct, responsive, personal communication</span>
-          </div>
+      <h3><span data-t="auto-our-story-040">The Journey of the Space</span></h3>
+      
+      <div class="building-grid">
+        <!-- Before Box -->
+        <div class="building-card before-after-card">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476681/IMG_3144_r3nng1.jpg" 
+               alt="Before renovation">
+          <p class="card-title"><span data-t="auto-our-story-041">Before</span></p>
+          <p class="card-desc"><span data-t="auto-our-story-042">A blank space waiting to become something more</span></p>
         </div>
         
-        <div class="why-choose-item">
-          <div class="why-choose-icon">🎨</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-065">Thoughtfully designed interiors</span></strong>
-            <span data-t="auto-our-story-066">Calm, lived-in spaces, not staged showrooms</span>
+        <!-- During Box -->
+        <div class="building-card">
+          <div class="during-stack">
+            <div class="during-card">
+              <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476679/IMG_3146_wzpcft.jpg" 
+                   alt="Renovation progress - framing">
+            </div>
+            <div class="during-card">
+              <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476684/IMG_3145_gm1sjj.jpg" 
+                   alt="Renovation progress - finishing">
+            </div>
           </div>
+          <p class="card-title"><span data-t="auto-our-story-043">During</span></p>
+          <p class="card-desc"><span data-t="auto-our-story-044">Slowly shaping the space</span></p>
         </div>
         
-        <div class="why-choose-item">
-          <div class="why-choose-icon">💰</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-067">Better value direct</span></strong>
-            <span data-t="auto-our-story-068">No platform commissions, lower rates guaranteed</span>
-          </div>
-        </div>
-        
-        <div class="why-choose-item">
-          <div class="why-choose-icon">🕐</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-069">Flexible & independent</span></strong>
-            <span data-t="auto-our-story-070">Self check-in, attentive support when needed</span>
-          </div>
-        </div>
-        
-        <div class="why-choose-item">
-          <div class="why-choose-icon">📍</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-071">Two prime locations</span></strong>
-            <span data-t="auto-our-story-072">Quiet Văn Miếu area or vibrant Old Quarter</span>
-          </div>
-        </div>
-        
-        <div class="why-choose-item">
-          <div class="why-choose-icon">⭐</div>
-          <div class="why-choose-text">
-            <strong><span data-t="auto-our-story-073">Award-winning hospitality</span></strong>
-            <span data-t="auto-our-story-074">Booking.com 9.3 rating · Airbnb Superhost 2025</span>
-          </div>
+        <!-- After Box -->
+        <div class="building-card before-after-card">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476677/IMG_3149_je7jcy.jpg" 
+               alt="After renovation">
+          <p class="card-title"><span data-t="auto-our-story-045">After</span></p>
+          <p class="card-desc"><span data-t="auto-our-story-046">A calm, comfortable space taking form</span></p>
         </div>
       </div>
     </div>
 
-    <!-- Old Quarter Images 
-    <div class="story-section">
-      <div class="image-row">
-        <div class="image-card">
-          <img width="600" height="400" loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476687/IMG_3137_ph8nyg.jpg" alt="MiaCasa Old Quarter boutique stay renovation before">
-          <p><span data-t="auto-our-story-075">Before</span></p>
-          <p style="font-size: 0.7rem;"><span data-t="auto-our-story-076">An empty apartment with potential</span></p>
-        </div>
-        <div class="image-card">
-          <img width="600" height="400" loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476686/IMG_3150_unwrls.jpg" alt="Renovation of MiaCasa homestay Old Quarter">
-          <p><span data-t="auto-our-story-077">During</span></p>
-          <p style="font-size: 0.7rem;"><span data-t="auto-our-story-078">Materials, furniture, and ideas coming together</span></p>
-        </div>
-        <div class="image-card">
-          <img width="600" height="400" loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1777476684/IMG_3151_ofokcf.jpg" alt="After renovation boutique stay in Hanoi Old Quarter">
-          <p><span data-t="auto-our-story-079">After</span></p>
-          <p style="font-size: 0.7rem;"><span data-t="auto-our-story-080">A finished home, ready for shared stays</span></p>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- Why We Built Our Own Website -->
+    <!-- Why We Built Our Own Website (SHORTENED) -->
     <div class="story-section" style="background: var(--sand); border-radius: 16px; padding: 1.5rem; margin: 2rem 0;">
       <h2 class="story-h2-flush"><span data-t="auto-our-story-081">Why We Built Our Own Website</span></h2>
-      <p><span data-th="auto-our-story-082">After years of hosting through major booking platforms, we decided to create a direct booking experience for guests who prefer a more personal and transparent way to book. <strong>MiaCasa's direct booking website</strong> allows guests to reserve stays more personally, transparently, and affordably than traditional booking platforms.</span></p>
+      <p><span data-t="auto-our-story-082b">After years of welcoming guests through Airbnb and Booking.com, we wanted to create a simpler way for returning and future guests to book directly with us.</span></p>
       
-      <!-- Trust reassurance sentence -->
-      <p class="story-urgency-note">
-        <span data-th="auto-our-story-083"><strong>Direct booking guests receive the same trusted MiaCasa experience</strong> with lower rates and direct host support.</span>
-      </p>
+      <p><span data-t="auto-our-story-083b">Our website lets guests communicate directly with us, enjoy better value, and plan their stay more personally.</span></p>
 
       <div class="story-quote" style="margin-top:1.5rem;">
         <span data-t="auto-our-story-084">Guests can still verify our reputation through Airbnb and Booking.com reviews before booking directly.</span>
       </div>
-      
-      <p><span data-t="auto-our-story-085">Booking directly with MiaCasa means:</span></p>
-      
-      <div class="feature-grid">
-        <div class="feature-card"><div class="feature-icon">💰</div><div class="feature-title"><span data-t="auto-our-story-086">Better rates</span></div><div class="feature-desc"><span data-t="auto-our-story-087">No platform commissions</span></div></div>
-        <div class="feature-card"><div class="feature-icon">💬</div><div class="feature-title"><span data-t="auto-our-story-088">Direct communication</span></div><div class="feature-desc"><span data-t="auto-our-story-089">Speak with the hosts directly</span></div></div>
-        <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title"><span data-t="auto-our-story-090">Instant confirmation</span></div><div class="feature-desc"><span data-t="auto-our-story-091">No waiting period</span></div></div>
-        <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title"><span data-t="auto-our-story-092">Flexible support</span></div><div class="feature-desc"><span data-t="auto-our-story-093">Before and during your stay</span></div></div>
-      </div>
-      
-      <p><span data-t="auto-our-story-094">A more personal experience from beginning to end.</span></p>
     </div>
 
     <!-- What Stays the Same -->
@@ -1522,12 +1271,6 @@
     <div class="story-section">
       <h2><span data-t="auto-our-story-098">Always Improving</span></h2>
       <p><span data-t="auto-our-story-099">Every guest experience helps shape the next version of MiaCasa. The spaces evolve, but the goal remains consistent: stays that feel comfortable, honest, and memorable in a quiet, natural way.</span></p>
-      
-      <div class="story-quote">
-        <span data-t="auto-our-story-100">If you are visiting Hanoi and looking for a boutique homestay that feels more personal than a standard hotel, we would love to host you.</span>
-      </div>
-      
-      <p><span data-t="auto-our-story-101">Whether you are traveling solo, as a couple, or with family, there is a space designed for you at MiaCasa.</span></p>
     </div>
 
     <!-- FAQ Section -->
@@ -1557,13 +1300,16 @@
       </div>
     </div>
 
-    <!-- Closing CTA -->
+    <!-- Closing CTA - More Personal -->
     <div class="story-final-cta">
       <p class="story-final-cta-headline">
-        <span data-t="auto-our-story-113">Experience a More Personal Stay in Hanoi.</span>
+        <span data-t="auto-our-story-113b">We still notice the little things.</span>
       </p>
       <p class="story-final-cta-sub">
-        <span data-t="auto-our-story-114">Whether you are traveling solo, as a couple, or with family, there is a space designed for you.</span>
+        <span data-t="auto-our-story-114b">We still rearrange furniture until a room feels right. We still ask ourselves how we can make tomorrow's guests feel more at home than yesterday's.</span>
+      </p>
+      <p class="story-final-cta-sub" style="margin-top: -0.5rem; font-style: italic; color: rgba(255,255,255,0.8);">
+        <span data-t="auto-our-story-114c">If our story resonates with you, we'd be delighted to welcome you to Hanoi.</span>
       </p>
       
       <div class="story-final-cta-btns">
@@ -1584,61 +1330,54 @@
 
 <footer>
     <div class="container">
-        <!-- Main Footer Content - Clean 4 Column Layout -->
         <div class="footer-grid">
-            <!-- Brand Column -->
             <div class="footer-brand">
-                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
                 <div style="margin-top: 1rem;">
                     <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
                 </div>
             </div>
             
-            <!-- Our Stays Column -->
             <div class="footer-col">
                 <h4 data-t="footer-our-stays">Our Stays</h4>
                 <ul>
                     <li><a href="/miacasa-hanoi" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
                     <li><a href="/miacasa-oldquarter" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
-                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                    <li><a href="/#booking" data-t="footer-book-direct">Book Direct</a></li>
                 </ul>
             </div>
             
-            <!-- Information Column -->
             <div class="footer-col">
-              <h4 data-t="footer-info">Information</h4>
-              <ul>
-                <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
-                <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
-                <li><a href="/blog" data-t="footer-blog">Blog</a></li>
-                <li><a href="#contact" data-t="footer-contact">Contact</a></li>
-                <li><a href="#faq" data-t="footer-faq">FAQ</a></li>
-              </ul>
+                <h4 data-t="footer-info">Information</h4>
+                <ul>
+                    <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
+                    <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
+                    <li><a href="/blog" data-t="footer-blog">Blog</a></li>
+                    <li><a href="/#contact" data-t="footer-contact">Contact</a></li>
+                    <li><a href="/#faq" data-t="footer-faq">FAQ</a></li>
+                </ul>
             </div>
             
-            <!-- Contact Column -->
             <div class="footer-col">
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
                     <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
-                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
-                    <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp" aria-label="Contact MiaCasa on WhatsApp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" data-t="footer-call" aria-label="Call MiaCasa">Call +84 869 922 261</a></li>
                     <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
             </div>
         </div>
         
-        <!-- Social Media Links -->
         <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
             <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
-                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
             </div>
         </div>
         
-        <!-- Bottom Bar -->
         <div class="footer-bottom">
             <span data-t="footer-copyright">© 2026 MiaCasa Homestays</span>
             <span data-t="footer-made">Made with ♡ in Hanoi</span>
