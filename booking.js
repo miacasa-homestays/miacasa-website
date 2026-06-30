@@ -98,6 +98,108 @@ const PROPERTIES = [
     }
 ];
 
+// ── BOOKING FORM LANGUAGE RENDER ──────────────────────────────
+
+/**
+ * Re-render the booking form dropdowns with current language
+ * This ensures room names and guest counts update when language changes
+ */
+function renderBookingFormLanguage() {
+    const lang = window.currentLang || 'en';
+    
+    // Get the current property
+    const prop = PROPERTIES.find(p => p.id === activeProp);
+    if (!prop) return;
+    
+    // 1. Update room options
+    const roomSelect = document.getElementById('room-type-sel');
+    if (roomSelect) {
+        // Store current selection
+        const currentVal = roomSelect.value;
+        
+        // Get translated room names
+        const rooms = getField(prop, 'rooms', lang);
+        
+        // Rebuild options
+        roomSelect.innerHTML = rooms.map(r => `<option value="${r}">${r}</option>`).join('');
+        
+        // Restore selection if still valid
+        if (currentVal && rooms.includes(currentVal)) {
+            roomSelect.value = currentVal;
+        } else if (rooms.length > 0) {
+            roomSelect.value = rooms[0];
+        }
+    }
+    
+    // 2. Update guest options
+    const guestSelect = document.getElementById('guests-sel');
+    if (guestSelect) {
+        const currentVal = guestSelect.value;
+        const maxGuests = prop.maxGuestsPerRoom || prop.maxGuests || 3;
+        const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
+        const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
+        
+        guestSelect.innerHTML = '';
+        for (let i = 1; i <= maxGuests; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i + ' ' + (i === 1 ? guestWord : guestWordPl);
+            guestSelect.appendChild(opt);
+        }
+        
+        // Restore selection
+        if (currentVal && parseInt(currentVal) <= maxGuests) {
+            guestSelect.value = currentVal;
+        } else {
+            guestSelect.value = Math.min(maxGuests, 2);
+        }
+    }
+    
+    // 3. Update property selector buttons (if they exist)
+    document.querySelectorAll('.prop-select-btn').forEach(btn => {
+        const propId = btn.id?.replace('bsb-', '');
+        const propData = PROPERTIES.find(p => p.id === propId);
+        if (propData && btn) {
+            const badge = getField(propData, 'badge', lang);
+            const nameSpan = btn.querySelector('.pbn');
+            const badgeSpan = btn.querySelector('.pbs');
+            if (nameSpan) nameSpan.textContent = propData.name;
+            if (badgeSpan) badgeSpan.textContent = badge + ' · ' + propData.rating + '★';
+        }
+    });
+    
+    // 4. Update pricing note
+    const pricingNote = document.getElementById('pricing-note');
+    if (pricingNote && prop) {
+        const priceNote = getField(prop, 'priceNote', lang);
+        pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú.' : 'Final pricing depends on dates, number of guests, and length of stay.'}`;
+    }
+}
+
+// Register with the translation hook - FIXED VERSION (no recursion)
+(function registerTranslationHook() {
+    const hookFn = function(lang) {
+        renderBookingFormLanguage();
+        // Also refresh availability to update any UI text
+        updateAvailabilityAndUI();
+    };
+    
+    // Check if lang.js already loaded and has registerTranslationHook
+    if (typeof window.registerTranslationHook === 'function' && 
+        window.registerTranslationHook !== registerTranslationHook) {
+        window.registerTranslationHook(hookFn);
+    } else {
+        // Store pending hooks for when lang.js loads
+        if (!window._pendingHooks) {
+            window._pendingHooks = [];
+        }
+        window._pendingHooks.push(hookFn);
+    }
+})();
+
+// Make function globally available
+window.renderBookingFormLanguage = renderBookingFormLanguage;
+
 // PRICING ENGINE
 const SPECIAL_RANGES = [
     ['2025-01-28', '2025-02-04'], ['2026-02-14', '2026-02-21'],
@@ -198,10 +300,13 @@ const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
 // Pre-populate from synchronous cache injected by index.html before this script loads.
 // This gives getEffectiveFromPrice() the correct values on the very first call,
 // so prices never flicker from default → overridden.
-let _priceOverrides = (function () {
+let _priceOverrides = [];
+
+// Immediately populate from cache
+(function initPriceOverrides() {
     try {
         if (window._cachedPriceOverrides && Array.isArray(window._cachedPriceOverrides)) {
-            return window._cachedPriceOverrides
+            _priceOverrides = window._cachedPriceOverrides
                 .map(function (row) {
                     return {
                         id:    row[0],
@@ -210,14 +315,13 @@ let _priceOverrides = (function () {
                         to:    String(row[3] || '').trim(),
                         price: Number(row[4]) || 0,
                         note:  row[5] || '',
-                        rule:  null   // parsePriceOverrideRule not yet defined here
+                        rule:  null
                     };
                 })
                 .filter(function (o) { return o.room && o.from && o.to && o.price > 0; });
         }
     } catch (e) { /* ignore */ }
-    return [];
-}());
+})();
 let _overridesFetched = false;
 let _captchaValidated  = false;  // true after captcha passes for the current booking
 
@@ -476,6 +580,7 @@ function fmtDateVN(dateStr) {
 }
 
 let activeProp = 'hanoi';
+window.activeProp = activeProp;
 let currentBookingId = '';
 let currentBookingKey = '';
 let lastPriceResult = null;
@@ -1041,44 +1146,19 @@ function renderBookingSelector() {
 // ================================================================
 
 function selectProp(id) {
-    //console.log('=== selectProp DEBUG ===');
-    //console.log('1. Selected property ID:', id);
-    
     activeProp = id;
     document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
     const activeBtn = document.getElementById('bsb-' + id);
     if (activeBtn) activeBtn.classList.add('active');
     
     const p = PROPERTIES.find(x => x.id === id);
-    //console.log('2. Found property object:', p);
-    //console.log('3. p.rooms:', p?.rooms);
-    //console.log('4. p.vn?.rooms:', p?.vn?.rooms);
-    
     const lang = window.currentLang || 'en';
-    //console.log('5. Current language:', lang);
     
-    const rooms = getField(p, 'rooms', lang);
-    //console.log('6. getField returned rooms:', rooms);
+    // CRITICAL FIX: Call renderBookingFormLanguage FIRST to set up the dropdowns with correct language
+    // This ensures rooms and guests are displayed in the current language
+    renderBookingFormLanguage();
     
-    const roomSelect = document.getElementById('room-type-sel');
-    if (roomSelect) {
-        roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
-        //console.log('7. Room dropdown updated with:', rooms);
-        //console.log('8. Room dropdown HTML:', roomSelect.innerHTML);
-    } else {
-        //console.log('8. roomSelect element not found!');
-    }
-    
-    const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
-    const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
-    const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
-    const guestSelect = document.getElementById('guests-sel');
-    if (guestSelect) {
-        guestSelect.innerHTML = Array.from({ length: bookingMaxGuests }, (_, i) => 
-            `<option value="${i + 1}">${i + 1} ${i === 0 ? guestWord : guestWordPl}</option>`
-        ).join('');
-    }
-    
+    // Then update the pricing note separately
     const priceNote = getField(p, 'priceNote', lang);
     const pricingNote = document.getElementById('pricing-note');
     if (pricingNote) {
@@ -2067,3 +2147,4 @@ window.generateQRCode = generateQRCode;
 window.processPayPal = processPayPal;
 window.submitBankTransferProof = submitBankTransferProof;
 window.confirmCashBooking = confirmCashBooking;
+window.renderBookingFormLanguage = renderBookingFormLanguage;
