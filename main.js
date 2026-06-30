@@ -7,7 +7,7 @@
 // NAVIGATION
 // ================================================================
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
+//import { SpeedInsights } from "@vercel/speed-insights/next"
 
 // Mobile menu toggle
 function toggleMenu() {
