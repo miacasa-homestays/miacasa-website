@@ -7,10 +7,15 @@
 <meta name="description" content="Book a boutique homestay in Hanoi direct. Private rooms near Train Street or a 3-bedroom Old Quarter apartment. Save 10–15% vs Airbnb.">
 <link rel="canonical" href="https://www.miacasahanoi.com/">
 
+<!-- Hreflang for language versions -->
+<link rel="alternate" hreflang="en" href="https://www.miacasahanoi.com/">
+<link rel="alternate" hreflang="vi" href="https://www.miacasahanoi.com/vi/">
+<link rel="alternate" hreflang="zh" href="https://www.miacasahanoi.com/zh/">
+
 <!-- Favicon -->
-<link rel="icon" type="image/png" 
+<link rel="icon" type="image/png"
       href="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_64/v1779191606/miacasa-hanoi-logo.png">
-<link rel="apple-touch-icon" 
+<link rel="apple-touch-icon"
       href="https://res.cloudinary.com/dczfocztf/image/upload/f_auto,q_auto,w_180/v1779191606/miacasa-hanoi-logo.png">
 
 <!-- Preconnect for faster loading -->
@@ -18,15 +23,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com">
 
+<!-- Preload critical font using onload pattern to avoid render-blocking -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</noscript>
+
 <!-- Preload hero image for performance -->
-<link rel="preload" as="image" 
+<link rel="preload" as="image"
       imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
       imagesizes="(max-width: 768px) 100vw, 50vw">
-
-<!-- Preload critical font -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
 
 <meta property="og:title" content="MiaCasa Homestays — Boutique Stays in Hanoi">
 <meta property="og:description" content="Two cozy homestays in Hanoi — near Train Street and in the heart of the Old Quarter. Book direct for the best rate.">
@@ -39,12 +47,11 @@
 <meta name="twitter:description" content="Two cozy homestays in Hanoi — near Train Street and in the heart of the Old Quarter. Book direct for the best rate.">
 <meta name="twitter:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Local stylesheet -->
 <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" crossorigin="anonymous">
 
-<!-- JSON-LD Structured Data -->
+<!-- JSON-LD Structured Data: Organization + LodgingBusiness -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -74,7 +81,17 @@
       "name": "MiaCasa Hanoi",
       "description": "Boutique homestay near Hanoi Railway Station. Private rooms with en-suite bathrooms.",
       "url": "https://www.miacasahanoi.com/miacasa-hanoi",
-      "priceRange": "$$ (550,000₫ - 900,000₫)",
+      "priceRange": "₫550,000 - ₫900,000",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Đống Đa, Hanoi",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.0145,
+        "longitude": 105.8460
+      },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
@@ -86,7 +103,17 @@
       "name": "MiaCasa Old Quarter",
       "description": "Entire 3-bedroom apartment in Hanoi Old Quarter. Open terrace, sleeps up to 6.",
       "url": "https://www.miacasahanoi.com/miacasa-oldquarter",
-      "priceRange": "$$ (900,000₫ - 1,400,000₫)",
+      "priceRange": "₫900,000 - ₫1,400,000",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hoàn Kiếm, Old Quarter, Hanoi",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.0285,
+        "longitude": 105.8542
+      },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -108,7 +135,7 @@
       "name": "Which property is better for couples?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment right in the center of the action near Hoàn Kiếm Lake. It depends on whether you prefer peaceful local life or vibrant city energy."
+        "text": "Both properties are great for couples. MiaCasa Hanoi is a cozy studio in a quiet neighbourhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a terrace — choose based on whether you want more local quiet or central Old Quarter ambience."
       }
     },
     {
@@ -116,7 +143,7 @@
       "name": "Is MiaCasa a hotel or homestay?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're always available online or nearby if you need anything during your stay."
+        "text": "MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience."
       }
     },
     {
@@ -124,7 +151,7 @@
       "name": "Is direct booking cheaper than Airbnb?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation."
+        "text": "Yes. Direct booking through our website typically saves you 10–15% because there are no platform commissions."
       }
     },
     {
@@ -132,7 +159,7 @@
       "name": "Do both properties have elevators?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Our hosts are happy to help carry luggage up and down!"
+        "text": "No. Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor and MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Hosts can assist with luggage when needed."
       }
     },
     {
@@ -140,7 +167,7 @@
       "name": "Do you offer airport pickup?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you."
+        "text": "Yes. We can arrange airport pickup from Noi Bai International Airport — contact us after booking to arrange transportation."
       }
     },
     {
@@ -148,7 +175,7 @@
       "name": "What's the cancellation policy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for any special circumstances."
+        "text": "Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for special circumstances."
       }
     }
   ]
@@ -162,7 +189,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <a href="/#booking" class="sticky-book-btn" data-t="sticky-book">
   <span class="flex-center">
-    <span>📅</span>
+    <span aria-hidden="true">📅</span>
     <span data-t="auto-index-001">Book Now</span>
   </span>
 </a>
@@ -184,13 +211,13 @@
   
   <div class="lang-toggle" role="navigation" aria-label="Language switcher">
     <button id="lang-en" class="lang-btn active" aria-pressed="true" aria-label="English" onclick="setLang('en')">
-      <span class="flag-icon">🇬🇧</span> EN
+      <span class="flag-icon" aria-hidden="true">🇬🇧</span> EN
     </button>
     <button id="lang-vn" class="lang-btn" aria-pressed="false" aria-label="Vietnamese" onclick="setLang('vn')">
-      <span class="flag-icon">🇻🇳</span> VN
+      <span class="flag-icon" aria-hidden="true">🇻🇳</span> VN
     </button>
     <button id="lang-zh" class="lang-btn" aria-pressed="false" aria-label="Chinese" onclick="setLang('zh')">
-      <span class="flag-icon">🇨🇳</span> 中文
+      <span class="flag-icon" aria-hidden="true">🇨🇳</span> 中文
     </button>
   </div>
   
@@ -201,7 +228,7 @@
 
 <main id="main-content">
 
-<!-- Hero Section - Simplified -->
+<!-- Hero Section -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag" data-t="hero-tag">Hanoi, Vietnam</div>
@@ -220,35 +247,35 @@
                           https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
                           https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
                   sizes="(max-width: 768px) 100vw, 50vw">
-          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg" 
-               alt="MiaCasa Hanoi exterior" 
-               loading="eager" 
-               fetchpriority="high" 
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg"
+               alt="Exterior of MiaCasa Hanoi, bright facade with local street view"
+               loading="eager"
+               fetchpriority="high"
                decoding="async"
                width="800"
                height="533">
         </picture>
       </div>
       <div class="mosaic-cell">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg" 
+        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg"
              srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 300w,
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 600w,
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 900w"
              sizes="(max-width: 768px) 33vw, 25vw"
-             alt="Spring Room" 
-             loading="lazy" 
+             alt="Spring Room interior at MiaCasa Hanoi with cozy bed and soft lighting"
+             loading="lazy"
              decoding="async"
              width="600"
              height="400">
       </div>
       <div class="mosaic-cell">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" 
+        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg"
              srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 300w,
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 600w,
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 900w"
              sizes="(max-width: 768px) 33vw, 25vw"
-             alt="Old Quarter terrace" 
-             loading="lazy" 
+             alt="Old Quarter terrace at MiaCasa Old Quarter with plants and seating"
+             loading="lazy"
              decoding="async"
              width="600"
              height="400">
@@ -276,7 +303,7 @@
         <span data-t="oq-badge-1">🏠 ENTIRE APARTMENT</span>
       </div>
       
-      <div class="selector-emoji">🏡</div>
+      <div class="selector-emoji" aria-hidden="true">🏡</div>
       <h3>MiaCasa Old Quarter</h3>
       <p class="card-location">📍 <span data-t="oq-location">Hoàn Kiếm · Old Quarter</span></p>
       
@@ -287,9 +314,8 @@
         <li data-t="oq-feat4">🔑 Private entrance — no shared spaces</li>
       </ul>
       
-      <!-- ⚠️ OLD QUARTER WARNINGS - Using CSS classes -->
       <div class="info-box info-box--warning">
-        <p data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location can be <strong>noisy</strong> (bars/street noise until late).</p>
+        <p data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location — lively streets nearby.</p>
       </div>
       
       <div class="price-prominent selector-price">
@@ -312,7 +338,7 @@
         <span data-t="h-badge-1">🛏️ PRIVATE ROOMS</span>
       </div>
       
-      <div class="selector-emoji">🛏️</div>
+      <div class="selector-emoji" aria-hidden="true">🛏️</div>
       <h3>MiaCasa Hanoi</h3>
       <p class="card-location">📍 <span data-t="h-location">Đống Đa · Near Train Street</span></p>
       
@@ -323,7 +349,6 @@
         <li data-t="h-feat4">🏡 Quiet, local residential neighborhood</li>
       </ul>
       
-      <!-- Info box for Hanoi card -->
       <div class="info-box info-box--success">
         <p data-th="auto-index-003">💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong></p>
       </div>
@@ -353,8 +378,8 @@
   <a href="/#contact" data-t="nav-contact">Contact</a>
 </div>
 <div class="fab-nav">
-  <button class="fab-nav-toggle" onclick="toggleMobileNav()">☰</button>
-  <div class="fab-nav-menu" id="mobileNavMenu">
+  <button class="fab-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle mobile navigation">☰</button>
+  <div class="fab-nav-menu" id="mobileNavMenu" hidden>
     <a href="/#booking" data-t="nav-book">Book</a>
     <a href="/#gallery" data-t="nav-gallery">Gallery</a>
     <a href="/#faq" data-t="nav-faq">FAQ</a>
@@ -362,7 +387,7 @@
   </div>
 </div>
 
-<!-- Booking Section - Complete, No Continue to Pay Button -->
+<!-- Booking Section -->
 <section id="booking">
   <div class="container">
     <div class="section-tag" data-t="sec-book">Reservations</div>
@@ -384,216 +409,214 @@
       <div class="property-select-grid" id="booking-prop-sel"></div>
       
       <!-- Row 1: Room, Check-in, Check-out, Guests -->
-      <div class="form-grid">
-        <div class="form-group">
-          <label id="lbl-room" data-t="lbl-room">Room / Space</label>
-          <select id="room-type-sel" aria-label="Select room type"></select>
-        </div>
-        <div class="form-group">
-          <label id="lbl-checkin" data-t="lbl-checkin">Check-in</label>
-          <input type="date" id="checkin" aria-label="Check-in date" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
-        </div>
-        <div class="form-group">
-          <label id="lbl-checkout" data-t="lbl-checkout">Check-out</label>
-          <input type="date" id="checkout" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
-        </div>
-        <div class="form-group">
-          <label id="lbl-guests" data-t="lbl-guests">Guests</label>
-          <select id="guests-sel"></select>
-        </div>
-      </div>
-
-      <!-- Availability & Cancellation Messages -->
-      <div id="availability-message" class="availability-message" style="display: none;"></div>
-      <div id="cancellation-message" class="cancellation-message" style="display: none;"></div>
-
-      <!-- Guest Details Section - Shows when dates are selected -->
-      <div id="guest-details" style="display: none;">
-        <!-- Guest Information -->
-        <div class="guest-info-header">
-          <p data-t="guest-info-title">Your Information</p>
-        </div>
-        
+      <form id="booking-form" autocomplete="off" novalidate>
+        <!-- Honeypot to reduce spam -->
+        <input type="text" name="hp_email" id="hp_email" style="position:absolute;left:-9999px;top:auto;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-grid">
           <div class="form-group">
-            <label id="lbl-name" data-t="lbl-name">Full Name *</label>
-            <input type="text" id="guest-name" data-t-placeholder="ph-name" placeholder="Your full name">
+            <label id="lbl-room" data-t="lbl-room">Room / Space</label>
+            <select id="room-type-sel" aria-label="Select room type"></select>
           </div>
           <div class="form-group">
-            <label id="lbl-email" data-t="lbl-email">Email Address *</label>
-            <input type="email" id="guest-email" data-t-placeholder="ph-email" placeholder="your@email.com">
+            <label id="lbl-checkin" data-t="lbl-checkin">Check-in</label>
+            <input type="date" id="checkin" aria-label="Check-in date" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
           </div>
           <div class="form-group">
-            <label id="lbl-phone" data-t="lbl-phone">Phone Number *</label>
-            <div class="phone-wrapper">
-              <select id="guest-phone-code">
-                <option value="+84" selected>🇻🇳 +84 (Vietnam)</option>
-                <option value="+44">🇬🇧 +44 (UK)</option>
-                <option value="+1">🇺🇸 +1 (USA / Canada)</option>
-                <option value="+61">🇦🇺 +61 (Australia)</option>
-                <option value="+65">🇸🇬 +65 (Singapore)</option>
-                <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                <option value="+66">🇹🇭 +66 (Thailand)</option>
-                <option value="+82">🇰🇷 +82 (South Korea)</option>
-                <option value="+86">🇨🇳 +86 (China)</option>
-                <option value="+81">🇯🇵 +81 (Japan)</option>
-                <option value="+33">🇫🇷 +33 (France)</option>
-                <option value="+49">🇩🇪 +49 (Germany)</option>
-                <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                <option value="+46">🇸🇪 +46 (Sweden)</option>
-                <option value="+47">🇳🇴 +47 (Norway)</option>
-                <option value="+45">🇩🇰 +45 (Denmark)</option>
-                <option value="+39">🇮🇹 +39 (Italy)</option>
-                <option value="+34">🇪🇸 +34 (Spain)</option>
-                <option value="+55">🇧🇷 +55 (Brazil)</option>
-                <option value="+91">🇮🇳 +91 (India)</option>
-                <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                <option value="+63">🇵🇭 +63 (Philippines)</option>
-              </select>
-              <input type="tel" id="guest-phone-number" data-t-placeholder="ph-phone" placeholder="Phone number">
-            </div>
+            <label id="lbl-checkout" data-t="lbl-checkout">Check-out</label>
+            <input type="date" id="checkout" onfocus="this.showPicker?.()" data-t-placeholder="date-placeholder">
+          </div>
+          <div class="form-group">
+            <label id="lbl-guests" data-t="lbl-guests">Guests</label>
+            <select id="guests-sel"></select>
           </div>
         </div>
 
-        <!-- Price Summary -->
-        <div id="mia-price-box" class="price-summary-box" style="display: none;">
-          <div class="price-row">
-            <span>Property / Room:</span>
-            <span id="ps-pr-val">—</span>
-          </div>
-          <div class="price-row">
-            <span>Dates & Nights:</span>
-            <span id="ps-dates-val">—</span>
-          </div>
-          <div id="ps-extrarow" class="price-row" style="display: none;">
-            <span>Extra guests surcharge:</span>
-            <span id="ps-extra-val">—</span>
-          </div>
-          <div class="price-total">
-            <span>Total:</span>
-            <span id="ps-total-val">—</span>
-          </div>
-          <div class="price-booking-id">
-            Booking ID: <span id="ps-bid">—</span>
-          </div>
-        </div>
+        <!-- Availability & Cancellation Messages -->
+        <div id="availability-message" class="availability-message" style="display: none;" role="status" aria-live="polite"></div>
+        <div id="cancellation-message" class="cancellation-message" style="display: none;" role="status" aria-live="polite"></div>
 
-        <!-- CAPTCHA -->
-        <div id="booking-captcha" class="captcha-box">
-          <div class="captcha-row">
-            <div class="captcha-field">
-              <label class="captcha-label">Security Check: What is <span id="captcha-num1">5</span> + <span id="captcha-num2">3</span>?</label>
-              <input type="number" id="captcha-answer" class="captcha-input" placeholder="Enter answer">
-            </div>
-            <button type="button" id="refresh-captcha" class="captcha-refresh" onclick="generateCaptcha('booking')">⟳ Refresh</button>
+        <!-- Guest Details Section -->
+        <div id="guest-details" style="display: none;">
+          <div class="guest-info-header">
+            <p data-t="guest-info-title">Your Information</p>
           </div>
-          <div id="captcha-error" class="form-error"></div>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="trust-badges">
-          <span class="trust-badge">✓ Instant confirmation</span>
-          <span class="trust-badge">✓ Best rate guaranteed</span>
-          <span class="trust-badge">✓ Support within 2 hours</span>
-        </div>
-
-        <!-- PAYMENT SECTION - Direct, appears immediately -->
-        <div id="mia-payment-section" style="display: none; margin-top: 1rem;">
-          <div class="booking-panel">
-            <p class="booking-panel-label" data-t="pay-label">Complete your booking:</p>
-            
-            <!-- Payment Tabs - 3 options now -->
-            <div class="payment-tabs">
-              <button id="pay-tab-paypal" class="pay-tab active" onclick="selectPayTab('paypal')">💳 PayPal</button>
-              <button id="pay-tab-vietqr" class="pay-tab" onclick="selectPayTab('vietqr')">🏦 VietQR (VN bank)</button>
-              <button id="pay-tab-cash" class="pay-tab" onclick="selectPayTab('cash')">
-                <span data-t="auto-index-016">💵 Pay at Property</span>
-              </button>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label id="lbl-name" data-t="lbl-name">Full Name *</label>
+              <input type="text" id="guest-name" name="guest_name" data-t-placeholder="ph-name" placeholder="Your full name" required>
             </div>
-            
-            <!-- PayPal Panel -->
-            <div id="paypal-panel" class="payment-panel">
-              <button id="paypal-pay-btn" class="paypal-btn full-width" onclick="processPayPal()">Pay with PayPal →</button>
+            <div class="form-group">
+              <label id="lbl-email" data-t="lbl-email">Email Address *</label>
+              <input type="email" id="guest-email" name="guest_email" data-t-placeholder="ph-email" placeholder="your@email.com" required>
             </div>
-            
-            <!-- VietQR Panel -->
-            <div id="vietqr-panel" class="payment-panel" style="display: none;">
-              <!-- Instructions FIRST so user knows what to do -->
-              <div class="payment-instructions">
-                <p class="payment-instructions-title">
-                  <span data-t="auto-index-017">📱 How to pay with VietQR:</span>
-                </p>
-                <ol class="payment-instructions-list">
-                  <li><span data-t="auto-index-018">Open your banking app</span></li>
-                  <li><span data-t="auto-index-019">Scan the QR code below</span></li>
-                  <li><span data-t="auto-index-020">Complete the payment</span></li>
-                  <li><span data-t="auto-index-021">Upload your payment proof below</span></li>
-                </ol>
+            <div class="form-group">
+              <label id="lbl-phone" data-t="lbl-phone">Phone Number *</label>
+              <div class="phone-wrapper">
+                <select id="guest-phone-code" name="guest_phone_code" aria-label="Phone country code">
+                  <option value="+84" selected>🇻🇳 +84 (Vietnam)</option>
+                  <option value="+44">🇬🇧 +44 (UK)</option>
+                  <option value="+1">🇺🇸 +1 (USA / Canada)</option>
+                  <option value="+61">🇦🇺 +61 (Australia)</option>
+                  <option value="+65">🇸🇬 +65 (Singapore)</option>
+                  <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                  <option value="+66">🇹🇭 +66 (Thailand)</option>
+                  <option value="+82">🇰🇷 +82 (South Korea)</option>
+                  <option value="+86">🇨🇳 +86 (China)</option>
+                  <option value="+81">🇯🇵 +81 (Japan)</option>
+                  <option value="+33">🇫🇷 +33 (France)</option>
+                  <option value="+49">🇩🇪 +49 (Germany)</option>
+                  <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                  <option value="+46">🇸🇪 +46 (Sweden)</option>
+                  <option value="+47">🇳🇴 +47 (Norway)</option>
+                  <option value="+45">🇩🇰 +45 (Denmark)</option>
+                  <option value="+39">🇮🇹 +39 (Italy)</option>
+                  <option value="+34">🇪🇸 +34 (Spain)</option>
+                  <option value="+55">🇧🇷 +55 (Brazil)</option>
+                  <option value="+91">🇮🇳 +91 (India)</option>
+                  <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                  <option value="+63">🇵🇭 +63 (Philippines)</option>
+                </select>
+                <input type="tel" id="guest-phone-number" name="guest_phone_number" data-t-placeholder="ph-phone" placeholder="Phone number" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Summary -->
+          <div id="mia-price-box" class="price-summary-box" style="display: none;">
+            <div class="price-row">
+              <span>Property / Room:</span>
+              <span id="ps-pr-val">—</span>
+            </div>
+            <div class="price-row">
+              <span>Dates & Nights:</span>
+              <span id="ps-dates-val">—</span>
+            </div>
+            <div id="ps-extrarow" class="price-row" style="display: none;">
+              <span>Extra guests surcharge:</span>
+              <span id="ps-extra-val">—</span>
+            </div>
+            <div class="price-total">
+              <span>Total:</span>
+              <span id="ps-total-val">—</span>
+            </div>
+            <div class="price-booking-id">
+              Booking ID: <span id="ps-bid">—</span>
+            </div>
+          </div>
+
+          <!-- CAPTCHA -->
+          <div id="booking-captcha" class="captcha-box">
+            <div class="captcha-row">
+              <div class="captcha-field">
+                <label class="captcha-label">Security Check: What is <span id="captcha-num1">5</span> + <span id="captcha-num2">3</span>?</label>
+                <input type="number" id="captcha-answer" class="captcha-input" placeholder="Enter answer">
+              </div>
+              <button type="button" id="refresh-captcha" class="captcha-refresh" onclick="generateCaptcha('booking')">⟳ Refresh</button>
+            </div>
+            <div id="captcha-error" class="form-error"></div>
+            <p class="captcha-note">Note: For production, use server-side verification or reCAPTCHA v3 to reduce abuse.</p>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <span class="trust-badge">✓ Instant confirmation</span>
+            <span class="trust-badge">✓ Best rate guaranteed</span>
+            <span class="trust-badge">✓ Support within 2 hours</span>
+          </div>
+
+          <!-- PAYMENT SECTION -->
+          <div id="mia-payment-section" style="display: none; margin-top: 1rem;">
+            <div class="booking-panel">
+              <p class="booking-panel-label" data-t="pay-label">Complete your booking:</p>
+              
+              <div class="payment-tabs" role="tablist" aria-label="Payment options">
+                <button id="pay-tab-paypal" class="pay-tab active" role="tab" aria-selected="true" onclick="selectPayTab('paypal')">💳 PayPal</button>
+                <button id="pay-tab-vietqr" class="pay-tab" role="tab" aria-selected="false" onclick="selectPayTab('vietqr')">🏦 VietQR (VN bank)</button>
+                <button id="pay-tab-cash" class="pay-tab" role="tab" aria-selected="false" onclick="selectPayTab('cash')">
+                  <span data-t="auto-index-016">💵 Pay at Property</span>
+                </button>
               </div>
               
-              <!-- QR Code -->
-              <div id="qr-img" class="qr-code-container"></div>
+              <!-- PayPal Panel -->
+              <div id="paypal-panel" class="payment-panel" role="tabpanel" aria-hidden="false">
+                <button id="paypal-pay-btn" class="paypal-btn full-width" onclick="processPayPal()">Pay with PayPal →</button>
+              </div>
               
-              <!-- Transfer details form - now VISIBLE by default -->
-              <div id="transfer-details" class="transfer-details">
-                <div class="upload-section">
-                  <p class="upload-label">
-                    <span data-t="auto-index-022">📸 After completing the transfer, please upload your payment proof:</span>
+              <!-- VietQR Panel -->
+              <div id="vietqr-panel" class="payment-panel" style="display: none;" role="tabpanel" aria-hidden="true">
+                <div class="payment-instructions">
+                  <p class="payment-instructions-title">
+                    <span data-t="auto-index-017">📱 How to pay with VietQR:</span>
                   </p>
-                  <input type="file" id="payment-proof" accept="image/*" class="file-input">
-                  <p class="upload-hint">
-                    <span data-t="auto-index-023">Upload a screenshot of your bank transfer or payment confirmation.</span>
-                  </p>
+                  <ol class="payment-instructions-list">
+                    <li><span data-t="auto-index-018">Open your banking app</span></li>
+                    <li><span data-t="auto-index-019">Scan the QR code below</span></li>
+                    <li><span data-t="auto-index-020">Complete the payment</span></li>
+                    <li><span data-t="auto-index-021">Upload your payment proof below</span></li>
+                  </ol>
                 </div>
-                <button id="vietqr-submit-btn" class="vietqr-btn full-width" onclick="submitBankTransferProof()">
-                  <span data-t="auto-index-024">Submit Payment Proof →</span>
+                
+                <div id="qr-img" class="qr-code-container" aria-hidden="false" aria-label="VietQR code"></div>
+                
+                <div id="transfer-details" class="transfer-details">
+                  <div class="upload-section">
+                    <p class="upload-label">
+                      <span data-t="auto-index-022">📸 After completing the transfer, please upload your payment proof:</span>
+                    </p>
+                    <input type="file" id="payment-proof" accept="image/*" class="file-input" aria-describedby="payment-proof-hint">
+                    <p class="upload-hint" id="payment-proof-hint">
+                      <span data-t="auto-index-023">Upload a screenshot of your bank transfer or payment confirmation (max 8MB).</span>
+                    </p>
+                  </div>
+                  <button id="vietqr-submit-btn" class="vietqr-btn full-width" onclick="submitBankTransferProof()">
+                    <span data-t="auto-index-024">Submit Payment Proof →</span>
+                  </button>
+                </div>
+                
+                <div id="payment-pending-message-vietqr" class="payment-pending" style="display: none;" role="status" aria-live="polite"></div>
+              </div>
+              
+              <!-- Pending Message -->
+              <div id="payment-pending-message-general" class="payment-pending" style="display: none;">
+                <div class="pending-icon" aria-hidden="true">⏳</div>
+                <p class="pending-text">
+                  <span data-t="auto-index-025">Payment pending verification</span>
+                </p>
+                <button onclick="resetBookingForm()" class="pending-back-btn">
+                  <span data-t="auto-index-026">Back to booking</span>
                 </button>
               </div>
               
-              <!-- PENDING MESSAGE - VietQR (unique ID) -->
-              <div id="payment-pending-message-vietqr" class="payment-pending" style="display: none;"></div>
-            </div>
-            
-            <!-- PENDING MESSAGE - General (unique ID) -->
-            <div id="payment-pending-message-general" class="payment-pending" style="display: none;">
-              <div class="pending-icon">⏳</div>
-              <p class="pending-text">
-                <span data-t="auto-index-025">Payment pending verification</span>
-              </p>
-              <button onclick="resetBookingForm()" class="pending-back-btn">
-                <span data-t="auto-index-026">Back to booking</span>
-              </button>
-            </div>
-            
-            <!-- NEW: Cash Payment Panel -->
-            <div id="cash-panel" class="payment-panel" style="display: none;">
-              <div class="cash-payment-content">
-                <div class="cash-icon">💵</div>
-                <p class="cash-title">
-                  <span data-t="auto-index-027">Pay when you arrive</span>
-                </p>
-                <p class="cash-subtitle">
-                  <span data-t="auto-index-028">No payment needed now. Your booking will be confirmed immediately.</span>
-                </p>
-                <button id="cash-confirm-btn" class="cash-btn full-width" onclick="confirmCashBooking()">
-                  <span data-t="auto-index-029">Confirm Booking →</span>
-                </button>
+              <!-- Cash Payment Panel -->
+              <div id="cash-panel" class="payment-panel" style="display: none;">
+                <div class="cash-payment-content">
+                  <div class="cash-icon" aria-hidden="true">💵</div>
+                  <p class="cash-title">
+                    <span data-t="auto-index-027">Pay when you arrive</span>
+                  </p>
+                  <p class="cash-subtitle">
+                    <span data-t="auto-index-028">No payment needed now. Your booking will be confirmed immediately.</span>
+                  </p>
+                  <button id="cash-confirm-btn" class="cash-btn full-width" onclick="confirmCashBooking()">
+                    <span data-t="auto-index-029">Confirm Booking →</span>
+                  </button>
+                </div>
               </div>
+              
+              <div id="pay-error" class="pay-error" role="alert" aria-live="assertive"></div>
             </div>
-            
-            <div id="pay-error" class="pay-error"></div>
+          </div>
+
+          <!-- Confirmation Box -->
+          <div id="mia-confirm-box" class="booking-confirm-box" role="status" aria-live="polite" style="display: none;">
+            <p class="booking-confirm-title">✓ Booking Confirmed!</p>
+            <div id="conf-bid" class="booking-confirm-id"></div>
+            <div id="conf-details" class="booking-confirm-details"></div>
+            <button type="button" onclick="resetBookingForm()" class="btn-outline btn-small">Make another booking</button>
           </div>
         </div>
-        </div>
-
-        <!-- Confirmation Box -->
-        <div id="mia-confirm-box" class="booking-confirm-box">
-          <p class="booking-confirm-title">✓ Booking Confirmed!</p>
-          <div id="conf-bid" class="booking-confirm-id"></div>
-          <div id="conf-details" class="booking-confirm-details"></div>
-          <button onclick="resetBookingForm()" class="btn-outline btn-small">Make another booking</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>
@@ -609,31 +632,29 @@
         <p class="gallery-label">MiaCasa Hanoi</p>
         <div class="gallery-teaser-grid">
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with natural light and minimalist decor" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with bed and decor" width="300" height="200">
           </a>
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with comfortable seating and warm lighting" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with seating" width="300" height="200">
           </a>
         </div>
-        <a href="miacasa-hanoi.html#h-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
+        <a href="/miacasa-hanoi#h-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
       </div>
       <div class="gallery-teaser-col">
         <p class="gallery-label">MiaCasa Old Quarter</p>
         <div class="gallery-teaser-grid">
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Living room at MiaCasa Old Quarter with comfortable seating and traditional Vietnamese decor" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Old Quarter living area with vintage decor" width="300" height="200">
           </a>
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Open terrace at MiaCasa Old Quarter with outdoor seating and city views" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Old Quarter terrace view with plants and seating" width="300" height="200">
           </a>
         </div>
-        <a href="miacasa-oldquarter.html#oq-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
+        <a href="/miacasa-oldquarter#oq-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Contact Section -->
 
 <!-- Meet Your Hosts Strip -->
 <section class="hosts-section">
@@ -663,7 +684,7 @@
       </div>
       <div class="host-journey-note">
         <p class="superhost-text">
-          <span class="journey-icon">⭐</span>
+          <span class="journey-icon" aria-hidden="true">⭐</span>
           <span data-th="auto-index-030">Recognized as <strong>Airbnb Superhost in 2025</strong> for consistent 5-star guest experiences.</span>
         </p>
       </div>
@@ -681,51 +702,63 @@
     <div class="faq-list">
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1">
           <span data-t="faq-q-couples">Which property is better for couples?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-couples">Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment right in the center of the action near Hoàn Kiếm Lake. It depends on whether you prefer peaceful local life or vibrant city energy.</p></div>
+        <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" style="display:none;">
+          <p data-t="faq-a-couples">Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a sunny terrace. Choose based on whether you prefer a quieter local feel or being in the heart of the Old Quarter.</p>
+        </div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2">
           <span data-t="faq-q-hotel">Is MiaCasa a hotel or homestay?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-hotel">MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're always available online or nearby if you need anything during your stay.</p></div>
+        <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" style="display:none;">
+          <p data-t="faq-a-hotel">MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're available online and nearby if you need assistance during your stay.</p>
+        </div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3">
           <span data-t="faq-q-direct">Is direct booking cheaper than Airbnb?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-direct">Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.</p></div>
+        <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" style="display:none;">
+          <p data-t="faq-a-direct">Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.</p>
+        </div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4">
           <span data-t="faq-q-elevator">Do both properties have elevators?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-elevator">Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Our hosts are happy to help carry luggage up and down!</p></div>
+        <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" style="display:none;">
+          <p data-t="faq-a-elevator">Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs — hosts can help with luggage where necessary.</p>
+        </div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-5" id="faq-q-5">
           <span data-t="faq-q-airport">Do you offer airport pickup?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-airport">Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you.</p></div>
+        <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" style="display:none;">
+          <p data-t="faq-a-airport">Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you.</p>
+        </div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-6" id="faq-q-6">
           <span data-t="faq-q-cancellation">What's the cancellation policy?</span> 
-          <span class="plus-icon">+</span>
+          <span class="plus-icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a"><p data-t="faq-a-cancellation">Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for any special circumstances.</p></div>
+        <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6" style="display:none;">
+          <p data-t="faq-a-cancellation">Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for any special circumstances.</p>
+        </div>
       </div>
       
     </div>
@@ -746,19 +779,19 @@
         <div class="contact-items contact-items-margin">
           
           <div class="contact-item">
-            <div class="contact-item-icon">📱</div>
+            <div class="contact-item-icon" aria-hidden="true">📱</div>
             <div class="contact-item-text">
               <strong id="contact-whatsapp-lbl" data-t="contact-whatsapp-lbl">WhatsApp / Phone</strong>
               <div class="contact-links">
                 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="contact-link">💬 WhatsApp</a>
-                <span class="contact-divider">·</span>
+                <span class="contact-divider" aria-hidden="true">·</span>
                 <a href="tel:+84869922261" class="contact-link">📞 Call +84 869 922 261</a>
               </div>
             </div>
           </div>
           
           <div class="contact-item">
-            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-icon" aria-hidden="true">✉️</div>
             <div class="contact-item-text">
               <strong id="contact-email-lbl" data-t="contact-email-lbl">Email</strong>
               <a href="mailto:miacasahanoi@gmail.com" class="contact-link">miacasahanoi@gmail.com</a>
@@ -766,7 +799,7 @@
           </div>
           
           <div class="contact-item">
-            <div class="contact-item-icon">🕐</div>
+            <div class="contact-item-icon" aria-hidden="true">🕐</div>
             <div class="contact-item-text">
               <strong id="contact-response-lbl" data-t="contact-response-lbl">Response time</strong>
               <span id="contact-response-val" data-t="contact-response-val">Within 2 hours · 7am – 10pm ICT</span>
@@ -778,50 +811,55 @@
       
       <!-- Right Column: Contact Form -->
       <div class="contact-form-box">
-        <div class="form-grid">
-          <div class="form-group">
-            <label id="lbl-cname" data-t="lbl-cname">Name</label>
-            <input type="text" id="contact-name" data-t-placeholder="ph-cname" placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label id="lbl-cemail" data-t="lbl-cemail">Email</label>
-            <input type="email" id="contact-email" data-t-placeholder="ph-cemail" placeholder="your@email.com">
-          </div>
-          <div class="form-group">
-            <label id="lbl-cprop" data-t="lbl-cprop">Property</label>
-            <select id="contact-prop-sel"></select>
-          </div>
-          <div class="form-group">
-            <label id="lbl-csubject" data-t="lbl-csubject">Subject</label>
-            <select id="contact-subject">
-              <option data-t="subject-booking" value="booking">Booking Enquiry</option>
-              <option data-t="subject-special" value="special">Special Request</option>
-              <option data-t="subject-calendar" value="calendar">Calendar Sync / Channel Manager</option>
-              <option data-t="subject-other" value="other">Other</option>
-            </select>
-          </div>
-          <div class="form-group form-full">
-            <label id="lbl-cmsg" data-t="lbl-cmsg">Message</label>
-            <textarea id="contact-message" rows="4" data-t-placeholder="ph-cmsg" placeholder="Tell us how we can help..."></textarea>
-          </div>
-        </div>
-        
-        <!-- CAPTCHA -->
-        <div id="contact-captcha" class="captcha-box">
-          <div class="captcha-row">
-            <div class="captcha-field">
-              <label class="captcha-label">Security Check: What is <span id="contact-captcha-num1">5</span> + <span id="contact-captcha-num2">3</span>?</label>
-              <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer">
+        <form id="contact-form" autocomplete="off" novalidate>
+          <!-- Honeypot -->
+          <input type="text" name="hp_contact" id="hp_contact" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-grid">
+            <div class="form-group">
+              <label id="lbl-cname" data-t="lbl-cname">Name</label>
+              <input type="text" id="contact-name" name="contact_name" data-t-placeholder="ph-cname" placeholder="Your name" required>
             </div>
-            <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
+            <div class="form-group">
+              <label id="lbl-cemail" data-t="lbl-cemail">Email</label>
+              <input type="email" id="contact-email" name="contact_email" data-t-placeholder="ph-cemail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label id="lbl-cprop" data-t="lbl-cprop">Property</label>
+              <select id="contact-prop-sel" name="contact_property" aria-label="Select property"></select>
+            </div>
+            <div class="form-group">
+              <label id="lbl-csubject" data-t="lbl-csubject">Subject</label>
+              <select id="contact-subject" name="contact_subject">
+                <option data-t="subject-booking" value="booking">Booking Enquiry</option>
+                <option data-t="subject-special" value="special">Special Request</option>
+                <option data-t="subject-calendar" value="calendar">Calendar Sync / Channel Manager</option>
+                <option data-t="subject-other" value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group form-full">
+              <label id="lbl-cmsg" data-t="lbl-cmsg">Message</label>
+              <textarea id="contact-message" name="contact_message" rows="4" data-t-placeholder="ph-cmsg" placeholder="Tell us how we can help..." required></textarea>
+            </div>
           </div>
-          <div id="contact-captcha-error" class="form-error"></div>
-        </div>
-        
-        <button class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
-        <p class="contact-fallback">Prefer email? <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></p>
-        
-        <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;">✓ Message sent! We'll be in touch soon.</div>
+          
+          <!-- CAPTCHA -->
+          <div id="contact-captcha" class="captcha-box">
+            <div class="captcha-row">
+              <div class="captcha-field">
+                <label class="captcha-label">Security Check: What is <span id="contact-captcha-num1">5</span> + <span id="contact-captcha-num2">3</span>?</label>
+                <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer">
+              </div>
+              <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
+            </div>
+            <div id="contact-captcha-error" class="form-error"></div>
+            <p class="captcha-note">For production, prefer server-side validation or reCAPTCHA v3.</p>
+          </div>
+          
+          <button type="button" class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
+          <p class="contact-fallback">Prefer email? <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></p>
+          
+          <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;" role="status" aria-live="polite">✓ Message sent! We'll be in touch soon.</div>
+        </form>
       </div>
       
     </div>
@@ -830,12 +868,12 @@
   <!-- Post-Stay Links -->
   <div class="post-stay-links">
     <div class="post-stay-item">
-      <span class="post-stay-icon">📄</span>
+      <span class="post-stay-icon" aria-hidden="true">📄</span>
       <a href="/invoice" class="post-stay-link" data-t="invoice-link">Click here →</a>
       <p class="post-stay-text" data-t="invoice-text">Need an invoice for your stay?</p>
     </div>
     <div class="post-stay-item">
-      <span class="post-stay-icon">✈️</span>
+      <span class="post-stay-icon" aria-hidden="true">✈️</span>
       <a href="/cancel-booking" class="post-stay-link" data-t="cancel-link">Request cancellation →</a>
       <p class="post-stay-text" data-t="cancel-text">Need to cancel your booking?</p>
     </div>
@@ -844,7 +882,7 @@
 
 <footer>
     <div class="container">
-        <!-- Main Footer Content - Clean 4 Column Layout -->
+        <!-- Main Footer Content -->
         <div class="footer-grid">
             <!-- Brand Column -->
             <div class="footer-brand">
@@ -908,11 +946,9 @@
 </main>
 
 <!-- Consolidated Scripts -->
-<script src="/js/prices.js"></script>
+<script src="/js/prices.js" defer></script>
 <script>
-// Synchronously pre-load cached price overrides from localStorage.
-// booking.js reads window._cachedPriceOverrides when it initialises _priceOverrides,
-// so override prices are correct from the very first render — no flicker.
+// Pre-load cached price overrides from localStorage
 (function () {
   try {
     var raw = localStorage.getItem('mia_price_overrides_v1');
@@ -927,14 +963,15 @@
 <script src="/js/booking.js" defer></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/lang.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer crossorigin="anonymous"></script>
 
 <!-- Floating Buttons -->
 <a href="/#booking" class="floating-book-btn">
-  <span data-t="auto-index-032">📅 Book Now</span>
+  <span aria-hidden="true">📅</span>
+  <span data-t="auto-index-032">Book Now</span>
 </a>
 
-<!-- Consolidated Initialization - Single source of truth -->
+<!-- Consolidated Initialization -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize glightbox
@@ -942,7 +979,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new GLightbox({ selector: '.glightbox' });
   }
   
-  // Initialize CAPTCHA - Single call
+  // Initialize CAPTCHA
   if (typeof generateCaptcha === 'function') {
     generateCaptcha('booking');
     generateCaptcha('contact');
@@ -952,319 +989,119 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof updateAllPricesFromPRICES === 'function') {
     setTimeout(updateAllPricesFromPRICES, 100);
   }
+
+  // FAQ toggle - accessible pattern
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var targetId = btn.getAttribute('aria-controls');
+      var panel = document.getElementById(targetId);
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (panel) {
+        panel.style.display = expanded ? 'none' : 'block';
+        var icon = btn.querySelector('.plus-icon');
+        if (icon) icon.textContent = expanded ? '+' : '−';
+      }
+    });
+  });
 });
 </script>
 
 <!-- Chatbot Component -->
 <link rel="stylesheet" href="/css/chatbot.css">
-<button class="chatbot-fab" id="chatbotFab">💬</button>
-<div class="chatbot-window" id="chatbotWindow">
+<button class="chatbot-fab" id="chatbotFab" aria-expanded="false" aria-controls="chatbotWindow" aria-label="Open chat">💬</button>
+<div class="chatbot-window" id="chatbotWindow" hidden>
   <div class="chatbot-header">
     <div>
       <div class="chatbot-header-title">MiaCasa Assistant</div>
       <div class="chatbot-header-sub">Usually replies in minutes</div>
     </div>
-    <button class="chatbot-close" id="chatbotClose">✕</button>
+    <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">✕</button>
   </div>
-  <div class="chat-messages" id="chatMessages">
-    <!-- Messages will appear here -->
-  </div>
+  <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
   <div class="chat-quick" id="chatQuickReplies"></div>
   <div class="chatbot-input-area">
-    <input type="text" class="chatbot-input" id="chatInput" placeholder="Type a message...">
-    <button class="chatbot-send" id="chatSendBtn">→</button>
+    <input type="text" class="chatbot-input" id="chatInput" placeholder="Type a message..." aria-label="Chat message">
+    <button class="chatbot-send" id="chatSendBtn" aria-label="Send message">→</button>
   </div>
 </div>
 
 <script>
-// Simple Chatbot Implementation
+// Chatbot UI with integration to main chatbot functions
 (function() {
-    // DOM elements
-    const fab = document.getElementById('chatbotFab');
-    const windowEl = document.getElementById('chatbotWindow');
-    const closeBtn = document.getElementById('chatbotClose');
-    const messagesDiv = document.getElementById('chatMessages');
-    const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSendBtn');
-    const quickRepliesDiv = document.getElementById('chatQuickReplies');
-    
-    let isOpen = false;
-    let hasUserMessages = false;
-    
-    // Helper functions
-    function getLang() {
-        if (typeof window.currentLang !== 'undefined' && window.currentLang) {
-            return window.currentLang;
-        }
-        try {
-            const saved = localStorage.getItem('mia_lang');
-            if (saved === 'vn' || saved === 'en') return saved;
-        } catch(e) {}
-        return 'en';
-    }
-    
-    function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'msg ' + sender;
-        msgDiv.textContent = text;
-        messagesDiv.appendChild(msgDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    var fab = document.getElementById('chatbotFab');
+    var windowEl = document.getElementById('chatbotWindow');
+    var closeBtn = document.getElementById('chatbotClose');
+    var messagesDiv = document.getElementById('chatMessages');
+    var input = document.getElementById('chatInput');
+    var sendBtn = document.getElementById('chatSendBtn');
+
+    function openChat() {
+      windowEl.removeAttribute('hidden');
+      fab.setAttribute('aria-expanded', 'true');
+      if (input) input.focus();
     }
 
-    function getChatbotCopy(lang) {
-        if (lang === 'vn') {
-            return {
-                title: 'Trợ lý MiaCasa',
-                subtitle: 'Thường phản hồi trong vài phút',
-                placeholder: 'Nhập tin nhắn...',
-                welcome: 'Xin chào! 👋 Tôi là trợ lý của MiaCasa Homestays. Tôi có thể giúp bạn tìm phòng, kiểm tra giá, hoặc trả lời bất kỳ câu hỏi nào. Bạn cần tôi giúp gì?',
-                quickButtons: [
-                    { text: '🏠 Homestay', msg: 'Bạn có những chỗ nghỉ nào?' },
-                    { text: '💰 Giá phòng', msg: 'Giá phòng bao nhiêu?' },
-                    { text: '📍 Vị trí', msg: 'MiaCasa ở đâu?' },
-                    { text: '📋 Hủy phòng', msg: 'Chính sách hủy phòng là gì?' }
-                ]
-            };
-        }
-        
-        if (lang === 'zh') {
-            return {
-                title: 'MiaCasa 助手',
-                subtitle: '通常几分钟内回复',
-                placeholder: '输入消息...',
-                welcome: '您好！👋 我是 MiaCasa 民宿的助手。我可以帮您查找房间、查询价格、或回答任何问题。今天有什么可以帮您的吗？',
-                quickButtons: [
-                    { text: '🏠 房源', msg: '你们有哪些房源？' },
-                    { text: '💰 价格', msg: '价格是多少？' },
-                    { text: '📍 位置', msg: '你们在哪里？' },
-                    { text: '📋 取消政策', msg: '取消政策是什么？' }
-                ]
-            };
-          }
-    
-        // Default English
-        return {
-            title: 'MiaCasa Assistant',
-            subtitle: 'Usually replies in minutes',
-            placeholder: 'Type a message...',
-            welcome: 'Hello! 👋 I\'m your MiaCasa Homestays assistant. I can help you find rooms, check prices, or answer any questions. How can I help you today?',
-            quickButtons: [
-                { text: '🏠 Properties', msg: 'What properties do you have?' },
-                { text: '💰 Prices', msg: 'What are the prices?' },
-                { text: '📍 Location', msg: 'Where are you located?' },
-                { text: '📋 Cancellation', msg: 'What is the cancellation policy?' }
-            ]
-        };
+    function closeChat() {
+      windowEl.setAttribute('hidden', '');
+      fab.setAttribute('aria-expanded', 'false');
+      fab.focus();
     }
 
-    function renderChatbotLanguage(options = {}) {
-        const lang = getLang();
-        const copy = getChatbotCopy(lang);
-        const titleEl = document.querySelector('.chatbot-header-title');
-        const subEl = document.querySelector('.chatbot-header-sub');
-
-        if (titleEl) titleEl.textContent = copy.title;
-        if (subEl) subEl.textContent = copy.subtitle;
-        if (input) input.placeholder = copy.placeholder;
-
-        quickRepliesDiv.innerHTML = copy.quickButtons.map(btn => 
-            `<button class="quick-btn" data-msg="${btn.msg}">${btn.text}</button>`
-        ).join('');
-
-        quickRepliesDiv.querySelectorAll('.quick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const msg = btn.getAttribute('data-msg');
-                if (msg) quickReply(msg);
-            });
-        });
-
-        if (options.resetWelcome || !hasUserMessages) {
-            messagesDiv.innerHTML = '';
-            addMessage(copy.welcome, 'bot');
-        }
-    }
-    
-    function showTyping() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'typing-indicator';
-        typingDiv.id = 'typingIndicator';
-        typingDiv.innerHTML = '<span>●</span><span>●</span><span>●</span>';
-        messagesDiv.appendChild(typingDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-    
-    function hideTyping() {
-        const typing = document.getElementById('typingIndicator');
-        if (typing) typing.remove();
-    }
-    
-    function sendMessage(message) {
-        if (!message.trim()) return;
-        
-        const lang = getLang();
-        hasUserMessages = true;
-        addMessage(message, 'user');
-        input.value = '';
-        
-        showTyping();
-        setTimeout(() => {
-            const response = getResponse(message, lang);
-            hideTyping();
-            addMessage(response, 'bot');
-        }, 500);
-    }
-    
-    function quickReply(message) {
-        sendMessage(message);
-    }
-    
-    // Initialize welcome message and quick replies
-    function initChatbot() {
-        renderChatbotLanguage({ resetWelcome: true });
-    }
-    
-    // Event listeners
-    function toggleChat() {
-        isOpen = !isOpen;
-        if (isOpen) {
-            windowEl.classList.add('open');
-            if (messagesDiv.children.length === 0) {
-                initChatbot();
-            }
-        } else {
-            windowEl.classList.remove('open');
-        }
-    }
-    
-    fab.addEventListener('click', toggleChat);
-    closeBtn.addEventListener('click', toggleChat);
-    sendBtn.addEventListener('click', () => sendMessage(input.value));
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage(input.value);
-    });
-    
-    // Also listen for language changes to re-init
-    if (typeof registerTranslationHook === 'function') {
-        registerTranslationHook(function() {
-            renderChatbotLanguage({ resetWelcome: windowEl.classList.contains('open') && !hasUserMessages });
-        });
-    }
-
-    window.updateMiaCasaChatbotLanguage = function() {
-        renderChatbotLanguage({ resetWelcome: windowEl.classList.contains('open') && !hasUserMessages });
-    };
-
-    renderChatbotLanguage();
-})();
-</script>
-
-<script>
-// Auto-detect country code from browser language
-(function() {
-  const langMap = {
-    'vi': '+84', 'en-GB': '+44', 'en-AU': '+61', 'en-US': '+1',
-    'ko': '+82', 'ja': '+81', 'zh': '+86', 'zh-CN': '+86', 'zh-TW': '+886',
-    'fr': '+33', 'de': '+49', 'nl': '+31', 'sv': '+46', 'da': '+45',
-    'no': '+47', 'it': '+39', 'es': '+34', 'pt': '+55', 'pl': '+48',
-    'th': '+66', 'ms': '+60', 'id': '+62', 'ru': '+7'
-  };
-  const lang = navigator.language || navigator.userLanguage || '';
-  const code = langMap[lang] || langMap[lang.split('-')[0]];
-  if (code && code !== '+84') {
-    document.addEventListener('DOMContentLoaded', function() {
-      const sel = document.getElementById('guest-phone-code');
-      if (sel) {
-        for (let i = 0; i < sel.options.length; i++) {
-          if (sel.options[i].value === code && !sel.options[i].text.includes('Vietnam')) {
-            sel.selectedIndex = i;
-            break;
-          }
-        }
+    function getResponse(text) {
+      // Use main chatbot response function if available
+      if (typeof getChatbotReply === 'function') {
+        return getChatbotReply(text);
       }
+      // Fallback responses
+      var lower = text.toLowerCase();
+      if (lower.includes('price') || lower.includes('cost')) {
+        return 'Our prices start from 550,000₫ per night. Check our booking section for exact rates!';
+      }
+      if (lower.includes('property') || lower.includes('room')) {
+        return 'We have two properties: MiaCasa Hanoi (3 private rooms near Train Street) and MiaCasa Old Quarter (entire 3-bedroom apartment in the Old Quarter).';
+      }
+      if (lower.includes('location') || lower.includes('where')) {
+        return 'MiaCasa Hanoi is in Đống Đa near Train Street. MiaCasa Old Quarter is in the heart of Hoàn Kiếm, steps from the lake.';
+      }
+      return "Thanks for your message! Our team will get back to you shortly. For urgent inquiries, please WhatsApp us at +84 869 922 261.";
+    }
+
+    function sendMessage() {
+      var text = input.value && input.value.trim();
+      if (!text) return;
+
+      // Add user message
+      var userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.textContent = text;
+      messagesDiv.appendChild(userMsg);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      input.value = '';
+
+      // Get bot response
+      setTimeout(function() {
+        var reply = getResponse(text);
+        var botMsg = document.createElement('div');
+        botMsg.className = 'msg bot';
+        botMsg.textContent = reply;
+        messagesDiv.appendChild(botMsg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }, 500);
+    }
+
+    // Event listeners
+    if (fab) fab.addEventListener('click', openChat);
+    if (closeBtn) closeBtn.addEventListener('click', closeChat);
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (input) input.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') sendMessage();
     });
-  }
 })();
 </script>
-<script>
-  // Update selector card prices from PRICES
-function updateSelectorPrices() {
-    if (typeof PRICES === 'undefined') {
-        console.log('Waiting for PRICES to load...');
-        setTimeout(updateSelectorPrices, 200);
-        return;
-    }
-    
-    const lang = (typeof window.currentLang !== 'undefined') ? window.currentLang : 
-                 (localStorage.getItem('mia_lang') || 'en');
-    
-    // Delegate to refreshAllPriceDisplays (defined in booking.js) which is
-    // override-aware and updates selector, compare, room cards and save badges.
-    if (typeof refreshAllPriceDisplays === 'function') {
-        refreshAllPriceDisplays();
-        return;
-    }
-    // Fallback if booking.js not yet loaded
-    const hEl = document.getElementById('selector-hanoi-price');
-    if (hEl) hEl.textContent = PRICES['hanoi-spring'].toLocaleString('vi-VN');
-    const oEl = document.getElementById('selector-oldquarter-price');
-    if (oEl) oEl.textContent = PRICES.oldquarter.toLocaleString('vi-VN');
-}
 
-// Run when page loads
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateSelectorPrices);
-} else {
-    updateSelectorPrices();
-}
+<!-- Accessibility helper: announce status updates -->
+<div id="sr-status" class="sr-only" aria-live="polite" aria-atomic="true" style="position:absolute;left:-9999px;top:auto;opacity:0;"></div>
 
-// Also update when language changes
-if (typeof registerTranslationHook === 'function') {
-    registerTranslationHook(function(lang) {
-        if (typeof PRICES !== 'undefined') {
-            const hanoiSave = document.getElementById('selector-hanoi-save');
-            if (hanoiSave) {
-                if (typeof getSavingsBadge === 'function') {
-                    hanoiSave.textContent = getSavingsBadge('hanoi', lang);
-                } else {
-                    const airbnbPrice = PRICES['airbnb-price-hanoi'] || 880000;
-                    const ourPrice = PRICES['hanoi-spring'];
-                    const saved = Math.round(((airbnbPrice - ourPrice) / airbnbPrice) * 100);
-                    hanoiSave.textContent = lang === 'vn' ? `Tiết kiệm ${saved}% so với Airbnb` : `Save ${saved}% vs Airbnb`;
-                }
-            }
-            const oldquarterSave = document.getElementById('selector-oldquarter-save');
-            if (oldquarterSave) {
-                if (typeof getSavingsBadge === 'function') {
-                    oldquarterSave.textContent = getSavingsBadge('oldquarter', lang);
-                } else {
-                    const airbnbPrice = PRICES['airbnb-price-oldquarter'] || 1410000;
-                    const ourPrice = PRICES.oldquarter;
-                    const saved = Math.round(((airbnbPrice - ourPrice) / airbnbPrice) * 100);
-                    oldquarterSave.textContent = lang === 'vn' ? `Tiết kiệm ${saved}% so với Airbnb` : `Save ${saved}% vs Airbnb`;
-                }
-            }
-        }
-    });
-}
-</script>
-<script>
-// FAQ Accordion Functionality for Homepage
-document.addEventListener('DOMContentLoaded', function() {
-    const faqButtons = document.querySelectorAll('.faq-q');
-    faqButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const faqItem = this.closest('.faq-item');
-            if (faqItem) {
-                const isOpen = faqItem.classList.toggle('open');
-                this.setAttribute('aria-expanded', isOpen);
-                const plusIcon = this.querySelector('.plus-icon');
-                if (plusIcon) {
-                    plusIcon.textContent = isOpen ? '−' : '+';
-                }
-            }
-        });
-    });
-});
-</script>
 </body>
 </html>
