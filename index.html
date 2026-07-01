@@ -18,6 +18,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com">
 
+<!-- Preload hero image for performance -->
+<link rel="preload" as="image" 
+      imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+      imagesizes="(max-width: 768px) 100vw, 50vw">
+
 <meta property="og:title" content="MiaCasa Homestays — Boutique Stays in Hanoi">
 <meta property="og:description" content="Two cozy homestays in Hanoi — near Train Street and in the heart of the Old Quarter. Book direct for the best rate.">
 <meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
@@ -92,35 +99,43 @@
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<a href="#booking" class="sticky-book-btn" data-t="sticky-book">
+<a href="/#booking" class="sticky-book-btn" data-t="sticky-book">
   <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
     <span>📅</span>
     <span data-t="auto-index-001">Book Now</span>
   </span>
 </a>
 
-<!-- Navigation -->
-<nav>
+<!-- Navigation with ARIA support -->
+<nav aria-label="Main navigation">
   <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
   
-  <ul class="nav-links">
-    <li><a href="/" class="active" data-t="nav-home">Home</a></li>
+  <ul class="nav-links" id="primary-nav" role="menubar">
+    <li><a href="/" class="active" aria-current="page" data-t="nav-home">Home</a></li>
     <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
     <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
     <li><a href="/blog" data-t="nav-blog">Blog</a></li>
     <li><a href="/about" data-t="nav-about">About</a></li>
-    <li><a href="#contact" data-t="nav-contact">Contact</a></li>
+    <li><a href="/#contact" data-t="nav-contact">Contact</a></li>
     <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
-  <div class="lang-toggle">
-    <button id="lang-en" class="lang-btn active" onclick="setLang('en')"><span class="flag-icon">🇬🇧</span> EN</button>
-    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')"><span class="flag-icon">🇻🇳</span> VN</button>
-    <button id="lang-zh" class="lang-btn" onclick="setLang('zh')">
+  
+  <div class="lang-toggle" role="navigation" aria-label="Language switcher">
+    <button id="lang-en" class="lang-btn active" aria-pressed="true" aria-label="English" onclick="setLang('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" aria-pressed="false" aria-label="Vietnamese" onclick="setLang('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+    <button id="lang-zh" class="lang-btn" aria-pressed="false" aria-label="Chinese" onclick="setLang('zh')">
       <span class="flag-icon">🇨🇳</span> 中文
     </button>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  
+  <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <main id="main-content">
@@ -131,37 +146,51 @@
     <h1 data-th="hero-h1-new">Boutique stays in Hanoi,<br><em>designed for comfort & location</em></h1>
     <p class="hero-sub" data-t="hero-sub-new">Choose between vibrant Old Quarter energy or a quiet local retreat.</p>
     <div class="hero-btns">
-      <a href="#booking" class="btn-primary" data-t="hero-check-dates">Check your dates →</a>
+      <a href="/#booking" class="btn-primary" data-t="hero-check-dates">Check your dates →</a>
     </div>
     <p class="micro-trust" data-t="brand-clarify" style="font-size: 0.9rem;"> ⭐ Better price direct · No platform fees · Instant confirmation </p>
   </div>
   <div class="hero-right">
     <div class="hero-mosaic">
-      <div class="mosaic-cell tall"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg" 
-     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 400w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
-     sizes="(max-width: 768px) 100vw, 50vw"
-     alt="MiaCasa Hanoi exterior" 
-     loading="eager" 
-     fetchpriority="high" 
-     decoding="async"></div>
-      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg" 
-     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 300w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 600w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 900w"
-     sizes="(max-width: 768px) 33vw, 25vw"
-     alt="Spring Room" 
-     loading="lazy" 
-     decoding="async"></div>
-      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" 
-     srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 300w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 600w,
-             https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 900w"
-     sizes="(max-width: 768px) 33vw, 25vw"
-     alt="Old Quarter terrace" 
-     loading="lazy" 
-     decoding="async"></div>
+      <div class="mosaic-cell tall">
+        <picture>
+          <source srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+                          https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+                          https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+                  sizes="(max-width: 768px) 100vw, 50vw">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg" 
+               alt="MiaCasa Hanoi exterior" 
+               loading="eager" 
+               fetchpriority="high" 
+               decoding="async"
+               width="800"
+               height="533">
+        </picture>
+      </div>
+      <div class="mosaic-cell">
+        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg" 
+             srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 300w,
+                     https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 600w,
+                     https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775638559/DSC_6544-2_o4zadk.jpg 900w"
+             sizes="(max-width: 768px) 33vw, 25vw"
+             alt="Spring Room" 
+             loading="lazy" 
+             decoding="async"
+             width="600"
+             height="400">
+      </div>
+      <div class="mosaic-cell">
+        <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" 
+             srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 300w,
+                     https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 600w,
+                     https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 900w"
+             sizes="(max-width: 768px) 33vw, 25vw"
+             alt="Old Quarter terrace" 
+             loading="lazy" 
+             decoding="async"
+             width="600"
+             height="400">
+      </div>
     </div>
     <div class="hero-badge">
       <p data-t="hero-badge-rated">Rated across Airbnb &amp; Booking.com</p>
@@ -178,14 +207,6 @@
   </div>
   <h2 data-t="choose-title">Two Different Homes,<br><em>Choose Your Hanoi Experience</em></h2>
   
-  <!-- <div style="text-align: center; margin-bottom: 2rem;">
-    <span style="display: inline-flex; align-items: center; gap: 1rem; background: var(--sand); padding: 0.5rem 1.5rem; border-radius: 50px;">
-      <span style="display: flex; align-items: center; gap: 0.3rem;">📍 <strong data-t="diff-addresses">Different addresses</strong></span>
-      <span style="color: var(--terracotta);">|</span>
-      <span style="display: flex; align-items: center; gap: 0.3rem;">⚠️ <strong data-t="both-no-elevator">No elevator in either property</strong></span>
-    </span>
-  </div> -->
-
   <div class="selector-grid">
     
     <!-- Option 1: Entire Apartment (Old Quarter) -->
@@ -221,7 +242,7 @@
       
       <div class="selector-actions">
         <a href="/miacasa-oldquarter" class="btn-outline" data-t="selector-oq-explore">View Details →</a>
-        <a href="index.html?property=oldquarter#booking" class="selector-btn" data-t="selector-oq-btn">Book Entire Apartment →</a>
+        <a href="/?property=oldquarter#booking" class="selector-btn" data-t="selector-oq-btn">Book Entire Apartment →</a>
       </div>
       <div class="selector-proof" data-t="instant-confirm">✓ Instant confirmation · ✓ Best rate</div>
     </div>
@@ -259,77 +280,30 @@
       
       <div class="selector-actions">
         <a href="/miacasa-hanoi" class="btn-outline" data-t="selector-h-explore">View Details →</a>
-        <a href="index.html?property=hanoi#booking" class="selector-btn" data-t="selector-h-btn">Book a Room →</a>
+        <a href="/?property=hanoi#booking" class="selector-btn" data-t="selector-h-btn">Book a Room →</a>
       </div>
       <div class="selector-proof" data-t="instant-confirm">✓ Instant confirmation · ✓ Best rate</div>
     </div>
     
   </div>
-  
-    <!-- Comparison / Decision guide -->
-  <!-- <div style="margin-top: 2rem; background: var(--cream); border-radius: 16px; padding: 1.25rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-    <p style="text-align: center; font-weight: 600; margin-bottom: 1rem; font-size: 0.8rem;" data-t="which-for-you">🤔 Which property is right for you?</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.7rem;">
-      
-      <div>
-        <div style="font-weight: 600; color: var(--terracotta); margin-bottom: 0.5rem;">🏠 MiaCasa Old Quarter</div>
-        <ul style="margin: 0; padding-left: 1rem; color: var(--ink-light);">
-          <li><span data-t="auto-index-004">✓ Entire apartment — 100% private</span></li>
-          <li><span data-t="auto-index-005">✓ Best for: Groups wanting total privacy</span></li>
-          <li><span data-t="auto-index-006">✓ Sleeps 6 · Private terrace</span></li>
-          <li style="color: #92400e;"><span data-t="auto-index-007">⚠️ Steep stairs (3rd floor, no elevator — hosts help with luggage)</span></li>
-          <li style="color: #92400e;"><span data-t="auto-index-008">⚠️ Can be noisy (central location)</span></li>
-        </ul>
-      </div>
-      
-      <div>
-        <div style="font-weight: 600; color: var(--sage); margin-bottom: 0.5rem;">🏠 MiaCasa Hanoi</div>
-        <ul style="margin: 0; padding-left: 1rem; color: var(--ink-light);">
-          <li><span data-t="auto-index-009">✓ Private rooms with kitchenette</span></li>
-          <li><span data-t="auto-index-010">✓ Best for: Couples, solo travelers</span></li>
-          <li><span data-t="auto-index-011">✓ Can book all 3 rooms for entire home (sleeps 8)</span></li>
-          <li><span data-t="auto-index-012">✓ Quiet, local neighborhood</span></li>
-          <li><span data-t="auto-index-013">⚠️ No elevator (stair access — hosts help with luggage)</span></li>
-        </ul>
-      </div>
-      
-    </div>
-  </div> -->
-  
-  <!-- Single note about no elevator & luggage help -->
-  <!-- <div style="margin-top: 1rem; text-align: center;">
-    <p style="font-size: 0.6rem; color: var(--ink-light);">
-      <span data-th="auto-index-014">📌 Both properties are in traditional Hanoi homes — <strong>neither has an elevator</strong>. <strong>Hosts are happy to help carry luggage</strong> up and down the stairs. Please consider mobility needs before booking.</span>
-    </p>
-  </div> -->
 </div>
 
 <!-- Quick Navigation -->
 <div class="section-nav">
-  <a href="#booking" data-t="nav-book">Book</a>
-  <a href="#gallery" data-t="nav-gallery">Gallery</a>
-  <a href="#faq" data-t="nav-faq">FAQ</a>
-  <a href="#contact" data-t="nav-contact">Contact</a>
+  <a href="/#booking" data-t="nav-book">Book</a>
+  <a href="/#gallery" data-t="nav-gallery">Gallery</a>
+  <a href="/#faq" data-t="nav-faq">FAQ</a>
+  <a href="/#contact" data-t="nav-contact">Contact</a>
 </div>
 <div class="fab-nav">
   <button class="fab-nav-toggle" onclick="toggleMobileNav()">☰</button>
   <div class="fab-nav-menu" id="mobileNavMenu">
-    <a href="#booking" data-t="nav-book">Book</a>
-    <a href="#gallery" data-t="nav-gallery">Gallery</a>
-    <a href="#faq" data-t="nav-faq">FAQ</a>
-    <a href="#contact" data-t="nav-contact">Contact</a>
+    <a href="/#booking" data-t="nav-book">Book</a>
+    <a href="/#gallery" data-t="nav-gallery">Gallery</a>
+    <a href="/#faq" data-t="nav-faq">FAQ</a>
+    <a href="/#contact" data-t="nav-contact">Contact</a>
   </div>
 </div>
-
-<!-- Properties Section (Two stays, one spirit) 
-<section id="properties">
-  <div class="container">
-    <div class="section-tag" data-t="sec-stays">Our Stays</div>
-    <h2 class="section-title" data-th="stays-title">Two stays, <em>one spirit</em></h2>
-    <p class="section-sub" data-t="stays-sub">Choose the quiet neighbourhood charm of MiaCasa Hanoi, or the electric energy of MiaCasa Old Quarter.</p>
-    <div class="properties-grid" id="properties-grid"></div>
-  </div>
-</section> -->
 
 <!-- Booking Section - Complete, No Continue to Pay Button -->
 <section id="booking">
@@ -430,7 +404,6 @@
                     <option value="+32">🇧🇪 +32 (Belgium)</option>
                     <option value="+591">🇧🇴 +591 (Bolivia)</option>
                     <option value="+387">🇧🇦 +387 (Bosnia)</option>
-                    <option value="+55">🇧🇷 +55 (Brazil)</option>
                     <option value="+673">🇧🇳 +673 (Brunei)</option>
                     <option value="+855">🇰🇭 +855 (Cambodia)</option>
                     <option value="+237">🇨🇲 +237 (Cameroon)</option>
@@ -554,7 +527,7 @@
             
             <!-- PayPal Panel -->
             <div id="paypal-panel" class="payment-panel">
-              <button id="paypal-pay-btn" class="paypal-btn full-width">Pay with PayPal →</button>
+              <button id="paypal-pay-btn" class="paypal-btn full-width" onclick="processPayPal()">Pay with PayPal →</button>
             </div>
             
             <!-- VietQR Panel -->
@@ -591,18 +564,19 @@
                 </button>
               </div>
               
-              <div id="payment-pending-message" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px; margin-top: 1rem;"></div>
+              <!-- PENDING MESSAGE - VietQR (unique ID) -->
+              <div id="payment-pending-message-vietqr" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px; margin-top: 1rem;"></div>
             </div>
-              
-              <div id="payment-pending-message" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px;">
-                <div style="font-size: 1.5rem;">⏳</div>
-                <p style="font-weight: 500; margin: 0.5rem 0;">
-                  <span data-t="auto-index-025">Payment pending verification</span>
-                </p>
-                <button onclick="resetBookingForm()" style="margin-top: 0.5rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
-                  <span data-t="auto-index-026">Back to booking</span>
-                </button>
-              </div>
+            
+            <!-- PENDING MESSAGE - General (unique ID) -->
+            <div id="payment-pending-message-general" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px;">
+              <div style="font-size: 1.5rem;">⏳</div>
+              <p style="font-weight: 500; margin: 0.5rem 0;">
+                <span data-t="auto-index-025">Payment pending verification</span>
+              </p>
+              <button onclick="resetBookingForm()" style="margin-top: 0.5rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                <span data-t="auto-index-026">Back to booking</span>
+              </button>
             </div>
             
             <!-- NEW: Cash Payment Panel -->
@@ -645,23 +619,11 @@
     <h2 class="section-title" data-th="tease-title">A peek <em>inside</em></h2>
     <p class="section-sub" data-t="tease-sub">Handcrafted spaces designed to feel lived-in and effortlessly beautiful.</p>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Hanoi</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area"></a></div><a href="miacasa-hanoi.html#h-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
-      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Old Quarter</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Living room"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Terrace"></a></div><a href="miacasa-oldquarter.html#oq-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
+      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Hanoi</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room" width="300" height="200"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area" width="300" height="200"></a></div><a href="miacasa-hanoi.html#h-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
+      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Old Quarter</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Living room" width="300" height="200"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Terrace" width="300" height="200"></a></div><a href="miacasa-oldquarter.html#oq-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
     </div>
   </div>
 </section>
-
-<!--  Compare Stays Section 
-<section style="background:var(--warm-white); padding: 5rem 0;">
-  <div class="container">
-    <div class="section-tag" data-t="compare-tag">Compare Stays</div>
-    <h2 class="section-title" data-th="compare-title">Not sure <em>which to choose?</em></h2>
-    <div class="compare-stays-grid">
-      <div class="compare-card"><div class="section-tag">MiaCasa Hanoi</div><h3 data-t="compare-h-title">Quiet, local, residential</h3><ul class="compare-list"><li data-th="compare-h-li1">Near Train Street &amp; Văn Miếu</li><li data-t="compare-h-li2">3 private en-suite rooms</li><li data-t="compare-h-li3">Best for couples &amp; solo travelers</li><li data-th="compare-h-li4">From <span id="compare-hanoi-price">--</span>₫ / night</li></ul><a href="/miacasa-hanoi" class="btn-primary">Explore →</a></div>
-      <div class="compare-card"><div class="section-tag">MiaCasa Old Quarter</div><h3 data-t="compare-oq-title">Central, vibrant</h3><ul class="compare-list"><li data-t="compare-oq-li1">Heart of Hoàn Kiếm</li><li data-t="compare-oq-li2">3 queen beds · Sleeps 6</li><li data-t="compare-oq-li3">Best for families &amp; groups</li><li data-th="compare-oq-li4">From <span id="compare-oldquarter-price">--</span>₫ / night</li></ul><a href="/miacasa-oldquarter" class="btn-primary">Explore →</a></div>
-    </div>
-  </div>
-</section> -->
 
 <!-- Contact Section -->
 
@@ -679,7 +641,9 @@
   <div style="text-align:center;">
     <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777476687/IMG_3136_fg6pmo.jpg"
          alt="Linh, co-founder of MiaCasa"
-         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);">
+         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);"
+         width="105"
+         height="105">
     <p style="font-size:0.75rem; color:var(--ink-light); margin-top:0.5rem;">
       Linh
     </p>
@@ -688,7 +652,9 @@
   <div style="text-align:center;">
     <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777477440/IMG_3152_r4vryr.jpg"
          alt="Ngọc, co-founder of MiaCasa"
-         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);">
+         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);"
+         width="105"
+         height="105">
     <p style="font-size:0.75rem; color:var(--ink-light); margin-top:0.5rem;">
       Ngọc
     </p>
@@ -764,7 +730,7 @@
             <div class="contact-item-text">
               <strong id="contact-whatsapp-lbl" data-t="contact-whatsapp-lbl">WhatsApp / Phone</strong>
               <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem;">
-                <a href="https://wa.me/84869922261" target="_blank" style="color: var(--terracotta); text-decoration: none;">💬 WhatsApp</a>
+                <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" style="color: var(--terracotta); text-decoration: none;">💬 WhatsApp</a>
                 <span style="color: var(--ink-light);">·</span>
                 <a href="tel:+84869922261" style="color: var(--terracotta); text-decoration: none;">📞 Call +84 869 922 261</a>
               </div>
@@ -864,7 +830,7 @@
         <div class="footer-grid">
             <!-- Brand Column -->
             <div class="footer-brand">
-                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
                 <div style="margin-top: 1rem;">
                     <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
@@ -877,7 +843,7 @@
                 <ul>
                     <li><a href="/miacasa-hanoi" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
                     <li><a href="/miacasa-oldquarter" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
-                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                    <li><a href="/#booking" data-t="footer-book-direct">Book Direct</a></li>
                 </ul>
             </div>
             
@@ -888,8 +854,8 @@
                 <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
                 <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
                 <li><a href="/blog" data-t="footer-blog">Blog</a></li>
-                <li><a href="#contact" data-t="footer-contact">Contact</a></li>
-                <li><a href="#faq" data-t="footer-faq">FAQ</a></li>
+                <li><a href="/#contact" data-t="footer-contact">Contact</a></li>
+                <li><a href="/#faq" data-t="footer-faq">FAQ</a></li>
               </ul>
             </div>
             
@@ -898,7 +864,7 @@
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
                     <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
-                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
                     <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
                     <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
@@ -908,9 +874,9 @@
         <!-- Social Media Links -->
         <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
             <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
-                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
             </div>
         </div>
         
@@ -946,7 +912,7 @@
 <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer></script>
 
 <!-- Floating Buttons -->
-<a href="#booking" class="floating-book-btn">
+<a href="/#booking" class="floating-book-btn">
   <span data-t="auto-index-032">📅 Book Now</span>
 </a>
 
@@ -966,6 +932,7 @@ window.renderProperties = window.renderProperties || function() {
     }
 };
 </script>
+
 <!-- Chatbot -->
 <button class="chatbot-fab" id="chatbotFab">💬</button>
 <div class="chatbot-window" id="chatbotWindow">
