@@ -13,15 +13,6 @@ if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'und
   window.config = window.MiaCasaConfig;
 }
 
-// Get values from config with fallbacks
-const CONFIG_PHONE = window.config?.phone || '84869922261';
-const CONFIG_EMAIL = window.config?.email || 'miacasahanoi@gmail.com';
-const CONFIG_WHATSAPP = window.config?.whatsappUrl || `https://wa.me/${CONFIG_PHONE}`;
-const CONFIG_CURRENCY = window.config?.currency || '₫';
-const CONFIG_CURRENCY_CODE = window.config?.currencyCode || 'VND';
-const CONFIG_DEFAULT_LANG = window.config?.defaultLang || 'en';
-const CONFIG_EXCHANGE_RATE = window.config?.exchangeRate || 25000;
-
 // ================================================================
 // API CONFIGURATION
 // ================================================================
@@ -29,6 +20,11 @@ const CONFIG_EXCHANGE_RATE = window.config?.exchangeRate || 25000;
 const API_URL = '/api/log-booking';
 const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
 const INCLUDED_GUESTS = 2;
+
+// Helper function to safely get config values
+function getConfigValue(key, fallback) {
+  return window.config?.[key] || fallback;
+}
 
 // ================================================================
 // TRANSLATION HELPER
