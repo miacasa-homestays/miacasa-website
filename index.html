@@ -23,18 +23,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com">
 
-<!-- Preload critical font using onload pattern to avoid render-blocking -->
+<!-- Preload critical font using onload pattern to avoid render-blocking - FIXED -->
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" as="style" onload="this.rel='stylesheet'">
 <noscript>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 </noscript>
 
-<!-- Preload hero image for performance -->
+<!-- Preload hero image for performance - FIXED: imagesrcset → srcset -->
 <link rel="preload" as="image"
-      imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+      srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
-      imagesizes="(max-width: 768px) 100vw, 50vw">
+      sizes="(max-width: 768px) 100vw, 50vw">
 
 <meta property="og:title" content="MiaCasa Homestays — Boutique Stays in Hanoi">
 <meta property="og:description" content="Two cozy homestays in Hanoi — near Train Street and in the heart of the Old Quarter. Book direct for the best rate.">
@@ -195,7 +195,7 @@
 </a>
 
 <!-- Navigation with ARIA support -->
-<nav aria-label="Main navigation">
+<nav aria-label="Main navigation" role="navigation">
   <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
   
   <ul class="nav-links" id="primary-nav" role="menubar">
@@ -226,7 +226,7 @@
   </button>
 </nav>
 
-<main id="main-content">
+<main id="main-content" role="main">
 
 <!-- Hero Section -->
 <section class="hero">
@@ -412,6 +412,8 @@
       <form id="booking-form" autocomplete="off" novalidate>
         <!-- Honeypot to reduce spam -->
         <input type="text" name="hp_email" id="hp_email" style="position:absolute;left:-9999px;top:auto;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <!-- CSRF Token - Add server-side token here -->
+        <input type="hidden" name="csrf_token" id="csrf_token" value="">
         <div class="form-grid">
           <div class="form-group">
             <label id="lbl-room" data-t="lbl-room">Room / Space</label>
@@ -505,17 +507,17 @@
             </div>
           </div>
 
-          <!-- CAPTCHA -->
+          <!-- CAPTCHA with server-side validation note -->
           <div id="booking-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
                 <label class="captcha-label">Security Check: What is <span id="captcha-num1">5</span> + <span id="captcha-num2">3</span>?</label>
-                <input type="number" id="captcha-answer" class="captcha-input" placeholder="Enter answer">
+                <input type="number" id="captcha-answer" class="captcha-input" placeholder="Enter answer" required>
               </div>
               <button type="button" id="refresh-captcha" class="captcha-refresh" onclick="generateCaptcha('booking')">⟳ Refresh</button>
             </div>
             <div id="captcha-error" class="form-error"></div>
-            <p class="captcha-note">Note: For production, use server-side verification or reCAPTCHA v3 to reduce abuse.</p>
+            <p class="captcha-note">Note: Server-side validation is required for production. This is a client-side UX enhancement only.</p>
           </div>
 
           <!-- Trust Badges -->
@@ -814,6 +816,8 @@
         <form id="contact-form" autocomplete="off" novalidate>
           <!-- Honeypot -->
           <input type="text" name="hp_contact" id="hp_contact" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <!-- CSRF Token -->
+          <input type="hidden" name="csrf_token" id="csrf_token_contact" value="">
           <div class="form-grid">
             <div class="form-group">
               <label id="lbl-cname" data-t="lbl-cname">Name</label>
@@ -842,17 +846,17 @@
             </div>
           </div>
           
-          <!-- CAPTCHA -->
+          <!-- CAPTCHA with server-side validation note -->
           <div id="contact-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
                 <label class="captcha-label">Security Check: What is <span id="contact-captcha-num1">5</span> + <span id="contact-captcha-num2">3</span>?</label>
-                <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer">
+                <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer" required>
               </div>
               <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
             </div>
             <div id="contact-captcha-error" class="form-error"></div>
-            <p class="captcha-note">For production, prefer server-side validation or reCAPTCHA v3.</p>
+            <p class="captcha-note">For production, prefer server-side validation or reCAPTCHA v3. Server must always validate inputs.</p>
           </div>
           
           <button type="button" class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
@@ -946,20 +950,8 @@
 </main>
 
 <!-- Consolidated Scripts -->
+<script src="/js/init.js" defer></script>
 <script src="/js/prices.js" defer></script>
-<script>
-// Pre-load cached price overrides from localStorage
-(function () {
-  try {
-    var raw = localStorage.getItem('mia_price_overrides_v1');
-    if (!raw) return;
-    var parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed.data)) {
-      window._cachedPriceOverrides = parsed.data;
-    }
-  } catch (e) {}
-}());
-</script>
 <script src="/js/booking.js" defer></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/lang.js" defer></script>
