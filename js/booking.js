@@ -209,7 +209,7 @@ function renderBookingFormLanguage() {
     const hookFn = function(lang) {
         renderBookingFormLanguage();
         // Also refresh availability to update any UI text
-        updateAvailabilityAndUI();
+        //updateAvailabilityAndUI();
     };
     
     // Check if lang.js already loaded and has registerTranslationHook
@@ -784,7 +784,7 @@ function updateGuestOptions() {
         guestSelect.appendChild(opt);
     }
     guestSelect.value = Math.min(currentValue, maxGuests);
-    updateAvailabilityAndUI();
+    //updateAvailabilityAndUI();
 }
 
 function updatePriceDisplayContent(result, ci, co, room) {
