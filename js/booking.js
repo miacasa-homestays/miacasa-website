@@ -2094,81 +2094,6 @@ function initializeProperties() {
     if (document.getElementById('properties-grid')) {
         renderProperties();
         renderBookingSelector();
-        selectProp('hanoi');  // ← Hardcode 'hanoi' instead of PROPERTIES[0].id
-        setMinDates();
-        updateGuestOptions();
-        updateAvailabilityAndUI();
-    }
-}
-
-function setupPaymentEventListeners() {
-    const paypalTab = document.getElementById('pay-tab-paypal');
-    const vietqrTab = document.getElementById('pay-tab-vietqr');
-    const cashTab = document.getElementById('pay-tab-cash');
-    const paypalPayBtn = document.getElementById('paypal-pay-btn');
-    const vietqrSubmitBtn = document.getElementById('vietqr-submit-btn');
-    const cashConfirmBtn = document.getElementById('cash-confirm-btn');
-    
-    if (paypalTab) paypalTab.onclick = () => selectPayTab('paypal');
-    if (vietqrTab) vietqrTab.onclick = () => selectPayTab('vietqr');
-    if (cashTab) cashTab.onclick = () => selectPayTab('cash');
-    if (paypalPayBtn) paypalPayBtn.onclick = () => processPayPal();
-    if (vietqrSubmitBtn) vietqrSubmitBtn.onclick = () => submitBankTransferProof();
-    if (cashConfirmBtn) cashConfirmBtn.onclick = () => confirmCashBooking();
-}
-
-// Auto-show payment when guest details are filled (non-blocking)
-function setupAutoPayment() {
-    const inputs = ['guest-name', 'guest-email', 'guest-phone-number', 'checkin', 'checkout', 'room-type-sel', 'guests-sel'];
-    inputs.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            // Use debounced version to prevent rapid calls
-            el.addEventListener('change', () => debouncedUpdateAvailability());
-            el.addEventListener('input', () => debouncedUpdateAvailability());
-            el.addEventListener('keyup', () => debouncedUpdateAvailability());
-        }
-    });
-}
-
-// Start everything
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchPriceOverrides(); // load admin price overrides in background
-        initializeProperties();
-        setupPaymentEventListeners();
-        setupAutoPayment();
-    });
-} else {
-    fetchPriceOverrides(); // load admin price overrides in background
-    initializeProperties();
-    setupPaymentEventListeners();
-    setupAutoPayment();
-}
-
-// Make functions available globally
-window.renderProperties = renderProperties;
-window.renderBookingSelector = renderBookingSelector;
-window.selectProp = selectProp;
-window.selectAndScroll = selectAndScroll;
-window.updateAvailabilityAndUI = updateAvailabilityAndUI;
-window.updateGuestOptions = updateGuestOptions;
-window.resetBookingForm = resetBookingForm;
-window.selectPayTab = selectPayTab;
-window.generateQRCode = generateQRCode;
-window.processPayPal = processPayPal;
-window.submitBankTransferProof = submitBankTransferProof;
-window.confirmCashBooking = confirmCashBooking;
-window.renderBookingFormLanguage = renderBookingFormLanguage;
-
-// ================================================================
-// INITIALIZATION
-// ================================================================
-
-function initializeProperties() {
-    if (document.getElementById('properties-grid')) {
-        renderProperties();
-        renderBookingSelector();
         selectProp('hanoi');
         setMinDates();
         updateGuestOptions();
@@ -2192,13 +2117,11 @@ function setupPaymentEventListeners() {
     if (cashConfirmBtn) cashConfirmBtn.onclick = () => confirmCashBooking();
 }
 
-// Auto-show payment when guest details are filled (non-blocking)
 function setupAutoPayment() {
     const inputs = ['guest-name', 'guest-email', 'guest-phone-number', 'checkin', 'checkout', 'room-type-sel', 'guests-sel'];
     inputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            // Use debounced version to prevent rapid calls
             el.addEventListener('change', () => debouncedUpdateAvailability());
             el.addEventListener('input', () => debouncedUpdateAvailability());
             el.addEventListener('keyup', () => debouncedUpdateAvailability());
@@ -2209,22 +2132,19 @@ function setupAutoPayment() {
 // Start everything
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        fetchPriceOverrides(); // load admin price overrides in background
+        fetchPriceOverrides();
         initializeProperties();
         setupPaymentEventListeners();
         setupAutoPayment();
     });
 } else {
-    fetchPriceOverrides(); // load admin price overrides in background
+    fetchPriceOverrides();
     initializeProperties();
     setupPaymentEventListeners();
     setupAutoPayment();
 }
 
-// ================================================================
-// EXPOSE FUNCTIONS GLOBALLY
-// ================================================================
-
+// Make functions available globally
 window.renderProperties = renderProperties;
 window.renderBookingSelector = renderBookingSelector;
 window.selectProp = selectProp;

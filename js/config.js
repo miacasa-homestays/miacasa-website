@@ -25,6 +25,9 @@ window.MiaCasaConfig = {
   currency: '₫',
   currencyCode: 'VND',
   
+  // Exchange Rate (VND to USD)
+  exchangeRate: 25000,
+  
   // Booking
   minGuests: 1,
   maxGuests: 6,
@@ -103,7 +106,8 @@ function setCurrentLang(lang) {
  * Format currency
  */
 function formatCurrency(amount) {
-  return amount.toLocaleString('vi-VN') + '₫';
+  const currency = window.MiaCasaConfig.currency || '₫';
+  return amount.toLocaleString('vi-VN') + currency;
 }
 
 /**
@@ -135,8 +139,9 @@ window.setCurrentLang = setCurrentLang;
 window.formatCurrency = formatCurrency;
 window.formatPhoneNumber = formatPhoneNumber;
 
+// REMOVED: Node.js process check - browser safe version instead
 // Log that config is loaded (only in development)
-if (process && process.env && process.env.NODE_ENV === 'development') {
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   console.log('MiaCasa Config loaded:', window.MiaCasaConfig);
   console.log('Current language:', window.currentLang);
 }
