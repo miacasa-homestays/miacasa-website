@@ -44,7 +44,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
-<!-- JSON-LD Structured Data (UPDATED with logo + image) -->
+<!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -97,13 +97,71 @@
 }
 </script>
 
+<!-- FAQPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which property is better for couples?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment right in the center of the action near Hoàn Kiếm Lake. It depends on whether you prefer peaceful local life or vibrant city energy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is MiaCasa a hotel or homestay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're always available online or nearby if you need anything during your stay."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is direct booking cheaper than Airbnb?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do both properties have elevators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Our hosts are happy to help carry luggage up and down!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer airport pickup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the cancellation policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for any special circumstances."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <a href="/#booking" class="sticky-book-btn" data-t="sticky-book">
-  <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+  <span class="flex-center">
     <span>📅</span>
     <span data-t="auto-index-001">Book Now</span>
   </span>
@@ -152,7 +210,7 @@
     <div class="hero-btns">
       <a href="/#booking" class="btn-primary" data-t="hero-check-dates">Check your dates →</a>
     </div>
-    <p class="micro-trust" data-t="brand-clarify" style="font-size: 0.9rem;"> ⭐ Better price direct · No platform fees · Instant confirmation </p>
+    <p class="micro-trust" data-t="brand-clarify"> ⭐ Better price direct · No platform fees · Instant confirmation </p>
   </div>
   <div class="hero-right">
     <div class="hero-mosaic">
@@ -205,35 +263,33 @@
 
 <!-- Choose Your Stay Selector -->
 <section class="stay-selector" id="stay-selector">
-  <div style="text-align: center; margin-bottom: 1rem;">
-    <div class="section-tag" style="display: inline-flex; width: auto; padding: 0 1rem;" data-t="two-properties-tag">Two Properties</div>
+  <div class="section-header-center">
+    <div class="section-tag inline-tag" data-t="two-properties-tag">Two Properties</div>
   </div>
   <h2 data-t="choose-title">Two Different Homes,<br><em>Choose Your Hanoi Experience</em></h2>
   
   <div class="selector-grid">
     
     <!-- Option 1: Entire Apartment (Old Quarter) -->
-    <div class="selector-card" data-property="oldquarter" style="border-top: 4px solid var(--terracotta);">
-      <div style="background: var(--terracotta); color: white; text-align: center; padding: 0.3rem; border-radius: 30px; margin-bottom: 1rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;">
+    <div class="selector-card" data-property="oldquarter">
+      <div class="card-badge badge-terracotta">
         <span data-t="oq-badge-1">🏠 ENTIRE APARTMENT</span>
       </div>
       
       <div class="selector-emoji">🏡</div>
-      <h3 style="font-size: 1.5rem;">MiaCasa Old Quarter</h3>
-      <p style="font-size: 0.7rem; color: var(--terracotta); letter-spacing: 0.08em; margin-top: -0.25rem;">📍 <span data-t="oq-location">Hoàn Kiếm · Old Quarter</span></p>
+      <h3>MiaCasa Old Quarter</h3>
+      <p class="card-location">📍 <span data-t="oq-location">Hoàn Kiếm · Old Quarter</span></p>
       
-      <ul class="selector-features" style="margin-top: 1rem;">
+      <ul class="selector-features">
         <li data-t="oq-feat1">🛏️ 3 queen beds · Sleeps up to 6</li>
         <li data-t="oq-feat2">🌿 Private terrace · Smart lock</li>
         <li data-t="oq-feat3">🚶 2 min walk to Hoàn Kiếm Lake</li>
         <li data-t="oq-feat4">🔑 Private entrance — no shared spaces</li>
       </ul>
       
-      <!-- ⚠️ OLD QUARTER WARNINGS -->
-      <div style="background: #fef3c7; border-left: 3px solid #f59e0b; padding: 0.5rem 0.75rem; margin: 0.75rem 0; border-radius: 6px;">
-        <p style="font-size: 0.65rem; margin: 0; color: #92400e;">
-          <span data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location can be <strong>noisy</strong> (bars/street noise until late).</span>
-        </p>
+      <!-- ⚠️ OLD QUARTER WARNINGS - Using CSS classes -->
+      <div class="info-box info-box--warning">
+        <p data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location can be <strong>noisy</strong> (bars/street noise until late).</p>
       </div>
       
       <div class="price-prominent selector-price">
@@ -251,27 +307,25 @@
     </div>
 
     <!-- Option 2: MiaCasa Hanoi -->
-    <div class="selector-card" data-property="hanoi" style="border-top: 4px solid var(--sage);">
-      <div style="background: var(--sage); color: white; text-align: center; padding: 0.3rem; border-radius: 30px; margin-bottom: 1rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;">
+    <div class="selector-card" data-property="hanoi">
+      <div class="card-badge badge-sage">
         <span data-t="h-badge-1">🛏️ PRIVATE ROOMS</span>
       </div>
       
       <div class="selector-emoji">🛏️</div>
-      <h3 style="font-size: 1.5rem;">MiaCasa Hanoi</h3>
-      <p style="font-size: 0.7rem; color: var(--terracotta); letter-spacing: 0.08em; margin-top: -0.25rem;">📍 <span data-t="h-location">Đống Đa · Near Train Street</span></p>
+      <h3>MiaCasa Hanoi</h3>
+      <p class="card-location">📍 <span data-t="h-location">Đống Đa · Near Train Street</span></p>
       
-      <ul class="selector-features" style="margin-top: 1rem;">
+      <ul class="selector-features">
         <li data-t="h-feat1">🛏️ 3 private rooms · Up to 3 guests each</li>
         <li data-t="h-feat2">🍳 Kitchenette · Free laundry</li>
         <li data-t="h-feat3">🚂 15 min walk to Train Street</li>
         <li data-t="h-feat4">🏡 Quiet, local residential neighborhood</li>
       </ul>
       
-      <!-- Add to MiaCasa Hanoi card if it has stairs -->
-      <div style="background: #e6f7ec; border-left: 3px solid var(--sage); padding: 0.5rem 0.75rem; margin: 0.75rem 0; border-radius: 6px;">
-        <p style="font-size: 0.65rem; margin: 0; color: #065f46;">
-          <span data-th="auto-index-003">💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong></span>
-        </p>
+      <!-- Info box for Hanoi card -->
+      <div class="info-box info-box--success">
+        <p data-th="auto-index-003">💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong></p>
       </div>
 
       <div class="price-prominent selector-price">
@@ -350,14 +404,14 @@
       </div>
 
       <!-- Availability & Cancellation Messages -->
-      <div id="availability-message" style="display: none; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.8rem; border-radius: 4px;"></div>
-      <div id="cancellation-message" style="display: none; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.75rem; background: var(--cream); border-radius: 4px;"></div>
+      <div id="availability-message" class="availability-message" style="display: none;"></div>
+      <div id="cancellation-message" class="cancellation-message" style="display: none;"></div>
 
       <!-- Guest Details Section - Shows when dates are selected -->
       <div id="guest-details" style="display: none;">
         <!-- Guest Information -->
-        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-          <p style="font-size: 0.75rem; font-weight: 500; margin-bottom: 1rem; color: var(--ink);" data-t="guest-info-title">Your Information</p>
+        <div class="guest-info-header">
+          <p data-t="guest-info-title">Your Information</p>
         </div>
         
         <div class="form-grid">
@@ -373,124 +427,53 @@
             <label id="lbl-phone" data-t="lbl-phone">Phone Number *</label>
             <div class="phone-wrapper">
               <select id="guest-phone-code">
-                  <optgroup label="── Common ──">
-                    <option value="+84" selected>🇻🇳 +84 (Vietnam)</option>
-                    <option value="+44">🇬🇧 +44 (UK)</option>
-                    <option value="+1">🇺🇸 +1 (USA / Canada)</option>
-                    <option value="+61">🇦🇺 +61 (Australia)</option>
-                    <option value="+65">🇸🇬 +65 (Singapore)</option>
-                    <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                    <option value="+66">🇹🇭 +66 (Thailand)</option>
-                    <option value="+82">🇰🇷 +82 (South Korea)</option>
-                    <option value="+86">🇨🇳 +86 (China)</option>
-                    <option value="+81">🇯🇵 +81 (Japan)</option>
-                    <option value="+33">🇫🇷 +33 (France)</option>
-                    <option value="+49">🇩🇪 +49 (Germany)</option>
-                    <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                    <option value="+46">🇸🇪 +46 (Sweden)</option>
-                    <option value="+47">🇳🇴 +47 (Norway)</option>
-                    <option value="+45">🇩🇰 +45 (Denmark)</option>
-                    <option value="+39">🇮🇹 +39 (Italy)</option>
-                    <option value="+34">🇪🇸 +34 (Spain)</option>
-                    <option value="+55">🇧🇷 +55 (Brazil)</option>
-                    <option value="+91">🇮🇳 +91 (India)</option>
-                    <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                    <option value="+63">🇵🇭 +63 (Philippines)</option>
-                  </optgroup>
-                  <optgroup label="── All Countries ──">
-                    <option value="+93">🇦🇫 +93 (Afghanistan)</option>
-                    <option value="+355">🇦🇱 +355 (Albania)</option>
-                    <option value="+213">🇩🇿 +213 (Algeria)</option>
-                    <option value="+54">🇦🇷 +54 (Argentina)</option>
-                    <option value="+43">🇦🇹 +43 (Austria)</option>
-                    <option value="+880">🇧🇩 +880 (Bangladesh)</option>
-                    <option value="+32">🇧🇪 +32 (Belgium)</option>
-                    <option value="+591">🇧🇴 +591 (Bolivia)</option>
-                    <option value="+387">🇧🇦 +387 (Bosnia)</option>
-                    <option value="+673">🇧🇳 +673 (Brunei)</option>
-                    <option value="+855">🇰🇭 +855 (Cambodia)</option>
-                    <option value="+237">🇨🇲 +237 (Cameroon)</option>
-                    <option value="+56">🇨🇱 +56 (Chile)</option>
-                    <option value="+57">🇨🇴 +57 (Colombia)</option>
-                    <option value="+506">🇨🇷 +506 (Costa Rica)</option>
-                    <option value="+385">🇭🇷 +385 (Croatia)</option>
-                    <option value="+420">🇨🇿 +420 (Czechia)</option>
-                    <option value="+20">🇪🇬 +20 (Egypt)</option>
-                    <option value="+593">🇪🇨 +593 (Ecuador)</option>
-                    <option value="+358">🇫🇮 +358 (Finland)</option>
-                    <option value="+995">🇬🇪 +995 (Georgia)</option>
-                    <option value="+30">🇬🇷 +30 (Greece)</option>
-                    <option value="+502">🇬🇹 +502 (Guatemala)</option>
-                    <option value="+36">🇭🇺 +36 (Hungary)</option>
-                    <option value="+354">🇮🇸 +354 (Iceland)</option>
-                    <option value="+353">🇮🇪 +353 (Ireland)</option>
-                    <option value="+972">🇮🇱 +972 (Israel)</option>
-                    <option value="+962">🇯🇴 +962 (Jordan)</option>
-                    <option value="+7">🇰🇿 +7 (Kazakhstan)</option>
-                    <option value="+254">🇰🇪 +254 (Kenya)</option>
-                    <option value="+856">🇱🇦 +856 (Laos)</option>
-                    <option value="+961">🇱🇧 +961 (Lebanon)</option>
-                    <option value="+218">🇱🇾 +218 (Libya)</option>
-                    <option value="+352">🇱🇺 +352 (Luxembourg)</option>
-                    <option value="+261">🇲🇬 +261 (Madagascar)</option>
-                    <option value="+356">🇲🇹 +356 (Malta)</option>
-                    <option value="+52">🇲🇽 +52 (Mexico)</option>
-                    <option value="+373">🇲🇩 +373 (Moldova)</option>
-                    <option value="+976">🇲🇳 +976 (Mongolia)</option>
-                    <option value="+212">🇲🇦 +212 (Morocco)</option>
-                    <option value="+95">🇲🇲 +95 (Myanmar)</option>
-                    <option value="+977">🇳🇵 +977 (Nepal)</option>
-                    <option value="+64">🇳🇿 +64 (New Zealand)</option>
-                    <option value="+234">🇳🇬 +234 (Nigeria)</option>
-                    <option value="+92">🇵🇰 +92 (Pakistan)</option>
-                    <option value="+507">🇵🇦 +507 (Panama)</option>
-                    <option value="+51">🇵🇪 +51 (Peru)</option>
-                    <option value="+48">🇵🇱 +48 (Poland)</option>
-                    <option value="+351">🇵🇹 +351 (Portugal)</option>
-                    <option value="+40">🇷🇴 +40 (Romania)</option>
-                    <option value="+7">🇷🇺 +7 (Russia)</option>
-                    <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
-                    <option value="+381">🇷🇸 +381 (Serbia)</option>
-                    <option value="+27">🇿🇦 +27 (South Africa)</option>
-                    <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
-                    <option value="+41">🇨🇭 +41 (Switzerland)</option>
-                    <option value="+886">🇹🇼 +886 (Taiwan)</option>
-                    <option value="+255">🇹🇿 +255 (Tanzania)</option>
-                    <option value="+90">🇹🇷 +90 (Turkey)</option>
-                    <option value="+256">🇺🇬 +256 (Uganda)</option>
-                    <option value="+380">🇺🇦 +380 (Ukraine)</option>
-                    <option value="+971">🇦🇪 +971 (UAE)</option>
-                    <option value="+598">🇺🇾 +598 (Uruguay)</option>
-                    <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
-                    <option value="+58">🇻🇪 +58 (Venezuela)</option>
-                    <option value="+260">🇿🇲 +260 (Zambia)</option>
-                    <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
-                  </optgroup>
-                </select>
+                <option value="+84" selected>🇻🇳 +84 (Vietnam)</option>
+                <option value="+44">🇬🇧 +44 (UK)</option>
+                <option value="+1">🇺🇸 +1 (USA / Canada)</option>
+                <option value="+61">🇦🇺 +61 (Australia)</option>
+                <option value="+65">🇸🇬 +65 (Singapore)</option>
+                <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                <option value="+66">🇹🇭 +66 (Thailand)</option>
+                <option value="+82">🇰🇷 +82 (South Korea)</option>
+                <option value="+86">🇨🇳 +86 (China)</option>
+                <option value="+81">🇯🇵 +81 (Japan)</option>
+                <option value="+33">🇫🇷 +33 (France)</option>
+                <option value="+49">🇩🇪 +49 (Germany)</option>
+                <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                <option value="+46">🇸🇪 +46 (Sweden)</option>
+                <option value="+47">🇳🇴 +47 (Norway)</option>
+                <option value="+45">🇩🇰 +45 (Denmark)</option>
+                <option value="+39">🇮🇹 +39 (Italy)</option>
+                <option value="+34">🇪🇸 +34 (Spain)</option>
+                <option value="+55">🇧🇷 +55 (Brazil)</option>
+                <option value="+91">🇮🇳 +91 (India)</option>
+                <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                <option value="+63">🇵🇭 +63 (Philippines)</option>
+              </select>
               <input type="tel" id="guest-phone-number" data-t-placeholder="ph-phone" placeholder="Phone number">
             </div>
           </div>
         </div>
 
         <!-- Price Summary -->
-        <div id="mia-price-box" style="display: none; background: var(--ink); color: white; border-radius: 16px; padding: 1rem; margin: 1rem 0;">
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+        <div id="mia-price-box" class="price-summary-box" style="display: none;">
+          <div class="price-row">
             <span>Property / Room:</span>
             <span id="ps-pr-val">—</span>
           </div>
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+          <div class="price-row">
             <span>Dates & Nights:</span>
             <span id="ps-dates-val">—</span>
           </div>
-          <div id="ps-extrarow" style="display: none; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+          <div id="ps-extrarow" class="price-row" style="display: none;">
             <span>Extra guests surcharge:</span>
             <span id="ps-extra-val">—</span>
           </div>
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 1.1rem; font-weight: bold; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+          <div class="price-total">
             <span>Total:</span>
             <span id="ps-total-val">—</span>
           </div>
-          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem;">
+          <div class="price-booking-id">
             Booking ID: <span id="ps-bid">—</span>
           </div>
         </div>
@@ -536,11 +519,11 @@
             <!-- VietQR Panel -->
             <div id="vietqr-panel" class="payment-panel" style="display: none;">
               <!-- Instructions FIRST so user knows what to do -->
-              <div style="background: #fef3c7; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; text-align: center;">
-                <p style="font-weight: 500; margin-bottom: 0.25rem;">
+              <div class="payment-instructions">
+                <p class="payment-instructions-title">
                   <span data-t="auto-index-017">📱 How to pay with VietQR:</span>
                 </p>
-                <ol style="text-align: left; font-size: 0.75rem; margin: 0.5rem 0 0 1rem; color: #6b5c47;">
+                <ol class="payment-instructions-list">
                   <li><span data-t="auto-index-018">Open your banking app</span></li>
                   <li><span data-t="auto-index-019">Scan the QR code below</span></li>
                   <li><span data-t="auto-index-020">Complete the payment</span></li>
@@ -549,50 +532,50 @@
               </div>
               
               <!-- QR Code -->
-              <div id="qr-img" style="margin-bottom: 0.75rem; text-align: center;"></div>
+              <div id="qr-img" class="qr-code-container"></div>
               
               <!-- Transfer details form - now VISIBLE by default -->
-              <div id="transfer-details" style="display: block; margin-top: 1rem;">
-                <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                  <p style="font-size: 0.8rem; margin-bottom: 0.5rem; font-weight: 500;">
+              <div id="transfer-details" class="transfer-details">
+                <div class="upload-section">
+                  <p class="upload-label">
                     <span data-t="auto-index-022">📸 After completing the transfer, please upload your payment proof:</span>
                   </p>
-                  <input type="file" id="payment-proof" accept="image/*" style="margin: 0.5rem 0; width: 100%;">
-                  <p style="font-size: 0.65rem; color: #6b5c47;">
+                  <input type="file" id="payment-proof" accept="image/*" class="file-input">
+                  <p class="upload-hint">
                     <span data-t="auto-index-023">Upload a screenshot of your bank transfer or payment confirmation.</span>
                   </p>
                 </div>
-                <button id="vietqr-submit-btn" class="vietqr-btn full-width" onclick="submitBankTransferProof()" style="width: 100%; padding: 0.75rem;">
+                <button id="vietqr-submit-btn" class="vietqr-btn full-width" onclick="submitBankTransferProof()">
                   <span data-t="auto-index-024">Submit Payment Proof →</span>
                 </button>
               </div>
               
               <!-- PENDING MESSAGE - VietQR (unique ID) -->
-              <div id="payment-pending-message-vietqr" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px; margin-top: 1rem;"></div>
+              <div id="payment-pending-message-vietqr" class="payment-pending" style="display: none;"></div>
             </div>
             
             <!-- PENDING MESSAGE - General (unique ID) -->
-            <div id="payment-pending-message-general" style="display: none; text-align: center; padding: 1rem; background: #fef3c7; border-radius: 8px;">
-              <div style="font-size: 1.5rem;">⏳</div>
-              <p style="font-weight: 500; margin: 0.5rem 0;">
+            <div id="payment-pending-message-general" class="payment-pending" style="display: none;">
+              <div class="pending-icon">⏳</div>
+              <p class="pending-text">
                 <span data-t="auto-index-025">Payment pending verification</span>
               </p>
-              <button onclick="resetBookingForm()" style="margin-top: 0.5rem; background: none; border: 1px solid #c17a5a; color: #c17a5a; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+              <button onclick="resetBookingForm()" class="pending-back-btn">
                 <span data-t="auto-index-026">Back to booking</span>
               </button>
             </div>
             
             <!-- NEW: Cash Payment Panel -->
             <div id="cash-panel" class="payment-panel" style="display: none;">
-              <div style="text-align: center; padding: 0.5rem 0;">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">💵</div>
-                <p style="font-weight: 500; margin-bottom: 0.25rem;">
+              <div class="cash-payment-content">
+                <div class="cash-icon">💵</div>
+                <p class="cash-title">
                   <span data-t="auto-index-027">Pay when you arrive</span>
                 </p>
-                <p style="font-size: 0.75rem; color: var(--ink-light); margin-bottom: 1rem;">
+                <p class="cash-subtitle">
                   <span data-t="auto-index-028">No payment needed now. Your booking will be confirmed immediately.</span>
                 </p>
-                <button id="cash-confirm-btn" class="cash-btn full-width" style="background: #059669;" onclick="confirmCashBooking()">
+                <button id="cash-confirm-btn" class="cash-btn full-width" onclick="confirmCashBooking()">
                   <span data-t="auto-index-029">Confirm Booking →</span>
                 </button>
               </div>
@@ -608,7 +591,7 @@
           <p class="booking-confirm-title">✓ Booking Confirmed!</p>
           <div id="conf-bid" class="booking-confirm-id"></div>
           <div id="conf-details" class="booking-confirm-details"></div>
-          <button onclick="resetBookingForm()" class="btn-outline" style="margin-top: 0.75rem; padding: 0.4rem 1rem; font-size: 0.7rem;">Make another booking</button>
+          <button onclick="resetBookingForm()" class="btn-outline btn-small">Make another booking</button>
         </div>
       </div>
     </div>
@@ -616,14 +599,36 @@
 </section>
 
 <!-- Gallery Teaser -->
-<section id="gallery" style="background:var(--sand); padding: 5rem 0;">
+<section id="gallery" class="gallery-teaser-section">
   <div class="container">
     <div class="section-tag" data-t="tease-tag">A Glimpse Inside</div>
     <h2 class="section-title" data-th="tease-title">A peek <em>inside</em></h2>
     <p class="section-sub" data-t="tease-sub">Handcrafted spaces designed to feel lived-in and effortlessly beautiful.</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Hanoi</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with natural light and minimalist decor" width="300" height="200"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with comfortable seating and warm lighting" width="300" height="200"></a></div><a href="miacasa-hanoi.html#h-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
-      <div><p style="font-size:0.85rem; font-weight:500;">MiaCasa Old Quarter</p><div class="gallery-teaser-grid"><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Living room at MiaCasa Old Quarter with comfortable seating and traditional Vietnamese decor" width="300" height="200"></a><a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox" target="_blank" rel="noopener noreferrer"><img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Open terrace at MiaCasa Old Quarter with outdoor seating and city views" width="300" height="200"></a></div><a href="miacasa-oldquarter.html#oq-gallery-section" class="btn-outline" style="margin-top: 1rem; display: inline-block;">View full gallery →</a></div>
+    <div class="gallery-teaser-grid-wrapper">
+      <div class="gallery-teaser-col">
+        <p class="gallery-label">MiaCasa Hanoi</p>
+        <div class="gallery-teaser-grid">
+          <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with natural light and minimalist decor" width="300" height="200">
+          </a>
+          <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with comfortable seating and warm lighting" width="300" height="200">
+          </a>
+        </div>
+        <a href="miacasa-hanoi.html#h-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
+      </div>
+      <div class="gallery-teaser-col">
+        <p class="gallery-label">MiaCasa Old Quarter</p>
+        <div class="gallery-teaser-grid">
+          <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Living room at MiaCasa Old Quarter with comfortable seating and traditional Vietnamese decor" width="300" height="200">
+          </a>
+          <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Open terrace at MiaCasa Old Quarter with outdoor seating and city views" width="300" height="200">
+          </a>
+        </div>
+        <a href="miacasa-oldquarter.html#oq-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -631,44 +636,38 @@
 <!-- Contact Section -->
 
 <!-- Meet Your Hosts Strip -->
-<section style="background: var(--sand); padding: 3.5rem 0;">
-  <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
-    <div style="max-width: 480px;">
+<section class="hosts-section">
+  <div class="container hosts-container">
+    <div class="hosts-content">
       <div class="section-tag" data-t="hosts-tag">Your Hosts</div>
       <h2 class="section-title" data-th="hosts-title">Hosted by <em>Linh &amp; Ngọc</em></h2>
-      <p style="margin-bottom: 1rem; line-height: 1.6;" data-t="hosts-desc">Two friends who built every room themselves. Real people who answer your messages and care how your stay goes.</p>
+      <p class="hosts-desc" data-t="hosts-desc">Two friends who built every room themselves. Real people who answer your messages and care how your stay goes.</p>
       <a href="/our-story" class="story-link" data-t="hosts-story">Read our story →</a>
     </div>
-    <div style="display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; flex-wrap:wrap;">
-
-  <div style="text-align:center;">
-    <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777476687/IMG_3136_fg6pmo.jpg"
-         alt="Linh, co-founder and interior designer of MiaCasa"
-         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);"
-         width="105"
-         height="105">
-    <p style="font-size:0.75rem; color:var(--ink-light); margin-top:0.5rem;">
-      Linh
-    </p>
-  </div>
-
-  <div style="text-align:center;">
-    <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777477440/IMG_3152_r4vryr.jpg"
-         alt="Ngọc, co-founder and hospitality expert at MiaCasa"
-         style="width:105px; height:105px; border-radius:50%; object-fit:cover; border:2px solid var(--terracotta);"
-         width="105"
-         height="105">
-    <p style="font-size:0.75rem; color:var(--ink-light); margin-top:0.5rem;">
-      Ngọc
-    </p>
-  </div>
-  <div class="host-journey-note">
-  <p class="superhost-text">
-    <span class="journey-icon">⭐</span>
-    <span data-th="auto-index-030">Recognized as <strong>Airbnb Superhost in 2025</strong> for consistent 5-star guest experiences.</span>
-  </p>
-</div>
-</div>
+    <div class="hosts-profile-grid">
+      <div class="host-profile">
+        <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777476687/IMG_3136_fg6pmo.jpg"
+             alt="Linh, co-founder and interior designer of MiaCasa"
+             class="host-avatar"
+             width="105"
+             height="105">
+        <p class="host-name">Linh</p>
+      </div>
+      <div class="host-profile">
+        <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_fill,w_100,h_100,f_auto,q_auto,g_face/v1777477440/IMG_3152_r4vryr.jpg"
+             alt="Ngọc, co-founder and hospitality expert at MiaCasa"
+             class="host-avatar"
+             width="105"
+             height="105">
+        <p class="host-name">Ngọc</p>
+      </div>
+      <div class="host-journey-note">
+        <p class="superhost-text">
+          <span class="journey-icon">⭐</span>
+          <span data-th="auto-index-030">Recognized as <strong>Airbnb Superhost in 2025</strong> for consistent 5-star guest experiences.</span>
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -682,32 +681,50 @@
     <div class="faq-list">
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-couples">Which property is better for couples?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-couples">Which property is better for couples?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-couples">Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment right in the center of the action near Hoàn Kiếm Lake. It depends on whether you prefer peaceful local life or vibrant city energy.</p></div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-hotel">Is MiaCasa a hotel or homestay?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-hotel">Is MiaCasa a hotel or homestay?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-hotel">MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're always available online or nearby if you need anything during your stay.</p></div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-direct">Is direct booking cheaper than Airbnb?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-direct">Is direct booking cheaper than Airbnb?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-direct">Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.</p></div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-elevator">Do both properties have elevators?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-elevator">Do both properties have elevators?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-elevator">Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Our hosts are happy to help carry luggage up and down!</p></div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-airport">Do you offer airport pickup?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-airport">Do you offer airport pickup?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-airport">Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you.</p></div>
       </div>
       
       <div class="faq-item">
-        <button class="faq-q"><span data-t="faq-q-cancellation">What's the cancellation policy?</span> <span class="plus-icon">+</span></button>
+        <button class="faq-q" aria-expanded="false">
+          <span data-t="faq-q-cancellation">What's the cancellation policy?</span> 
+          <span class="plus-icon">+</span>
+        </button>
         <div class="faq-a"><p data-t="faq-a-cancellation">Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for any special circumstances.</p></div>
       </div>
       
@@ -726,16 +743,16 @@
       <div class="contact-info">
         <h3 id="contact-findus" data-t="contact-findus">Find us in Hanoi</h3>
         <div class="contact-items" id="contact-locations"></div>
-        <div style="margin-top: 1.5rem;" class="contact-items">
+        <div class="contact-items contact-items-margin">
           
           <div class="contact-item">
             <div class="contact-item-icon">📱</div>
             <div class="contact-item-text">
               <strong id="contact-whatsapp-lbl" data-t="contact-whatsapp-lbl">WhatsApp / Phone</strong>
-              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem;">
-                <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" style="color: var(--terracotta); text-decoration: none;">💬 WhatsApp</a>
-                <span style="color: var(--ink-light);">·</span>
-                <a href="tel:+84869922261" style="color: var(--terracotta); text-decoration: none;">📞 Call +84 869 922 261</a>
+              <div class="contact-links">
+                <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="contact-link">💬 WhatsApp</a>
+                <span class="contact-divider">·</span>
+                <a href="tel:+84869922261" class="contact-link">📞 Call +84 869 922 261</a>
               </div>
             </div>
           </div>
@@ -744,7 +761,7 @@
             <div class="contact-item-icon">✉️</div>
             <div class="contact-item-text">
               <strong id="contact-email-lbl" data-t="contact-email-lbl">Email</strong>
-              <a href="mailto:miacasahanoi@gmail.com" style="color: var(--terracotta); text-decoration: none;">miacasahanoi@gmail.com</a>
+              <a href="mailto:miacasahanoi@gmail.com" class="contact-link">miacasahanoi@gmail.com</a>
             </div>
           </div>
           
@@ -811,18 +828,16 @@
   </div>
   
   <!-- Post-Stay Links -->
-  <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
-      <div style="text-align: center; padding: 0.5rem 1.5rem; background: white; border-radius: 8px; border: 1px solid var(--border);">
-        <span style="font-size: 1.2rem; display: block;">📄</span>
-        <a href="/invoice" style="color: var(--terracotta); text-decoration: none; font-weight: 500;" data-t="invoice-link">Click here →</a>
-        <p style="font-size: 0.7rem; color: var(--ink-light); margin-top: 0.25rem;" data-t="invoice-text">Need an invoice for your stay?</p>
-      </div>
-      <div style="text-align: center; padding: 0.5rem 1.5rem; background: white; border-radius: 8px; border: 1px solid var(--border);">
-        <span style="font-size: 1.2rem; display: block;">✈️</span>
-        <a href="/cancel-booking" style="color: var(--terracotta); text-decoration: none; font-weight: 500;" data-t="cancel-link">Request cancellation →</a>
-        <p style="font-size: 0.7rem; color: var(--ink-light); margin-top: 0.25rem;" data-t="cancel-text">Need to cancel your booking?</p>
-      </div>
+  <div class="post-stay-links">
+    <div class="post-stay-item">
+      <span class="post-stay-icon">📄</span>
+      <a href="/invoice" class="post-stay-link" data-t="invoice-link">Click here →</a>
+      <p class="post-stay-text" data-t="invoice-text">Need an invoice for your stay?</p>
+    </div>
+    <div class="post-stay-item">
+      <span class="post-stay-icon">✈️</span>
+      <a href="/cancel-booking" class="post-stay-link" data-t="cancel-link">Request cancellation →</a>
+      <p class="post-stay-text" data-t="cancel-text">Need to cancel your booking?</p>
     </div>
   </div>
 </section>
@@ -835,8 +850,8 @@
             <div class="footer-brand">
                 <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
-                <div style="margin-top: 1rem;">
-                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
+                <div class="footer-rating">
+                    <p data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
                 </div>
             </div>
             
@@ -869,17 +884,17 @@
                     <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
                     <li>💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
                     <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
-                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
+                    <li class="footer-response" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
             </div>
         </div>
         
         <!-- Social Media Links -->
-        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
-            <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
-                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
+        <div class="footer-social">
+            <div class="footer-social-links">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" class="footer-social-link" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" class="footer-social-link" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" class="footer-social-link" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
             </div>
         </div>
         
@@ -1240,7 +1255,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const faqItem = this.closest('.faq-item');
             if (faqItem) {
-                faqItem.classList.toggle('open');
+                const isOpen = faqItem.classList.toggle('open');
+                this.setAttribute('aria-expanded', isOpen);
+                const plusIcon = this.querySelector('.plus-icon');
+                if (plusIcon) {
+                    plusIcon.textContent = isOpen ? '−' : '+';
+                }
             }
         });
     });
