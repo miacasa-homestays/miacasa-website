@@ -1058,10 +1058,10 @@ function resetBookingForm() {
   updateAvailabilityAndUI();
   
   // Scroll back to booking form
-  const bookingSection = document.getElementById('booking');
+  /* const bookingSection = document.getElementById('booking');
   if (bookingSection) {
     bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  } */
   
   console.log('✅ Booking form reset complete');
 }
