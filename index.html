@@ -195,8 +195,88 @@
 
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
+
 <body>
-<body>
+<!-- PERMANENT SCROLL BLOCKER - Prevents any scroll before it happens -->
+<script>
+  (function() {
+    // Store original methods
+    const origScrollTo = window.scrollTo;
+    const origScroll = window.scroll;
+    const origScrollIntoView = Element.prototype.scrollIntoView;
+    
+    // Block ALL scroll attempts
+    let blocked = true;
+    
+    // Override scrollTo
+    window.scrollTo = function(x, y) {
+      if (blocked) {
+        // Always scroll to top
+        origScrollTo.call(this, 0, 0);
+        return;
+      }
+      origScrollTo.apply(this, arguments);
+    };
+    
+    // Override scroll
+    window.scroll = function(x, y) {
+      if (blocked) {
+        return;
+      }
+      origScroll.apply(this, arguments);
+    };
+    
+    // Override scrollIntoView
+    Element.prototype.scrollIntoView = function(options) {
+      if (blocked) {
+        console.log('🚫 Blocked scrollIntoView on:', this.id || 'element');
+        return;
+      }
+      origScrollIntoView.apply(this, arguments);
+    };
+    
+    // Force scroll to top immediately
+    origScrollTo.call(window, 0, 0);
+    
+    // Disable scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // Remove any hash
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+    
+    // Also prevent scroll events from actually scrolling
+    document.addEventListener('scroll', function(e) {
+      if (blocked && window.scrollY > 0) {
+        window.scrollTo(0, 0);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+    
+    // Unblock after 5 seconds (give page time to fully load)
+    setTimeout(function() {
+      blocked = false;
+      console.log('✅ Scroll unblocked after 5s');
+    }, 5000);
+    
+    // Reset scroll every 10ms for first 2 seconds (smooth top stay)
+    let count = 0;
+    const interval = setInterval(function() {
+      if (window.scrollY > 0) {
+        window.scrollTo(0, 0);
+      }
+      count++;
+      if (count > 200) {
+        clearInterval(interval);
+        console.log('✅ Scroll reset stopped');
+      }
+    }, 10);
+  })();
+</script>
 <!-- ULTIMATE SCROLL FIX -->
 <script>
   (function() {
