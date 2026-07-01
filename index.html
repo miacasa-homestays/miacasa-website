@@ -29,11 +29,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 </noscript>
 
-<!-- Preload hero image for performance - FIXED -->
+<!-- Match the picture element's quality -->
 <link rel="preload" as="image"
-      imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
-                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
-                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+      imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
       imagesizes="(max-width: 768px) 100vw, 50vw">
 
 <meta property="og:title" content="MiaCasa Homestays — Boutique Stays in Hanoi">
@@ -196,7 +196,85 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
 <body>
-
+<body>
+<!-- ULTIMATE SCROLL FIX -->
+<script>
+  (function() {
+    // 1. Disable scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // 2. Force scroll to top
+    window.scrollTo(0, 0);
+    
+    // 3. Remove any hash
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+    
+    // 4. Block ALL scroll attempts for 3 seconds
+    let blocked = true;
+    
+    // Override all scroll methods
+    const origScrollTo = window.scrollTo;
+    const origScroll = window.scroll;
+    const origScrollIntoView = Element.prototype.scrollIntoView;
+    
+    window.scrollTo = function() {
+      if (blocked) {
+        console.log('🚫 Blocked scrollTo');
+        return;
+      }
+      origScrollTo.apply(this, arguments);
+    };
+    
+    window.scroll = function() {
+      if (blocked) {
+        console.log('🚫 Blocked scroll');
+        return;
+      }
+      origScroll.apply(this, arguments);
+    };
+    
+    Element.prototype.scrollIntoView = function() {
+      if (blocked) {
+        console.log('🚫 Blocked scrollIntoView on:', this.id || 'element');
+        return;
+      }
+      origScrollIntoView.apply(this, arguments);
+    };
+    
+    // 5. Force reset scroll every 10ms for 1 second
+    let count = 0;
+    const resetInterval = setInterval(function() {
+      if (window.scrollY > 0) {
+        window.scrollTo(0, 0);
+        console.log('🔄 Reset scroll to top (', window.scrollY, ')');
+      }
+      count++;
+      if (count > 100) {
+        clearInterval(resetInterval);
+      }
+    }, 10);
+    
+    // 6. Unblock after 3 seconds
+    setTimeout(function() {
+      blocked = false;
+      clearInterval(resetInterval);
+      console.log('✅ Scroll unblocked after 3s');
+    }, 3000);
+    
+    // 7. Also intercept scroll events
+    document.addEventListener('scroll', function(e) {
+      if (blocked && window.scrollY > 0) {
+        window.scrollTo(0, 0);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+  })();
+</script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <a href="/#booking" class="sticky-book-btn" data-t="sticky-book">
   <span class="flex-center">

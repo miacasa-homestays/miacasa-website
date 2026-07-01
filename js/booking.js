@@ -1154,7 +1154,7 @@ function renderProperties() {
                 </div>
                 <div class="property-buttons">
                     <a href="${prop.link}" class="btn-outline">${prop.exploreBtn}</a>
-                    <a href="javascript:void(0)" class="btn-primary" onclick="selectAndScroll('${prop.id}'); return false;">${prop.bookBtn}</a>
+                    <a href="?property=${prop.id}#booking" class="btn-primary">${prop.bookBtn}</a>
                 </div>
             </div>
         </div>
@@ -1207,7 +1207,7 @@ function selectProp(id) {
     updateAvailabilityAndUI();
 }
 
-function selectAndScroll(id) {
+/* function selectAndScroll(id) {
     // Select the property
     selectProp(id);
     
@@ -1221,7 +1221,7 @@ function selectAndScroll(id) {
     
     // Always return false to prevent link jump
     return false;
-}
+} */
 
 // Helper function to format currency (add this near the top of booking.js)
 function formatCurrency(amount, currency) {
@@ -2144,7 +2144,7 @@ if (document.readyState === 'loading') {
 window.renderProperties = renderProperties;
 window.renderBookingSelector = renderBookingSelector;
 window.selectProp = selectProp;
-window.selectAndScroll = selectAndScroll;
+//window.selectAndScroll = selectAndScroll;
 window.updateAvailabilityAndUI = updateAvailabilityAndUI;
 window.updateGuestOptions = updateGuestOptions;
 window.resetBookingForm = resetBookingForm;
