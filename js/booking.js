@@ -1451,7 +1451,7 @@ function showPendingVerificationMessage(bookingData) {
     `;
     
     bookingSection.appendChild(pendingDiv);
-    pendingDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //pendingDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Send notification to admin about pending payment
@@ -1973,7 +1973,7 @@ function showCashBookingConfirmation(bookingData) {
     bookingSection.appendChild(confirmDiv);
     
     // Force visibility and scroll
-    confirmDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //confirmDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
     //console.log('Confirmation box added to DOM');
 }
@@ -2016,9 +2016,9 @@ function selectPayTab(type) {
         }
         
         // Also scroll to make it visible
-        setTimeout(() => {
-            transferDetails?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 100);
+        //setTimeout(() => {
+            //transferDetails?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        //}, 100);
         
     } else if (type === 'cash') {
         if (cashPanel) cashPanel.style.display = 'block';
@@ -2093,7 +2093,8 @@ function initializeProperties() {
         selectProp('hanoi');
         setMinDates();
         updateGuestOptions();
-        updateAvailabilityAndUI();
+        // COMMENT OUT OR REMOVE THIS LINE:
+        // updateAvailabilityAndUI();
     }
 }
 
