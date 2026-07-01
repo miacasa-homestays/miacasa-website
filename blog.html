@@ -36,79 +36,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 
-<!-- Brevo Form Styles -->
-<style>
-  .sib-form {
-    background-color: transparent !important;
-  }
-  
-  .sib-container {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-  }
-  
-  .sib-form-block__button {
-    background-color: #c17a5a !important;
-    font-family: 'Jost', sans-serif !important;
-    border-radius: 6px !important;
-    padding: 0.6rem 1.5rem !important;
-    font-size: 0.9rem !important;
-    transition: background 0.2s !important;
-  }
-  
-  .sib-form-block__button:hover {
-    background-color: #a85e3e !important;
-  }
-  
-  .entry__field .input {
-    font-family: 'Jost', sans-serif !important;
-    border: 1px solid #d9cfbf !important;
-    border-radius: 6px !important;
-    padding: 0.6rem 1rem !important;
-    font-size: 0.9rem !important;
-  }
-  
-  .entry__field .input:focus {
-    outline: none !important;
-    border-color: #c17a5a !important;
-    box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.15) !important;
-  }
-  
-  .entry__label {
-    font-family: 'Jost', sans-serif !important;
-    color: #2c2416 !important;
-    font-weight: 500 !important;
-  }
-  
-  .entry__choice {
-    font-family: 'Jost', sans-serif !important;
-  }
-  
-  .sib-form__declaration {
-    font-family: 'Jost', sans-serif !important;
-    color: #6b5c47 !important;
-  }
-  
-  .sib-form__declaration a {
-    color: #c17a5a !important;
-  }
-  
-  .sib-form-message-panel {
-    font-family: 'Jost', sans-serif !important;
-  }
-  
-  .sib-form-block {
-    text-align: center !important;
-  }
-  
-  .sib-form-block p {
-    font-family: 'Jost', sans-serif !important;
-    color: #3d3527 !important;
-  }
-</style>
-
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
@@ -299,24 +226,20 @@
     margin-bottom: 1rem;
   }
 
+  .subscribe-box iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+  }
+
   .subscribe-footer {
     font-size: 0.7rem;
     color: #8a6e4b;
     margin-top: 0.75rem;
-  }
-
-  /* Brevo Form Container - Centering */
-  .brevo-form-wrapper {
-    max-width: 540px;
-    margin: 0 auto;
-  }
-
-  .brevo-form-wrapper .sib-form {
-    text-align: center;
-  }
-
-  .brevo-form-wrapper .sib-form-container {
-    max-width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -344,12 +267,15 @@
       padding: 1.5rem;
     }
     
-    .brevo-form-wrapper .sib-form-block__button {
-      width: 100%;
+    .subscribe-box iframe {
+      width: 100% !important;
+      height: 400px !important;
     }
-    
-    .brevo-form-wrapper .entry__field .input {
-      width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    .subscribe-box iframe {
+      height: 450px !important;
     }
   }
 </style>
@@ -532,122 +458,90 @@
 
   </div>
 
-  <!-- Brevo Subscription Form - AJAX Version (No Redirect) -->
-<div class="subscribe-box">
-  <h3 data-t="subscribe-title">📬 New posts, straight to your inbox</h3>
-  <p class="subscribe-text" data-t="subscribe-text">Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.</p>
-  
-  <!-- Success Message (shown after successful subscription) -->
-  <div id="brevo-success-message" style="display: none; max-width: 540px; margin: 0 auto; padding: 1rem; background: #e7faf0; border: 1px solid #13ce66; border-radius: 8px; color: #085229; font-family: 'Jost', sans-serif; font-size: 0.95rem; text-align: center;">
-    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📬</div>
-    <p style="font-weight: 500; margin-bottom: 0.25rem;">Almost there! Check your email.</p>
-    <p style="font-size: 0.85rem;">We've sent a confirmation link to your email address. Click it to complete your subscription.</p>
+  <!-- Brevo Subscription Form (iframe) -->
+  <div class="subscribe-box">
+    <h3 data-t="subscribe-title">📬 New posts, straight to your inbox</h3>
+    <p class="subscribe-text" data-t="subscribe-text">Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.</p>
+    
+    <iframe 
+      width="540" 
+      height="305" 
+      src="https://786ae337.sibforms.com/v2/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==" 
+      frameborder="0" 
+      scrolling="auto" 
+      allowfullscreen 
+      style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; border: none; background: transparent; border-radius: 8px;">
+    </iframe>
+    
+    <p class="subscribe-footer" data-t="subscribe-footer">No spam. Unsubscribe anytime.</p>
   </div>
-  
-  <!-- Form -->
-  <div id="brevo-form-wrapper">
-    <form id="brevo-subscribe-form" method="POST" style="max-width: 540px; margin: 0 auto;">
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;">
-        <input 
-          type="email" 
-          id="brevo-email-input" 
-          name="EMAIL" 
-          placeholder="Enter your email address" 
-          required 
-          style="flex: 1; min-width: 200px; padding: 0.6rem 1rem; border: 1px solid #d9cfbf; border-radius: 6px; font-family: 'Jost', sans-serif; font-size: 0.9rem; background: white; color: #2c2416;">
-        <button 
-          type="submit" 
-          id="brevo-submit-btn"
-          style="background: #c17a5a; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.2s;">
-          Subscribe →
-        </button>
-      </div>
-      
-      <div style="text-align: left; max-width: 500px; margin: 0.75rem auto 0; font-size: 0.7rem; color: #6b5c47; line-height: 1.6;">
-        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
-          <input type="checkbox" id="brevo-gdpr-checkbox" required style="margin-top: 0.15rem; flex-shrink: 0; accent-color: #c17a5a;">
-          <span>
-            I agree to receive email updates. Unsubscribe anytime.
-            <br>
-            <small style="color: #8a6e4b;">We use Brevo as our marketing platform. Your data will be processed in accordance with <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" rel="noopener" style="color: #c17a5a; text-decoration: underline;">Brevo's Privacy Policy</a>.</small>
-          </span>
-        </label>
-      </div>
-      
-      <div id="brevo-error-message" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: #ffeded; border: 1px solid #ff4949; border-radius: 4px; color: #661d1d; font-size: 0.85rem; font-family: 'Jost', sans-serif;"></div>
-    </form>
-  </div>
-  
-  <p class="subscribe-footer" data-t="subscribe-footer">No spam. Unsubscribe anytime.</p>
-</div>
+
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-our-stays">Our Stays</h4>
+                <ul>
+                    <li><a href="/miacasa-hanoi" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
+                    <li><a href="/miacasa-oldquarter" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
+                    <li><a href="/#booking" data-t="footer-book-direct">Book Direct</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+              <h4 data-t="footer-info">Information</h4>
+              <ul>
+                <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
+                <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
+                <li><a href="/blog" data-t="footer-blog">Blog</a></li>
+                <li><a href="/#contact" data-t="footer-contact">Contact</a></li>
+                <li><a href="/#faq" data-t="footer-faq">FAQ</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-contact-header">Contact</h4>
+                <ul>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com" aria-label="Email MiaCasa">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp" aria-label="Contact MiaCasa on WhatsApp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" data-t="footer-call" aria-label="Call MiaCasa">Call +84 869 922 261</a></li>
+                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span data-t="footer-copyright">© 2026 MiaCasa Homestays</span>
+            <span data-t="footer-made">Made with ♡ in Hanoi</span>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script src="/js/lang.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('brevo-subscribe-form');
-  const emailInput = document.getElementById('brevo-email-input');
-  const gdprCheckbox = document.getElementById('brevo-gdpr-checkbox');
-  const successMessage = document.getElementById('brevo-success-message');
-  const formWrapper = document.getElementById('brevo-form-wrapper');
-  const errorMessage = document.getElementById('brevo-error-message');
-  const submitBtn = document.getElementById('brevo-submit-btn');
-
-  // Your Brevo form action URL
-  const BREVO_URL = 'https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==';
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const email = emailInput.value.trim();
-    const gdpr = gdprCheckbox.checked;
-    
-    // Validate
-    if (!email || !email.includes('@')) {
-      errorMessage.textContent = 'Please enter a valid email address.';
-      errorMessage.style.display = 'block';
-      return;
-    }
-    
-    if (!gdpr) {
-      errorMessage.textContent = 'Please agree to receive email updates.';
-      errorMessage.style.display = 'block';
-      return;
-    }
-    
-    errorMessage.style.display = 'none';
-    
-    // Disable button
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Subscribing...';
-    
-    // Create form data
-    const formData = new FormData();
-    formData.append('EMAIL', email);
-    formData.append('GDPR_CONSENT', '1');
-    
-    // Send to Brevo
-    fetch(BREVO_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formData
-    })
-    .then(() => {
-      // Since we're using no-cors, we can't read the response
-      // But the request was sent successfully
-      successMessage.style.display = 'block';
-      formWrapper.style.display = 'none';
-      emailInput.value = '';
-      gdprCheckbox.checked = false;
-    })
-    .catch(function() {
-      errorMessage.textContent = 'Something went wrong. Please try again.';
-      errorMessage.style.display = 'block';
-    })
-    .finally(function() {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Subscribe →';
-    });
-  });
-});
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('show');
+  }
 </script>
 
 <a href="/?property=hanoi#booking"
