@@ -226,20 +226,154 @@
     margin-bottom: 1rem;
   }
 
-  .subscribe-box iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    border: none;
-    background: transparent;
-    border-radius: 8px;
-  }
-
   .subscribe-footer {
     font-size: 0.7rem;
     color: #8a6e4b;
     margin-top: 0.75rem;
+  }
+
+  /* Embedded Form Styles */
+  .brevo-embedded-form {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .brevo-embedded-form .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .brevo-embedded-form label {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #2c2416;
+    margin-bottom: 0.25rem;
+  }
+
+  .brevo-embedded-form input[type="email"] {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #d9cfbf;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    background: white;
+    color: #2c2416;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .brevo-embedded-form input[type="email"]:focus {
+    outline: none;
+    border-color: #c17a5a;
+    box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.15);
+  }
+
+  .brevo-embedded-form .gdpr-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    color: #6b5c47;
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .brevo-embedded-form .gdpr-checkbox input[type="checkbox"] {
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+    accent-color: #c17a5a;
+  }
+
+  .brevo-embedded-form .gdpr-checkbox a {
+    color: #c17a5a;
+    text-decoration: underline;
+  }
+
+  .brevo-embedded-form .gdpr-checkbox a:hover {
+    color: #a85e3e;
+  }
+
+  .brevo-embedded-form .submit-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .brevo-embedded-form .submit-row button {
+    background: #c17a5a;
+    color: white;
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .brevo-embedded-form .submit-row button:hover {
+    background: #a85e3e;
+  }
+
+  .brevo-embedded-form .submit-row button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .brevo-embedded-form .privacy-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    color: #8a6e4b;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* Success Message */
+  #brevo-success-message {
+    display: none;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: #e7faf0;
+    border: 1px solid #13ce66;
+    border-radius: 8px;
+    color: #085229;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  #brevo-success-message .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #brevo-success-message .title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  #brevo-success-message .desc {
+    font-size: 0.85rem;
+  }
+
+  /* Error Message */
+  #brevo-error-message {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #ffeded;
+    border: 1px solid #ff4949;
+    border-radius: 4px;
+    color: #661d1d;
+    font-size: 0.85rem;
+    font-family: 'Jost', sans-serif;
   }
 
   @media (max-width: 768px) {
@@ -266,16 +400,13 @@
     .subscribe-box {
       padding: 1.5rem;
     }
-    
-    .subscribe-box iframe {
-      width: 100% !important;
-      height: 400px !important;
-    }
-  }
 
-  @media (max-width: 480px) {
-    .subscribe-box iframe {
-      height: 450px !important;
+    .brevo-embedded-form .submit-row {
+      flex-direction: column;
+    }
+
+    .brevo-embedded-form .submit-row button {
+      width: 100%;
     }
   }
 </style>
@@ -458,22 +589,50 @@
 
   </div>
 
-  <!-- Brevo Subscription Form (iframe) -->
+  <!-- Brevo Subscription Form - Embedded Version -->
   <div class="subscribe-box">
     <h3 data-t="subscribe-title">📬 New posts, straight to your inbox</h3>
     <p class="subscribe-text" data-t="subscribe-text">Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.</p>
-    
-    <iframe 
-      width="540" 
-      height="305" 
-      src="https://786ae337.sibforms.com/v2/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==" 
-      frameborder="0" 
-      scrolling="auto" 
-      allowfullscreen 
-      style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; border: none; background: transparent; border-radius: 8px;">
-    </iframe>
-    
-    <p class="subscribe-footer" data-t="subscribe-footer">No spam. Unsubscribe anytime.</p>
+
+    <!-- Success Message -->
+    <div id="brevo-success-message">
+      <div class="icon">📬</div>
+      <div class="title">Almost there! Check your email.</div>
+      <div class="desc">We've sent a confirmation link to your email address. Click it to complete your subscription.</div>
+    </div>
+
+    <!-- Form -->
+    <form id="brevo-subscribe-form" class="brevo-embedded-form" method="POST" action="https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==" target="_blank">
+
+      <div class="form-group">
+        <label for="brevo-email-input">Email Address</label>
+        <input 
+          type="email" 
+          id="brevo-email-input" 
+          name="EMAIL" 
+          placeholder="your@email.com" 
+          required>
+      </div>
+
+      <div class="form-group">
+        <label class="gdpr-checkbox">
+          <input type="checkbox" id="brevo-gdpr-checkbox" name="GDPR_CONSENT" value="1" required>
+          <span>
+            I agree to receive email updates. Unsubscribe anytime.
+            <br>
+            <small>We use Brevo as our marketing platform. Your data will be processed in accordance with <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" rel="noopener">Brevo's Privacy Policy</a>.</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" id="brevo-submit-btn">Subscribe →</button>
+      </div>
+
+      <div class="privacy-text">No spam. Unsubscribe anytime.</div>
+
+      <div id="brevo-error-message"></div>
+    </form>
   </div>
 
 </main>
@@ -542,6 +701,112 @@
   function toggleMenu() {
     document.querySelector('.nav-links').classList.toggle('show');
   }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('brevo-subscribe-form');
+  const emailInput = document.getElementById('brevo-email-input');
+  const gdprCheckbox = document.getElementById('brevo-gdpr-checkbox');
+  const successMessage = document.getElementById('brevo-success-message');
+  const errorMessage = document.getElementById('brevo-error-message');
+  const submitBtn = document.getElementById('brevo-submit-btn');
+
+  // Translation helper
+  function getLang() {
+    return window.currentLang || 'en';
+  }
+
+  const translations = {
+    en: {
+      success: 'Almost there! Check your email.',
+      successDesc: 'We\'ve sent a confirmation link to your email address. Click it to complete your subscription.',
+      error: 'Something went wrong. Please try again.',
+      emailError: 'Please enter a valid email address.',
+      gdprError: 'Please agree to receive email updates.'
+    },
+    vn: {
+      success: 'Gần xong! Kiểm tra email của bạn.',
+      successDesc: 'Chúng tôi đã gửi một liên kết xác nhận đến địa chỉ email của bạn. Nhấp vào đó để hoàn tất đăng ký.',
+      error: 'Đã xảy ra lỗi. Vui lòng thử lại.',
+      emailError: 'Vui lòng nhập địa chỉ email hợp lệ.',
+      gdprError: 'Vui lòng đồng ý nhận cập nhật qua email.'
+    },
+    zh: {
+      success: '快完成了！请检查您的邮箱。',
+      successDesc: '我们已向您的邮箱发送了确认链接。点击链接完成订阅。',
+      error: '出了点问题，请重试。',
+      emailError: '请输入有效的电子邮件地址。',
+      gdprError: '请同意接收电子邮件更新。'
+    }
+  };
+
+  function t(key) {
+    const lang = getLang();
+    return translations[lang]?.[key] || translations.en[key];
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = emailInput.value.trim();
+    const gdpr = gdprCheckbox.checked;
+    
+    // Reset messages
+    errorMessage.style.display = 'none';
+    errorMessage.textContent = '';
+    
+    // Validate
+    if (!email || !email.includes('@')) {
+      errorMessage.textContent = t('emailError');
+      errorMessage.style.display = 'block';
+      return;
+    }
+    
+    if (!gdpr) {
+      errorMessage.textContent = t('gdprError');
+      errorMessage.style.display = 'block';
+      return;
+    }
+    
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+    
+    // Create form data
+    const formData = new FormData();
+    formData.append('EMAIL', email);
+    formData.append('GDPR_CONSENT', '1');
+    
+    // Send to Brevo
+    fetch('https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        EMAIL: email,
+        GDPR_CONSENT: '1'
+      })
+    })
+    .then(() => {
+      // With no-cors, we can't read the response
+      // But the request was sent successfully
+      successMessage.style.display = 'block';
+      form.style.display = 'none';
+    })
+    .catch(function(err) {
+      errorMessage.textContent = t('error');
+      errorMessage.style.display = 'block';
+      console.error('Subscription error:', err);
+    })
+    .finally(function() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe →';
+    });
+  });
+});
 </script>
 
 <a href="/?property=hanoi#booking"
