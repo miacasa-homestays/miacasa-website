@@ -699,10 +699,31 @@ function initFaqAccordion() {
 }
 
 // ================================================================
-// INITIALIZATION
+// INITIALIZATION - UPDATED WITH SCROLL FIXES
 // ================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // ============================================================
+    // PREVENT AUTO-SCROLL ON PAGE LOAD
+    // ============================================================
+    
+    // Force scroll to top
+    window.scrollTo(0, 0);
+    
+    // Remove any hash from URL
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname);
+    }
+    
+    // Disable scroll restoration
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    
+    // ============================================================
+    // REST OF INITIALIZATION
+    // ============================================================
+    
     setActiveNavLink();
     initBackToTop();
     initScrollReveal();
@@ -772,6 +793,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') sendChat();
         });
     }
+    
+    // ============================================================
+    // FINAL SCROLL FIX - Check and reset after everything loads
+    // ============================================================
+    
+    // Check and reset scroll every 100ms for 3 seconds
+    let checkCount = 0;
+    const scrollCheck = setInterval(function() {
+        if (window.scrollY > 0) {
+            window.scrollTo(0, 0);
+        }
+        checkCount++;
+        if (checkCount > 30) { // 3 seconds
+            clearInterval(scrollCheck);
+        }
+    }, 100);
 });
 
 // Register translation hook for dynamic content
@@ -862,5 +899,6 @@ function updateActiveNav() {
     });
 }
 
+// Only listen to scroll events, NOT load events
 window.addEventListener('scroll', updateActiveNav);
-//window.addEventListener('load', updateActiveNav);
+// window.addEventListener('load', updateActiveNav); // REMOVED - this was causing auto-scroll
