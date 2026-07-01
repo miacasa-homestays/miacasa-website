@@ -23,13 +23,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com">
 
-<!-- Preload critical font using onload pattern to avoid render-blocking - FIXED -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+<!-- Font loading - Using media="print" pattern for better performance -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
 <noscript>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 </noscript>
 
-<!-- Preload hero image for performance - FIXED: imagesrcset → srcset -->
+<!-- Preload hero image for performance -->
 <link rel="preload" as="image"
       srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
@@ -119,12 +119,23 @@
         "ratingValue": "4.8",
         "reviewCount": "30"
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.miacasahanoi.com/"
+        }
+      ]
     }
   ]
 }
 </script>
 
-<!-- FAQPage Schema -->
+<!-- FAQPage Schema - Complete, no truncation -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -135,7 +146,7 @@
       "name": "Which property is better for couples?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both properties are great for couples. MiaCasa Hanoi is a cozy studio in a quiet neighbourhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a terrace — choose based on whether you want more local quiet or central Old Quarter ambience."
+        "text": "Both properties are great for couples. MiaCasa Hanoi is a cozy studio in a quiet neighbourhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a terrace. Choose based on whether you want more local quiet or central Old Quarter ambience."
       }
     },
     {
@@ -143,7 +154,7 @@
       "name": "Is MiaCasa a hotel or homestay?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience."
+        "text": "MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We are available online and nearby if you need assistance during your stay."
       }
     },
     {
@@ -151,7 +162,7 @@
       "name": "Is direct booking cheaper than Airbnb?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Direct booking through our website typically saves you 10–15% because there are no platform commissions."
+        "text": "Yes. Direct booking through our website typically saves you 10 to 15 percent because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation."
       }
     },
     {
@@ -167,15 +178,15 @@
       "name": "Do you offer airport pickup?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We can arrange airport pickup from Noi Bai International Airport — contact us after booking to arrange transportation."
+        "text": "Yes. We can arrange airport pickup from Noi Bai International Airport. Contact us after booking to arrange transportation for your arrival."
       }
     },
     {
       "@type": "Question",
-      "name": "What's the cancellation policy?",
+      "name": "What is the cancellation policy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for special circumstances."
+        "text": "Free cancellation up to 48 hours before check-in. After that, the first night's rate applies. Contact us directly for special circumstances or requests."
       }
     }
   ]
@@ -232,7 +243,7 @@
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag" data-t="hero-tag">Hanoi, Vietnam</div>
-    <h1 data-th="hero-h1-new">Boutique stays in Hanoi,<br><em>designed for comfort & location</em></h1>
+    <h1 data-th="hero-h1-new">Boutique stays in Hanoi,<br><em>designed for comfort and location</em></h1>
     <p class="hero-sub" data-t="hero-sub-new">Choose between vibrant Old Quarter energy or a quiet local retreat.</p>
     <div class="hero-btns">
       <a href="/#booking" class="btn-primary" data-t="hero-check-dates">Check your dates →</a>
@@ -248,7 +259,7 @@
                           https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
                   sizes="(max-width: 768px) 100vw, 50vw">
           <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg"
-               alt="Exterior of MiaCasa Hanoi, bright facade with local street view"
+               alt="Exterior of MiaCasa Hanoi with bright facade and local street view"
                loading="eager"
                fetchpriority="high"
                decoding="async"
@@ -274,7 +285,7 @@
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 600w,
                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_900,f_auto,q_auto/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg 900w"
              sizes="(max-width: 768px) 33vw, 25vw"
-             alt="Old Quarter terrace at MiaCasa Old Quarter with plants and seating"
+             alt="Old Quarter terrace at MiaCasa Old Quarter with plants and outdoor seating"
              loading="lazy"
              decoding="async"
              width="600"
@@ -282,7 +293,7 @@
       </div>
     </div>
     <div class="hero-badge">
-      <p data-t="hero-badge-rated">Rated across Airbnb &amp; Booking.com</p>
+      <p data-t="hero-badge-rated">Rated across Airbnb and Booking.com</p>
       <strong data-t="hero-badge-stars">★ 4.9 — 200+ Happy Guests</strong>
     </div>
   </div>
@@ -315,7 +326,7 @@
       </ul>
       
       <div class="info-box info-box--warning">
-        <p data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with <strong>steep, narrow stairs</strong> (no elevator). <strong>Hosts can help carry luggage up/down.</strong> Central Old Quarter location — lively streets nearby.</p>
+        <p data-th="auto-index-002">⚠️ NOTE: 3rd floor walk-up with steep, narrow stairs (no elevator). Hosts can help carry luggage up and down. Central Old Quarter location with lively streets nearby.</p>
       </div>
       
       <div class="price-prominent selector-price">
@@ -350,7 +361,7 @@
       </ul>
       
       <div class="info-box info-box--success">
-        <p data-th="auto-index-003">💡 Book all 3 rooms to have the <strong>entire home</strong> exclusively for your group (sleeps 8). <strong>Hosts can help with luggage.</strong></p>
+        <p data-th="auto-index-003">💡 Book all 3 rooms to have the entire home exclusively for your group (sleeps 8). Hosts can help with luggage.</p>
       </div>
 
       <div class="price-prominent selector-price">
@@ -410,9 +421,9 @@
       
       <!-- Row 1: Room, Check-in, Check-out, Guests -->
       <form id="booking-form" autocomplete="off" novalidate>
-        <!-- Honeypot to reduce spam -->
-        <input type="text" name="hp_email" id="hp_email" style="position:absolute;left:-9999px;top:auto;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <!-- CSRF Token - Add server-side token here -->
+        <!-- Honeypot to reduce spam - using display:none for better security -->
+        <input type="text" name="hp_email" id="hp_email" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <!-- CSRF Token - Populate from server -->
         <input type="hidden" name="csrf_token" id="csrf_token" value="">
         <div class="form-grid">
           <div class="form-group">
@@ -507,7 +518,7 @@
             </div>
           </div>
 
-          <!-- CAPTCHA with server-side validation note -->
+          <!-- CAPTCHA - Client-side UX only, server must validate -->
           <div id="booking-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
@@ -517,7 +528,7 @@
               <button type="button" id="refresh-captcha" class="captcha-refresh" onclick="generateCaptcha('booking')">⟳ Refresh</button>
             </div>
             <div id="captcha-error" class="form-error"></div>
-            <p class="captcha-note">Note: Server-side validation is required for production. This is a client-side UX enhancement only.</p>
+            <p class="captcha-note">⚠️ Server-side validation is required. This is a client-side UX enhancement only. In production, use reCAPTCHA v3 or hCaptcha.</p>
           </div>
 
           <!-- Trust Badges -->
@@ -634,10 +645,10 @@
         <p class="gallery-label">MiaCasa Hanoi</p>
         <div class="gallery-teaser-grid">
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with bed and decor" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasa Hanoi with comfortable bed and natural light" width="300" height="200">
           </a>
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with seating" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Common area at MiaCasa Hanoi with comfortable seating and warm lighting" width="300" height="200">
           </a>
         </div>
         <a href="/miacasa-hanoi#h-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
@@ -646,10 +657,10 @@
         <p class="gallery-label">MiaCasa Old Quarter</p>
         <div class="gallery-teaser-grid">
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Old Quarter living area with vintage decor" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="Old Quarter living area with vintage decor and comfortable seating" width="300" height="200">
           </a>
           <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" class="glightbox" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Old Quarter terrace view with plants and seating" width="300" height="200">
+            <img loading="lazy" decoding="async" src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_40/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="Old Quarter terrace view with plants and outdoor seating area" width="300" height="200">
           </a>
         </div>
         <a href="/miacasa-oldquarter#oq-gallery-section" class="btn-outline gallery-link">View full gallery →</a>
@@ -663,7 +674,7 @@
   <div class="container hosts-container">
     <div class="hosts-content">
       <div class="section-tag" data-t="hosts-tag">Your Hosts</div>
-      <h2 class="section-title" data-th="hosts-title">Hosted by <em>Linh &amp; Ngọc</em></h2>
+      <h2 class="section-title" data-th="hosts-title">Hosted by <em>Linh and Ngọc</em></h2>
       <p class="hosts-desc" data-t="hosts-desc">Two friends who built every room themselves. Real people who answer your messages and care how your stay goes.</p>
       <a href="/our-story" class="story-link" data-t="hosts-story">Read our story →</a>
     </div>
@@ -709,7 +720,7 @@
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" style="display:none;">
-          <p data-t="faq-a-couples">Both properties are great for couples! MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a sunny terrace. Choose based on whether you prefer a quieter local feel or being in the heart of the Old Quarter.</p>
+          <p data-t="faq-a-couples">Both properties are great for couples. MiaCasa Hanoi offers a cozy studio in a quiet neighborhood near Train Street. MiaCasa Old Quarter is a full private apartment in the city centre with a sunny terrace. Choose based on whether you prefer a quieter local feel or being in the heart of the Old Quarter.</p>
         </div>
       </div>
       
@@ -719,7 +730,7 @@
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" style="display:none;">
-          <p data-t="faq-a-hotel">MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We're available online and nearby if you need assistance during your stay.</p>
+          <p data-t="faq-a-hotel">MiaCasa is a boutique homestay, not a hotel. You get a private, independent stay with local hosts who care about your experience. We are available online and nearby if you need assistance during your stay.</p>
         </div>
       </div>
       
@@ -729,7 +740,7 @@
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" style="display:none;">
-          <p data-t="faq-a-direct">Yes! Direct booking through our website saves you 10-15% because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.</p>
+          <p data-t="faq-a-direct">Yes. Direct booking through our website saves you 10 to 15 percent because there are no platform commissions. You get the same trusted experience at a better price with instant confirmation.</p>
         </div>
       </div>
       
@@ -739,7 +750,7 @@
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" style="display:none;">
-          <p data-t="faq-a-elevator">Both properties are in traditional Hanoi homes and do NOT have elevators. MiaCasa Hanoi is on the 2nd floor (some stairs). MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs — hosts can help with luggage where necessary.</p>
+          <p data-t="faq-a-elevator">Both properties are in traditional Hanoi homes and do not have elevators. MiaCasa Hanoi is on the 2nd floor with some stairs. MiaCasa Old Quarter is on the 3rd floor with steep, narrow stairs. Hosts can help with luggage where necessary.</p>
         </div>
       </div>
       
@@ -749,13 +760,13 @@
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" style="display:none;">
-          <p data-t="faq-a-airport">Yes! We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we'll help arrange transportation for you.</p>
+          <p data-t="faq-a-airport">Yes. We can arrange airport pickup from Noi Bai International Airport. Just contact us after booking and we will help arrange transportation for your arrival.</p>
         </div>
       </div>
       
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" aria-controls="faq-a-6" id="faq-q-6">
-          <span data-t="faq-q-cancellation">What's the cancellation policy?</span> 
+          <span data-t="faq-q-cancellation">What is the cancellation policy?</span> 
           <span class="plus-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6" style="display:none;">
@@ -770,7 +781,7 @@
 <section id="contact">
   <div class="container">
     <div class="section-tag" id="sec-contact" data-t="sec-contact">Get in Touch</div>
-    <h2 class="section-title" id="contact-title" data-th="contact-title">We'd love to <em>hear from you</em></h2>
+    <h2 class="section-title" id="contact-title" data-th="contact-title">We would love to <em>hear from you</em></h2>
     <p class="section-sub" id="contact-sub" data-t="contact-sub">Questions, special requests, or just want to say hello — reach out anytime.</p>
     <div class="contact-grid">
       
@@ -814,8 +825,8 @@
       <!-- Right Column: Contact Form -->
       <div class="contact-form-box">
         <form id="contact-form" autocomplete="off" novalidate>
-          <!-- Honeypot -->
-          <input type="text" name="hp_contact" id="hp_contact" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <!-- Honeypot - using display:none for better security -->
+          <input type="text" name="hp_contact" id="hp_contact" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
           <!-- CSRF Token -->
           <input type="hidden" name="csrf_token" id="csrf_token_contact" value="">
           <div class="form-grid">
@@ -846,7 +857,7 @@
             </div>
           </div>
           
-          <!-- CAPTCHA with server-side validation note -->
+          <!-- CAPTCHA - Client-side UX only -->
           <div id="contact-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
@@ -856,13 +867,13 @@
               <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
             </div>
             <div id="contact-captcha-error" class="form-error"></div>
-            <p class="captcha-note">For production, prefer server-side validation or reCAPTCHA v3. Server must always validate inputs.</p>
+            <p class="captcha-note">⚠️ For production, use server-side validation, reCAPTCHA v3, or hCaptcha. Server must always validate inputs.</p>
           </div>
           
           <button type="button" class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
           <p class="contact-fallback">Prefer email? <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></p>
           
-          <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;" role="status" aria-live="polite">✓ Message sent! We'll be in touch soon.</div>
+          <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;" role="status" aria-live="polite">✓ Message sent! We will be in touch soon.</div>
         </form>
       </div>
       
@@ -886,9 +897,7 @@
 
 <footer>
     <div class="container">
-        <!-- Main Footer Content -->
         <div class="footer-grid">
-            <!-- Brand Column -->
             <div class="footer-brand">
                 <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
@@ -897,7 +906,6 @@
                 </div>
             </div>
             
-            <!-- Our Stays Column -->
             <div class="footer-col">
                 <h4 data-t="footer-our-stays">Our Stays</h4>
                 <ul>
@@ -907,7 +915,6 @@
                 </ul>
             </div>
             
-            <!-- Information Column -->
             <div class="footer-col">
               <h4 data-t="footer-info">Information</h4>
               <ul>
@@ -919,7 +926,6 @@
               </ul>
             </div>
             
-            <!-- Contact Column -->
             <div class="footer-col">
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
@@ -931,7 +937,6 @@
             </div>
         </div>
         
-        <!-- Social Media Links -->
         <div class="footer-social">
             <div class="footer-social-links">
                 <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" class="footer-social-link" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
@@ -940,7 +945,6 @@
             </div>
         </div>
         
-        <!-- Bottom Bar -->
         <div class="footer-bottom">
             <span data-t="footer-copyright">© 2026 MiaCasa Homestays</span>
             <span data-t="footer-made">Made with ♡ in Hanoi</span>
@@ -949,13 +953,41 @@
 </footer>
 </main>
 
-<!-- Consolidated Scripts -->
+<!-- Scripts -->
 <script src="/js/init.js" defer></script>
 <script src="/js/prices.js" defer></script>
 <script src="/js/booking.js" defer></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/lang.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer crossorigin="anonymous"></script>
+
+<!-- GLightbox - Lazy loaded only when needed -->
+<script>
+(function() {
+  // Load GLightbox only when gallery section is visible
+  var gallerySection = document.getElementById('gallery');
+  if (!gallerySection) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        // Load GLightbox script
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js';
+        script.crossOrigin = 'anonymous';
+        script.onload = function() {
+          if (typeof GLightbox !== 'undefined') {
+            new GLightbox({ selector: '.glightbox' });
+          }
+        };
+        document.body.appendChild(script);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(gallerySection);
+})();
+</script>
 
 <!-- Floating Buttons -->
 <a href="/#booking" class="floating-book-btn">
@@ -966,11 +998,6 @@
 <!-- Consolidated Initialization -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize glightbox
-  if (typeof GLightbox !== 'undefined') {
-    new GLightbox({ selector: '.glightbox' });
-  }
-  
   // Initialize CAPTCHA
   if (typeof generateCaptcha === 'function') {
     generateCaptcha('booking');
@@ -1019,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <script>
-// Chatbot UI with integration to main chatbot functions
+// Chatbot UI
 (function() {
     var fab = document.getElementById('chatbotFab');
     var windowEl = document.getElementById('chatbotWindow');
@@ -1041,29 +1068,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getResponse(text) {
-      // Use main chatbot response function if available
       if (typeof getChatbotReply === 'function') {
         return getChatbotReply(text);
       }
-      // Fallback responses
       var lower = text.toLowerCase();
       if (lower.includes('price') || lower.includes('cost')) {
-        return 'Our prices start from 550,000₫ per night. Check our booking section for exact rates!';
+        return 'Our prices start from 550,000₫ per night. Check our booking section for exact rates.';
       }
       if (lower.includes('property') || lower.includes('room')) {
-        return 'We have two properties: MiaCasa Hanoi (3 private rooms near Train Street) and MiaCasa Old Quarter (entire 3-bedroom apartment in the Old Quarter).';
+        return 'We have two properties: MiaCasa Hanoi with 3 private rooms near Train Street, and MiaCasa Old Quarter with an entire 3-bedroom apartment in the Old Quarter.';
       }
       if (lower.includes('location') || lower.includes('where')) {
         return 'MiaCasa Hanoi is in Đống Đa near Train Street. MiaCasa Old Quarter is in the heart of Hoàn Kiếm, steps from the lake.';
       }
-      return "Thanks for your message! Our team will get back to you shortly. For urgent inquiries, please WhatsApp us at +84 869 922 261.";
+      return "Thanks for your message. Our team will get back to you shortly. For urgent inquiries, please WhatsApp us at +84 869 922 261.";
     }
 
     function sendMessage() {
       var text = input.value && input.value.trim();
       if (!text) return;
 
-      // Add user message
       var userMsg = document.createElement('div');
       userMsg.className = 'msg user';
       userMsg.textContent = text;
@@ -1071,7 +1095,6 @@ document.addEventListener('DOMContentLoaded', function() {
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
       input.value = '';
 
-      // Get bot response
       setTimeout(function() {
         var reply = getResponse(text);
         var botMsg = document.createElement('div');
@@ -1082,7 +1105,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 500);
     }
 
-    // Event listeners
     if (fab) fab.addEventListener('click', openChat);
     if (closeBtn) closeBtn.addEventListener('click', closeChat);
     if (sendBtn) sendBtn.addEventListener('click', sendMessage);
@@ -1092,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
-<!-- Accessibility helper: announce status updates -->
+<!-- Accessibility helper -->
 <div id="sr-status" class="sr-only" aria-live="polite" aria-atomic="true" style="position:absolute;left:-9999px;top:auto;opacity:0;"></div>
 
 </body>
