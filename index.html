@@ -350,43 +350,6 @@
 
 <!-- Hero Section -->
 <section class="hero">
-  
-<!-- Navigation with ARIA support -->
-<nav aria-label="Main navigation" role="navigation">
-  <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
-  
-  <ul class="nav-links" id="primary-nav" role="menubar">
-    <li><a href="/" class="active" aria-current="page" data-t="nav-home">Home</a></li>
-    <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
-    <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
-    <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
-    <li><a href="/blog" data-t="nav-blog">Blog</a></li>
-    <li><a href="/about" data-t="nav-about">About</a></li>
-    <li><a href="/#contact" data-t="nav-contact">Contact</a></li>
-    <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
-  </ul>
-  
-  <div class="lang-toggle" role="navigation" aria-label="Language switcher">
-    <button id="lang-en" class="lang-btn active" aria-pressed="true" aria-label="English" onclick="setLang('en')">
-      <span class="flag-icon" aria-hidden="true">🇬🇧</span> EN
-    </button>
-    <button id="lang-vn" class="lang-btn" aria-pressed="false" aria-label="Vietnamese" onclick="setLang('vn')">
-      <span class="flag-icon" aria-hidden="true">🇻🇳</span> VN
-    </button>
-    <button id="lang-zh" class="lang-btn" aria-pressed="false" aria-label="Chinese" onclick="setLang('zh')">
-      <span class="flag-icon" aria-hidden="true">🇨🇳</span> 中文
-    </button>
-  </div>
-  
-  <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<main id="main-content" role="main">
-
-<!-- Hero Section -->
-<section class="hero">
   <div class="hero-left">
     <div class="hero-tag" data-t="hero-tag">Hanoi, Vietnam</div>
     <h1 data-th="hero-h1-new">Boutique stays in Hanoi,<br><em>designed for comfort and location</em></h1>
@@ -1127,8 +1090,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Update prices
-  if (typeof updateAllPricesFromPRICES === 'function') {
-    setTimeout(updateAllPricesFromPRICES, 100);
+  if (typeof refreshAllPriceDisplays === 'function') {
+    setTimeout(refreshAllPriceDisplays, 100);
   }
 
   // FAQ toggle - accessible pattern
