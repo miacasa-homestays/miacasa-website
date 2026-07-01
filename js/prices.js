@@ -1,17 +1,37 @@
-// Centralized Price Configuration
+// ================================================================
+// PRICES.JS - Centralized Price Configuration
 // Admin can update prices here and they will reflect site-wide
+// ================================================================
 
-// Centralized Price Configuration
+'use strict';
+
+// ================================================================
+// CONFIG - Use centralized config values for currency
+// ================================================================
+
+// Ensure config is available
+if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'undefined') {
+  window.config = window.MiaCasaConfig;
+}
+
+// Get currency from config or use default
+const CONFIG_CURRENCY = window.config?.currency || '₫';
+const CONFIG_CURRENCY_CODE = window.config?.currencyCode || 'VND';
+
+// ================================================================
+// PRICE CONFIGURATION
+// ================================================================
+
 const PRICES = {
     // Base prices (per night)
     'hanoi-spring': 750000,
     'hanoi-summer': 750000,
     'hanoi-autumn': 750000,
-    'hanoi-weekend': 800000,    // ADD THIS
-    'hanoi-special': 900000,    // ADD THIS
+    'hanoi-weekend': 800000,
+    'hanoi-special': 900000,
     'oldquarter': 1200000,
-    'oldquarter-weekend': 1350000,  // ADD THIS
-    'oldquarter-special': 1400000,  // ADD THIS
+    'oldquarter-weekend': 1350000,
+    'oldquarter-special': 1400000,
     
     // Extra guest charges (per person per night beyond base)
     'extra-guest-hanoi': 100000,
@@ -29,7 +49,10 @@ const PRICES = {
     'booking-price-oldquarter': 1380000
 };
 
-// Helper functions
+// ================================================================
+// HELPER FUNCTIONS
+// ================================================================
+
 function getPrice(property, roomType = null) {
   if (property === 'hanoi') {
     return PRICES['hanoi-spring']; // All Hanoi rooms same price
@@ -48,8 +71,9 @@ function getExtraGuestCharge(property) {
 
 function getFormattedPrice(property, roomType = null, lang = 'en') {
   const price = getPrice(property, roomType);
+  const currencySymbol = CONFIG_CURRENCY;
   const formatter = new Intl.NumberFormat(lang === 'vn' ? 'vi-VN' : 'en-US');
-  return `${formatter.format(price)}₫`;
+  return `${formatter.format(price)}${currencySymbol}`;
 }
 
 function getSavingsBadge(property, lang = 'en') {
@@ -66,7 +90,78 @@ function getSavingsBadge(property, lang = 'en') {
   }
 }
 
-// Export for use in other scripts
+/**
+ * Get discounted price based on length of stay
+ * @param {number} nights - Number of nights
+ * @param {number} basePrice - Base price per night
+ * @returns {number} - Discounted price per night
+ */
+function getDiscountedPrice(nights, basePrice) {
+  if (nights >= 28) {
+    return basePrice * (1 - PRICES['monthly-discount'] / 100);
+  }
+  if (nights >= 7) {
+    return basePrice * (1 - PRICES['weekly-discount'] / 100);
+  }
+  return basePrice;
+}
+
+/**
+ * Calculate total price with discounts
+ * @param {string} property - Property ID ('hanoi' or 'oldquarter')
+ * @param {number} nights - Number of nights
+ * @param {number} guests - Number of guests
+ * @param {string} roomType - Room type (optional)
+ * @returns {object} - Price breakdown
+ */
+function calculateTotalPrice(property, nights, guests, roomType = null) {
+  const basePrice = getPrice(property, roomType);
+  const discountedPrice = getDiscountedPrice(nights, basePrice);
+  const extraGuestFee = getExtraGuestCharge(property);
+  
+  // Assumes 2 guests included in base price
+  const includedGuests = 2;
+  const extraGuests = Math.max(0, guests - includedGuests);
+  const extraCharge = extraGuests * extraGuestFee * nights;
+  
+  const subtotal = discountedPrice * nights;
+  const total = subtotal + extraCharge;
+  
+  return {
+    basePrice,
+    discountedPrice,
+    nights,
+    subtotal,
+    extraCharge,
+    total,
+    currency: CONFIG_CURRENCY_CODE
+  };
+}
+
+// ================================================================
+// EXPOSE FUNCTIONS GLOBALLY
+// ================================================================
+
+// Make PRICES available globally
+window.PRICES = PRICES;
+
+// Expose helper functions
+window.getPrice = getPrice;
+window.getExtraGuestCharge = getExtraGuestCharge;
+window.getFormattedPrice = getFormattedPrice;
+window.getSavingsBadge = getSavingsBadge;
+window.getDiscountedPrice = getDiscountedPrice;
+window.calculateTotalPrice = calculateTotalPrice;
+
+// Export for Node.js/CommonJS (if needed)
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { PRICES, getPrice, getFormattedPrice, getSavingsBadge, getExtraGuestCharge };
+  module.exports = { 
+    PRICES, 
+    getPrice, 
+    getFormattedPrice, 
+    getSavingsBadge, 
+    getExtraGuestCharge,
+    getDiscountedPrice,
+    calculateTotalPrice
+  };
 }

@@ -51,7 +51,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" crossorigin="anonymous">
 
-<!-- JSON-LD Structured Data: Organization + LodgingBusiness -->
+<!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -135,7 +135,7 @@
 }
 </script>
 
-<!-- FAQPage Schema - Complete, no truncation -->
+<!-- FAQPage Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -388,15 +388,6 @@
   <a href="/#faq" data-t="nav-faq">FAQ</a>
   <a href="/#contact" data-t="nav-contact">Contact</a>
 </div>
-<div class="fab-nav">
-  <button class="fab-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle mobile navigation">☰</button>
-  <div class="fab-nav-menu" id="mobileNavMenu" hidden>
-    <a href="/#booking" data-t="nav-book">Book</a>
-    <a href="/#gallery" data-t="nav-gallery">Gallery</a>
-    <a href="/#faq" data-t="nav-faq">FAQ</a>
-    <a href="/#contact" data-t="nav-contact">Contact</a>
-  </div>
-</div>
 
 <!-- Booking Section -->
 <section id="booking">
@@ -419,9 +410,8 @@
       <p class="booking-kicker" data-t="choose-stay">Choose your stay</p>
       <div class="property-select-grid" id="booking-prop-sel"></div>
       
-      <!-- Row 1: Room, Check-in, Check-out, Guests -->
       <form id="booking-form" autocomplete="off" novalidate>
-        <!-- Honeypot to reduce spam - using display:none for better security -->
+        <!-- Honeypot -->
         <input type="text" name="hp_email" id="hp_email" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
         <!-- CSRF Token - Populate from server -->
         <input type="hidden" name="csrf_token" id="csrf_token" value="">
@@ -444,11 +434,9 @@
           </div>
         </div>
 
-        <!-- Availability & Cancellation Messages -->
         <div id="availability-message" class="availability-message" style="display: none;" role="status" aria-live="polite"></div>
         <div id="cancellation-message" class="cancellation-message" style="display: none;" role="status" aria-live="polite"></div>
 
-        <!-- Guest Details Section -->
         <div id="guest-details" style="display: none;">
           <div class="guest-info-header">
             <p data-t="guest-info-title">Your Information</p>
@@ -495,7 +483,6 @@
             </div>
           </div>
 
-          <!-- Price Summary -->
           <div id="mia-price-box" class="price-summary-box" style="display: none;">
             <div class="price-row">
               <span>Property / Room:</span>
@@ -518,7 +505,7 @@
             </div>
           </div>
 
-          <!-- CAPTCHA - Client-side UX only, server must validate -->
+          <!-- CAPTCHA - Client-side UX only -->
           <div id="booking-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
@@ -531,14 +518,12 @@
             <p class="captcha-note">⚠️ Server-side validation is required. This is a client-side UX enhancement only. In production, use reCAPTCHA v3 or hCaptcha.</p>
           </div>
 
-          <!-- Trust Badges -->
           <div class="trust-badges">
             <span class="trust-badge">✓ Instant confirmation</span>
             <span class="trust-badge">✓ Best rate guaranteed</span>
             <span class="trust-badge">✓ Support within 2 hours</span>
           </div>
 
-          <!-- PAYMENT SECTION -->
           <div id="mia-payment-section" style="display: none; margin-top: 1rem;">
             <div class="booking-panel">
               <p class="booking-panel-label" data-t="pay-label">Complete your booking:</p>
@@ -551,12 +536,10 @@
                 </button>
               </div>
               
-              <!-- PayPal Panel -->
               <div id="paypal-panel" class="payment-panel" role="tabpanel" aria-hidden="false">
                 <button id="paypal-pay-btn" class="paypal-btn full-width" onclick="processPayPal()">Pay with PayPal →</button>
               </div>
               
-              <!-- VietQR Panel -->
               <div id="vietqr-panel" class="payment-panel" style="display: none;" role="tabpanel" aria-hidden="true">
                 <div class="payment-instructions">
                   <p class="payment-instructions-title">
@@ -590,7 +573,6 @@
                 <div id="payment-pending-message-vietqr" class="payment-pending" style="display: none;" role="status" aria-live="polite"></div>
               </div>
               
-              <!-- Pending Message -->
               <div id="payment-pending-message-general" class="payment-pending" style="display: none;">
                 <div class="pending-icon" aria-hidden="true">⏳</div>
                 <p class="pending-text">
@@ -601,7 +583,6 @@
                 </button>
               </div>
               
-              <!-- Cash Payment Panel -->
               <div id="cash-panel" class="payment-panel" style="display: none;">
                 <div class="cash-payment-content">
                   <div class="cash-icon" aria-hidden="true">💵</div>
@@ -621,7 +602,6 @@
             </div>
           </div>
 
-          <!-- Confirmation Box -->
           <div id="mia-confirm-box" class="booking-confirm-box" role="status" aria-live="polite" style="display: none;">
             <p class="booking-confirm-title">✓ Booking Confirmed!</p>
             <div id="conf-bid" class="booking-confirm-id"></div>
@@ -785,7 +765,6 @@
     <p class="section-sub" id="contact-sub" data-t="contact-sub">Questions, special requests, or just want to say hello — reach out anytime.</p>
     <div class="contact-grid">
       
-      <!-- Left Column: Contact Info -->
       <div class="contact-info">
         <h3 id="contact-findus" data-t="contact-findus">Find us in Hanoi</h3>
         <div class="contact-items" id="contact-locations"></div>
@@ -822,12 +801,9 @@
         </div>
       </div>
       
-      <!-- Right Column: Contact Form -->
       <div class="contact-form-box">
         <form id="contact-form" autocomplete="off" novalidate>
-          <!-- Honeypot - using display:none for better security -->
           <input type="text" name="hp_contact" id="hp_contact" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <!-- CSRF Token -->
           <input type="hidden" name="csrf_token" id="csrf_token_contact" value="">
           <div class="form-grid">
             <div class="form-group">
@@ -857,7 +833,6 @@
             </div>
           </div>
           
-          <!-- CAPTCHA - Client-side UX only -->
           <div id="contact-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
@@ -880,7 +855,6 @@
     </div>
   </div>
   
-  <!-- Post-Stay Links -->
   <div class="post-stay-links">
     <div class="post-stay-item">
       <span class="post-stay-icon" aria-hidden="true">📄</span>
@@ -954,23 +928,22 @@
 </main>
 
 <!-- Scripts -->
+<script src="/js/config.js" defer></script>
 <script src="/js/init.js" defer></script>
 <script src="/js/prices.js" defer></script>
-<script src="/js/booking.js" defer></script>
-<script src="/js/main.js" defer></script>
 <script src="/js/lang.js" defer></script>
+<script src="/js/main.js" defer></script>
+<script src="/js/booking.js" defer></script>
 
 <!-- GLightbox - Lazy loaded only when needed -->
 <script>
 (function() {
-  // Load GLightbox only when gallery section is visible
   var gallerySection = document.getElementById('gallery');
   if (!gallerySection) return;
 
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        // Load GLightbox script
         var script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js';
         script.crossOrigin = 'anonymous';

@@ -10,6 +10,24 @@
  * setLang(lang) is global and persists via localStorage.
  */
 
+'use strict';
+
+// ================================================================
+// CONFIG - Use centralized config values
+// ================================================================
+
+// Ensure config is available
+if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'undefined') {
+  window.config = window.MiaCasaConfig;
+}
+
+// Get default language from config or use 'en'
+const CONFIG_DEFAULT_LANG = window.config?.defaultLang || 'en';
+
+// ================================================================
+// TRANSLATIONS OBJECT
+// ================================================================
+
 const TRANSLATIONS = {
   /* ── NAV (all pages) ──────────────────────────────────────────── */
   'nav-home':        {en:'Home',                         vn:'Trang chủ', zh:'首页'},
@@ -6687,12 +6705,18 @@ zh:"<li>安静的居住氛围</li>\n<li>靠近文庙和火车街</li>\n<li>节�
 'footer-about': { en: 'About MiaCasa', vn: 'Về MiaCasa', zh: '关于MiaCasa' }
 };
 
+// ================================================================
+// TRANSLATION FUNCTIONS
+// ================================================================
+
 window.TRANSLATIONS = TRANSLATIONS;
+
 function getMiaTranslation(key, lang) {
   var entry = TRANSLATIONS[key];
-  var activeLang = lang || currentLang || 'en';
+  var activeLang = lang || window.currentLang || CONFIG_DEFAULT_LANG;
   return entry && entry[activeLang] !== undefined ? entry[activeLang] : '';
 }
+
 function buildMiaTranslations(keyMap) {
   var out = { en: {}, vn: {} };
   Object.keys(keyMap).forEach(function(alias) {
@@ -6705,13 +6729,28 @@ function buildMiaTranslations(keyMap) {
   });
   return out;
 }
+
 window.getMiaTranslation = getMiaTranslation;
 window.buildMiaTranslations = buildMiaTranslations;
 
-/* ── Engine ────────────────────────────────────────────────────────────────── */
+// ================================================================
+// CURRENT LANGUAGE - Use config for fallback
+// ================================================================
+
 var currentLang = (function(){
-  try{ return localStorage.getItem('mia_lang')||'en'; }catch(e){ return 'en'; }
+  try { 
+    var saved = localStorage.getItem('mia_lang');
+    if (saved) return saved;
+  } catch(e) { /* ignore */ }
+  return CONFIG_DEFAULT_LANG;
 })();
+
+// Ensure window.currentLang is set
+window.currentLang = currentLang;
+
+// ================================================================
+// SET LANGUAGE FUNCTION
+// ================================================================
 
 function setLang(lang){
     currentLang = lang;
@@ -6729,6 +6768,7 @@ function setLang(lang){
     if(en) en.classList.toggle('active', lang === 'en');
     if(vn) vn.classList.toggle('active', lang === 'vn');
     if(zh) zh.classList.toggle('active', lang === 'zh');
+    
     // Apply translations to the page
     applyTranslations();
 
@@ -6736,30 +6776,31 @@ function setLang(lang){
         try { window.updateMiaCasaChatbotLanguage(lang); } catch(e) {}
     }
   
-  // Re-render dynamic sections - ONLY if the grid exists on this page
-  /* if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
-    renderProperties();  // Remove the false parameter
-  } */
-  if (typeof renderAmenities === 'function') renderAmenities();
-  if (typeof renderBookingSelector === 'function' && document.getElementById('booking-prop-sel')) {
-    renderBookingSelector();
-  }
-  if (typeof activeProp !== 'undefined' && typeof selectProp === 'function' && document.getElementById('properties-grid')) {
-    try { selectProp(activeProp); } catch(e) {}
-}
+    // Re-render dynamic sections
+    if (typeof renderAmenities === 'function') renderAmenities();
+    if (typeof renderBookingSelector === 'function' && document.getElementById('booking-prop-sel')) {
+        renderBookingSelector();
+    }
+    if (typeof activeProp !== 'undefined' && typeof selectProp === 'function' && document.getElementById('properties-grid')) {
+        try { selectProp(activeProp); } catch(e) {}
+    }
   
-  // Update ARIA pressed states on language buttons
-  document.querySelectorAll('.lang-btn').forEach(function(btn) {
-      btn.setAttribute('aria-pressed', 'false');
-  });
-  var activeBtn = document.getElementById('lang-' + lang);
-  if (activeBtn) {
-      activeBtn.setAttribute('aria-pressed', 'true');
-  }
+    // Update ARIA pressed states on language buttons
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.setAttribute('aria-pressed', 'false');
+    });
+    var activeBtn = document.getElementById('lang-' + lang);
+    if (activeBtn) {
+        activeBtn.setAttribute('aria-pressed', 'true');
+    }
   
-  // Force body class or attribute to help with any CSS-based language rules
-  document.documentElement.setAttribute('data-lang', lang);
+    // Force body class or attribute to help with any CSS-based language rules
+    document.documentElement.setAttribute('data-lang', lang);
 }
+
+// ================================================================
+// APPLY TRANSLATIONS TO DOM
+// ================================================================
 
 function applyTranslations(){
     var lang = currentLang;
@@ -6804,13 +6845,12 @@ function applyTranslations(){
         if(e && e[lang]!==undefined) opt.textContent = e[lang];
     });
     
-    // ADD THIS - Re-render properties when language changes
+    // Re-render properties when language changes
     if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
         try {
             renderProperties();
-            console.log('Properties re-rendered after language change');
         } catch(e) {
-            console.warn('Failed to re-render properties:', e.message);
+            // Silently fail
         }
     }
     
@@ -6824,13 +6864,39 @@ function applyTranslations(){
         try{ 
             fn(lang); 
         } catch(e){ 
-            console.warn('hook err:', e.message); 
+            // Silently fail
         } 
     });
 }
 
+// ================================================================
+// TRANSLATION HOOKS SYSTEM
+// ================================================================
+
 var _hooks = [];
-function registerTranslationHook(fn){ _hooks.push(fn); }
+
+function registerTranslationHook(fn){ 
+    _hooks.push(fn); 
+}
+
+// ================================================================
+// EXPOSE FUNCTIONS GLOBALLY
+// ================================================================
+
+window.setLang = setLang;
+window.applyTranslations = applyTranslations;
+window.registerTranslationHook = registerTranslationHook;
+window.getMiaTranslation = getMiaTranslation;
+window.buildMiaTranslations = buildMiaTranslations;
+
+// Expose config language helper
+window.getCurrentLang = function() {
+    return currentLang;
+};
+
+// ================================================================
+// EXISTING HOOKS - Keep your existing hooks
+// ================================================================
 
 // Register hooks for FAQ and Rules translation
 registerTranslationHook(function(lang) {
@@ -6925,11 +6991,15 @@ registerTranslationHook(function(lang) {
   });
 });
 
+// ================================================================
+// INITIALIZATION
+// ================================================================
+
 document.addEventListener('DOMContentLoaded', function(){
-  // Get saved language or default to 'en'
-  var savedLang = 'en';
+  // Get saved language or default from config
+  var savedLang = CONFIG_DEFAULT_LANG;
   try{ 
-    savedLang = localStorage.getItem('mia_lang') || 'en'; 
+    savedLang = localStorage.getItem('mia_lang') || CONFIG_DEFAULT_LANG; 
   } catch(e){}
   
   // Set the language (this will update buttons and content)
@@ -6939,9 +7009,9 @@ document.addEventListener('DOMContentLoaded', function(){
   setTimeout(function() {
     var en = document.getElementById('lang-en');
     var vn = document.getElementById('lang-vn');
-    if(en && vn) {
-      en.classList.toggle('active', currentLang === 'en');
-      vn.classList.toggle('active', currentLang === 'vn');
-    }
+    var zh = document.getElementById('lang-zh');
+    if(en) en.classList.toggle('active', currentLang === 'en');
+    if(vn) vn.classList.toggle('active', currentLang === 'vn');
+    if(zh) zh.classList.toggle('active', currentLang === 'zh');
   }, 50);
 });

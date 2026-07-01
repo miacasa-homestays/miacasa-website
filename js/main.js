@@ -6,6 +6,34 @@
 'use strict';
 
 // ================================================================
+// ENSURE CURRENT LANG - Use config if available
+// ================================================================
+
+if (typeof window.currentLang === 'undefined') {
+  // Try to get from config first
+  if (typeof getCurrentLang === 'function') {
+    window.currentLang = getCurrentLang();
+  } else {
+    window.currentLang = 'en';
+    try {
+      var savedLang = localStorage.getItem('mia_lang');
+      if (savedLang) {
+        window.currentLang = savedLang;
+      }
+    } catch(e) {}
+  }
+}
+
+// ================================================================
+// CONFIG - Use centralized config values
+// ================================================================
+
+// Ensure config is available
+if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'undefined') {
+  window.config = window.MiaCasaConfig;
+}
+
+// ================================================================
 // NAVIGATION
 // ================================================================
 
@@ -256,11 +284,14 @@ function getChatbotReply(message) {
         }
     }
     
+    // Use config for contact info if available
+    const email = window.config?.email || 'miacasahanoi@gmail.com';
     const lang = window.currentLang || 'en';
+    
     if (lang === 'vn') {
-        return 'Cảm ơn! Liên hệ qua miacasahanoi@gmail.com hoặc biểu mẫu Liên hệ. Chúng tôi trả lời trong vòng 2 giờ! 🌿';
+        return `Cảm ơn! Liên hệ qua ${email} hoặc biểu mẫu Liên hệ. Chúng tôi trả lời trong vòng 2 giờ! 🌿`;
     }
-    return 'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿';
+    return `Thanks! Reach us at ${email} or use the Contact form. We reply within 2 hours! 🌿`;
 }
 
 // ================================================================
@@ -355,11 +386,17 @@ function sendWhatsApp() {
     // Validate math captcha before proceeding
     if (!validateCaptcha('contact')) return;
 
+    // Use config values if available
+    const phone = window.config?.phone || '84869922261';
+    const emailAddr = window.config?.email || 'miacasahanoi@gmail.com';
+    const whatsappUrl = window.config?.whatsappUrl || `https://wa.me/${phone}`;
+    
     const text = `Hi MiaCasa! 👋\n\n*Name:* ${name}\n*Email:* ${email || 'not provided'}\n*Property:* ${prop}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
-    const url = 'https://wa.me/84869922261?text=' + encodeURIComponent(text);
+    const url = whatsappUrl + '?text=' + encodeURIComponent(text);
     const opened = window.open(url, '_blank');
+    
     if (!opened) {
-        window.location.href = `mailto:miacasahanoi@gmail.com?subject=${encodeURIComponent('MiaCasa enquiry: ' + subject)}&body=${encodeURIComponent(text)}`;
+        window.location.href = `mailto:${emailAddr}?subject=${encodeURIComponent('MiaCasa enquiry: ' + subject)}&body=${encodeURIComponent(text)}`;
         showContactNotice(currentLang === 'vn' ? 'WhatsApp bị chặn, chúng tôi đã mở email thay thế.' : 'WhatsApp was blocked, so we opened an email fallback instead.');
         return;
     }

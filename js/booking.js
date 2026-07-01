@@ -2,9 +2,37 @@
 // BOOKING.JS - Booking engine with availability check
 // ================================================================
 
+'use strict';
+
+// ================================================================
+// CONFIG - Use centralized config values
+// ================================================================
+
+// Ensure config is available
+if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'undefined') {
+  window.config = window.MiaCasaConfig;
+}
+
+// Get values from config with fallbacks
+const CONFIG_PHONE = window.config?.phone || '84869922261';
+const CONFIG_EMAIL = window.config?.email || 'miacasahanoi@gmail.com';
+const CONFIG_WHATSAPP = window.config?.whatsappUrl || `https://wa.me/${CONFIG_PHONE}`;
+const CONFIG_CURRENCY = window.config?.currency || '₫';
+const CONFIG_CURRENCY_CODE = window.config?.currencyCode || 'VND';
+const CONFIG_DEFAULT_LANG = window.config?.defaultLang || 'en';
+const CONFIG_EXCHANGE_RATE = window.config?.exchangeRate || 25000;
+
+// ================================================================
+// API CONFIGURATION
+// ================================================================
+
 const API_URL = '/api/log-booking';
 const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
 const INCLUDED_GUESTS = 2;
+
+// ================================================================
+// TRANSLATION HELPER
+// ================================================================
 
 function miaT(key, fallback) {
     if (typeof window.getMiaTranslation === 'function') {
@@ -13,6 +41,10 @@ function miaT(key, fallback) {
     }
     return fallback;
 }
+
+// ================================================================
+// PRICES FALLBACK
+// ================================================================
 
 // Make sure PRICES is loaded
 if (typeof PRICES === 'undefined') {
@@ -66,11 +98,11 @@ const PROPERTIES = [
         maxGuests: 8,
         maxGuestsPerRoom: 3,
         rating: '4.9',
-        priceNote: 'From ' + PRICES['hanoi-spring'].toLocaleString() + '₫ / room / night',
+        priceNote: 'From ' + PRICES['hanoi-spring'].toLocaleString() + CONFIG_CURRENCY + ' / room / night',
         vn: {
             badge: 'Phòng có bếp nhỏ',
             desc: 'Ba phòng boho riêng tư — Xuân, Hạ và Thu — mỗi phòng có phòng tắm riêng và bếp nhỏ.',
-            priceNote: 'Từ ' + PRICES['hanoi-spring'].toLocaleString('vi-VN') + '₫ / phòng / đêm',
+            priceNote: 'Từ ' + PRICES['hanoi-spring'].toLocaleString('vi-VN') + CONFIG_CURRENCY + ' / phòng / đêm',
             rooms: ['Phòng Xuân', 'Phòng Hạ', 'Phòng Thu']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg',
@@ -85,11 +117,11 @@ const PROPERTIES = [
         desc: 'A whole apartment in the heart of the Old Quarter. Two beds on the main level and one in the upper attic.',
         maxGuests: 6,
         rating: '4.8',
-        priceNote: 'From ' + PRICES.oldquarter.toLocaleString() + '₫ / night · Base rate for 2 guests',
+        priceNote: 'From ' + PRICES.oldquarter.toLocaleString() + CONFIG_CURRENCY + ' / night · Base rate for 2 guests',
         vn: {
             badge: 'Toàn bộ căn hộ',
             desc: 'Toàn bộ căn hộ giữa lòng Phố Cổ. Hai giường ở tầng chính và một giường ở gác xép phía trên.',
-            priceNote: 'Từ ' + PRICES.oldquarter.toLocaleString('vi-VN') + '₫ / đêm · Giá cơ bản cho 2 khách',
+            priceNote: 'Từ ' + PRICES.oldquarter.toLocaleString('vi-VN') + CONFIG_CURRENCY + ' / đêm · Giá cơ bản cho 2 khách',
             rooms: ['Toàn bộ căn hộ (3 giường đôi)']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
@@ -105,7 +137,7 @@ const PROPERTIES = [
  * This ensures room names and guest counts update when language changes
  */
 function renderBookingFormLanguage() {
-    const lang = window.currentLang || 'en';
+    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     
     // Get the current property
     const prop = PROPERTIES.find(p => p.id === activeProp);
@@ -494,7 +526,8 @@ function getEffectiveFromPrice(propId) {
 function refreshAllPriceDisplays() {
     const hanoiFrom = getEffectiveFromPrice('hanoi');
     const oqFrom    = getEffectiveFromPrice('oldquarter');
-    const lang = window.currentLang || localStorage.getItem('mia_lang') || 'en';
+    const lang = window.currentLang || localStorage.getItem('mia_lang') || CONFIG_DEFAULT_LANG;
+    const currencySymbol = CONFIG_CURRENCY;
 
     // 1. Property selector "from" prices (index.html)
     const selHanoi = document.getElementById('selector-hanoi-price');
@@ -513,8 +546,8 @@ function refreshAllPriceDisplays() {
     // 3. Room cards (miacasa-hanoi.html / miacasa-oldquarter.html)
     document.querySelectorAll('.room-card-price-amount').forEach(el => {
         const prop = el.dataset.prop;
-        if (prop === 'hanoi') el.textContent = hanoiFrom.toLocaleString('vi-VN') + '₫';
-        if (prop === 'oldquarter') el.textContent = oqFrom.toLocaleString('vi-VN') + '₫';
+        if (prop === 'hanoi') el.textContent = hanoiFrom.toLocaleString('vi-VN') + currencySymbol;
+        if (prop === 'oldquarter') el.textContent = oqFrom.toLocaleString('vi-VN') + currencySymbol;
     });
 
     // 4. Save% badges — recalculate against the effective price
@@ -538,9 +571,9 @@ function refreshAllPriceDisplays() {
 
     // 5. Price estimate strip (if present)
     const estHanoi = document.getElementById('price-est-hanoi-val');
-    if (estHanoi) estHanoi.textContent = (hanoiFrom * 2).toLocaleString('vi-VN') + '₫';
+    if (estHanoi) estHanoi.textContent = (hanoiFrom * 2).toLocaleString('vi-VN') + currencySymbol;
     const estOQ = document.getElementById('price-est-oq-val');
-    if (estOQ) estOQ.textContent = (oqFrom * 2).toLocaleString('vi-VN') + '₫';
+    if (estOQ) estOQ.textContent = (oqFrom * 2).toLocaleString('vi-VN') + currencySymbol;
 }
 
 
@@ -569,9 +602,20 @@ function getOverridePrice(room, dateStr) {
     return bestMatch ? bestMatch.price : null;
 }
 
-// UI HELPERS
-function fmtVND(n) { return n.toLocaleString('vi-VN') + '₫'; }
-function fmtUSD(n) { return '$' + (n / 25000).toFixed(0); }
+// ================================================================
+// UI HELPERS - Use config for currency
+// ================================================================
+
+function fmtVND(n) { 
+    const currencySymbol = CONFIG_CURRENCY;
+    return n.toLocaleString('vi-VN') + currencySymbol; 
+}
+
+function fmtUSD(n) { 
+    const rate = CONFIG_EXCHANGE_RATE;
+    return '$' + (n / rate).toFixed(0); 
+}
+
 function fmtDateVN(dateStr) {
     if (!dateStr) return '—';
     const parts = dateStr.split('-');
@@ -600,7 +644,6 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
     
     // Use cache if less than 2 minutes old
     if (cached && (Date.now() - cached.timestamp) < 120000) {
-        //console.log('✓ Using cached availability');
         return cached.data;
     }
     
@@ -630,7 +673,6 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
     }
 }
 
-// Background availability check (does not block UI)
 // Background availability check (does not block UI)
 async function checkAvailabilityInBackground(room, ci, co) {
     if (!room || !ci || !co) return;
@@ -778,7 +820,7 @@ function showCancellationMessage(checkInDate) {
     
     const cancellationDate = new Date(checkInDate);
     cancellationDate.setDate(cancellationDate.getDate() - 2);
-    const lang = window.currentLang || 'en';
+    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     const formattedDate = cancellationDate.toLocaleDateString(lang === 'vn' ? 'vi-VN' : 'en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
     });
@@ -1044,14 +1086,15 @@ function renderProperties() {
     let lang = window.currentLang;
     if (!lang) {
         try {
-            lang = localStorage.getItem('mia_lang') || 'en';
+            lang = localStorage.getItem('mia_lang') || CONFIG_DEFAULT_LANG;
         } catch(e) {
-            lang = 'en';
+            lang = CONFIG_DEFAULT_LANG;
         }
     }
     
     const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
     const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
+    const currencySymbol = CONFIG_CURRENCY;
     
     const properties = [
         {
@@ -1109,7 +1152,7 @@ function renderProperties() {
                 </div>
                 <div class="price-prominent">
                     <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
-                    <span class="amount">${prop.price.toLocaleString()}₫</span>
+                    <span class="amount">${prop.price.toLocaleString()}${currencySymbol}</span>
                     <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
                     <span class="price-save-badge">${prop.saveLabel}</span>
                 </div>
@@ -1126,7 +1169,7 @@ function renderBookingSelector() {
     const sel = document.getElementById('booking-prop-sel');
     if (!sel) return;
     
-    const lang = window.currentLang || 'en';
+    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     sel.innerHTML = '';
     
     PROPERTIES.forEach((p, i) => {
@@ -1152,7 +1195,7 @@ function selectProp(id) {
     if (activeBtn) activeBtn.classList.add('active');
     
     const p = PROPERTIES.find(x => x.id === id);
-    const lang = window.currentLang || 'en';
+    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     
     // CRITICAL FIX: Call renderBookingFormLanguage FIRST to set up the dropdowns with correct language
     // This ensures rooms and guests are displayed in the current language
@@ -1184,12 +1227,10 @@ function selectAndScroll(id) {
     return false;
 }
 
-
-
 // Helper function to format currency (add this near the top of booking.js)
 function formatCurrency(amount, currency) {
-    if (currency === 'VND') {
-        return amount.toLocaleString('vi-VN') + '₫';
+    if (currency === 'VND' || currency === CONFIG_CURRENCY_CODE) {
+        return amount.toLocaleString('vi-VN') + CONFIG_CURRENCY;
     }
     return amount.toLocaleString('en-US') + ' USD';
 }
@@ -1213,7 +1254,6 @@ function generateQRCode() {
 // VIETQR PAYMENT WITH PROOF UPLOAD
 // ================================================================
 
-// Helper: Convert file to base64
 // Helper: Convert file to base64 with compression
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -1263,9 +1303,6 @@ function showTransferDetails() {
 
 // Submit bank transfer proof
 async function submitBankTransferProof() {
-    //console.log('=== submitBankTransferProof START ===');
-    
-    // Log each step
     // On the first submission, validate all fields INCLUDING captcha.
     // On retry (e.g. wrong file type), captcha is already validated so skip it.
     if (!_captchaValidated) {
@@ -1280,40 +1317,30 @@ async function submitBankTransferProof() {
         if (err) { showPayError(err); return; }
     }
     
-    //console.log('Step 2: Checking booking ID...');
     if (!currentBookingId) { 
-        //console.log('No booking ID!');
         showPayError('Booking ID not generated yet. Please select dates first.'); 
         return; 
     }
-    //console.log('Booking ID:', currentBookingId);
     
-    //console.log('Step 3: Getting payment proof file...');
     const fileInput = document.getElementById('payment-proof');
     const file = fileInput?.files[0];
-    //console.log('File selected:', file ? file.name : 'No file');
     
     if (!file) {
-        //console.log('No file uploaded!');
         showPayError(window.currentLang === 'vn' 
             ? 'Vui lòng tải lên ảnh chụp màn hình chuyển khoản.' 
             : 'Please upload a screenshot of your bank transfer.');
         return;
     }
     
-    //console.log('Step 4: Validating file type...');
     if (!file.type.startsWith('image/')) {
-        //console.log('Invalid file type:', file.type);
         showPayError(window.currentLang === 'vn' 
             ? 'Vui lòng tải lên file ảnh (PNG, JPG, JPEG).' 
             : 'Please upload an image file (PNG, JPG, JPEG).');
         return;
     }
     
-    //console.log('Step 5: Validating file size...');
     // Reduce max size to 1MB (from 2MB) since base64 increases size by ~33%
     if (file.size > 1 * 1024 * 1024) {
-        //console.log('File too large:', file.size);
         showPayError(window.currentLang === 'vn' 
             ? 'File ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 1MB.' 
             : 'Image file too large. Please choose an image smaller than 1MB.');
@@ -1329,38 +1356,26 @@ async function submitBankTransferProof() {
     }
     
     try {
-        //console.log('Step 6: Converting file to base64...');
         const base64Image = await fileToBase64(file);
-        //console.log('Base64 conversion complete, length:', base64Image.length);
-        
-        //console.log('Step 7: Collecting booking data...');
         const data = collectBookingData();
-        //console.log('Booking data collected:', { bookingId: data.bookingId, property: data.property, room: data.room });
         
-        //console.log('Step 8: Creating payload...');
         const payload = {
             ...data,
             action: 'createBooking',
             paymentMethod: 'vietqr',
             paymentStatus: 'pending_verification',
             paymentProof: base64Image,
-            language: window.currentLang || 'en',
+            language: window.currentLang || CONFIG_DEFAULT_LANG,
             bookedAt: new Date().toISOString()
         };
         
-        //console.log('Step 9: Calling sheets API...');
         const res = await callSheetsAPI(payload);
-        //console.log('API response:', res);
         
         if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
         
-        //console.log('Step 10: Saving to local storage...');
         saveBookingToLocal({ ...data, paymentStatus: 'pending_verification' });
-        
-        //console.log('Step 11: Showing pending verification message...');
         showPendingVerificationMessage(data);
         
-        //console.log('Step 12: Hiding panels...');
         const qrPanel = document.getElementById('vietqr-panel');
         const paymentSection = document.getElementById('mia-payment-section');
         const priceBox = document.getElementById('mia-price-box');
@@ -1369,10 +1384,7 @@ async function submitBankTransferProof() {
         if (paymentSection) paymentSection.style.display = 'none';
         if (priceBox) priceBox.style.display = 'none';
         
-        //console.log('Step 13: Sending admin notification...');
         await sendAdminPaymentNotification(data);
-        
-        //console.log('=== submitBankTransferProof COMPLETE ===');
         
     } catch (error) {
         console.error('ERROR in submitBankTransferProof:', error);
@@ -2148,3 +2160,84 @@ window.processPayPal = processPayPal;
 window.submitBankTransferProof = submitBankTransferProof;
 window.confirmCashBooking = confirmCashBooking;
 window.renderBookingFormLanguage = renderBookingFormLanguage;
+
+// ================================================================
+// INITIALIZATION
+// ================================================================
+
+function initializeProperties() {
+    if (document.getElementById('properties-grid')) {
+        renderProperties();
+        renderBookingSelector();
+        selectProp('hanoi');
+        setMinDates();
+        updateGuestOptions();
+        updateAvailabilityAndUI();
+    }
+}
+
+function setupPaymentEventListeners() {
+    const paypalTab = document.getElementById('pay-tab-paypal');
+    const vietqrTab = document.getElementById('pay-tab-vietqr');
+    const cashTab = document.getElementById('pay-tab-cash');
+    const paypalPayBtn = document.getElementById('paypal-pay-btn');
+    const vietqrSubmitBtn = document.getElementById('vietqr-submit-btn');
+    const cashConfirmBtn = document.getElementById('cash-confirm-btn');
+    
+    if (paypalTab) paypalTab.onclick = () => selectPayTab('paypal');
+    if (vietqrTab) vietqrTab.onclick = () => selectPayTab('vietqr');
+    if (cashTab) cashTab.onclick = () => selectPayTab('cash');
+    if (paypalPayBtn) paypalPayBtn.onclick = () => processPayPal();
+    if (vietqrSubmitBtn) vietqrSubmitBtn.onclick = () => submitBankTransferProof();
+    if (cashConfirmBtn) cashConfirmBtn.onclick = () => confirmCashBooking();
+}
+
+// Auto-show payment when guest details are filled (non-blocking)
+function setupAutoPayment() {
+    const inputs = ['guest-name', 'guest-email', 'guest-phone-number', 'checkin', 'checkout', 'room-type-sel', 'guests-sel'];
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            // Use debounced version to prevent rapid calls
+            el.addEventListener('change', () => debouncedUpdateAvailability());
+            el.addEventListener('input', () => debouncedUpdateAvailability());
+            el.addEventListener('keyup', () => debouncedUpdateAvailability());
+        }
+    });
+}
+
+// Start everything
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchPriceOverrides(); // load admin price overrides in background
+        initializeProperties();
+        setupPaymentEventListeners();
+        setupAutoPayment();
+    });
+} else {
+    fetchPriceOverrides(); // load admin price overrides in background
+    initializeProperties();
+    setupPaymentEventListeners();
+    setupAutoPayment();
+}
+
+// ================================================================
+// EXPOSE FUNCTIONS GLOBALLY
+// ================================================================
+
+window.renderProperties = renderProperties;
+window.renderBookingSelector = renderBookingSelector;
+window.selectProp = selectProp;
+window.selectAndScroll = selectAndScroll;
+window.updateAvailabilityAndUI = updateAvailabilityAndUI;
+window.updateGuestOptions = updateGuestOptions;
+window.resetBookingForm = resetBookingForm;
+window.selectPayTab = selectPayTab;
+window.generateQRCode = generateQRCode;
+window.processPayPal = processPayPal;
+window.submitBankTransferProof = submitBankTransferProof;
+window.confirmCashBooking = confirmCashBooking;
+window.renderBookingFormLanguage = renderBookingFormLanguage;
+window.fmtVND = fmtVND;
+window.fmtUSD = fmtUSD;
+window.formatCurrency = formatCurrency;
