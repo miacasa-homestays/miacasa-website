@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ============================================================ -->
+<!-- SCROLL BLOCKER - MUST BE FIRST TO PREVENT AUTO-SCROLL -->
+<!-- ============================================================ -->
+<script>
+  (function() {
+    // Force scroll to top immediately
+    window.scrollTo(0, 0);
+    
+    // Disable scroll restoration
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // Remove any hash
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+    
+    // Block ALL scroll attempts
+    let blocked = true;
+    const origScrollTo = window.scrollTo;
+    const origScrollIntoView = Element.prototype.scrollIntoView;
+    
+    // Override scrollTo
+    window.scrollTo = function(x, y) {
+      if (blocked) {
+        origScrollTo.call(this, 0, 0);
+        return;
+      }
+      origScrollTo.apply(this, arguments);
+    };
+    
+    // Override scrollIntoView
+    Element.prototype.scrollIntoView = function(options) {
+      if (blocked) {
+        return;
+      }
+      origScrollIntoView.apply(this, options);
+    };
+    
+    // Block scroll events
+    document.addEventListener('scroll', function(e) {
+      if (blocked && window.scrollY > 0) {
+        window.scrollTo(0, 0);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+    
+    // Unblock after 3 seconds
+    setTimeout(function() {
+      blocked = false;
+    }, 3000);
+  })();
+</script>
+<!-- ============================================================ -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boutique Homestay in Hanoi | MiaCasa Hanoi & Old Quarter</title>
@@ -197,49 +254,14 @@
 </head>
 
 <body>
-<!-- PERMANENT SCROLL BLOCKER - Prevents any scroll before it happens -->
+<!-- SCROLL BLOCKER - Runs instantly -->
 <script>
   (function() {
-    // Store original methods
-    const origScrollTo = window.scrollTo;
-    const origScroll = window.scroll;
-    const origScrollIntoView = Element.prototype.scrollIntoView;
-    
-    // Block ALL scroll attempts
-    let blocked = true;
-    
-    // Override scrollTo
-    window.scrollTo = function(x, y) {
-      if (blocked) {
-        // Always scroll to top
-        origScrollTo.call(this, 0, 0);
-        return;
-      }
-      origScrollTo.apply(this, arguments);
-    };
-    
-    // Override scroll
-    window.scroll = function(x, y) {
-      if (blocked) {
-        return;
-      }
-      origScroll.apply(this, arguments);
-    };
-    
-    // Override scrollIntoView
-    Element.prototype.scrollIntoView = function(options) {
-      if (blocked) {
-        console.log('🚫 Blocked scrollIntoView on:', this.id || 'element');
-        return;
-      }
-      origScrollIntoView.apply(this, arguments);
-    };
-    
-    // Force scroll to top immediately
-    origScrollTo.call(window, 0, 0);
+    // Force scroll to top
+    window.scrollTo(0, 0);
     
     // Disable scroll restoration
-    if ('scrollRestoration' in history) {
+    if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
     
@@ -248,7 +270,27 @@
       history.replaceState(null, '', window.location.pathname);
     }
     
-    // Also prevent scroll events from actually scrolling
+    // Block ALL scroll attempts
+    let blocked = true;
+    const origScrollTo = window.scrollTo;
+    const origScrollIntoView = Element.prototype.scrollIntoView;
+    
+    window.scrollTo = function(x, y) {
+      if (blocked) {
+        origScrollTo.call(this, 0, 0);
+        return;
+      }
+      origScrollTo.apply(this, arguments);
+    };
+    
+    Element.prototype.scrollIntoView = function(options) {
+      if (blocked) {
+        return;
+      }
+      origScrollIntoView.apply(this, options);
+    };
+    
+    // Block scroll events
     document.addEventListener('scroll', function(e) {
       if (blocked && window.scrollY > 0) {
         window.scrollTo(0, 0);
@@ -257,104 +299,13 @@
       }
     }, { passive: false, capture: true });
     
-    // Unblock after 5 seconds (give page time to fully load)
+    // Unblock after 3 seconds
     setTimeout(function() {
       blocked = false;
-      console.log('✅ Scroll unblocked after 5s');
-    }, 5000);
-    
-    // Reset scroll every 10ms for first 2 seconds (smooth top stay)
-    let count = 0;
-    const interval = setInterval(function() {
-      if (window.scrollY > 0) {
-        window.scrollTo(0, 0);
-      }
-      count++;
-      if (count > 200) {
-        clearInterval(interval);
-        console.log('✅ Scroll reset stopped');
-      }
-    }, 10);
-  })();
-</script>
-<!-- ULTIMATE SCROLL FIX -->
-<script>
-  (function() {
-    // 1. Disable scroll restoration
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    
-    // 2. Force scroll to top
-    window.scrollTo(0, 0);
-    
-    // 3. Remove any hash
-    if (window.location.hash) {
-      history.replaceState(null, '', window.location.pathname);
-    }
-    
-    // 4. Block ALL scroll attempts for 3 seconds
-    let blocked = true;
-    
-    // Override all scroll methods
-    const origScrollTo = window.scrollTo;
-    const origScroll = window.scroll;
-    const origScrollIntoView = Element.prototype.scrollIntoView;
-    
-    window.scrollTo = function() {
-      if (blocked) {
-        console.log('🚫 Blocked scrollTo');
-        return;
-      }
-      origScrollTo.apply(this, arguments);
-    };
-    
-    window.scroll = function() {
-      if (blocked) {
-        console.log('🚫 Blocked scroll');
-        return;
-      }
-      origScroll.apply(this, arguments);
-    };
-    
-    Element.prototype.scrollIntoView = function() {
-      if (blocked) {
-        console.log('🚫 Blocked scrollIntoView on:', this.id || 'element');
-        return;
-      }
-      origScrollIntoView.apply(this, arguments);
-    };
-    
-    // 5. Force reset scroll every 10ms for 1 second
-    let count = 0;
-    const resetInterval = setInterval(function() {
-      if (window.scrollY > 0) {
-        window.scrollTo(0, 0);
-        console.log('🔄 Reset scroll to top (', window.scrollY, ')');
-      }
-      count++;
-      if (count > 100) {
-        clearInterval(resetInterval);
-      }
-    }, 10);
-    
-    // 6. Unblock after 3 seconds
-    setTimeout(function() {
-      blocked = false;
-      clearInterval(resetInterval);
-      console.log('✅ Scroll unblocked after 3s');
     }, 3000);
-    
-    // 7. Also intercept scroll events
-    document.addEventListener('scroll', function(e) {
-      if (blocked && window.scrollY > 0) {
-        window.scrollTo(0, 0);
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
   })();
 </script>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <a href="/#booking" class="sticky-book-btn" data-t="sticky-book">
   <span class="flex-center">
@@ -363,6 +314,43 @@
   </span>
 </a>
 
+<!-- Navigation with ARIA support -->
+<nav aria-label="Main navigation" role="navigation">
+  <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
+  
+  <ul class="nav-links" id="primary-nav" role="menubar">
+    <li><a href="/" class="active" aria-current="page" data-t="nav-home">Home</a></li>
+    <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+    <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
+    <li><a href="/blog" data-t="nav-blog">Blog</a></li>
+    <li><a href="/about" data-t="nav-about">About</a></li>
+    <li><a href="/#contact" data-t="nav-contact">Contact</a></li>
+    <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+  </ul>
+  
+  <div class="lang-toggle" role="navigation" aria-label="Language switcher">
+    <button id="lang-en" class="lang-btn active" aria-pressed="true" aria-label="English" onclick="setLang('en')">
+      <span class="flag-icon" aria-hidden="true">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" aria-pressed="false" aria-label="Vietnamese" onclick="setLang('vn')">
+      <span class="flag-icon" aria-hidden="true">🇻🇳</span> VN
+    </button>
+    <button id="lang-zh" class="lang-btn" aria-pressed="false" aria-label="Chinese" onclick="setLang('zh')">
+      <span class="flag-icon" aria-hidden="true">🇨🇳</span> 中文
+    </button>
+  </div>
+  
+  <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main id="main-content" role="main">
+
+<!-- Hero Section -->
+<section class="hero">
+  
 <!-- Navigation with ARIA support -->
 <nav aria-label="Main navigation" role="navigation">
   <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>

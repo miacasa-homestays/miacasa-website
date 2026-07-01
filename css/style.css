@@ -5492,3 +5492,15 @@ html {
     padding: 0.3rem 0.4rem;
   }
 }
+/* Prevent browser auto-scroll */
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  overflow-anchor: none !important;
+}
+
+:target {
+  scroll-margin-top: 9999px !important;
+}
