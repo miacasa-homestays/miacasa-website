@@ -226,103 +226,13 @@
     margin-bottom: 1rem;
   }
 
-  .subscribe-form {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .subscribe-form .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .subscribe-input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.6rem 1rem;
-    border: 1px solid #d9cfbf;
-    border-radius: 6px;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    background: white;
-    color: #2c2416;
-    transition: border-color 0.2s;
-  }
-
-  .subscribe-input:focus {
-    outline: none;
-    border-color: #c17a5a;
-    box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.15);
-  }
-
-  .subscribe-btn {
-    background: #c17a5a;
-    color: white;
+  .subscribe-box iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
     border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 6px;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .subscribe-btn:hover {
-    background: #a85e3e;
-  }
-
-  .subscribe-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .subscribe-gdpr {
-    text-align: left;
-    max-width: 500px;
-    margin: 0.75rem auto 0;
-    font-size: 0.7rem;
-    color: #6b5c47;
-    line-height: 1.6;
-  }
-
-  .subscribe-gdpr label {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-
-  .subscribe-gdpr input[type="checkbox"] {
-    margin-top: 0.15rem;
-    flex-shrink: 0;
-    accent-color: #c17a5a;
-  }
-
-  .subscribe-gdpr .privacy-link {
-    color: #c17a5a;
-    text-decoration: underline;
-  }
-
-  .subscribe-gdpr .privacy-link:hover {
-    color: #a85e3e;
-  }
-
-  .subscribe-message {
-    margin-top: 0.75rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.85rem;
-    min-height: 1.5rem;
-  }
-
-  .subscribe-message.success {
-    color: #065f46;
-  }
-
-  .subscribe-message.error {
-    color: #dc2626;
+    background: transparent;
   }
 
   .subscribe-footer {
@@ -352,14 +262,15 @@
       font-size: 0.75rem;
     }
 
-    .subscribe-form .form-row {
-      flex-direction: column;
-      align-items: center;
+    .subscribe-box iframe {
+      width: 100% !important;
+      height: 400px !important;
     }
+  }
 
-    .subscribe-input {
-      width: 100%;
-      min-width: unset;
+  @media (max-width: 480px) {
+    .subscribe-box iframe {
+      height: 450px !important;
     }
   }
 </style>
@@ -377,7 +288,7 @@
     <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
     <li><a href="/blog" class="active" data-t="nav-blog">Blog</a></li>
     <li><a href="/about" data-t="nav-about">About</a></li>
-    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
+    <li><a href="/#contact" data-t="nav-contact">Contact Us</a></li>
     <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
 
@@ -542,41 +453,22 @@
 
   </div>
 
-    <!-- Brevo Subscription Form (Custom Styled) -->
+  <!-- Brevo Subscription Form (iframe) -->
   <div class="subscribe-box">
     <h3 data-t="subscribe-title">📬 New posts, straight to your inbox</h3>
     <p class="subscribe-text" data-t="subscribe-text">Get Hanoi travel tips and new blog updates. No spam. Unsubscribe anytime.</p>
     
-    <form id="brevo-form" class="subscribe-form" method="POST" action="https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==">
-      <div class="form-row">
-        <input
-          type="email"
-          id="brevo-email"
-          name="EMAIL"
-          placeholder="Enter your email address"
-          required
-          class="subscribe-input">
-        <button
-          type="submit"
-          class="subscribe-btn">
-          Subscribe →
-        </button>
-      </div>
-      
-      <!-- GDPR Consent -->
-      <div class="subscribe-gdpr">
-        <label>
-          <input type="checkbox" id="gdpr-consent" name="gdpr" required>
-          <span data-th="subscribe-gdpr">
-            I agree to receive email updates. Unsubscribe anytime.
-            <br>
-            <small>We use Brevo as our marketing platform. Your data will be processed in accordance with <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener" class="privacy-link">Brevo's Privacy Policy</a>.</small>
-          </span>
-        </label>
-      </div>
-      
-      <div id="subscribe-message" class="subscribe-message"></div>
-    </form>
+    <iframe 
+      width="540" 
+      height="305" 
+      src="https://786ae337.sibforms.com/v2/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==" 
+      frameborder="0" 
+      scrolling="auto" 
+      allowfullscreen 
+      style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; border: none; background: transparent;">
+    </iframe>
+    
+    <p class="subscribe-footer" data-t="subscribe-footer">No spam. Unsubscribe anytime.</p>
   </div>
 
 </main>
@@ -585,7 +477,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <a class="nav-logo" href="/" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
                 <div style="margin-top: 1rem;">
                     <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
@@ -597,7 +489,7 @@
                 <ul>
                     <li><a href="/miacasa-hanoi" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
                     <li><a href="/miacasa-oldquarter" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
-                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                    <li><a href="/#booking" data-t="footer-book-direct">Book Direct</a></li>
                 </ul>
             </div>
             
@@ -607,8 +499,8 @@
                 <li><a href="/our-story" data-t="footer-story">Our Story</a></li>
                 <li><a href="/about" data-t="footer-about">About MiaCasa</a></li>
                 <li><a href="/blog" data-t="footer-blog">Blog</a></li>
-                <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
-                <li><a href="index.html#faq" data-t="footer-faq">FAQ</a></li>
+                <li><a href="/#contact" data-t="footer-contact">Contact</a></li>
+                <li><a href="/#faq" data-t="footer-faq">FAQ</a></li>
               </ul>
             </div>
             
@@ -616,8 +508,8 @@
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
                     <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
-                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
-                    <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp" aria-label="Contact MiaCasa on WhatsApp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" data-t="footer-call" aria-label="Call MiaCasa">Call +84 869 922 261</a></li>
                     <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
             </div>
@@ -625,9 +517,9 @@
         
         <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
             <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
-                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook" aria-label="Follow MiaCasa on Facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram" aria-label="Follow MiaCasa on Instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok" aria-label="Follow MiaCasa on TikTok">TikTok</a>
             </div>
         </div>
         
@@ -647,84 +539,9 @@
   }
 </script>
 
-<script>
-// Brevo Newsletter Subscription (Custom Styled)
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('brevo-form');
-  const emailInput = document.getElementById('brevo-email');
-  const gdprCheckbox = document.getElementById('gdpr-consent');
-  const messageDiv = document.getElementById('subscribe-message');
-
-  // YOUR BREVO FORM URL - Get this from Brevo > Forms > Publish > Embed code
-  const BREVO_FORM_URL = 'https://786ae337.sibforms.com/serve/MUIFAGz4awYfH_tS8g9zTeOqGtMKOAv-5oZSi5srSnaeSW7eks5Aw1QRU5THkk2_SxI2BXFU3wOsfwxxkXbhY0HPhfPevtL3oYWusKwi8_8Ftw3qCuLf2Iobmo2HnivcA4m9bDzm6_bMPV2DJOL4-cTClmlNnUgo9iiMrgmbYpXYMJ4TnOOekCIMLqb7O36d8wYJZxbccmpjCPEK2A==';
-
-  // Helper to get translation
-  function getTranslation(key) {
-    if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[key]) {
-      const lang = window.currentLang || 'en';
-      return TRANSLATIONS[key][lang] || TRANSLATIONS[key]['en'] || key;
-    }
-    return key;
-  }
-
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const email = emailInput.value.trim();
-      
-      // Validate email
-      if (!email || !email.includes('@')) {
-        messageDiv.textContent = getTranslation('subscribe-email-error');
-        messageDiv.className = 'subscribe-message error';
-        return;
-      }
-
-      // Validate GDPR consent
-      if (!gdprCheckbox.checked) {
-        messageDiv.textContent = getTranslation('subscribe-gdpr-error');
-        messageDiv.className = 'subscribe-message error';
-        return;
-      }
-
-      // Disable button and show loading
-      const submitBtn = form.querySelector('.subscribe-btn');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = getTranslation('subscribe-processing');
-      messageDiv.textContent = '';
-      messageDiv.className = 'subscribe-message';
-
-      // Send to Brevo
-      fetch(BREVO_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `EMAIL=${encodeURIComponent(email)}&gdpr=${encodeURIComponent(gdprCheckbox.checked ? 'true' : 'false')}`
-      })
-      .then(() => {
-        messageDiv.textContent = getTranslation('subscribe-success');
-        messageDiv.className = 'subscribe-message success';
-        emailInput.value = '';
-        gdprCheckbox.checked = false;
-      })
-      .catch(() => {
-        messageDiv.textContent = getTranslation('subscribe-error');
-        messageDiv.className = 'subscribe-message error';
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      });
-    });
-  }
-});
-</script>
-
-<a href="index.html?property=hanoi#booking"
+<a href="/?property=hanoi#booking"
    class="floating-book-btn"
+   aria-label="Book your stay at MiaCasa"
    data-t="floating-book">
   📅 Book Now
 </a>
