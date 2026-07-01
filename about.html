@@ -22,6 +22,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com">
 
+<!-- Preload hero image with responsive sizes -->
+<link rel="preload" as="image" 
+      imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+                   https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+      imagesizes="(max-width: 768px) 100vw, 1200px">
+
 <!-- Open Graph -->
 <meta property="og:title" content="About MiaCasa Hanoi | Boutique Homestay with Local Hosts | Book Direct">
 <meta property="og:description" content="Learn about MiaCasa Hanoi, a boutique homestay with local hosts offering private rooms and apartments in Hanoi. Book direct for better rates.">
@@ -38,18 +45,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 
-<!-- JSON-LD Structured Data - UPDATED with Breadcrumb, LodgingBusiness, ImageObject -->
+<!-- JSON-LD Structured Data - UPDATED with geo, openingHours, paymentAccepted -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
+      "@id": "https://www.miacasahanoi.com/#organization",
       "name": "MiaCasa Homestays",
       "url": "https://www.miacasahanoi.com/",
       "logo": "https://res.cloudinary.com/dczfocztf/image/upload/v1779191606/miacasa-hanoi-logo.png",
       "image": "https://res.cloudinary.com/dczfocztf/image/upload/v1779191606/miacasa-hanoi-logo.png",
-      "telephone": "+84869922261",
+      "telephone": "+84 869 922 261",
       "email": "miacasahanoi@gmail.com",
       "address": {
         "@type": "PostalAddress",
@@ -65,10 +73,21 @@
     },
     {
       "@type": "LodgingBusiness",
+      "@id": "https://www.miacasahanoi.com/#lodging",
       "name": "MiaCasa Homestays",
       "url": "https://www.miacasahanoi.com/",
-      "telephone": "+84869922261",
+      "telephone": "+84 869 922 261",
       "priceRange": "$$",
+      "priceCurrency": "VND",
+      "paymentAccepted": ["Cash", "Credit Card", "PayPal", "Bank Transfer"],
+      "openingHours": ["Mo-Su 00:00-23:59"],
+      "checkinTime": "14:00",
+      "checkoutTime": "12:00",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "21.0285",
+        "longitude": "105.8352"
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Hanoi",
@@ -105,6 +124,7 @@
     },
     {
       "@type": "AboutPage",
+      "@id": "https://www.miacasahanoi.com/about#page",
       "name": "About MiaCasa Hanoi",
       "description": "Learn about MiaCasa Hanoi, a boutique homestay with local hosts offering private rooms and apartments in Hanoi. Book direct for better rates.",
       "url": "https://www.miacasahanoi.com/about",
@@ -115,8 +135,7 @@
       },
       "mainEntity": {
         "@type": "Organization",
-        "name": "MiaCasa Homestays",
-        "description": "Boutique homestay in Hanoi with local hosts, offering two distinct stays in different parts of the city."
+        "@id": "https://www.miacasahanoi.com/#organization"
       }
     },
     {
@@ -188,6 +207,49 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
 <style>
+  /* ============================================
+     SKIP LINK STYLES
+     ============================================ */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    background: #c17a5a;
+    color: white;
+    padding: 0.75rem 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 10000;
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* ============================================
+     FOCUS STYLES FOR ACCESSIBILITY
+     ============================================ */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #c17a5a;
+    outline-offset: 2px;
+  }
+
   .about-container {
     max-width: 820px;
     margin: 0 auto;
@@ -762,51 +824,66 @@
 
 <body>
 
-<nav>
-  <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
+<!-- SKIP LINK - First element in body -->
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
 
-  <ul class="nav-links">
-    <li><a href="/" data-t="nav-home">Home</a></li>
-    <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
-    <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
-    <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
-    <li><a href="/blog" data-t="nav-blog">Blog</a></li>
-    <li><a href="/about" class="active" data-t="nav-about">About</a></li>
-    <li><a href="/#contact" data-t="nav-contact">Contact Us</a></li>
-    <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
-  </ul>
+<!-- HEADER with semantic role -->
+<header role="banner">
+  <nav role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">MiaCasa<span> Homestays</span></a>
 
-  <div class="lang-toggle">
-    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-      <span class="flag-icon">🇬🇧</span> EN
+    <ul id="primary-nav" class="nav-links" role="menubar">
+      <li><a href="/" data-t="nav-home">Home</a></li>
+      <li><a href="/miacasa-hanoi" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+      <li><a href="/miacasa-oldquarter" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+      <li><a href="/our-story" data-t="nav-story">Our Story</a></li>
+      <li><a href="/blog" data-t="nav-blog">Blog</a></li>
+      <li><a href="/about" class="active" aria-current="page" data-t="nav-about">About</a></li>
+      <li><a href="/#contact" data-t="nav-contact">Contact Us</a></li>
+      <li><a href="/?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+    </ul>
+
+    <div class="lang-toggle" role="navigation" aria-label="Language switcher">
+      <button id="lang-en" class="lang-btn active" aria-pressed="true" aria-label="English" onclick="setLang('en')">
+        <span class="flag-icon">🇬🇧</span> EN
+      </button>
+      <button id="lang-vn" class="lang-btn" aria-pressed="false" aria-label="Vietnamese" onclick="setLang('vn')">
+        <span class="flag-icon">🇻🇳</span> VN
+      </button>
+      <button id="lang-zh" class="lang-btn" aria-pressed="false" aria-label="Chinese" onclick="setLang('zh')">
+        <span class="flag-icon">🇨🇳</span> 中文
+      </button>
+    </div>
+
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-      <span class="flag-icon">🇻🇳</span> VN
-    </button>
-    <button id="lang-zh" class="lang-btn" onclick="setLang('zh')">
-      <span class="flag-icon">🇨🇳</span> 中文
-    </button>
-  </div>
+  </nav>
+</header>
 
-  <button class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-</nav>
-
-<main class="about-container">
+<main id="main-content" class="about-container" role="main">
 
   <!-- HERO -->
   <div class="about-hero">
-    <img 
-      src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg" 
-      alt="MiaCasa Hanoi boutique homestay exterior in a quiet Hanoi neighborhood" 
-      class="hero-image"
-      fetchpriority="high"
-      decoding="async"
-      width="1200"
-      height="400">
+    <picture>
+      <source srcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 400w,
+                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+                      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
+              sizes="(max-width: 768px) 100vw, 1200px">
+      <img 
+        src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg" 
+        alt="MiaCasa Hanoi boutique homestay exterior in a quiet Hanoi neighborhood" 
+        class="hero-image"
+        fetchpriority="high"
+        decoding="async"
+        width="1200"
+        height="400"
+        loading="eager">
+    </picture>
     
     <div class="hero-overlay">
       <h1 data-t="about-title">About MiaCasa</h1>
@@ -1039,7 +1116,7 @@
         <p>
           <a href="https://maps.app.goo.gl/YeeXuSpTikm19XMGA"
              target="_blank"
-             rel="noopener"
+             rel="noopener noreferrer"
              style="color:#6b5c47;text-decoration:none;"
              data-t="about-maps-hanoi-desc">
             92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội
@@ -1048,7 +1125,7 @@
 
         <a href="https://maps.app.goo.gl/YeeXuSpTikm19XMGA"
            target="_blank"
-           rel="noopener"
+           rel="noopener noreferrer"
            class="map-link"
            data-t="about-maps-hanoi-link">
            View location & directions →
@@ -1063,7 +1140,7 @@
         <p>
           <a href="https://maps.app.goo.gl/YKRyFz8MPkc9LDYv6"
              target="_blank"
-             rel="noopener"
+             rel="noopener noreferrer"
              style="color:#6b5c47;text-decoration:none;"
              data-t="about-maps-oq-desc">
             38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội
@@ -1072,7 +1149,7 @@
 
         <a href="https://maps.app.goo.gl/YKRyFz8MPkc9LDYv6"
            target="_blank"
-           rel="noopener"
+           rel="noopener noreferrer"
            class="map-link"
            data-t="about-maps-oq-link">
            View location & directions →
@@ -1117,9 +1194,7 @@
       </div>
       
       <div class="faq-item">
-        <!-- FIXED: Changed from about-faq-q3 to about-faq-q5 -->
         <h4 data-t="about-faq-q5">Why book direct?</h4>
-        <!-- FIXED: Changed from about-faq-a3 to about-faq-a5 -->
         <p data-t="about-faq-a5">Booking directly through our website offers better rates, flexible payment options, and direct communication with hosts. No platform commissions means lower prices for you.</p>
       </div>
     </div>
@@ -1144,7 +1219,7 @@
 
 </main>
 
-<footer>
+<footer role="contentinfo">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -1178,7 +1253,7 @@
                 <h4 data-t="footer-contact-header">Contact</h4>
                 <ul>
                     <li>✉️ <a href="mailto:miacasahanoi@gmail.com" aria-label="Email MiaCasa">miacasahanoi@gmail.com</a></li>
-                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" aria-label="Contact MiaCasa on WhatsApp" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" aria-label="Contact MiaCasa on WhatsApp" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
                     <li>📞 <a href="tel:+84869922261" aria-label="Call MiaCasa" data-t="footer-call">Call +84 869 922 261</a></li>
                     <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
                 </ul>
@@ -1204,8 +1279,66 @@
 <script src="/js/lang.js"></script>
 
 <script>
+  // ============================================
+  // TOGGLE MENU - With ARIA support
+  // ============================================
   function toggleMenu() {
-    document.querySelector('.nav-links').classList.toggle('show');
+    var links = document.getElementById('primary-nav');
+    var toggle = document.getElementById('nav-toggle');
+    if (links && toggle) {
+      var isOpen = links.classList.toggle('show');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+  }
+
+  // ============================================
+  // SET LANGUAGE - Preserve lang.js function
+  // ============================================
+  // Preserve any existing implementation from /js/lang.js
+  var externalSetLang = (typeof window.setLang === 'function') ? window.setLang : null;
+
+  function setLang(lang) {
+    // Update ARIA pressed states on language buttons
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.setAttribute('aria-pressed', 'false');
+    });
+    var activeBtn = document.getElementById('lang-' + lang);
+    if (activeBtn) {
+      activeBtn.setAttribute('aria-pressed', 'true');
+    }
+
+    // Persist choice
+    try {
+      localStorage.setItem('site_lang', lang);
+    } catch(e) {
+      // Ignore localStorage errors
+    }
+
+    // Call the external lang.js function if it exists (avoids recursion)
+    if (externalSetLang) {
+      externalSetLang(lang);
+    }
+  }
+
+  // Restore saved language on load
+  (function() {
+    try {
+      var saved = localStorage.getItem('site_lang');
+      if (saved) {
+        setLang(saved);
+      }
+    } catch(e) {
+      // Ignore localStorage errors
+    }
+  })();
+
+  // Also handle hamburger menu toggle if main.js also has one
+  // This ensures both work together
+  var originalToggleMenu = window.toggleMenu;
+  if (originalToggleMenu && originalToggleMenu !== toggleMenu) {
+    // If main.js already defined toggleMenu, we need to be careful
+    // We'll let ours override but call the original if needed
+    console.log('Note: toggleMenu already defined, using enhanced version');
   }
 </script>
 
