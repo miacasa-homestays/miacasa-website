@@ -295,20 +295,22 @@ function getChatbotReply(message) {
 }
 
 // ================================================================
-// CONTACT FORM - WhatsApp
-// ================================================================
-
-// ================================================================
-// MATH CAPTCHA
+// MATH CAPTCHA - Enhanced
 // Stores expected answer in a JS closure — never in the DOM.
 // Two independent instances: 'booking' and 'contact'.
 // ================================================================
+
 const _captchaState = {};  // { booking: {a,b}, contact: {a,b} }
+const _captchaAttempts = {}; // Track failed attempts for rate limiting
 
 function generateCaptcha(formId) {
-    const a = Math.floor(Math.random() * 9) + 1;  // 1–9
-    const b = Math.floor(Math.random() * 9) + 1;  // 1–9
+    // Generate numbers between 1-9 for simplicity (no negative numbers)
+    const a = Math.floor(Math.random() * 9) + 1;
+    const b = Math.floor(Math.random() * 9) + 1;
     _captchaState[formId] = { a, b };
+    
+    // Reset attempts counter when new CAPTCHA is generated
+    _captchaAttempts[formId] = 0;
 
     const ids = formId === 'booking'
         ? { n1: 'captcha-num1',         n2: 'captcha-num2',         ans: 'captcha-answer',         err: 'captcha-error'         }
@@ -321,11 +323,20 @@ function generateCaptcha(formId) {
 
     if (n1El)  n1El.textContent  = a;
     if (n2El)  n2El.textContent  = b;
-    if (ansEl) ansEl.value       = '';
-    if (errEl) errEl.textContent = '';
+    if (ansEl) {
+        ansEl.value = '';
+        ansEl.classList.remove('error');
+        ansEl.focus(); // Focus the input for better UX
+    }
+    if (errEl) {
+        errEl.textContent = '';
+        errEl.style.display = 'none';
+    }
+    
+    // Auto-clear after 5 minutes of inactivity
+    autoClearCaptcha(formId);
 }
 
-// Returns true if answer is correct; shows inline error and returns false otherwise.
 function validateCaptcha(formId) {
     const lang = window.currentLang || 'en';
     const ids = formId === 'booking'
@@ -333,43 +344,107 @@ function validateCaptcha(formId) {
         : { ans: 'contact-captcha-answer', err: 'contact-captcha-error' };
 
     const state = _captchaState[formId];
+    const ansEl = document.getElementById(ids.ans);
+    const errEl = document.getElementById(ids.err);
+    
+    // Initialize attempts counter if not exists
+    if (!_captchaAttempts[formId]) {
+        _captchaAttempts[formId] = 0;
+    }
+    
+    // Rate limiting: block after 5 failed attempts
+    if (_captchaAttempts[formId] >= 5) {
+        if (errEl) {
+            errEl.textContent = lang === 'vn'
+                ? 'Quá nhiều lần thử sai. Vui lòng tải lại trang.'
+                : 'Too many failed attempts. Please refresh the page.';
+            errEl.style.display = 'block';
+            errEl.style.color = '#dc2626';
+        }
+        return false;
+    }
     
     if (!state) {
         generateCaptcha(formId);
-        const errEl = document.getElementById(ids.err);
         if (errEl) {
             errEl.textContent = lang === 'vn'
                 ? 'Vui lòng trả lời câu hỏi bảo mật.'
                 : 'Please answer the security question.';
             errEl.style.display = 'block';
+            errEl.style.color = '#dc2626';
         }
         return false;
     }
 
-    const ansEl = document.getElementById(ids.ans);
-    const errEl = document.getElementById(ids.err);
     const userAnswer = parseInt(ansEl?.value, 10);
+    const expectedAnswer = state.a + state.b;
 
-    if (isNaN(userAnswer) || userAnswer !== state.a + state.b) {
+    if (isNaN(userAnswer) || userAnswer !== expectedAnswer) {
+        _captchaAttempts[formId] += 1; // Increment failed attempts
         if (errEl) {
             errEl.textContent = lang === 'vn'
-                ? 'Câu trả lời không đúng. Vui lòng thử lại.'
-                : 'Incorrect answer. Please try again.';
+                ? `Sai câu trả lời. ${state.a} + ${state.b} = ? (${_captchaAttempts[formId]}/5)`
+                : `Incorrect answer. ${state.a} + ${state.b} = ? (${_captchaAttempts[formId]}/5)`;
             errEl.style.display = 'block';
+            errEl.style.color = '#dc2626';
         }
-        generateCaptcha(formId);
+        if (ansEl) {
+            ansEl.classList.add('error');
+            ansEl.value = '';
+            ansEl.focus();
+        }
         return false;
     }
 
+    // Success - clear error
     if (errEl) {
         errEl.textContent = '';
         errEl.style.display = 'none';
     }
+    if (ansEl) {
+        ansEl.classList.remove('error');
+    }
+    // Reset attempts on success
+    _captchaAttempts[formId] = 0;
     return true;
 }
 
+// Auto-clear CAPTCHA after 5 minutes of inactivity
+function autoClearCaptcha(formId) {
+    setTimeout(function() {
+        if (_captchaState[formId]) {
+            const ids = formId === 'booking'
+                ? { ans: 'captcha-answer', err: 'captcha-error' }
+                : { ans: 'contact-captcha-answer', err: 'contact-captcha-error' };
+            const ansEl = document.getElementById(ids.ans);
+            const errEl = document.getElementById(ids.err);
+            if (ansEl) ansEl.value = '';
+            if (errEl) {
+                errEl.textContent = '';
+                errEl.style.display = 'none';
+            }
+            // Reset attempts on timeout
+            _captchaAttempts[formId] = 0;
+        }
+    }, 300000); // 5 minutes
+}
+
+// Auto-clear CAPTCHA on page unload
+window.addEventListener('beforeunload', function() {
+    for (var key in _captchaState) {
+        delete _captchaState[key];
+    }
+    for (var key in _captchaAttempts) {
+        delete _captchaAttempts[key];
+    }
+});
+
 window.generateCaptcha = generateCaptcha;
 window.validateCaptcha  = validateCaptcha;
+
+// ================================================================
+// CONTACT FORM - WhatsApp
+// ================================================================
 
 function sendWhatsApp() {
     const name = document.getElementById('contact-name')?.value?.trim() || '';
@@ -379,7 +454,7 @@ function sendWhatsApp() {
     const message = document.getElementById('contact-message')?.value?.trim() || '';
     
     if (!name || !message) {
-        showContactNotice(currentLang === 'vn' ? 'Vui lòng điền tên và tin nhắn.' : 'Please fill in your name and message.', true);
+        showContactNotice(window.currentLang === 'vn' ? 'Vui lòng điền tên và tin nhắn.' : 'Please fill in your name and message.', true);
         return;
     }
 
@@ -397,7 +472,7 @@ function sendWhatsApp() {
     
     if (!opened) {
         window.location.href = `mailto:${emailAddr}?subject=${encodeURIComponent('MiaCasa enquiry: ' + subject)}&body=${encodeURIComponent(text)}`;
-        showContactNotice(currentLang === 'vn' ? 'WhatsApp bị chặn, chúng tôi đã mở email thay thế.' : 'WhatsApp was blocked, so we opened an email fallback instead.');
+        showContactNotice(window.currentLang === 'vn' ? 'WhatsApp bị chặn, chúng tôi đã mở email thay thế.' : 'WhatsApp was blocked, so we opened an email fallback instead.');
         return;
     }
     
@@ -478,10 +553,8 @@ function populateContactDropdowns() {
             { value: 'Not sure yet', textEn: 'Not sure yet', textVn: 'Chưa chắc chắn' }
         ];
         
-        // Clear existing options (keep first if it's a placeholder)
         propSelect.innerHTML = '';
         
-        // Add options
         properties.forEach(prop => {
             const option = document.createElement('option');
             option.value = prop.value;
@@ -495,8 +568,7 @@ function populateContactDropdowns() {
     if (roomSelect && roomSelect.options.length <= 1) {
         const lang = window.currentLang || 'en';
         
-        // Get the currently selected property from the active button
-        let activeProp = 'hanoi'; // default
+        let activeProp = 'hanoi';
         const activeBtn = document.querySelector('.prop-select-btn.active');
         if (activeBtn && activeBtn.id) {
             const id = activeBtn.id.replace('bsb-', '');
@@ -544,7 +616,6 @@ function updateDropdownsOnLangChange() {
     const roomSelect = document.getElementById('room-type-sel');
     const lang = window.currentLang || 'en';
     
-    // Update property dropdown
     if (propSelect) {
         const properties = [
             { value: 'MiaCasa Hanoi', textEn: 'MiaCasa Hanoi (Near Train Street)', textVn: 'MiaCasa Hà Nội (Gần Phố Tàu)' },
@@ -563,7 +634,6 @@ function updateDropdownsOnLangChange() {
         if (currentValue) propSelect.value = currentValue;
     }
     
-    // Update room dropdown
     const activeProp = window.activeProp || 'hanoi';
     if (roomSelect && roomSelect.options.length <= 1) {
         const lang = window.currentLang || 'en';
@@ -637,12 +707,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
     initScrollReveal();
     checkMaintenanceMode();
-    initFaqAccordion(); // Initialize FAQ accordion
+    initFaqAccordion();
     
-    // Populate contact form dropdowns
     populateContactDropdowns();
     
-    // Initialize CAPTCHA on page load
     if (document.getElementById('captcha-num1')) {
         generateCaptcha('booking');
     }
@@ -650,7 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
         generateCaptcha('contact');
     }
     
-    // Clear CAPTCHA error when user types
     const captchaInput = document.getElementById('captcha-answer');
     if (captchaInput) {
         captchaInput.addEventListener('input', function() {
@@ -673,7 +740,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Refresh CAPTCHA buttons
     const refreshBookingBtn = document.getElementById('refresh-captcha');
     if (refreshBookingBtn) {
         refreshBookingBtn.addEventListener('click', function() {
@@ -688,21 +754,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             document.querySelector('.nav-links')?.classList.remove('show');
         });
     });
     
-    // Close mobile menu on window resize (if screen becomes large)
     window.addEventListener('resize', () => {
         if (window.innerWidth > 900) {
             document.querySelector('.nav-links')?.classList.remove('show');
         }
     });
     
-    // Enter key for chat input
     const chatInput = document.getElementById('chat-input');
     if (chatInput) {
         chatInput.addEventListener('keypress', (e) => {
@@ -714,7 +777,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Register translation hook for dynamic content
 if (typeof registerTranslationHook === 'function') {
     registerTranslationHook(function(lang) {
-        // Update any dynamic elements that need translation
         const backToTop = document.querySelector('.back-to-top');
         if (backToTop) {
             backToTop.setAttribute('aria-label', lang === 'vn' ? 'Lên đầu trang' : 'Back to top');
@@ -726,7 +788,6 @@ if (typeof registerTranslationHook === 'function') {
 // MOBILE NAVIGATION (FAB)
 // ================================================================
 
-// Mobile navigation toggle
 function toggleMobileNav() {
     const menu = document.getElementById('mobileNavMenu');
     if (menu) {
@@ -759,7 +820,6 @@ document.querySelectorAll('.section-nav a, .fab-nav-menu a').forEach(link => {
         if (targetId && targetId !== '#') {
             const target = document.querySelector(targetId);
             if (target) {
-                // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobileNavMenu');
                 if (mobileMenu) {
                     mobileMenu.classList.remove('show');

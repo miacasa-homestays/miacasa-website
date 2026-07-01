@@ -836,21 +836,30 @@
           <div id="contact-captcha" class="captcha-box">
             <div class="captcha-row">
               <div class="captcha-field">
-                <label class="captcha-label">Security Check: What is <span id="contact-captcha-num1">5</span> + <span id="contact-captcha-num2">3</span>?</label>
-                <input type="number" id="contact-captcha-answer" class="captcha-input" placeholder="Enter answer" required>
+                <label class="captcha-label" id="captcha-label-contact">
+                  <span data-t="captcha-label">Security Check: What is</span>
+                  <span id="contact-captcha-num1">5</span>
+                  <span data-t="captcha-plus">+</span>
+                  <span id="contact-captcha-num2">3</span>
+                  <span data-t="captcha-equals">= ?</span>
+                </label>
+                <input type="number" 
+                      id="contact-captcha-answer" 
+                      class="captcha-input" 
+                      placeholder="Enter answer" 
+                      aria-describedby="captcha-error-contact"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required>
               </div>
-              <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')">⟳ Refresh</button>
+              <button type="button" id="refresh-contact-captcha" class="captcha-refresh" onclick="generateCaptcha('contact')" aria-label="Refresh CAPTCHA">⟳ Refresh</button>
             </div>
-            <div id="contact-captcha-error" class="form-error"></div>
-            <p class="captcha-note">⚠️ For production, use server-side validation, reCAPTCHA v3, or hCaptcha. Server must always validate inputs.</p>
+            <div id="contact-captcha-error" class="form-error" role="alert"></div>
+            <!-- Keep the note but make it less prominent -->
+            <div class="captcha-note" style="font-size:0.6rem;color:#999;margin-top:0.25rem;">
+              ⚠️ Server-side validation required for production
+            </div>
           </div>
-          
-          <button type="button" class="btn-primary full-width" id="btn-whatsapp" onclick="sendWhatsApp()" data-t="btn-whatsapp">Send via WhatsApp →</button>
-          <p class="contact-fallback">Prefer email? <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></p>
-          
-          <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm" style="display: none; margin-top: 1rem;" role="status" aria-live="polite">✓ Message sent! We will be in touch soon.</div>
-        </form>
-      </div>
       
     </div>
   </div>
