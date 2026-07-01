@@ -1292,13 +1292,9 @@
   }
 
   // ============================================
-  // SET LANGUAGE - Preserve lang.js function
+  // LANGUAGE TOGGLE - ARIA state management
   // ============================================
-  // Preserve any existing implementation from /js/lang.js
-  var externalSetLang = (typeof window.setLang === 'function') ? window.setLang : null;
-
-  function setLang(lang) {
-    // Update ARIA pressed states on language buttons
+  function updateLanguageAria(lang) {
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.setAttribute('aria-pressed', 'false');
     });
@@ -1306,40 +1302,30 @@
     if (activeBtn) {
       activeBtn.setAttribute('aria-pressed', 'true');
     }
-
-    // Persist choice
-    try {
-      localStorage.setItem('site_lang', lang);
-    } catch(e) {
-      // Ignore localStorage errors
-    }
-
-    // Call the external lang.js function if it exists (avoids recursion)
-    if (externalSetLang) {
-      externalSetLang(lang);
-    }
   }
 
-  // Restore saved language on load
+  // Hook into language changes using registerTranslationHook
   (function() {
-    try {
-      var saved = localStorage.getItem('site_lang');
-      if (saved) {
-        setLang(saved);
-      }
-    } catch(e) {
-      // Ignore localStorage errors
+    // Update ARIA states on page load
+    function initAria() {
+      var currentLang = window.currentLang || 'en';
+      updateLanguageAria(currentLang);
+    }
+
+    // If registerTranslationHook exists, use it
+    if (typeof window.registerTranslationHook === 'function') {
+      window.registerTranslationHook(function(lang) {
+        updateLanguageAria(lang);
+      });
+    }
+
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAria);
+    } else {
+      initAria();
     }
   })();
-
-  // Also handle hamburger menu toggle if main.js also has one
-  // This ensures both work together
-  var originalToggleMenu = window.toggleMenu;
-  if (originalToggleMenu && originalToggleMenu !== toggleMenu) {
-    // If main.js already defined toggleMenu, we need to be careful
-    // We'll let ours override but call the original if needed
-    console.log('Note: toggleMenu already defined, using enhanced version');
-  }
 </script>
 
 <a href="/?property=hanoi#booking"
