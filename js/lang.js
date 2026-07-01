@@ -6748,6 +6748,15 @@ function setLang(lang){
     try { selectProp(activeProp); } catch(e) {}
 }
   
+  // Update ARIA pressed states on language buttons
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.setAttribute('aria-pressed', 'false');
+  });
+  var activeBtn = document.getElementById('lang-' + lang);
+  if (activeBtn) {
+      activeBtn.setAttribute('aria-pressed', 'true');
+  }
+  
   // Force body class or attribute to help with any CSS-based language rules
   document.documentElement.setAttribute('data-lang', lang);
 }
