@@ -1210,6 +1210,10 @@ function selectProp(id) {
         pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
     }
     
+    // Force update of room dropdown and guest options
+    updateGuestOptions();
+    
+    // Update availability UI
     updateAvailabilityAndUI();
 }
 
