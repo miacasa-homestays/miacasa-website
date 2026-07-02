@@ -34,6 +34,90 @@ if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'und
 }
 
 // ================================================================
+// HASH SCROLL HANDLING - Fix for blog CTA links like #booking
+// ================================================================
+
+function initHashScroll() {
+    // Don't interfere with gallery hashes on property pages
+    const isPropertyPage = window.location.pathname.includes('miacasa-hanoi') || 
+                          window.location.pathname.includes('miacasa-oldquarter');
+    
+    // Function to scroll to a hash element
+    function scrollToHashElement(hash, attempts = 0) {
+        if (!hash || hash.length <= 1) return false;
+        
+        // Clean the hash (remove leading # if present)
+        const targetId = hash.startsWith('#') ? hash.substring(1) : hash;
+        const target = document.getElementById(targetId);
+        
+        if (target) {
+            // Calculate position with offset for fixed nav
+            const nav = document.querySelector('nav');
+            const navHeight = nav ? nav.offsetHeight : 80;
+            const targetPosition = target.offsetTop - navHeight - 20;
+            
+            // Smooth scroll to target
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            console.log(`✅ Scrolled to: #${targetId}`);
+            return true;
+        } else if (attempts < 10) {
+            // Retry with increasing delay
+            setTimeout(() => {
+                scrollToHashElement(hash, attempts + 1);
+            }, (attempts + 1) * 150);
+            return false;
+        } else {
+            console.warn(`⚠️ Could not find element: #${targetId}`);
+            return false;
+        }
+    }
+    
+    // Check if we have a hash in the URL
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+        // Only handle booking hashes (or any hash on non-property pages)
+        if (hash === '#booking' || hash === '#contact' || !isPropertyPage) {
+            console.log(`📍 Hash detected: ${hash}, scrolling...`);
+            
+            // Set scroll restoration to manual to prevent interference
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            
+            // Start scrolling attempts
+            setTimeout(() => {
+                scrollToHashElement(hash);
+            }, 300);
+            
+            // Also try after window fully loads
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    scrollToHashElement(hash);
+                }, 500);
+            });
+        }
+    }
+    
+    // Listen for hash changes (user clicking links)
+    window.addEventListener('hashchange', function() {
+        const newHash = window.location.hash;
+        if (newHash && newHash.length > 1) {
+            // Don't interfere with gallery hashes on property pages
+            if (newHash === '#booking' || newHash === '#contact' || !isPropertyPage) {
+                console.log(`🔗 Hash changed to: ${newHash}`);
+                setTimeout(() => {
+                    scrollToHashElement(newHash);
+                }, 200);
+            }
+        }
+    });
+}
+
+// ================================================================
 // NAVIGATION
 // ================================================================
 
@@ -756,18 +840,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // PREVENT BROWSER SCROLL RESTORATION - ONLY ON HOMEPAGE
     // ============================================================
     // Only run this on the homepage, not on subpages
-    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-        // Force scroll to top
+    // Check if we're on the homepage and there's no hash
+    const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const hasHash = window.location.hash && window.location.hash.length > 1;
+    
+    if (isHomepage && !hasHash) {
+        // Force scroll to top only when no hash is present
         window.scrollTo(0, 0);
         
         // Disable scroll restoration
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
-        }
-        
-        // Remove any hash from URL (only on homepage)
-        if (window.location.hash) {
-            history.replaceState(null, '', window.location.pathname);
         }
         
         // Check again after a tiny delay
@@ -776,7 +859,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.scrollTo(0, 0);
             }
         }, 50);
-}
+    }
+    
+    // ============================================================
+    // INITIALIZE HASH SCROLL HANDLING (Fixes blog CTA links)
+    // ============================================================
+    initHashScroll();
     
     // ============================================================
     // INITIALIZE SECTION NAVIGATION
