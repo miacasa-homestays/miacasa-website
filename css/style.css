@@ -5504,3 +5504,16 @@ body {
 :target {
   scroll-margin-top: 9999px !important;
 }
+/* Prevent browser scroll restoration */
+:target {
+    scroll-margin-top: 9999px !important;
+}
+
+html {
+    overflow-anchor: none !important;
+    scroll-behavior: auto !important;
+}
+
+body.loaded :target {
+    scroll-margin-top: 0 !important;
+}

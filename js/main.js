@@ -699,25 +699,33 @@ function initFaqAccordion() {
 }
 
 // ================================================================
-// INITIALIZATION - UPDATED WITH SCROLL FIXES
+// INITIALIZATION - CLEAN VERSION (No scroll blockers)
 // ================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
     // ============================================================
-    // PREVENT AUTO-SCROLL ON PAGE LOAD
+    // PREVENT BROWSER SCROLL RESTORATION ON HOMEPAGE
     // ============================================================
-    
-    // Force scroll to top
-    window.scrollTo(0, 0);
-    
-    // Remove any hash from URL
-    if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname);
-    }
-    
-    // Disable scroll restoration
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        // Force scroll to top
+        window.scrollTo(0, 0);
+        
+        // Disable scroll restoration
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        // Remove any hash from URL
+        if (window.location.hash) {
+            history.replaceState(null, '', window.location.pathname);
+        }
+        
+        // Check again after a tiny delay
+        setTimeout(function() {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, 0);
+            }
+        }, 50);
     }
     
     // ============================================================
@@ -793,22 +801,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Enter') sendChat();
         });
     }
-    
-    // ============================================================
-    // FINAL SCROLL FIX - Check and reset after everything loads
-    // ============================================================
-    
-    // Check and reset scroll every 100ms for 3 seconds
-    let checkCount = 0;
-    const scrollCheck = setInterval(function() {
-        if (window.scrollY > 0) {
-            window.scrollTo(0, 0);
-        }
-        checkCount++;
-        if (checkCount > 30) { // 3 seconds
-            clearInterval(scrollCheck);
-        }
-    }, 100);
 });
 
 // Register translation hook for dynamic content
