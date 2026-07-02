@@ -211,51 +211,78 @@ function initCalendars() {
 
 // Centralized function to restore scroll to a hash
 function restoreScrollToHash(hash) {
-    if (!hash || hash.length <= 1) return;
+    if (!hash || hash.length <= 1) return false;
     
     console.log('📍 Attempting to scroll to:', hash);
     
     // Try to find the element
     const target = document.querySelector(hash);
     if (target) {
-        // Use scrollIntoView with smooth behavior
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        console.log('✅ Scrolled to:', hash);
+        // Get the element's position
+        const rect = target.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetPosition = rect.top + scrollTop;
+        
+        // Use window.scrollTo for more reliable scrolling
+        window.scrollTo({
+            top: targetPosition - 20, // Small offset for better visibility
+            behavior: 'smooth'
+        });
+        
+        console.log('✅ Scrolled to:', hash, 'Position:', targetPosition);
         return true;
     } else {
+        console.warn('⚠️ Element not found for hash:', hash);
         // Fallback: set the hash directly
         window.location.hash = hash;
-        console.log('🔄 Reapplied hash:', hash);
         return false;
     }
 }
 
 // Function to handle scroll restoration with retries
-function ensureScrollToHash(hash, maxAttempts = 5) {
+function ensureScrollToHash(hash, maxAttempts = 10) {
     if (!hash || hash.length <= 1) return;
     
     let attempts = 0;
+    let success = false;
     
     function tryScroll() {
         attempts++;
-        const success = restoreScrollToHash(hash);
+        success = restoreScrollToHash(hash);
         
         if (!success && attempts < maxAttempts) {
             console.log(`🔄 Retry ${attempts}/${maxAttempts} for hash:`, hash);
-            setTimeout(tryScroll, attempts * 100); // Increasing delay
+            setTimeout(tryScroll, attempts * 200); // Increasing delay
         } else if (success) {
             // Reset scroll restoration after successful scroll
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'auto';
             }
             console.log('✅ Scroll restoration complete for:', hash);
+            
+            // Double-check the scroll position after a moment
+            setTimeout(() => {
+                const target = document.querySelector(hash);
+                if (target) {
+                    const rect = target.getBoundingClientRect();
+                    if (rect.top < 0 || rect.top > window.innerHeight) {
+                        console.log('🔄 Re-checking scroll position for:', hash);
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        const targetPosition = rect.top + scrollTop;
+                        window.scrollTo({
+                            top: targetPosition - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }, 300);
         } else {
             console.log('⚠️ Could not scroll to hash after max attempts:', hash);
         }
     }
     
     // Start the first attempt after a small delay
-    setTimeout(tryScroll, 50);
+    setTimeout(tryScroll, 100);
 }
 
 function switchCalendar(id, activeTab) {
@@ -292,7 +319,7 @@ function refreshCalendars() {
     if (hasHash) {
         setTimeout(() => {
             ensureScrollToHash(currentHash);
-        }, 150);
+        }, 200);
     }
 }
 
@@ -380,12 +407,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // Wait for calendar to initialize first
         setTimeout(() => {
             ensureScrollToHash(hash);
-        }, 200);
+        }, 300);
         
         // Also try again after a longer delay for safety
         setTimeout(() => {
             ensureScrollToHash(hash);
-        }, 500);
+        }, 600);
+        
+        // And one more time after all resources are loaded
+        setTimeout(() => {
+            ensureScrollToHash(hash);
+        }, 1000);
+    }
+});
+
+// Also run when the page is fully loaded (including images)
+window.addEventListener('load', function() {
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+        console.log('🔄 Window fully loaded, ensuring scroll to:', hash);
+        setTimeout(() => {
+            ensureScrollToHash(hash);
+        }, 200);
     }
 });
 
@@ -418,5 +461,32 @@ window.addEventListener('hashchange', function() {
         }
     }
 });
+
+// Force a scroll check every second for the first 5 seconds
+// This catches any late-loading content that might shift the page
+let checkCount = 0;
+const scrollCheckInterval = setInterval(function() {
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+        const target = document.querySelector(hash);
+        if (target) {
+            const rect = target.getBoundingClientRect();
+            // If the target is not in view, scroll to it
+            if (rect.top < 0 || rect.top > window.innerHeight * 0.8) {
+                console.log('🔄 Periodic check: scrolling to', hash);
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                window.scrollTo({
+                    top: rect.top + scrollTop - 20,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+    checkCount++;
+    if (checkCount >= 5) {
+        clearInterval(scrollCheckInterval);
+        console.log('🛑 Periodic scroll checks completed');
+    }
+}, 1000);
 
 console.log('calendar.js loaded');
