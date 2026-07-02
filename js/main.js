@@ -753,8 +753,9 @@ function initSectionNavigation() {
 
 document.addEventListener('DOMContentLoaded', function() {
     // ============================================================
-    // PREVENT BROWSER SCROLL RESTORATION ON HOMEPAGE
+    // PREVENT BROWSER SCROLL RESTORATION - ONLY ON HOMEPAGE
     // ============================================================
+    // Only run this on the homepage, not on subpages
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
         // Force scroll to top
         window.scrollTo(0, 0);
@@ -764,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
             history.scrollRestoration = 'manual';
         }
         
-        // Remove any hash from URL
+        // Remove any hash from URL (only on homepage)
         if (window.location.hash) {
             history.replaceState(null, '', window.location.pathname);
         }
@@ -775,7 +776,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.scrollTo(0, 0);
             }
         }, 50);
-    }
+}
     
     // ============================================================
     // INITIALIZE SECTION NAVIGATION
