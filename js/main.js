@@ -699,6 +699,43 @@ function initFaqAccordion() {
 }
 
 // ================================================================
+// SECTION NAVIGATION - SCROLL TO SECTION (FIX)
+// ================================================================
+
+function initSectionNavigation() {
+    document.querySelectorAll('.section-nav a, .fab-nav-menu a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                var target = document.querySelector(targetId);
+                if (target) {
+                    // Close mobile menu if open
+                    var mobileMenu = document.getElementById('mobileNavMenu');
+                    if (mobileMenu) {
+                        mobileMenu.classList.remove('show');
+                        mobileMenu.setAttribute('hidden', '');
+                    }
+                    
+                    // Calculate scroll position with nav offset
+                    var nav = document.querySelector('nav');
+                    var navHeight = nav ? nav.offsetHeight : 80;
+                    var targetPosition = target.offsetTop - navHeight;
+                    
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// ================================================================
 // INITIALIZATION - CLEAN VERSION (No scroll blockers)
 // ================================================================
 
@@ -727,6 +764,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 50);
     }
+    
+    // ============================================================
+    // INITIALIZE SECTION NAVIGATION
+    // ============================================================
+    initSectionNavigation();
     
     // ============================================================
     // REST OF INITIALIZATION
@@ -783,21 +825,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
             document.querySelector('.nav-links')?.classList.remove('show');
         });
     });
     
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function() {
         if (window.innerWidth > 900) {
             document.querySelector('.nav-links')?.classList.remove('show');
         }
     });
     
-    const chatInput = document.getElementById('chat-input');
+    var chatInput = document.getElementById('chat-input');
     if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
+        chatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') sendChat();
         });
     }
@@ -806,7 +848,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Register translation hook for dynamic content
 if (typeof registerTranslationHook === 'function') {
     registerTranslationHook(function(lang) {
-        const backToTop = document.querySelector('.back-to-top');
+        var backToTop = document.querySelector('.back-to-top');
         if (backToTop) {
             backToTop.setAttribute('aria-label', lang === 'vn' ? 'Lên đầu trang' : 'Back to top');
         }
@@ -818,9 +860,9 @@ if (typeof registerTranslationHook === 'function') {
 // ================================================================
 
 function toggleMobileNav() {
-    const menu = document.getElementById('mobileNavMenu');
+    var menu = document.getElementById('mobileNavMenu');
     if (menu) {
-        const isHidden = menu.hasAttribute('hidden');
+        var isHidden = menu.hasAttribute('hidden');
         if (isHidden) {
             menu.removeAttribute('hidden');
             menu.classList.add('show');
@@ -833,59 +875,37 @@ function toggleMobileNav() {
 
 // Close mobile nav when clicking outside
 document.addEventListener('click', function(event) {
-    const fabNav = document.querySelector('.fab-nav');
-    const menu = document.getElementById('mobileNavMenu');
+    var fabNav = document.querySelector('.fab-nav');
+    var menu = document.getElementById('mobileNavMenu');
     if (fabNav && menu && !fabNav.contains(event.target) && menu.classList.contains('show')) {
         menu.classList.remove('show');
         menu.setAttribute('hidden', '');
     }
 });
 
-// Smooth scroll for navigation links
-document.querySelectorAll('.section-nav a, .fab-nav-menu a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId !== '#') {
-            const target = document.querySelector(targetId);
-            if (target) {
-                const mobileMenu = document.getElementById('mobileNavMenu');
-                if (mobileMenu) {
-                    mobileMenu.classList.remove('show');
-                    mobileMenu.setAttribute('hidden', '');
-                }
-                
-                const offset = 80;
-                const targetPosition = target.offsetTop - offset;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    });
-});
+// ================================================================
+// SCROLL SPY - Highlight active section in nav
+// ================================================================
 
-// Scroll spy - highlight active section in nav
 function updateActiveNav() {
-    const sections = document.querySelectorAll('section[id], .nav-anchor');
-    const navLinks = document.querySelectorAll('.section-nav a, .fab-nav-menu a');
+    var sections = document.querySelectorAll('section[id], .nav-anchor');
+    var navLinks = document.querySelectorAll('.section-nav a, .fab-nav-menu a');
     
-    let current = '';
-    const scrollPosition = window.scrollY + 100;
+    var current = '';
+    var scrollPosition = window.scrollY + 100;
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + 100;
+    sections.forEach(function(section) {
+        var sectionTop = section.offsetTop;
+        var sectionBottom = sectionTop + section.offsetHeight;
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
             current = section.getAttribute('id');
         }
     });
     
-    navLinks.forEach(link => {
+    navLinks.forEach(function(link) {
         link.classList.remove('active');
-        const href = link.getAttribute('href');
-        if (href && href === `#${current}`) {
+        var href = link.getAttribute('href');
+        if (href && href === '#' + current) {
             link.classList.add('active');
         }
     });

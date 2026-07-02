@@ -5517,3 +5517,136 @@ html {
 body.loaded :target {
     scroll-margin-top: 0 !important;
 }
+/* ================================================================
+   SECTION NAVIGATION - FIXES FOR SCROLL BUTTONS
+   ================================================================ */
+
+/* Ensure section nav links are clickable and visible */
+.section-nav a {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Active state for section nav */
+.section-nav a.active {
+    background: var(--terracotta, #c17a5a);
+    color: white;
+    border-color: var(--terracotta, #c17a5a);
+}
+
+/* Smooth scroll behavior - only on user interaction */
+html {
+    scroll-behavior: auto !important;
+}
+
+/* Prevent browser scroll restoration on homepage */
+:target {
+    scroll-margin-top: 9999px !important;
+}
+
+body.loaded :target {
+    scroll-margin-top: 0 !important;
+}
+
+/* Prevent anchor from being hidden behind fixed nav */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
+/* For mobile - adjust scroll margin */
+@media (max-width: 768px) {
+    section[id] {
+        scroll-margin-top: 70px;
+    }
+}
+
+/* Ensure section nav is always on top and clickable */
+.section-nav {
+    position: sticky;
+    top: 70px;
+    z-index: 90;
+    background: rgba(250, 246, 240, 0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0 0 1rem 0;
+}
+
+.section-nav a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    background: white;
+    border: 1px solid var(--border);
+}
+
+.section-nav a:hover,
+.section-nav a.active {
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+}
+
+/* Fix for FAB mobile navigation */
+.fab-nav-menu a {
+    cursor: pointer;
+    user-select: none;
+}
+
+.fab-nav-menu a.active {
+    background: var(--terracotta);
+    color: white;
+}
+
+/* Prevent scroll issues on mobile */
+@media (max-width: 768px) {
+    .section-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0.4rem;
+        padding: 0.5rem 0.75rem;
+        top: 60px;
+    }
+    
+    .section-nav::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .section-nav a {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+/* Add loaded class for scroll margin fix */
+body.loaded :target {
+    scroll-margin-top: 0 !important;
+}
+
+/* Also apply scroll margin to booking section specifically */
+#booking {
+    scroll-margin-top: 80px;
+}
+
+@media (max-width: 768px) {
+    #booking {
+        scroll-margin-top: 70px;
+    }
+}
