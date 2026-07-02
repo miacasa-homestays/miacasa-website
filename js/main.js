@@ -708,8 +708,20 @@ function initSectionNavigation() {
             e.preventDefault();
             e.stopPropagation();
             
-            var targetId = this.getAttribute('href');
-            if (targetId && targetId !== '#') {
+            var href = this.getAttribute('href');
+            if (href && href !== '#') {
+                // Extract the ID from href
+                var targetId = href;
+                // Handle "/#booking" format
+                if (targetId.includes('/#')) {
+                    targetId = targetId.split('/#')[1];
+                    targetId = '#' + targetId;
+                }
+                // If it doesn't start with #, add it
+                if (!targetId.startsWith('#')) {
+                    targetId = '#' + targetId;
+                }
+                
                 var target = document.querySelector(targetId);
                 if (target) {
                     // Close mobile menu if open
@@ -905,8 +917,19 @@ function updateActiveNav() {
     navLinks.forEach(function(link) {
         link.classList.remove('active');
         var href = link.getAttribute('href');
-        if (href && href === '#' + current) {
-            link.classList.add('active');
+        if (href) {
+            // Extract ID from href (handle both "#booking" and "/#booking")
+            var linkId = href;
+            if (linkId.includes('/#')) {
+                linkId = linkId.split('/#')[1];
+                linkId = '#' + linkId;
+            }
+            if (!linkId.startsWith('#')) {
+                linkId = '#' + linkId;
+            }
+            if (linkId === '#' + current) {
+                link.classList.add('active');
+            }
         }
     });
 }
