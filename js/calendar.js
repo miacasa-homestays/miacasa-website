@@ -88,8 +88,8 @@ const ROOM_CALS = [
     }
 ];
 
-// Save reference to original initCalendars
-const originalInitCalendars = window.initCalendars || function() {};
+// Global flag to track if calendar has initialized
+let calendarInitialized = false;
 
 function initCalendars() {
     console.log('initCalendars called');
@@ -198,31 +198,64 @@ function initCalendars() {
         calFramesCont.appendChild(panel);
     });
     
+    // Mark as initialized
+    calendarInitialized = true;
+    
     // Restore scroll position after calendar initialization
     if (hasHash) {
         console.log('🔄 Restoring scroll after calendar init for hash:', currentHash);
-        // Use multiple attempts to ensure the scroll happens
-        const restoreScroll = () => {
-            const target = document.querySelector(currentHash);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                console.log('📍 Scrolled to:', currentHash);
-            } else {
-                // If element not found, try to set the hash
-                window.location.hash = currentHash;
-                console.log('📍 Reapplied hash:', currentHash);
-            }
-            // Reset scroll restoration after scrolling
+        // Use a more robust approach with multiple attempts
+        restoreScrollToHash(currentHash);
+    }
+}
+
+// Centralized function to restore scroll to a hash
+function restoreScrollToHash(hash) {
+    if (!hash || hash.length <= 1) return;
+    
+    console.log('📍 Attempting to scroll to:', hash);
+    
+    // Try to find the element
+    const target = document.querySelector(hash);
+    if (target) {
+        // Use scrollIntoView with smooth behavior
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        console.log('✅ Scrolled to:', hash);
+        return true;
+    } else {
+        // Fallback: set the hash directly
+        window.location.hash = hash;
+        console.log('🔄 Reapplied hash:', hash);
+        return false;
+    }
+}
+
+// Function to handle scroll restoration with retries
+function ensureScrollToHash(hash, maxAttempts = 5) {
+    if (!hash || hash.length <= 1) return;
+    
+    let attempts = 0;
+    
+    function tryScroll() {
+        attempts++;
+        const success = restoreScrollToHash(hash);
+        
+        if (!success && attempts < maxAttempts) {
+            console.log(`🔄 Retry ${attempts}/${maxAttempts} for hash:`, hash);
+            setTimeout(tryScroll, attempts * 100); // Increasing delay
+        } else if (success) {
+            // Reset scroll restoration after successful scroll
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'auto';
             }
-        };
-        
-        // Try multiple times with increasing delays
-        setTimeout(restoreScroll, 50);
-        setTimeout(restoreScroll, 150);
-        setTimeout(restoreScroll, 300);
+            console.log('✅ Scroll restoration complete for:', hash);
+        } else {
+            console.log('⚠️ Could not scroll to hash after max attempts:', hash);
+        }
     }
+    
+    // Start the first attempt after a small delay
+    setTimeout(tryScroll, 50);
 }
 
 function switchCalendar(id, activeTab) {
@@ -239,7 +272,8 @@ function switchCalendar(id, activeTab) {
     // Restore hash after switching tabs
     if (hasHash) {
         requestAnimationFrame(() => {
-            window.location.hash = currentHash;
+            // Use the robust scroll restoration
+            ensureScrollToHash(currentHash);
             console.log('📍 Restored hash after tab switch:', currentHash);
         });
     }
@@ -250,12 +284,15 @@ function refreshCalendars() {
     console.log('Refreshing calendars due to language change');
     // Store hash before refresh
     const currentHash = window.location.hash;
+    const hasHash = currentHash && currentHash.length > 1;
+    
     initCalendars();
-    // Restore hash after refresh
-    if (currentHash && currentHash.length > 1) {
+    
+    // Restore hash after refresh with robust scrolling
+    if (hasHash) {
         setTimeout(() => {
-            window.location.hash = currentHash;
-        }, 100);
+            ensureScrollToHash(currentHash);
+        }, 150);
     }
 }
 
@@ -328,8 +365,29 @@ function addMobileCalendarStyles() {
     document.head.appendChild(style);
 }
 
+// ================================================================
+// INITIALIZATION AND EVENT LISTENERS
+// ================================================================
+
 // Call this when the page loads
-document.addEventListener('DOMContentLoaded', addMobileCalendarStyles);
+document.addEventListener('DOMContentLoaded', function() {
+    addMobileCalendarStyles();
+    
+    // If we have a hash, ensure we scroll to it after everything loads
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+        console.log('🎯 DOM ready, ensuring scroll to:', hash);
+        // Wait for calendar to initialize first
+        setTimeout(() => {
+            ensureScrollToHash(hash);
+        }, 200);
+        
+        // Also try again after a longer delay for safety
+        setTimeout(() => {
+            ensureScrollToHash(hash);
+        }, 500);
+    }
+});
 
 // Listen for language change events
 window.addEventListener('languageChanged', function(e) {
@@ -342,6 +400,22 @@ window.addEventListener('storage', function(e) {
     if (e.key === 'mia_lang') {
         console.log('Storage event - language changed to:', e.newValue);
         setTimeout(refreshCalendars, 100);
+    }
+});
+
+// Listen for hash changes (user clicking on navigation links)
+window.addEventListener('hashchange', function() {
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+        console.log('🔗 Hash changed to:', hash);
+        // If calendar hasn't initialized yet, wait
+        if (!calendarInitialized) {
+            setTimeout(() => {
+                ensureScrollToHash(hash);
+            }, 300);
+        } else {
+            ensureScrollToHash(hash);
+        }
     }
 });
 
