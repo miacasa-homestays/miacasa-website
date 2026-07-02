@@ -1169,15 +1169,29 @@ function renderBookingSelector() {
     const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     sel.innerHTML = '';
     
+    // Check URL for property parameter to set initial active state
+    const urlParams = new URLSearchParams(window.location.search);
+    const propertyParam = urlParams.get('property');
+    const shouldSelectOldQuarter = (propertyParam === 'oldquarter');
+    
     PROPERTIES.forEach((p, i) => {
         const badge = getField(p, 'badge', lang);
         const btn = document.createElement('button');
-        // First property (index 0) gets 'active' class
-        btn.className = 'prop-select-btn' + (i === 0 ? ' active' : '');
+        
+        // Set active based on URL parameter, not just index
+        let isActive = false;
+        if (shouldSelectOldQuarter && p.id === 'oldquarter') {
+            isActive = true;
+        } else if (!shouldSelectOldQuarter && i === 0) {
+            isActive = true;
+        }
+        
+        btn.className = 'prop-select-btn' + (isActive ? ' active' : '');
         btn.id = 'bsb-' + p.id;
         btn.onclick = () => selectProp(p.id);
         btn.innerHTML = `<span class="pbn">${p.name}</span><span class="pbs">${badge} · ${p.rating}★</span>`;
         sel.appendChild(btn);
+        console.log(`🔘 Created button: ${btn.id}, active: ${isActive}`);
     });
 }
 
@@ -1186,21 +1200,37 @@ function renderBookingSelector() {
 // ================================================================
 
 function selectProp(id) {
+    console.log('🏠 selectProp called with id:', id);
+    console.log('📍 Current activeProp before:', activeProp);
+    
     activeProp = id;
     document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
     const activeBtn = document.getElementById('bsb-' + id);
-    if (activeBtn) activeBtn.classList.add('active');
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        console.log('✅ Active button found and activated:', activeBtn.id);
+    } else {
+        console.warn('⚠️ Active button not found for id:', id);
+        // Try to find it again after a small delay
+        setTimeout(() => {
+            const retryBtn = document.getElementById('bsb-' + id);
+            if (retryBtn) {
+                retryBtn.classList.add('active');
+                console.log('✅ Retry: Active button activated:', retryBtn.id);
+            }
+        }, 100);
+    }
     
     // Update URL with property parameter (but don't reload)
     const url = new URL(window.location);
     url.searchParams.set('property', id);
     window.history.replaceState({}, '', url);
+    console.log('🔗 URL updated to:', url.toString());
     
     const p = PROPERTIES.find(x => x.id === id);
     const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     
     // CRITICAL FIX: Call renderBookingFormLanguage FIRST to set up the dropdowns with correct language
-    // This ensures rooms and guests are displayed in the current language
     renderBookingFormLanguage();
     
     // Then update the pricing note separately
@@ -1210,10 +1240,6 @@ function selectProp(id) {
         pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
     }
     
-    // Force update of room dropdown and guest options
-    updateGuestOptions();
-    
-    // Update availability UI
     updateAvailabilityAndUI();
 }
 
@@ -2097,6 +2123,9 @@ async function processPayPal() {
 // ================================================================
 
 function initializeProperties() {
+    console.log('🔍 initializeProperties called');
+    console.log('📍 Current URL:', window.location.href);
+    
     if (document.getElementById('properties-grid')) {
         renderProperties();
         renderBookingSelector();
@@ -2104,7 +2133,7 @@ function initializeProperties() {
         // Check URL for property parameter
         const urlParams = new URLSearchParams(window.location.search);
         const propertyParam = urlParams.get('property');
-        console.log('🔍 initializeProperties - property param:', propertyParam); // Debug log
+        console.log('📌 Property parameter from URL:', propertyParam);
         
         // Set active property based on URL parameter, default to 'hanoi'
         let initialProperty = 'hanoi';
@@ -2112,12 +2141,14 @@ function initializeProperties() {
             initialProperty = 'oldquarter';
         }
         
-        console.log('🏠 Setting initial property to:', initialProperty); // Debug log
+        console.log('🏠 Setting initial property to:', initialProperty);
         
         // Select the property (this will update UI)
         selectProp(initialProperty);
         setMinDates();
         updateGuestOptions();
+    } else {
+        console.warn('⚠️ properties-grid not found');
     }
 }
 
@@ -2149,7 +2180,7 @@ function setupAutoPayment() {
     });
 }
 
-// Start everything with a slight delay to ensure DOM is ready
+// Start everything - with proper initialization order
 function startBookingEngine() {
     console.log('🚀 Starting booking engine...');
     fetchPriceOverrides();
@@ -2160,11 +2191,11 @@ function startBookingEngine() {
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        // Small delay to ensure renderBookingSelector completes
+        // Small delay to ensure DOM is fully ready
         setTimeout(startBookingEngine, 100);
     });
 } else {
-    // Small delay to ensure renderBookingSelector completes
+    // Small delay to ensure DOM is fully ready
     setTimeout(startBookingEngine, 100);
 }
 
