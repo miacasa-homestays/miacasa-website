@@ -498,7 +498,7 @@ function validateForm() {
 // Form submission handler
 const form = document.getElementById('cancelForm');
 const submitBtn = document.getElementById('submitBtn');
-const API_URL = '/api/log-booking';
+window.API_URL = '/api/log-booking';
 
 if (form) {
   form.addEventListener('submit', async (e) => {

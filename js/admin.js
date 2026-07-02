@@ -2,7 +2,7 @@
 // ADMIN.JS - Complete working version with calendar
 // ================================================================
 
-const API_URL = '/api/log-booking';
+window.API_URL = '/api/log-booking';
 let adminLang = localStorage.getItem('mia_admin_lang') || 'en';
 
 // Translation object for admin panel

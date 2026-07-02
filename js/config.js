@@ -6,6 +6,14 @@
 // CONFIGURATION - Centralized hardcoded values
 // ================================================================
 
+// /js/config.js - Add this at the top
+// ================================================================
+// API URL - Single source of truth
+// ================================================================
+
+const API_URL = '/api/log-booking';
+window.API_URL = API_URL; // Make it globally available
+
 window.MiaCasaConfig = {
   // Contact Information
   phone: '+84869922261',
