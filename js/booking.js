@@ -1191,6 +1191,11 @@ function selectProp(id) {
     const activeBtn = document.getElementById('bsb-' + id);
     if (activeBtn) activeBtn.classList.add('active');
     
+    // Update URL with property parameter (but don't reload)
+    const url = new URL(window.location);
+    url.searchParams.set('property', id);
+    window.history.replaceState({}, '', url);
+    
     const p = PROPERTIES.find(x => x.id === id);
     const lang = window.currentLang || CONFIG_DEFAULT_LANG;
     
@@ -2091,11 +2096,21 @@ function initializeProperties() {
     if (document.getElementById('properties-grid')) {
         renderProperties();
         renderBookingSelector();
-        selectProp('hanoi');
+        
+        // Check URL for property parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const propertyParam = urlParams.get('property');
+        
+        // Set active property based on URL parameter, default to 'hanoi'
+        let initialProperty = 'hanoi';
+        if (propertyParam === 'oldquarter') {
+            initialProperty = 'oldquarter';
+        }
+        
+        // Select the property (this will update UI)
+        selectProp(initialProperty);
         setMinDates();
         updateGuestOptions();
-        // COMMENT OUT OR REMOVE THIS LINE:
-        // updateAvailabilityAndUI();
     }
 }
 
