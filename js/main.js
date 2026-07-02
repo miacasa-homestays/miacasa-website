@@ -42,13 +42,31 @@ function initHashScroll() {
     const isPropertyPage = window.location.pathname.includes('miacasa-hanoi') || 
                           window.location.pathname.includes('miacasa-oldquarter');
     
-    // Function to scroll to a hash element
+    // Function to scroll to a hash element - MODIFIED to wait for booking form
     function scrollToHashElement(hash, attempts = 0) {
         if (!hash || hash.length <= 1) return false;
         
         // Clean the hash (remove leading # if present)
         const targetId = hash.startsWith('#') ? hash.substring(1) : hash;
         const target = document.getElementById(targetId);
+        
+        // SPECIAL CASE: For #booking, wait for booking form to be ready
+        if (targetId === 'booking') {
+            const bookingForm = document.getElementById('booking-prop-sel');
+            // Check if booking form has been rendered (has buttons)
+            if (!bookingForm || bookingForm.children.length === 0) {
+                if (attempts < 15) {
+                    console.log(`⏳ Waiting for booking form... attempt ${attempts + 1}/15`);
+                    setTimeout(() => {
+                        scrollToHashElement(hash, attempts + 1);
+                    }, 200);
+                    return false;
+                } else {
+                    console.warn('⚠️ Booking form not ready after max attempts, scrolling anyway');
+                    // Fall through to scroll
+                }
+            }
+        }
         
         if (target) {
             // Calculate position with offset for fixed nav
@@ -64,7 +82,7 @@ function initHashScroll() {
             
             console.log(`✅ Scrolled to: #${targetId}`);
             return true;
-        } else if (attempts < 10) {
+        } else if (attempts < 15) {
             // Retry with increasing delay
             setTimeout(() => {
                 scrollToHashElement(hash, attempts + 1);
@@ -81,23 +99,23 @@ function initHashScroll() {
     if (hash && hash.length > 1) {
         // Only handle booking hashes (or any hash on non-property pages)
         if (hash === '#booking' || hash === '#contact' || !isPropertyPage) {
-            console.log(`📍 Hash detected: ${hash}, scrolling...`);
+            console.log(`📍 Hash detected: ${hash}, waiting for booking form to be ready...`);
             
             // Set scroll restoration to manual to prevent interference
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
             
-            // Start scrolling attempts
+            // Start scrolling attempts with a longer initial delay
             setTimeout(() => {
                 scrollToHashElement(hash);
-            }, 300);
+            }, 500);
             
             // Also try after window fully loads
             window.addEventListener('load', function() {
                 setTimeout(() => {
                     scrollToHashElement(hash);
-                }, 500);
+                }, 800);
             });
         }
     }
@@ -111,7 +129,7 @@ function initHashScroll() {
                 console.log(`🔗 Hash changed to: ${newHash}`);
                 setTimeout(() => {
                     scrollToHashElement(newHash);
-                }, 200);
+                }, 300);
             }
         }
     });
@@ -863,8 +881,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ============================================================
     // INITIALIZE HASH SCROLL HANDLING (Fixes blog CTA links)
+    // Wait for booking form to be ready before scrolling
     // ============================================================
-    initHashScroll();
+    // Delay hash scroll to allow booking form to initialize first
+    setTimeout(function() {
+        initHashScroll();
+    }, 300);
     
     // ============================================================
     // INITIALIZE SECTION NAVIGATION

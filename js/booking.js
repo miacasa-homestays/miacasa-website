@@ -2104,12 +2104,15 @@ function initializeProperties() {
         // Check URL for property parameter
         const urlParams = new URLSearchParams(window.location.search);
         const propertyParam = urlParams.get('property');
+        console.log('🔍 initializeProperties - property param:', propertyParam); // Debug log
         
         // Set active property based on URL parameter, default to 'hanoi'
         let initialProperty = 'hanoi';
         if (propertyParam === 'oldquarter') {
             initialProperty = 'oldquarter';
         }
+        
+        console.log('🏠 Setting initial property to:', initialProperty); // Debug log
         
         // Select the property (this will update UI)
         selectProp(initialProperty);
@@ -2146,19 +2149,23 @@ function setupAutoPayment() {
     });
 }
 
-// Start everything
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchPriceOverrides();
-        initializeProperties();
-        setupPaymentEventListeners();
-        setupAutoPayment();
-    });
-} else {
+// Start everything with a slight delay to ensure DOM is ready
+function startBookingEngine() {
+    console.log('🚀 Starting booking engine...');
     fetchPriceOverrides();
     initializeProperties();
     setupPaymentEventListeners();
     setupAutoPayment();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        // Small delay to ensure renderBookingSelector completes
+        setTimeout(startBookingEngine, 100);
+    });
+} else {
+    // Small delay to ensure renderBookingSelector completes
+    setTimeout(startBookingEngine, 100);
 }
 
 // Make functions available globally
