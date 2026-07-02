@@ -3,6 +3,33 @@
 // Updated to use Google Script for iCal feeds
 // ================================================================
 
+// ================================================================
+// SCROLL PRESERVATION FIX - Prevent calendar init from overriding hash scrolling
+// ================================================================
+
+// Store the current scroll position and hash before any calendar operations
+(function preserveScroll() {
+    // Check if we have a hash in the URL (like #gallery)
+    const hasHash = window.location.hash && window.location.hash.length > 1;
+    
+    // If there's a hash, store it and prevent scroll restoration
+    if (hasHash) {
+        // Store the hash to reapply if needed
+        window._preservedHash = window.location.hash;
+        
+        // Set scroll restoration to manual to prevent automatic scroll resets
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        console.log('📍 Hash detected, preserving scroll for:', window._preservedHash);
+    }
+    
+    // Store the current scroll position before any DOM manipulations
+    window._scrollPosition = window.scrollY || 0;
+    window._hasHash = hasHash;
+})();
+
 /* const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlgyCXc-S80tKtUgoX_8ZxnSRZl3rlCGoyaswB5NbK5cSqaoApZsHH8mg72Vmnok1pFA/exec'; */
 //const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
 window.API_URL = '/api/log-booking';
@@ -61,8 +88,18 @@ const ROOM_CALS = [
     }
 ];
 
+// Save reference to original initCalendars
+const originalInitCalendars = window.initCalendars || function() {};
+
 function initCalendars() {
     console.log('initCalendars called');
+    
+    // Store current state before modifying DOM
+    const currentHash = window.location.hash;
+    const hasHash = currentHash && currentHash.length > 1;
+    const currentScroll = window.scrollY || 0;
+    
+    console.log('📌 Calendar init - preserving:', { hash: currentHash, scroll: currentScroll });
     
     const calTabsCont = document.getElementById('cal-tabs');
     const calFramesCont = document.getElementById('cal-frames');
@@ -160,20 +197,66 @@ function initCalendars() {
         `;
         calFramesCont.appendChild(panel);
     });
+    
+    // Restore scroll position after calendar initialization
+    if (hasHash) {
+        console.log('🔄 Restoring scroll after calendar init for hash:', currentHash);
+        // Use multiple attempts to ensure the scroll happens
+        const restoreScroll = () => {
+            const target = document.querySelector(currentHash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                console.log('📍 Scrolled to:', currentHash);
+            } else {
+                // If element not found, try to set the hash
+                window.location.hash = currentHash;
+                console.log('📍 Reapplied hash:', currentHash);
+            }
+            // Reset scroll restoration after scrolling
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'auto';
+            }
+        };
+        
+        // Try multiple times with increasing delays
+        setTimeout(restoreScroll, 50);
+        setTimeout(restoreScroll, 150);
+        setTimeout(restoreScroll, 300);
+    }
 }
 
 function switchCalendar(id, activeTab) {
+    // Store current hash before switching
+    const currentHash = window.location.hash;
+    const hasHash = currentHash && currentHash.length > 1;
+    
     document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.cal-frame-wrap').forEach(f => f.classList.remove('active'));
     activeTab.classList.add('active');
     const target = document.getElementById('cal-' + id);
     if (target) target.classList.add('active');
+    
+    // Restore hash after switching tabs
+    if (hasHash) {
+        requestAnimationFrame(() => {
+            window.location.hash = currentHash;
+            console.log('📍 Restored hash after tab switch:', currentHash);
+        });
+    }
 }
 
 // Function to refresh calendars when language changes
 function refreshCalendars() {
     console.log('Refreshing calendars due to language change');
+    // Store hash before refresh
+    const currentHash = window.location.hash;
     initCalendars();
+    // Restore hash after refresh
+    if (currentHash && currentHash.length > 1) {
+        setTimeout(() => {
+            window.location.hash = currentHash;
+        }, 100);
+    }
 }
 
 // ================================================================
