@@ -8,7 +8,7 @@
 // API URL - Single declaration with fallback
 // ================================================================
 
-const API_URL = window.API_URL || '/api/log-booking';
+var API_URL = window.API_URL || '/api/log-booking';
 
 // ================================================================
 // CONFIG - Use centralized config values
