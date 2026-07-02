@@ -5,26 +5,26 @@
 'use strict';
 
 // ================================================================
+// API URL - Single declaration with fallback
+// ================================================================
+
+const API_URL = window.API_URL || '/api/log-booking';
+
+// ================================================================
 // CONFIG - Use centralized config values
 // ================================================================
 
 // Ensure config is available
 if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'undefined') {
-  window.config = window.MiaCasaConfig;
+    window.config = window.MiaCasaConfig;
 }
 
 // ================================================================
 // API CONFIGURATION
 // ================================================================
 
-const API_URL = '/api/log-booking';
 const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
 const INCLUDED_GUESTS = 2;
-
-// Helper function to safely get config values
-function getConfigValue(key, fallback) {
-  return window.config?.[key] || fallback;
-}
 
 // ================================================================
 // TRANSLATION HELPER
@@ -37,6 +37,7 @@ function miaT(key, fallback) {
     }
     return fallback;
 }
+
 
 // ================================================================
 // PRICES FALLBACK
