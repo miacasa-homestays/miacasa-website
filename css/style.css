@@ -5667,7 +5667,7 @@ body.loaded :target {
   padding: 0 1.5rem;
 }
 
-/* Left-aligned title matching "We'd love to hear from you" style */
+/* Left-aligned title */
 .returning-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -5702,12 +5702,53 @@ body.loaded :target {
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   flex: 0 1 auto;
+  position: relative;
 }
 
 .returning-link:hover {
   border-color: #c17a5a;
   box-shadow: 0 4px 16px rgba(193, 122, 90, 0.10);
   transform: translateY(-2px);
+}
+
+/* Dropdown specific styles */
+.returning-link--dropdown {
+  cursor: pointer;
+}
+
+.returning-link--dropdown:hover .returning-dropdown {
+  display: block;
+}
+
+.returning-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e0d8;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  padding: 0.5rem;
+  z-index: 10;
+  min-width: 200px;
+}
+
+.returning-dropdown-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #2c2416;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.returning-dropdown-link:hover {
+  background: #f5efe6;
+  color: #c17a5a;
 }
 
 .returning-link-content {
@@ -5761,24 +5802,39 @@ body.loaded :target {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .returning-link {
     width: 100%;
     max-width: 100%;
     padding: 1.25rem 1.5rem;
   }
-  
+
   .returning-link-content {
     flex-wrap: wrap;
   }
-  
+
   .returning-link-text {
     margin-left: 0;
     width: 100%;
     padding-left: 2rem;
   }
-  
+
   .returning-link-desc {
     padding-left: 2rem;
+  }
+
+  .returning-dropdown {
+    position: static;
+    margin-top: 0.75rem;
+    border: 1px solid #e5e0d8;
+    box-shadow: none;
+  }
+
+  .returning-link--dropdown:hover .returning-dropdown {
+    display: none;
+  }
+
+  .returning-link--dropdown .returning-dropdown {
+    display: block;
   }
 }
