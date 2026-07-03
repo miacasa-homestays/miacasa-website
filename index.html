@@ -982,7 +982,7 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- RETURNING GUESTS SECTION - With Review Links                 -->
+<!-- RETURNING GUESTS SECTION - With Review Verification          -->
 <!-- ============================================================ -->
 <section class="returning-guests-section">
   <div class="container">
@@ -1010,24 +1010,48 @@
         <span class="returning-link-desc" data-t="cancel-text">Need to cancel your booking?</span>
       </a>
 
-      <!-- Write a Review Dropdown -->
-      <div class="returning-link returning-link--dropdown">
+      <!-- Write a Review with Verification -->
+      <div class="returning-link returning-link--review" id="review-trigger">
         <div class="returning-link-content">
           <span class="returning-icon" aria-hidden="true">⭐</span>
           <span class="returning-icon-label" data-t="review-icon-label">Review</span>
-          <span class="returning-link-text" data-t="review-link">Write a review ↓</span>
+          <span class="returning-link-text" data-t="review-link">Write a review →</span>
         </div>
         <span class="returning-link-desc" data-t="review-text">Share your experience with others</span>
+      </div>
+    </div>
 
-        <!-- Dropdown menu for property selection -->
-        <div class="returning-dropdown">
-          <a href="https://g.page/r/CY0CRPRd_ujmEAE/review" target="_blank" rel="noopener noreferrer" class="returning-dropdown-link" data-t="review-hanoi">
-            ⭐ MiaCasa Hanoi
-          </a>
-          <a href="https://g.page/r/CeEh_J0STdITEAE/review" target="_blank" rel="noopener noreferrer" class="returning-dropdown-link" data-t="review-oq">
-            ⭐ MiaCasa Old Quarter
-          </a>
-        </div>
+    <!-- Review Verification Modal -->
+    <div class="review-modal" id="review-modal" style="display: none;">
+      <div class="review-modal-content">
+        <button class="review-modal-close" id="review-modal-close" aria-label="Close">×</button>
+        <div class="review-modal-icon" aria-hidden="true">⭐</div>
+        <h3 class="review-modal-title" data-t="review-modal-title">Verify Your Stay</h3>
+        <p class="review-modal-sub" data-t="review-modal-sub">Please enter your Booking ID to verify you're a guest</p>
+        
+        <!-- ERROR CONTAINER -->
+        <div id="review-error-container" class="review-error-container"></div>
+        
+        <form class="review-modal-form" id="review-form">
+          <div class="review-form-group">
+            <label for="review-booking-id" data-t="review-booking-label">Booking ID</label>
+            <input type="text" id="review-booking-id" placeholder="e.g. MCH-SPR-0001" required>
+            <small class="review-help-text" data-t="review-help">Your Booking ID is in your confirmation email</small>
+          </div>
+          
+          <div class="review-form-group">
+            <label for="review-property" data-t="review-property-label">Which property did you stay at?</label>
+            <select id="review-property" required>
+              <option value="" data-t="review-select-property">Select a property</option>
+              <option value="hanoi" data-t="review-hanoi-option">MiaCasa Hanoi</option>
+              <option value="oldquarter" data-t="review-oq-option">MiaCasa Old Quarter</option>
+            </select>
+          </div>
+          
+          <button type="submit" id="review-submit-btn" class="review-submit-btn" data-t="review-submit-btn">Continue to Review →</button>
+        </form>
+        
+        <p class="review-modal-note" data-t="review-note">Don't have your Booking ID? <a href="/#contact" data-t="review-contact-link">Contact us</a> and we'll help.</p>
       </div>
     </div>
   </div>

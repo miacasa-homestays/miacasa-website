@@ -1048,3 +1048,243 @@ function updateActiveNav() {
 // Only listen to scroll events, NOT load events
 window.addEventListener('scroll', updateActiveNav);
 // window.addEventListener('load', updateActiveNav); // REMOVED - this was causing auto-scroll
+
+// Only listen to scroll events, NOT load events
+window.addEventListener('scroll', updateActiveNav);
+// window.addEventListener('load', updateActiveNav); // REMOVED - this was causing auto-scroll
+
+// ================================================================
+// REVIEW VERIFICATION - Verify Booking ID via API
+// ================================================================
+
+(function initReviewVerification() {
+  const reviewTrigger = document.getElementById('review-trigger');
+  const reviewModal = document.getElementById('review-modal');
+  const reviewClose = document.getElementById('review-modal-close');
+  const reviewForm = document.getElementById('review-form');
+  const bookingInput = document.getElementById('review-booking-id');
+  const propertySelect = document.getElementById('review-property');
+  const submitBtn = document.getElementById('review-submit-btn');
+  const errorContainer = document.getElementById('review-error-container');
+  
+  // Review links for each property
+  const REVIEW_LINKS = {
+    hanoi: 'https://g.page/r/CY0CRPRd_ujmEAE/review',
+    oldquarter: 'https://g.page/r/CeEh_J0STdITEAE/review'
+  };
+  
+  // API endpoint (same as cancel booking)
+  const API_URL = window.API_URL || '/api/log-booking';
+  
+  // Only initialize if the elements exist on the page
+  if (!reviewTrigger || !reviewModal) return;
+  
+  // Open modal when "Write a review" is clicked
+  reviewTrigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    reviewModal.classList.add('active');
+    reviewModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    if (bookingInput) {
+      bookingInput.value = '';
+      bookingInput.focus();
+    }
+    // Clear any previous errors
+    clearReviewErrors();
+  });
+  
+  // Close modal function
+  function closeReviewModal() {
+    reviewModal.classList.remove('active');
+    reviewModal.style.display = 'none';
+    document.body.style.overflow = '';
+    if (reviewForm) reviewForm.reset();
+    if (bookingInput) bookingInput.classList.remove('error');
+    clearReviewErrors();
+  }
+  
+  function clearReviewErrors() {
+    const errorMsg = document.querySelector('.review-error-msg');
+    if (errorMsg) errorMsg.remove();
+    if (errorContainer) errorContainer.innerHTML = '';
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = window.currentLang === 'vn' 
+        ? 'Tiếp tục đánh giá →' 
+        : 'Continue to Review →';
+    }
+  }
+  
+  function showReviewError(message) {
+    clearReviewErrors();
+    if (bookingInput) bookingInput.classList.add('error');
+    
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'review-error-msg';
+    errorMsg.style.cssText = 'color: #dc2626; font-size: 0.8rem; margin-top: 0.5rem; padding: 0.5rem; background: #fee2e2; border-radius: 6px;';
+    errorMsg.textContent = message;
+    
+    if (errorContainer) {
+      errorContainer.appendChild(errorMsg);
+    } else if (bookingInput) {
+      bookingInput.parentElement.appendChild(errorMsg);
+    }
+  }
+  
+  if (reviewClose) {
+    reviewClose.addEventListener('click', closeReviewModal);
+  }
+  
+  // Close on click outside
+  reviewModal.addEventListener('click', function(e) {
+    if (e.target === reviewModal) {
+      closeReviewModal();
+    }
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && reviewModal.classList.contains('active')) {
+      closeReviewModal();
+    }
+  });
+  
+  // ============================================================
+  // VERIFY BOOKING ID VIA API
+  // ============================================================
+  
+  async function verifyBookingId(bookingId) {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verifyBooking',
+          bookingId: bookingId
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+      
+      const data = await response.json();
+      return data;
+      
+    } catch (error) {
+      console.error('Booking verification error:', error);
+      return { status: 'error', message: error.message };
+    }
+  }
+  
+  // Handle form submission
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const bookingId = bookingInput ? bookingInput.value.trim().toUpperCase() : '';
+      const property = propertySelect ? propertySelect.value : '';
+      
+      // Clear previous errors
+      clearReviewErrors();
+      
+      // Basic format validation
+      const bookingPattern = /^[A-Z]{3}-[A-Z]{3}-\d{4}$/;
+      if (!bookingId || !bookingPattern.test(bookingId)) {
+        showReviewError(window.currentLang === 'vn' 
+          ? 'Vui lòng nhập mã đặt phòng hợp lệ (VD: MCH-SPR-0001)'
+          : 'Please enter a valid Booking ID (e.g. MCH-SPR-0001)');
+        if (bookingInput) bookingInput.focus();
+        return;
+      }
+      
+      if (!property) {
+        if (propertySelect) {
+          propertySelect.focus();
+          propertySelect.style.borderColor = '#dc2626';
+          setTimeout(() => {
+            propertySelect.style.borderColor = '';
+          }, 2000);
+        }
+        showReviewError(window.currentLang === 'vn' 
+          ? 'Vui lòng chọn cơ sở bạn đã ở'
+          : 'Please select the property you stayed at');
+        return;
+      }
+      
+      // Disable button and show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = window.currentLang === 'vn' 
+          ? 'Đang xác minh...' 
+          : 'Verifying...';
+      }
+      
+      try {
+        // Verify booking with the API
+        const result = await verifyBookingId(bookingId);
+        
+        if (result.status === 'ok' && result.verified) {
+          // Booking exists! Proceed to review
+          const bookingData = result.data || {};
+          
+          // Store booking info for tracking
+          sessionStorage.setItem('mia_review_booking_id', bookingId);
+          sessionStorage.setItem('mia_review_property', property);
+          sessionStorage.setItem('mia_review_guest_name', bookingData.guestName || '');
+          
+          // Close modal and redirect
+          closeReviewModal();
+          
+          // Open the appropriate Google Review link
+          const reviewLink = REVIEW_LINKS[property];
+          if (reviewLink) {
+            window.open(reviewLink, '_blank');
+          }
+          
+        } else {
+          // Booking not found or error
+          const errorMsg = result.message || (window.currentLang === 'vn' 
+            ? 'Không tìm thấy đặt phòng này. Vui lòng kiểm tra lại mã đặt phòng.'
+            : 'Booking not found. Please check your Booking ID.');
+          showReviewError(errorMsg);
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = window.currentLang === 'vn' 
+              ? 'Tiếp tục đánh giá →' 
+              : 'Continue to Review →';
+          }
+        }
+        
+      } catch (error) {
+        console.error('Verification error:', error);
+        showReviewError(window.currentLang === 'vn' 
+          ? 'Không thể xác minh mã đặt phòng. Vui lòng thử lại sau.'
+          : 'Unable to verify booking. Please try again later.');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = window.currentLang === 'vn' 
+            ? 'Tiếp tục đánh giá →' 
+            : 'Continue to Review →';
+        }
+      }
+    });
+  }
+  
+  // Real-time validation - remove error on input
+  if (bookingInput) {
+    bookingInput.addEventListener('input', function() {
+      this.classList.remove('error');
+      clearReviewErrors();
+    });
+  }
+  
+  if (propertySelect) {
+    propertySelect.addEventListener('change', function() {
+      this.style.borderColor = '';
+      clearReviewErrors();
+    });
+  }
+})();
+
+console.log('✅ Review verification initialized');
