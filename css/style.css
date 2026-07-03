@@ -5655,12 +5655,16 @@ body.loaded :target {
    ================================================================ */
 
 .returning-guests-section {
-  padding: 2.5rem 0 3rem;
+  padding: 4rem 0 3rem;
   background: #faf8f5;
   border-top: 1px solid #e5e0d8;
+  border-bottom: 1px solid #e5e0d8;
 }
 
-/* Uses .section-sub from your existing styles - no additional styling needed! */
+.returning-guests-section .section-title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 
 .returning-links {
   display: flex;
@@ -5680,6 +5684,7 @@ body.loaded :target {
   text-decoration: none;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  flex: 0 1 auto;
 }
 
 .returning-link:hover {
