@@ -5650,3 +5650,48 @@ body.loaded :target {
         scroll-margin-top: 70px;
     }
 }
+.returning-guests-section {
+  padding: 2rem 0;
+  background: #f8f5f0;
+  border-top: 1px solid #e5e0d8;
+  border-bottom: 1px solid #e5e0d8;
+}
+
+.returning-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.returning-link-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.returning-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.returning-link {
+  color: #c17a5a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.returning-link:hover {
+  text-decoration: underline;
+}
+
+.returning-text {
+  font-size: 0.8rem;
+  color: #6b5c47;
+  margin-top: 0.3rem;
+}
