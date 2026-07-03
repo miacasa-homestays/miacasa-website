@@ -5660,22 +5660,14 @@ body.loaded :target {
   border-top: 1px solid #e5e0d8;
 }
 
-.returning-sub {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: #6b5c47;
-  text-align: center;
-  margin-top: 0.25rem;
-  margin-bottom: 2rem;
-  letter-spacing: 0.04em;
-}
+/* Uses .section-sub from your existing styles - no additional styling needed! */
 
 .returning-links {
   display: flex;
   gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
 }
 
 .returning-link {
