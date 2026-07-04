@@ -1010,39 +1010,64 @@ document.addEventListener('click', function(event) {
 // SCROLL SPY - Highlight active section in nav
 // ================================================================
 
+function // Throttled version to prevent forced reflow on every scroll
+let activeNavTimeout = null;
+let cachedSections = null;
+let cachedNavLinks = null;
+
 function updateActiveNav() {
-    var sections = document.querySelectorAll('section[id], .nav-anchor');
-    var navLinks = document.querySelectorAll('.section-nav a, .fab-nav-menu a');
+    // Throttle to run at most once every 100ms
+    if (activeNavTimeout) return;
     
-    var current = '';
-    var scrollPosition = window.scrollY + 100;
-    
-    sections.forEach(function(section) {
-        var sectionTop = section.offsetTop;
-        var sectionBottom = sectionTop + section.offsetHeight;
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            current = section.getAttribute('id');
+    activeNavTimeout = setTimeout(function() {
+        activeNavTimeout = null;
+        
+        // Cache DOM queries
+        if (!cachedSections || !cachedNavLinks) {
+            cachedSections = document.querySelectorAll('section[id], .nav-anchor');
+            cachedNavLinks = document.querySelectorAll('.section-nav a, .fab-nav-menu a');
         }
-    });
-    
-    navLinks.forEach(function(link) {
-        link.classList.remove('active');
-        var href = link.getAttribute('href');
-        if (href) {
-            // Extract ID from href (handle both "#booking" and "/#booking")
-            var linkId = href;
-            if (linkId.includes('/#')) {
-                linkId = linkId.split('/#')[1];
-                linkId = '#' + linkId;
-            }
-            if (!linkId.startsWith('#')) {
-                linkId = '#' + linkId;
-            }
-            if (linkId === '#' + current) {
-                link.classList.add('active');
+        
+        var current = '';
+        var scrollPosition = window.scrollY + 100;
+        var found = false;
+        
+        // Use for loop instead of forEach for better performance
+        for (var i = 0; i < cachedSections.length; i++) {
+            var section = cachedSections[i];
+            var sectionTop = section.offsetTop;
+            var sectionBottom = sectionTop + section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                current = section.getAttribute('id');
+                found = true;
+                break;
             }
         }
-    });
+        
+        // Only update if current changed
+        if (current !== window._lastActiveSection) {
+            window._lastActiveSection = current;
+            
+            for (var j = 0; j < cachedNavLinks.length; j++) {
+                var link = cachedNavLinks[j];
+                link.classList.remove('active');
+                var href = link.getAttribute('href');
+                if (href) {
+                    var linkId = href;
+                    if (linkId.includes('/#')) {
+                        linkId = linkId.split('/#')[1];
+                        linkId = '#' + linkId;
+                    }
+                    if (!linkId.startsWith('#')) {
+                        linkId = '#' + linkId;
+                    }
+                    if (linkId === '#' + current) {
+                        link.classList.add('active');
+                    }
+                }
+            }
+        }
+    }, 100);
 }
 
 // Only listen to scroll events, NOT load events
