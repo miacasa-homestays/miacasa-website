@@ -88,6 +88,7 @@
 
 <!-- Match the picture element's quality -->
 <link rel="preload" as="image"
+      fetchpriority="high"
       imagesrcset="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_400,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 400w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 800w,
                    https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1775638632/DSC_6634_pwmg8r.jpg 1200w"
@@ -104,13 +105,13 @@
 <meta name="twitter:description" content="Two cozy homestays in Hanoi — near Train Street and in the heart of the Old Quarter. Book direct for the best rate.">
 <meta name="twitter:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_70/v1775638632/DSC_6634_pwmg8r.jpg">
 
-<!-- Local stylesheet -->
-<link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+<!-- Local stylesheet - Load normally to prevent FOUC -->
+<link rel="stylesheet" href="/css/style.css">
 
+<!-- GLightbox - Preload + async load -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" as="style" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" crossorigin="anonymous" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" crossorigin="anonymous"></noscript>
-
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
