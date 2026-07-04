@@ -4,10 +4,20 @@
 // ================================================================
 
 // ================================================================
+// DEBUG FLAG - Enable/disable console logs
+// ================================================================
+const CALENDAR_DEBUG = false; // Set to true to enable debug logs
+
+// ================================================================
 // SCROLL PRESERVATION FIX - Prevent calendar init from overriding hash scrolling
 // ================================================================
 
-// Store the current scroll position and hash before any calendar operations
+// Store the current scroll position and hash before any calendar operations.
+// NOTE: this used to be paired with FIVE separate scroll-to-hash triggers
+// (DOMContentLoaded x3, window.load, and a 5-second polling interval) that
+// raced each other and could yank the page back to the anchor even after
+// the visitor had deliberately scrolled away. That's been consolidated
+// below into a single retry-until-found sequence — see ensureScrollToHash.
 (function preserveScroll() {
     // Check if we have a hash in the URL (like #gallery)
     const hasHash = window.location.hash && window.location.hash.length > 1;
@@ -22,7 +32,7 @@
             history.scrollRestoration = 'manual';
         }
         
-        console.log('📍 Hash detected, preserving scroll for:', window._preservedHash);
+        if (CALENDAR_DEBUG) console.log('📍 Hash detected, preserving scroll for:', window._preservedHash);
     }
     
     // Store the current scroll position before any DOM manipulations
@@ -92,26 +102,26 @@ const ROOM_CALS = [
 let calendarInitialized = false;
 
 function initCalendars() {
-    console.log('initCalendars called');
+    if (CALENDAR_DEBUG) console.log('initCalendars called');
     
     // Store current state before modifying DOM
     const currentHash = window.location.hash;
     const hasHash = currentHash && currentHash.length > 1;
     const currentScroll = window.scrollY || 0;
     
-    console.log('📌 Calendar init - preserving:', { hash: currentHash, scroll: currentScroll });
+    if (CALENDAR_DEBUG) console.log('📌 Calendar init - preserving:', { hash: currentHash, scroll: currentScroll });
     
     const calTabsCont = document.getElementById('cal-tabs');
     const calFramesCont = document.getElementById('cal-frames');
     
     if (!calTabsCont || !calFramesCont) {
-        console.log('Calendar containers not found');
+        if (CALENDAR_DEBUG) console.log('Calendar containers not found');
         return;
     }
     
     // Get language from localStorage
     const currentLang = localStorage.getItem('mia_lang') || 'en';
-    console.log('Current language for calendars:', currentLang);
+    if (CALENDAR_DEBUG) console.log('Current language for calendars:', currentLang);
     
     calTabsCont.innerHTML = '';
     calFramesCont.innerHTML = '';
@@ -201,9 +211,9 @@ function initCalendars() {
     // Mark as initialized
     calendarInitialized = true;
     
-    // Restore scroll position after calendar initialization
+    // Restore scroll position after calendar initialization - ONLY if calendar exists
     if (hasHash) {
-        console.log('🔄 Restoring scroll after calendar init for hash:', currentHash);
+        if (CALENDAR_DEBUG) console.log('🔄 Restoring scroll after calendar init for hash:', currentHash);
         // Use a more robust approach with multiple attempts
         restoreScrollToHash(currentHash);
     }
@@ -213,7 +223,7 @@ function initCalendars() {
 function restoreScrollToHash(hash) {
     if (!hash || hash.length <= 1) return false;
     
-    console.log('📍 Attempting to scroll to:', hash);
+    if (CALENDAR_DEBUG) console.log('📍 Attempting to scroll to:', hash);
     
     // Try to find the element
     const target = document.querySelector(hash);
@@ -229,60 +239,64 @@ function restoreScrollToHash(hash) {
             behavior: 'smooth'
         });
         
-        console.log('✅ Scrolled to:', hash, 'Position:', targetPosition);
+        if (CALENDAR_DEBUG) console.log('✅ Scrolled to:', hash, 'Position:', targetPosition);
         return true;
     } else {
-        console.warn('⚠️ Element not found for hash:', hash);
+        if (CALENDAR_DEBUG) console.warn('⚠️ Element not found for hash:', hash);
         // Fallback: set the hash directly
         window.location.hash = hash;
         return false;
     }
 }
 
-// Function to handle scroll restoration with retries
+// Function to handle scroll restoration with retries.
+// Deduped: if a retry loop for this exact hash is already running, a new
+// call just resets the deadline instead of starting a second competing
+// loop. Once the target is found and scrolled to, this stops for good —
+// it does NOT keep re-checking afterward, so it never fights a visitor
+// who scrolls away on purpose.
+let _scrollLoop = null; // { hash, attempts, timeoutId }
+
 function ensureScrollToHash(hash, maxAttempts = 10) {
     if (!hash || hash.length <= 1) return;
-    
-    let attempts = 0;
-    let success = false;
-    
+
+    // Only proceed if the calendar exists on the page
+    const calendarContainer = document.getElementById('cal-tabs');
+    if (!calendarContainer) {
+        if (CALENDAR_DEBUG) console.log('⚠️ Calendar not found on page, skipping scroll preservation');
+        return;
+    }
+
+    if (_scrollLoop && _scrollLoop.hash === hash) {
+        // Already retrying for this hash — let that loop continue.
+        return;
+    }
+    if (_scrollLoop) {
+        clearTimeout(_scrollLoop.timeoutId);
+    }
+    _scrollLoop = { hash, attempts: 0, timeoutId: null };
+
     function tryScroll() {
-        attempts++;
-        success = restoreScrollToHash(hash);
-        
-        if (!success && attempts < maxAttempts) {
-            console.log(`🔄 Retry ${attempts}/${maxAttempts} for hash:`, hash);
-            setTimeout(tryScroll, attempts * 200); // Increasing delay
+        if (!_scrollLoop || _scrollLoop.hash !== hash) return; // superseded
+        _scrollLoop.attempts++;
+        const success = restoreScrollToHash(hash);
+
+        if (!success && _scrollLoop.attempts < maxAttempts) {
+            if (CALENDAR_DEBUG) console.log(`🔄 Retry ${_scrollLoop.attempts}/${maxAttempts} for hash:`, hash);
+            _scrollLoop.timeoutId = setTimeout(tryScroll, _scrollLoop.attempts * 200);
         } else if (success) {
-            // Reset scroll restoration after successful scroll
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'auto';
             }
-            console.log('✅ Scroll restoration complete for:', hash);
-            
-            // Double-check the scroll position after a moment
-            setTimeout(() => {
-                const target = document.querySelector(hash);
-                if (target) {
-                    const rect = target.getBoundingClientRect();
-                    if (rect.top < 0 || rect.top > window.innerHeight) {
-                        console.log('🔄 Re-checking scroll position for:', hash);
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        const targetPosition = rect.top + scrollTop;
-                        window.scrollTo({
-                            top: targetPosition - 20,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            }, 300);
+            if (CALENDAR_DEBUG) console.log('✅ Scroll restoration complete for:', hash);
+            _scrollLoop = null;
         } else {
-            console.log('⚠️ Could not scroll to hash after max attempts:', hash);
+            if (CALENDAR_DEBUG) console.log('⚠️ Could not scroll to hash after max attempts:', hash);
+            _scrollLoop = null;
         }
     }
-    
-    // Start the first attempt after a small delay
-    setTimeout(tryScroll, 100);
+
+    _scrollLoop.timeoutId = setTimeout(tryScroll, 100);
 }
 
 function switchCalendar(id, activeTab) {
@@ -296,22 +310,32 @@ function switchCalendar(id, activeTab) {
     const target = document.getElementById('cal-' + id);
     if (target) target.classList.add('active');
     
-    // Restore hash after switching tabs
+    // Restore hash after switching tabs - ONLY if calendar exists
     if (hasHash) {
-        requestAnimationFrame(() => {
-            // Use the robust scroll restoration
-            ensureScrollToHash(currentHash);
-            console.log('📍 Restored hash after tab switch:', currentHash);
-        });
+        const calendarContainer = document.getElementById('cal-tabs');
+        if (calendarContainer) {
+            requestAnimationFrame(() => {
+                // Use the robust scroll restoration
+                ensureScrollToHash(currentHash);
+                if (CALENDAR_DEBUG) console.log('📍 Restored hash after tab switch:', currentHash);
+            });
+        }
     }
 }
 
 // Function to refresh calendars when language changes
 function refreshCalendars() {
-    console.log('Refreshing calendars due to language change');
+    if (CALENDAR_DEBUG) console.log('Refreshing calendars due to language change');
     // Store hash before refresh
     const currentHash = window.location.hash;
     const hasHash = currentHash && currentHash.length > 1;
+    
+    // Only refresh if calendar exists
+    const calendarContainer = document.getElementById('cal-tabs');
+    if (!calendarContainer) {
+        if (CALENDAR_DEBUG) console.log('⚠️ Calendar not found on page, skipping refresh');
+        return;
+    }
     
     initCalendars();
     
@@ -399,50 +423,42 @@ function addMobileCalendarStyles() {
 // Call this when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     addMobileCalendarStyles();
-    
-    // If we have a hash, ensure we scroll to it after everything loads
-    const hash = window.location.hash;
-    if (hash && hash.length > 1) {
-        console.log('🎯 DOM ready, ensuring scroll to:', hash);
-        // Wait for calendar to initialize first
-        setTimeout(() => {
-            ensureScrollToHash(hash);
-        }, 300);
-        
-        // Also try again after a longer delay for safety
-        setTimeout(() => {
-            ensureScrollToHash(hash);
-        }, 600);
-        
-        // And one more time after all resources are loaded
-        setTimeout(() => {
-            ensureScrollToHash(hash);
-        }, 1000);
-    }
-});
 
-// Also run when the page is fully loaded (including images)
-window.addEventListener('load', function() {
+    // Only attempt scroll preservation if calendar exists on page
+    const calendarContainer = document.getElementById('cal-tabs');
     const hash = window.location.hash;
-    if (hash && hash.length > 1) {
-        console.log('🔄 Window fully loaded, ensuring scroll to:', hash);
-        setTimeout(() => {
-            ensureScrollToHash(hash);
-        }, 200);
+    
+    if (calendarContainer && hash && hash.length > 1) {
+        if (CALENDAR_DEBUG) console.log('🎯 DOM ready, ensuring scroll to:', hash);
+        ensureScrollToHash(hash);
+    } else if (hash && hash.length > 1) {
+        if (CALENDAR_DEBUG) console.log('ℹ️ Calendar not found, skipping scroll preservation for:', hash);
     }
 });
 
 // Listen for language change events
 window.addEventListener('languageChanged', function(e) {
-    console.log('languageChanged event received:', e.detail);
-    setTimeout(refreshCalendars, 100);
+    if (CALENDAR_DEBUG) console.log('languageChanged event received:', e.detail);
+    
+    // Only refresh if calendar exists
+    const calendarContainer = document.getElementById('cal-tabs');
+    if (calendarContainer) {
+        setTimeout(refreshCalendars, 100);
+    } else if (CALENDAR_DEBUG) {
+        console.log('ℹ️ Calendar not found, skipping refresh');
+    }
 });
 
 // Also listen for storage events (in case language changes in another tab)
 window.addEventListener('storage', function(e) {
     if (e.key === 'mia_lang') {
-        console.log('Storage event - language changed to:', e.newValue);
-        setTimeout(refreshCalendars, 100);
+        if (CALENDAR_DEBUG) console.log('Storage event - language changed to:', e.newValue);
+        
+        // Only refresh if calendar exists
+        const calendarContainer = document.getElementById('cal-tabs');
+        if (calendarContainer) {
+            setTimeout(refreshCalendars, 100);
+        }
     }
 });
 
@@ -450,43 +466,28 @@ window.addEventListener('storage', function(e) {
 window.addEventListener('hashchange', function() {
     const hash = window.location.hash;
     if (hash && hash.length > 1) {
-        console.log('🔗 Hash changed to:', hash);
-        // If calendar hasn't initialized yet, wait
-        if (!calendarInitialized) {
-            setTimeout(() => {
+        if (CALENDAR_DEBUG) console.log('🔗 Hash changed to:', hash);
+        
+        // Only attempt scroll if calendar exists
+        const calendarContainer = document.getElementById('cal-tabs');
+        if (calendarContainer) {
+            // If calendar hasn't initialized yet, wait
+            if (!calendarInitialized) {
+                setTimeout(() => {
+                    ensureScrollToHash(hash);
+                }, 300);
+            } else {
                 ensureScrollToHash(hash);
-            }, 300);
-        } else {
-            ensureScrollToHash(hash);
+            }
+        } else if (CALENDAR_DEBUG) {
+            console.log('ℹ️ Calendar not found, skipping scroll for hash change');
         }
     }
 });
 
-// Force a scroll check every second for the first 5 seconds
-// This catches any late-loading content that might shift the page
-let checkCount = 0;
-const scrollCheckInterval = setInterval(function() {
-    const hash = window.location.hash;
-    if (hash && hash.length > 1) {
-        const target = document.querySelector(hash);
-        if (target) {
-            const rect = target.getBoundingClientRect();
-            // If the target is not in view, scroll to it
-            if (rect.top < 0 || rect.top > window.innerHeight * 0.8) {
-                console.log('🔄 Periodic check: scrolling to', hash);
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                window.scrollTo({
-                    top: rect.top + scrollTop - 20,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    }
-    checkCount++;
-    if (checkCount >= 5) {
-        clearInterval(scrollCheckInterval);
-        console.log('🛑 Periodic scroll checks completed');
-    }
-}, 1000);
-
-console.log('calendar.js loaded');
+// Log initialization with debug flag
+if (CALENDAR_DEBUG) {
+    console.log('calendar.js loaded (debug mode enabled)');
+} else {
+    console.log('calendar.js loaded');
+}

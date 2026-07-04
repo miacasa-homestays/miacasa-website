@@ -63,6 +63,8 @@ const ADMIN_TRANSLATION_KEYS = {
 const ADMIN_TRANSLATIONS = window.buildMiaTranslations(ADMIN_TRANSLATION_KEYS);
 
 const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
+const USD_EXCHANGE_RATE = 25000; // 1 USD = 25,000 VND
+
 const WEEKDAY_NAMES = {
   en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   vn: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
@@ -95,7 +97,7 @@ function clearToken() {
 // ================================================================
 
 async function doLogin() {
-  // ✅ ADD THIS BLOCK - Save username to localStorage if "Remember me" is checked
+  // Save username to localStorage if "Remember me" is checked
   const usernameInput = document.getElementById('login-user');
   const rememberCheckbox = document.getElementById('remember-username');
   const enteredUsername = usernameInput?.value.trim();
@@ -108,7 +110,6 @@ async function doLogin() {
     localStorage.removeItem('admin_username');
     localStorage.setItem('admin_remember_username', 'false');
   }
-  // ✅ END OF ADDED BLOCK
 
   const user = document.getElementById('login-user').value.trim();
   const pass = document.getElementById('login-pass').value;
@@ -355,7 +356,7 @@ async function renderOverrides() {
     }
     const AL = ADMIN_TRANSLATIONS[adminLang];
     container.innerHTML = `<table class="overrides-table"><thead><tr><th>${AL['th-room']}</th><th>${AL['th-rule']}</th><th>${AL['th-from']}</th><th>${AL['th-to']}</th><th>${AL['th-price']}</th><th>${AL['th-usd']}</th><th>${AL['th-note']}</th><th></th></tr></thead><tbody>${
-      overrides.map(o => `<tr><td>${escapeHtml(o[1])}</td><td><span class="rule-pill">Specific dates</span></td><td>${formatDateForDisplay(o[2])}</td><td>${formatDateForDisplay(o[3])}</td><td>${formatVND(o[4])}</td><td>~$${Math.round(o[4]/25000)}</td><td>${escapeHtml(o[5] || '—')}</td><td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td></tr>`
+      overrides.map(o => `<tr><td>${escapeHtml(o[1])}</td><td><span class="rule-pill">Specific dates</span></td><td>${formatDateForDisplay(o[2])}</td><td>${formatDateForDisplay(o[3])}</td><td>${formatVND(o[4])}</td><td>~$${Math.round(o[4]/USD_EXCHANGE_RATE)}</td><td>${escapeHtml(o[5] || '—')}</td><td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td></tr>`
       ).join('')
     }</tbody></table>`;
   } catch (error) {

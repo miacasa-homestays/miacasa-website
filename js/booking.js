@@ -11,6 +11,24 @@
 window.API_URL = window.API_URL || '/api/log-booking';
 
 // ================================================================
+// SECURITY - Escape guest-supplied text before inserting via innerHTML
+// ================================================================
+// bookingData.guestEmail (and similar fields) are typed by the visitor.
+// Anywhere they're templated into a string that becomes innerHTML, run
+// them through this first so a value like <img src=x onerror=...> is
+// displayed as inert text instead of executing.
+function escapeHtml(value) {
+    if (value === null || value === undefined) return '';
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+window.escapeHtml = escapeHtml;
+
+// ================================================================
 // CONFIG - Use centralized config values
 // ================================================================
 
@@ -1457,11 +1475,11 @@ function showPendingVerificationMessage(bookingData) {
         </p>
         <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
             ${window.currentLang === 'vn'
-                ? `Mã đặt phòng: <strong>${bookingData.bookingId}</strong>`
-                : `Booking ID: <strong>${bookingData.bookingId}</strong>`}
+                ? `Mã đặt phòng: <strong>${escapeHtml(bookingData.bookingId)}</strong>`
+                : `Booking ID: <strong>${escapeHtml(bookingData.bookingId)}</strong>`}
         </p>
         <div style="background: white; border-radius: 12px; padding: 0.75rem; margin: 0.75rem 0; text-align: left;">
-            <p style="font-size: 0.8rem;">📧 <strong>${bookingData.guestEmail}</strong></p>
+            <p style="font-size: 0.8rem;">📧 <strong>${escapeHtml(bookingData.guestEmail)}</strong></p>
             <p style="font-size: 0.8rem;">💰 ${formatCurrency(bookingData.amount, 'VND')}</p>
         </div>
         <div style="background: #fff3e0; border-radius: 8px; padding: 0.75rem; margin: 0.75rem 0;">
@@ -1692,7 +1710,7 @@ function showWaitingForPaymentMessage(bookingData) {
                 ? 'Sau khi thanh toán thành công, bạn sẽ nhận được email xác nhận đặt phòng.'
                 : 'Once payment is confirmed, you will receive a booking confirmation email.'}
         </p>
-        <button onclick="checkPaymentStatus('${bookingData.bookingId}')" 
+        <button onclick="checkPaymentStatus('${escapeHtml(bookingData.bookingId)}')" 
                 style="margin-top: 1rem; background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
             ${window.currentLang === 'vn' ? 'Tôi đã thanh toán →' : 'I have completed payment →'}
         </button>
@@ -1772,8 +1790,8 @@ function showRealBookingConfirmation(bookingData) {
         </p>
         <p style="font-size: 0.85rem; color: #065f46; margin-bottom: 1rem;">
             ${window.currentLang === 'vn'
-                ? `Mã đặt phòng: <strong>${bookingData.bookingId}</strong>`
-                : `Booking ID: <strong>${bookingData.bookingId}</strong>`}
+                ? `Mã đặt phòng: <strong>${escapeHtml(bookingData.bookingId)}</strong>`
+                : `Booking ID: <strong>${escapeHtml(bookingData.bookingId)}</strong>`}
         </p>
         <p style="font-size: 0.8rem;">
             ${window.currentLang === 'vn'
@@ -1970,8 +1988,8 @@ function showCashBookingConfirmation(bookingData) {
         </p>
         <p style="font-size: 0.85rem; margin-bottom: 1rem;">
             ${window.currentLang === 'vn'
-                ? `Mã đặt phòng: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${bookingData.bookingId}</strong>`
-                : `Booking ID: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${bookingData.bookingId}</strong>`}
+                ? `Mã đặt phòng: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${escapeHtml(bookingData.bookingId)}</strong>`
+                : `Booking ID: <strong style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">${escapeHtml(bookingData.bookingId)}</strong>`}
         </p>
         <div style="background: white; border-radius: 12px; padding: 1rem; margin: 1rem 0; text-align: left;">
             <p style="margin-bottom: 0.5rem; font-weight: 500; font-size: 0.85rem;">${window.currentLang === 'vn' ? '📋 Chi tiết đặt phòng:' : '📋 Booking Details:'}</p>
@@ -1987,7 +2005,7 @@ function showCashBookingConfirmation(bookingData) {
                 ${window.currentLang === 'vn' ? '📧 Email xác nhận đã được gửi đến:' : '📧 Confirmation email sent to:'}
             </p>
             <p style="font-size: 0.8rem; color: #065f46; word-break: break-all;">
-                <strong>${bookingData.guestEmail}</strong>
+                <strong>${escapeHtml(bookingData.guestEmail)}</strong>
             </p>
             <p style="font-size: 0.65rem; color: #6b5c47; margin-top: 0.25rem;">
                 ${window.currentLang === 'vn' 

@@ -22,9 +22,12 @@
     <div class="field">
       <label id="lbl-password">Password</label>
       <input type="password" id="login-pass" placeholder="Password" autocomplete="current-password">
+      <small style="color: #6b5c47; font-size: 0.65rem; display: block; margin-top: 0.25rem;">
+        🔑 Contact the developer if you need to reset the password
+      </small>
     </div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
-      <input type="checkbox" id="remember-username" style="width: 16px; height: 16px; cursor: pointer;">
+    <div class="remember-row" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+      <input type="checkbox" id="remember-username" class="remember-checkbox" style="width: 16px; height: 16px; cursor: pointer; accent-color: #c17a5a;">
       <label for="remember-username" style="font-size: 0.8rem; color: #6b5c47; cursor: pointer;">Remember my username</label>
     </div>
     <button class="btn" id="btn-signin" onclick="doLogin()">Sign In</button>
@@ -52,9 +55,12 @@
 
     <!-- Maintenance Mode Section -->
     <div class="price-section">
-      <div class="price-section-title">
-        Maintenance Mode: 
+      <div class="price-section-title" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+        🔧 Maintenance Mode: 
         <span id="maintenance-status" class="status-off">OFF</span>
+        <span style="font-size: 0.7rem; color: #6b5c47; font-weight: 300;">
+          (Prevents all new bookings)
+        </span>
       </div>
       <button onclick="toggleMaintenance()" id="maintenance-btn" class="add-override-btn" style="margin-top:0.5rem;">Turn Maintenance On</button>
     </div>
@@ -116,140 +122,153 @@
     <div class="admin-panel" id="panel-prices">
       <div class="price-section">
         <div class="price-section" id="price-override-section">
-  <div class="price-section-title" id="ov-form-title">Add price override</div>
-  
-    <!-- Room selection (unchanged) -->
-    <div class="price-form-grid">
-      <div class="price-field">
-        <label id="lbl-ov-room">Room</label>
-        <select id="ov-room">
-          <option value="Spring Room">Spring Room (MCH)</option>
-          <option value="Summer Room">Summer Room (MCH)</option>
-          <option value="Autumn Room">Autumn Room (MCH)</option>
-          <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
-        </select>
-      </div>
-      
-      <!-- Rule type selector -->
-      <div class="price-field">
-        <label id="lbl-ov-rule-type">Selection mode</label>
-        <select id="ov-rule-type" onchange="toggleCalendarMode()">
-          <option value="single">📅 Select individual days</option>
-          <option value="range">📆 Select date range (recurring)</option>
-        </select>
-      </div>
-    </div>
-    
-    <!-- CALENDAR VIEW (for individual day selection) -->
-<div id="calendar-mode" style="display: block;">
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <button class="calendar-nav" onclick="changeMonth(-1)">←</button>
-      <span class="calendar-month-year" id="calendar-month-year">May 2026</span>
-      <button class="calendar-nav" onclick="changeMonth(1)">→</button>
-    </div>
-    <div class="calendar-weekdays" id="calendar-weekdays"></div>
-    <div class="calendar-days" id="calendar-days"></div>
-    
-    <div class="calendar-legend">
-      <span class="legend-item"><span class="legend-color" style="background-color: #d97706;"></span> Selected date</span>
-      <span class="legend-item"><span class="legend-color" style="background-color: #fef3c7;"></span> In range (drag to select)</span>
-      <span class="legend-item"><span class="legend-color" style="background-color: #f3f4f6;"></span> Available</span>
-    </div>
-    <div class="calendar-instruction">
-      💡 Click to select/unselect · Click and drag to select ranges
-    </div>
-  </div>
-  
-  <!-- Selected dates chips -->
-  <div class="selected-dates-section" id="selected-dates-section" style="margin-top: 1rem; display: block;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-      <strong id="selected-count"></strong>
-      <button class="clear-dates-btn" onclick="clearAllSelectedDates()">Clear all</button>
-    </div>
-    <div id="selected-dates-container" style="display: none;">
-      <div class="selected-dates-chips" id="selected-dates-chips"></div>
-    </div>
-  </div>
-</div>
-    
-    <!-- DATE RANGE MODE (for recurring weekly rules - existing) -->
-    <div id="range-mode" style="display: none;">
-      <div class="price-form-grid">
-        <div class="price-field">
-          <label id="lbl-ov-from">From date</label>
-          <input type="date" id="ov-from">
+          <div class="price-section-title" id="ov-form-title">Add price override</div>
+          
+          <!-- Room selection -->
+          <div class="price-form-grid">
+            <div class="price-field">
+              <label id="lbl-ov-room">Room</label>
+              <select id="ov-room">
+                <option value="Spring Room">Spring Room (MCH)</option>
+                <option value="Summer Room">Summer Room (MCH)</option>
+                <option value="Autumn Room">Autumn Room (MCH)</option>
+                <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
+              </select>
+            </div>
+            
+            <!-- Rule type selector -->
+            <div class="price-field">
+              <label id="lbl-ov-rule-type">Selection mode</label>
+              <select id="ov-rule-type" onchange="toggleCalendarMode()">
+                <option value="single">📅 Select individual days</option>
+                <option value="range">📆 Select date range (recurring)</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- CALENDAR VIEW (for individual day selection) -->
+          <div id="calendar-mode" style="display: block;">
+            <div class="calendar-container">
+              <div class="calendar-header">
+                <button class="calendar-nav" onclick="changeMonth(-1)">←</button>
+                <span class="calendar-month-year" id="calendar-month-year">May 2026</span>
+                <button class="calendar-nav" onclick="changeMonth(1)">→</button>
+              </div>
+              <div class="calendar-weekdays" id="calendar-weekdays"></div>
+              <div class="calendar-days" id="calendar-days"></div>
+              
+              <div class="calendar-legend">
+                <span class="legend-item"><span class="legend-color" style="background-color: #d97706;"></span> Selected date</span>
+                <span class="legend-item"><span class="legend-color" style="background-color: #fef3c7;"></span> In range (drag to select)</span>
+                <span class="legend-item"><span class="legend-color" style="background-color: #f3f4f6;"></span> Available</span>
+              </div>
+              <div class="calendar-instruction">
+                💡 Click to select/unselect · Click and drag to select ranges
+              </div>
+            </div>
+            
+            <!-- Selected dates chips -->
+            <div class="selected-dates-section" id="selected-dates-section" style="margin-top: 1rem; display: block;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong id="selected-count"></strong>
+                <button class="clear-dates-btn" onclick="clearAllSelectedDates()">Clear all</button>
+              </div>
+              <div id="selected-dates-container" style="display: none;">
+                <div class="selected-dates-chips" id="selected-dates-chips"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- DATE RANGE MODE (for recurring weekly rules) -->
+          <div id="range-mode" style="display: none;">
+            <div class="price-form-grid">
+              <div class="price-field">
+                <label id="lbl-ov-from">From date</label>
+                <input type="date" id="ov-from">
+              </div>
+              <div class="price-field">
+                <label id="lbl-ov-to">To date</label>
+                <input type="date" id="ov-to">
+              </div>
+            </div>
+            <div class="price-field price-field-wide" id="ov-weekday-field" style="display: none;">
+              <label id="lbl-ov-weekdays">Apply on weekdays</label>
+              <div class="weekday-picker" id="ov-weekdays">
+                <label><input type="checkbox" value="1"> Mon</label>
+                <label><input type="checkbox" value="2"> Tue</label>
+                <label><input type="checkbox" value="3"> Wed</label>
+                <label><input type="checkbox" value="4"> Thu</label>
+                <label><input type="checkbox" value="5"> Fri</label>
+                <label><input type="checkbox" value="6"> Sat</label>
+                <label><input type="checkbox" value="0"> Sun</label>
+              </div>
+            </div>
+            <div class="price-field price-field-wide" id="ov-month-field" style="display: none;">
+              <label id="lbl-ov-months">Apply in months</label>
+              <div class="weekday-picker month-picker" id="ov-months">
+                <label><input type="checkbox" value="1" checked> Jan</label>
+                <label><input type="checkbox" value="2" checked> Feb</label>
+                <label><input type="checkbox" value="3" checked> Mar</label>
+                <label><input type="checkbox" value="4" checked> Apr</label>
+                <label><input type="checkbox" value="5" checked> May</label>
+                <label><input type="checkbox" value="6" checked> Jun</label>
+                <label><input type="checkbox" value="7" checked> Jul</label>
+                <label><input type="checkbox" value="8" checked> Aug</label>
+                <label><input type="checkbox" value="9" checked> Sep</label>
+                <label><input type="checkbox" value="10" checked> Oct</label>
+                <label><input type="checkbox" value="11" checked> Nov</label>
+                <label><input type="checkbox" value="12" checked> Dec</label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Price and note fields -->
+          <div class="price-form-grid" style="margin-top: 1rem;">
+            <div class="price-field">
+              <label id="lbl-ov-price">Price per night (VND)</label>
+              <input type="number" id="ov-price" placeholder="e.g. 950000" step="50000">
+            </div>
+            <div class="price-field">
+              <label id="lbl-ov-note">Note (optional)</label>
+              <input type="text" id="ov-note" placeholder="e.g. Holiday special">
+            </div>
+          </div>
+          
+          <div class="price-field" style="margin-top: 0.5rem;">
+            <button class="add-override-btn" id="btn-ov-add" onclick="addOverride()">Add Override(s)</button>
+            <span id="selected-count" style="margin-left: 0.75rem; font-size: 0.75rem; color: var(--ink-light);"></span>
+          </div>
+          
+          <div class="save-bar" id="price-save-bar"></div>
+          <div class="error-bar" id="price-error-bar"></div>
         </div>
-        <div class="price-field">
-          <label id="lbl-ov-to">To date</label>
-          <input type="date" id="ov-to">
-        </div>
-      </div>
-      <div class="price-field price-field-wide" id="ov-weekday-field" style="display: none;">
-        <label id="lbl-ov-weekdays">Apply on weekdays</label>
-        <div class="weekday-picker" id="ov-weekdays">
-          <label><input type="checkbox" value="1"> Mon</label>
-          <label><input type="checkbox" value="2"> Tue</label>
-          <label><input type="checkbox" value="3"> Wed</label>
-          <label><input type="checkbox" value="4"> Thu</label>
-          <label><input type="checkbox" value="5"> Fri</label>
-          <label><input type="checkbox" value="6"> Sat</label>
-          <label><input type="checkbox" value="0"> Sun</label>
-        </div>
-      </div>
-      <div class="price-field price-field-wide" id="ov-month-field" style="display: none;">
-        <label id="lbl-ov-months">Apply in months</label>
-        <div class="weekday-picker month-picker" id="ov-months">
-          <label><input type="checkbox" value="1" checked> Jan</label>
-          <label><input type="checkbox" value="2" checked> Feb</label>
-          <label><input type="checkbox" value="3" checked> Mar</label>
-          <label><input type="checkbox" value="4" checked> Apr</label>
-          <label><input type="checkbox" value="5" checked> May</label>
-          <label><input type="checkbox" value="6" checked> Jun</label>
-          <label><input type="checkbox" value="7" checked> Jul</label>
-          <label><input type="checkbox" value="8" checked> Aug</label>
-          <label><input type="checkbox" value="9" checked> Sep</label>
-          <label><input type="checkbox" value="10" checked> Oct</label>
-          <label><input type="checkbox" value="11" checked> Nov</label>
-          <label><input type="checkbox" value="12" checked> Dec</label>
+
+        <div class="price-section">
+          <div class="price-section-title" id="ov-list-title">Active price overrides</div>
+          <div id="overrides-list"></div>
         </div>
       </div>
     </div>
-    
-    <!-- Price and note fields -->
-    <div class="price-form-grid" style="margin-top: 1rem;">
-      <div class="price-field">
-        <label id="lbl-ov-price">Price per night (VND)</label>
-        <input type="number" id="ov-price" placeholder="e.g. 950000" step="50000">
-      </div>
-      <div class="price-field">
-        <label id="lbl-ov-note">Note (optional)</label>
-        <input type="text" id="ov-note" placeholder="e.g. Holiday special">
+
+    <!-- CANCELLATIONS TAB -->
+    <div class="admin-panel" id="panel-cancellations">
+      <div class="price-section">
+        <div class="price-section-title">⚠️ Pending Cancellation Requests <span id="pending-count"></span></div>
+        <div id="cancellations-list" style="margin-top: 1rem;"></div>
       </div>
     </div>
-    
-    <div class="price-field" style="margin-top: 0.5rem;">
-      <button class="add-override-btn" id="btn-ov-add" onclick="addOverride()">Add Override(s)</button>
-      <span id="selected-count" style="margin-left: 0.75rem; font-size: 0.75rem; color: var(--ink-light);"></span>
-    </div>
-    
-    <div class="save-bar" id="price-save-bar"></div>
-    <div class="error-bar" id="price-error-bar"></div>
   </div>
 
-      <div class="price-section">
-        <div class="price-section-title" id="ov-list-title">Active price overrides</div>
-        <div id="overrides-list"></div>
-      </div>
-    </div>
+  <!-- Sheet link -->
+  <div style="margin-top: 2rem; padding: 1rem 2rem; border-top: 1px solid #e5e0d8; font-size: 0.75rem; color: #6b5c47; text-align: center;">
+    <span>ℹ️ Booking data is stored in Google Sheets. </span>
+    <a href="https://docs.google.com/spreadsheets/d/1MEWkt1K6w0bVyxNrreVifgpYeyjO_hmHUp6AjD7OBUg" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       style="color: #c17a5a; text-decoration: none;">
+      View Sheet →
+    </a>
   </div>
-<!-- CANCELLATIONS TAB -->
-<div class="admin-panel" id="panel-cancellations">
-  <div class="price-section">
-    <div class="price-section-title">⚠️ Pending Cancellation Requests <span id="pending-count"></span></div>
-    <div id="cancellations-list" style="margin-top: 1rem;"></div>
-  </div>
-</div>
 </div>
 
 <!-- External JavaScript -->
@@ -272,7 +291,6 @@
             if (rememberCheckbox) {
                 rememberCheckbox.checked = rememberChecked;
             }
-            console.log('Username loaded:', savedUsername, 'Remember checked:', rememberChecked);
         }
     }
     
@@ -325,7 +343,6 @@
     setTimeout(loadSavedUsername, 500);
 })();
 </script>
-
 
 </body>
 </html>
