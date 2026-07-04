@@ -93,6 +93,52 @@ function clearToken() {
 }
 
 // ================================================================
+// AUTHENTICATED FETCH HELPER - NEW!
+// ================================================================
+
+async function authenticatedFetch(payload) {
+  const token = getToken();
+  
+  // If no token, redirect to login
+  if (!token) {
+    console.error('No admin token found');
+    window.location.href = '/admin-login.html';
+    return null;
+  }
+  
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // ← Token in header, NOT in body
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    // Handle 401 - Token expired or invalid
+    if (response.status === 401) {
+      console.error('Authentication failed - redirecting to login');
+      clearToken();
+      window.location.href = '/admin-login.html';
+      return null;
+    }
+    
+    // Handle other errors
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    return data;
+    
+  } catch (error) {
+    console.error('Authenticated fetch failed:', error);
+    return null;
+  }
+}
+
+// ================================================================
 // LOGIN & LOGOUT
 // ================================================================
 
@@ -188,17 +234,12 @@ function switchTab(name, btn) {
 }
 
 // ================================================================
-// ROOM STATUS MANAGEMENT
+// ROOM STATUS MANAGEMENT - UPDATED
 // ================================================================
 
 async function getRoomStatus() {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'getRoomStatus', token: getToken() })
-  });
-  const data = await res.json();
-  return data.data || [];
+  const result = await authenticatedFetch({ action: 'getRoomStatus' });
+  return result?.data || [];
 }
 
 async function addRoomStatus() {
@@ -230,14 +271,12 @@ async function addRoomStatus() {
   applyBtn.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
 
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'updateRoomStatus', room, from, to, status, note, token: getToken() })
+    const result = await authenticatedFetch({ 
+      action: 'updateRoomStatus', 
+      room, from, to, status, note 
     });
-    const json = await res.json();
 
-    if (json.status === 'ok') {
+    if (result?.status === 'ok') {
       saveBar.textContent = adminLang === 'vn' ? '✓ Đã cập nhật trạng thái phòng' : '✓ Room status updated';
       saveBar.style.display = 'block';
       setTimeout(() => saveBar.style.display = 'none', 4000);
@@ -246,7 +285,7 @@ async function addRoomStatus() {
       document.getElementById('rs-to').value = '';
       await renderRoomStatusList();
     } else {
-      errBar.textContent = 'Error: ' + (json.message || 'Unknown error');
+      errBar.textContent = 'Error: ' + (result?.message || 'Unknown error');
       errBar.style.display = 'block';
     }
   } catch (error) {
@@ -261,11 +300,7 @@ async function addRoomStatus() {
 async function deleteRoomStatus(id) {
   if (!confirm(adminLang === 'vn' ? 'Xóa quy tắc này?' : 'Delete this rule?')) return;
   try {
-    await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'deleteRoomStatus', id, token: getToken() })
-    });
+    await authenticatedFetch({ action: 'deleteRoomStatus', id });
     await renderRoomStatusList();
   } catch (error) {
     alert(adminLang === 'vn' ? 'Xóa thất bại.' : 'Delete failed.');
@@ -294,17 +329,12 @@ async function renderRoomStatusList() {
 }
 
 // ================================================================
-// PRICE OVERRIDES MANAGEMENT
+// PRICE OVERRIDES MANAGEMENT - UPDATED
 // ================================================================
 
 async function fetchOverrides() {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'getPriceOverrides', token: getToken() })
-  });
-  const data = await res.json();
-  return data.data || [];
+  const result = await authenticatedFetch({ action: 'getPriceOverrides' });
+  return result?.data || [];
 }
 
 function updatePriceRuleFields() {
@@ -334,11 +364,7 @@ function formatDateInput(date) {
 async function deleteOverride(id) {
   if (!confirm(adminLang === 'vn' ? 'Xóa?' : 'Delete?')) return;
   try {
-    await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'deletePriceOverride', id, token: getToken() })
-    });
+    await authenticatedFetch({ action: 'deletePriceOverride', id });
     await renderOverrides();
   } catch (error) {
     alert('Delete failed');
@@ -365,27 +391,20 @@ async function renderOverrides() {
 }
 
 // ================================================================
-// MAINTENANCE MODE
+// MAINTENANCE MODE - UPDATED
 // ================================================================
 
 async function getMaintenanceMode() {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'getMaintenanceMode', token: getToken() })
-  });
-  const json = await res.json();
-  return json.value === 'on';
+  const result = await authenticatedFetch({ action: 'getMaintenanceMode' });
+  return result?.value === 'on';
 }
 
 async function setMaintenanceMode(enabled) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'setMaintenanceMode', value: enabled ? 'on' : 'off', token: getToken() })
+  const result = await authenticatedFetch({ 
+    action: 'setMaintenanceMode', 
+    value: enabled ? 'on' : 'off' 
   });
-  const json = await res.json();
-  return json.status === 'ok';
+  return result?.status === 'ok';
 }
 
 async function toggleMaintenance() {
@@ -500,7 +519,7 @@ function setAdminLang(lang) {
 }
 
 // ================================================================
-// CANCELLATION MANAGEMENT
+// CANCELLATION MANAGEMENT - UPDATED
 // ================================================================
 
 async function loadPendingCancellations() {
@@ -508,19 +527,16 @@ async function loadPendingCancellations() {
   if (!container) return;
   container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
   try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'getPendingCancellations', token: getToken() })
-    });
-    const data = await response.json();
-    if (!data.cancellations || data.cancellations.length === 0) {
+    const result = await authenticatedFetch({ action: 'getPendingCancellations' });
+    const cancellations = result?.cancellations || [];
+    
+    if (!cancellations || cancellations.length === 0) {
       container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>✅ No pending cancellation requests</p></div>';
       document.getElementById('pending-count').innerHTML = '';
       return;
     }
-    document.getElementById('pending-count').innerHTML = `(${data.cancellations.length} pending)`;
-    container.innerHTML = data.cancellations.map(c => `
+    document.getElementById('pending-count').innerHTML = `(${cancellations.length} pending)`;
+    container.innerHTML = cancellations.map(c => `
       <div class="cancel-card" id="cancel-card-${c.bookingId}" style="background: white; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
           <div><strong>${c.bookingId}</strong><p><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p><p><strong>Property:</strong> ${c.property} - ${c.room}</p><p><strong>Check-in:</strong> ${c.checkIn}</p><p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫</p></div>
@@ -540,18 +556,13 @@ function showRefundForm(bookingId) {
 
 async function confirmRefund(bookingId) {
   if (!confirm('Have you manually processed the refund?')) return;
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'confirmRefund', bookingId, token: getToken() })
-  });
-  const data = await response.json();
-  if (data.status === 'ok') {
+  const result = await authenticatedFetch({ action: 'confirmRefund', bookingId });
+  if (result?.status === 'ok') {
     alert('✅ Refund confirmed');
     document.getElementById(`cancel-card-${bookingId}`)?.remove();
     loadPendingCancellations();
   } else {
-    alert('❌ Error: ' + data.message);
+    alert('❌ Error: ' + (result?.message || 'Unknown error'));
   }
 }
 
@@ -667,7 +678,6 @@ function renderCalendar() {
   }
 
   daysEl.innerHTML = html;
-  // No attachEvents() call — events are delegated at container level (see initCalendar)
 }
 
 // ── Toggle / update display ───────────────────────────────────────────────────
@@ -930,13 +940,11 @@ window.addOverride = async function() {
       
       let successCount = 0;
       for (const dateKey of selectedDateArray) {
-        const res = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'addPriceOverride', room, from: dateKey, to: dateKey, price, note, token: getToken() })
+        const result = await authenticatedFetch({ 
+          action: 'addPriceOverride', 
+          room, from: dateKey, to: dateKey, price, note 
         });
-        const json = await res.json();
-        if (json.status === 'ok') successCount++;
+        if (result?.status === 'ok') successCount++;
       }
       
       if (successCount > 0) {
@@ -961,19 +969,17 @@ window.addOverride = async function() {
         errBar.style.display = 'block';
         return;
       }
-      const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'addPriceOverride', room, from, to, price, note, token: getToken() })
+      const result = await authenticatedFetch({ 
+        action: 'addPriceOverride', 
+        room, from, to, price, note 
       });
-      const json = await res.json();
-      if (json.status === 'ok') {
+      if (result?.status === 'ok') {
         saveBar.textContent = adminLang === 'vn' ? '✓ Đã thêm giá tùy chỉnh' : '✓ Override added successfully';
         saveBar.style.display = 'block';
         setTimeout(() => saveBar.style.display = 'none', 4000);
         await renderOverrides();
       } else {
-        errBar.textContent = 'Error: ' + (json.message || 'Unknown error');
+        errBar.textContent = 'Error: ' + (result?.message || 'Unknown error');
         errBar.style.display = 'block';
       }
     }
