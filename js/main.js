@@ -1006,14 +1006,14 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// ================================================================
 // SCROLL SPY - Highlight active section in nav
 // ================================================================
 
-function // Throttled version to prevent forced reflow on every scroll
-let activeNavTimeout = null;
-let cachedSections = null;
-let cachedNavLinks = null;
+// Throttled version to prevent forced reflow on every scroll
+var activeNavTimeout = null;
+var cachedSections = null;
+var cachedNavLinks = null;
+var lastActiveSection = null;
 
 function updateActiveNav() {
     // Throttle to run at most once every 100ms
