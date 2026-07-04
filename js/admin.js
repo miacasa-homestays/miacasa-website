@@ -1,5 +1,5 @@
 // ================================================================
-// ADMIN.JS - Complete working version with calendar
+// ADMIN.JS - Fixed for login screen
 // ================================================================
 
 window.API_URL = '/api/log-booking';
@@ -63,7 +63,7 @@ const ADMIN_TRANSLATION_KEYS = {
 const ADMIN_TRANSLATIONS = window.buildMiaTranslations(ADMIN_TRANSLATION_KEYS);
 
 const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
-const USD_EXCHANGE_RATE = 25000; // 1 USD = 25,000 VND
+const USD_EXCHANGE_RATE = 25000;
 
 const WEEKDAY_NAMES = {
   en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -93,16 +93,30 @@ function clearToken() {
 }
 
 // ================================================================
-// AUTHENTICATED FETCH HELPER - NEW!
+// SHOW/HIDE LOGIN SCREEN
+// ================================================================
+
+function showLoginScreen() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-wrap').style.display = 'none';
+}
+
+function showAdminPanel() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-wrap').style.display = 'block';
+}
+
+// ================================================================
+// AUTHENTICATED FETCH HELPER - FIXED (NO REDIRECT LOOP)
 // ================================================================
 
 async function authenticatedFetch(payload) {
   const token = getToken();
   
-  // If no token, redirect to login
+  // If no token, show login screen and return null (NO REDIRECT)
   if (!token) {
-    console.error('No admin token found');
-    window.location.href = '/admin.html';
+    console.warn('No admin token found - showing login screen');
+    showLoginScreen();
     return null;
   }
   
@@ -111,16 +125,16 @@ async function authenticatedFetch(payload) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // ← Token in header, NOT in body
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(payload)
     });
     
     // Handle 401 - Token expired or invalid
     if (response.status === 401) {
-      console.error('Authentication failed - redirecting to login');
+      console.warn('Authentication failed - showing login screen');
       clearToken();
-      window.location.href = '/admin.html';
+      showLoginScreen();
       return null;
     }
     
@@ -143,7 +157,6 @@ async function authenticatedFetch(payload) {
 // ================================================================
 
 async function doLogin() {
-  // Save username to localStorage if "Remember me" is checked
   const usernameInput = document.getElementById('login-user');
   const rememberCheckbox = document.getElementById('remember-username');
   const enteredUsername = usernameInput?.value.trim();
@@ -183,7 +196,11 @@ async function doLogin() {
       setToken(json.token);
       sessionStorage.setItem('mia_admin_logged_in', '1');
       sessionStorage.setItem('mia_admin_user', user);
-      showAdmin();
+      showAdminPanel();
+      
+      // Load admin data after successful login
+      updatePriceRuleFields();
+      await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
     } else {
       errEl.textContent = json.message || (adminLang === 'vn' ? 'Tên đăng nhập hoặc mật khẩu không đúng.' : 'Incorrect username or password.');
       errEl.style.display = 'block';
@@ -199,20 +216,10 @@ async function doLogin() {
 
 function doLogout() {
   clearToken();
-  document.getElementById('admin-wrap').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
+  showLoginScreen();
   document.getElementById('login-user').value = '';
   document.getElementById('login-pass').value = '';
   document.getElementById('login-error').style.display = 'none';
-}
-
-async function showAdmin() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('admin-wrap').style.display = 'block';
-  const userName = sessionStorage.getItem('mia_admin_user') || 'Admin';
-  document.getElementById('admin-greeting').textContent = adminLang === 'vn' ? `Xin chào, ${userName}!` : `Welcome, ${userName}!`;
-  updatePriceRuleFields();
-  await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
 }
 
 // ================================================================
@@ -234,7 +241,7 @@ function switchTab(name, btn) {
 }
 
 // ================================================================
-// ROOM STATUS MANAGEMENT - UPDATED
+// ROOM STATUS MANAGEMENT
 // ================================================================
 
 async function getRoomStatus() {
@@ -309,7 +316,16 @@ async function deleteRoomStatus(id) {
 
 async function renderRoomStatusList() {
   const container = document.getElementById('room-status-list');
+  if (!container) return;
+  
   container.innerHTML = '<p>Loading...</p>';
+  
+  // Check if we have a token before trying to fetch
+  if (!getToken()) {
+    container.innerHTML = '<p style="color:#991B1B;">Please log in to view room status.</p>';
+    return;
+  }
+  
   try {
     const rows = await getRoomStatus();
     if (!rows || rows.length === 0) {
@@ -329,7 +345,7 @@ async function renderRoomStatusList() {
 }
 
 // ================================================================
-// PRICE OVERRIDES MANAGEMENT - UPDATED
+// PRICE OVERRIDES MANAGEMENT
 // ================================================================
 
 async function fetchOverrides() {
@@ -373,7 +389,16 @@ async function deleteOverride(id) {
 
 async function renderOverrides() {
   const container = document.getElementById('overrides-list');
+  if (!container) return;
+  
   container.innerHTML = '<p>Loading...</p>';
+  
+  // Check if we have a token before trying to fetch
+  if (!getToken()) {
+    container.innerHTML = '<p style="color:#991B1B;">Please log in to view price overrides.</p>';
+    return;
+  }
+  
   try {
     const overrides = await fetchOverrides();
     if (!overrides || overrides.length === 0) {
@@ -391,7 +416,7 @@ async function renderOverrides() {
 }
 
 // ================================================================
-// MAINTENANCE MODE - UPDATED
+// MAINTENANCE MODE
 // ================================================================
 
 async function getMaintenanceMode() {
@@ -519,13 +544,20 @@ function setAdminLang(lang) {
 }
 
 // ================================================================
-// CANCELLATION MANAGEMENT - UPDATED
+// CANCELLATION MANAGEMENT
 // ================================================================
 
 async function loadPendingCancellations() {
   const container = document.getElementById('cancellations-list');
   if (!container) return;
   container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+  
+  // Check if we have a token before trying to fetch
+  if (!getToken()) {
+    container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>Please log in to view cancellations.</p></div>';
+    return;
+  }
+  
   try {
     const result = await authenticatedFetch({ action: 'getPendingCancellations' });
     const cancellations = result?.cancellations || [];
@@ -580,11 +612,11 @@ async function rejectCancellation(bookingId) {
 // CALENDAR — STATE
 // ================================================================
 let currentCalendarDate = new Date();
-let selectedDates   = new Set();  // "YYYY-MM-DD" strings
+let selectedDates   = new Set();
 let isDragging      = false;
 let dragStartKey    = null;
 let dragCurrentKey  = null;
-let mouseDidMove    = false;      // distinguishes click from drag
+let mouseDidMove    = false;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function formatDateKey(date) {
@@ -594,7 +626,6 @@ function formatDateKey(date) {
 }
 
 function parseDateKey(key) {
-  // Parse as LOCAL date (avoids UTC midnight timezone shift)
   const [y, m, d] = key.split('-').map(Number);
   return new Date(y, m - 1, d);
 }
@@ -637,7 +668,6 @@ function renderCalendar() {
   const daysEl = document.getElementById('calendar-days');
   if (!daysEl) return;
 
-  // Drag preview range
   const dragRange = new Set(
     (isDragging && dragStartKey && dragCurrentKey)
       ? datesBetween(dragStartKey, dragCurrentKey)
@@ -651,7 +681,6 @@ function renderCalendar() {
 
   let html = '';
 
-  // Leading empty cells from previous month
   for (let i = firstDow - 1; i >= 0; i--) {
     html += `<div class="calendar-day other-month">${prevDays - i}</div>`;
   }
@@ -670,7 +699,6 @@ function renderCalendar() {
     html += `<div class="${cls}" data-date="${key}">${d}</div>`;
   }
 
-  // Trailing cells
   const total = 42;
   const filled = firstDow + daysInMonth;
   for (let i = 1; i <= total - filled; i++) {
@@ -736,7 +764,6 @@ function updateSelectedDatesDisplay() {
 
   container.style.display = 'block';
 
-  // Group consecutive dates into compact ranges for the chips
   const sorted = [...selectedDates].sort();
   const groups = [];
   let gs = sorted[0], gp = sorted[0];
@@ -749,19 +776,17 @@ function updateSelectedDatesDisplay() {
 
   chipsEl.innerHTML = groups.map(([s, e]) => {
     const label = s === e ? s : `${s} → ${e}`;
-    // Build list of individual dates in this group for removal
     const dList = datesBetween(s, e).map(k => `'${k}'`).join(',');
     return `<span class="date-chip">${label}<span class="remove-date" onclick="event.stopPropagation();[${dList}].forEach(k=>removeDateFromSelection(k))">✕</span></span>`;
   }).join('');
 }
 
-// ── Event delegation (one set of listeners, never re-added) ──────────────────
+// ── Event delegation ──────────────────────────────────────────────────
 function attachCalendarEvents() {
   const daysEl = document.getElementById('calendar-days');
   if (!daysEl || daysEl._calEventsAttached) return;
   daysEl._calEventsAttached = true;
 
-  // ── MOUSE ────────────────────────────────────────────────────────────────
   daysEl.addEventListener('mousedown', (e) => {
     const key = e.target.dataset.date;
     if (!key || e.target.classList.contains('other-month')) return;
@@ -784,14 +809,11 @@ function attachCalendarEvents() {
     }
   });
 
-  // mouseup on document so drag completes even if cursor leaves the grid
   document.addEventListener('mouseup', (e) => {
     if (!isDragging) return;
     if (mouseDidMove) {
-      // Drag — commit the range
       commitDragRange();
     } else {
-      // Click — toggle single day
       const key = dragStartKey;
       isDragging = false; dragStartKey = null; dragCurrentKey = null;
       if (key) toggleDateSelection(key);
@@ -799,7 +821,6 @@ function attachCalendarEvents() {
     }
   });
 
-  // ── TOUCH ────────────────────────────────────────────────────────────────
   daysEl.addEventListener('touchstart', (e) => {
     const key = e.target.dataset.date;
     if (!key || e.target.classList.contains('other-month')) return;
@@ -848,7 +869,7 @@ function initCalendar() {
   isDragging = false; dragStartKey = null; dragCurrentKey = null; mouseDidMove = false;
   updateSelectedDatesDisplay();
   renderCalendar();
-  attachCalendarEvents();   // idempotent — only attaches once per daysEl
+  attachCalendarEvents();
 }
 
 function toggleCalendarMode() {
@@ -992,9 +1013,21 @@ window.addOverride = async function() {
   }
 };
 
+// ================================================================
+// INITIALIZATION - FIXED
+// ================================================================
+
 // Check if already logged in
 if (sessionStorage.getItem('mia_admin_logged_in') && getToken()) {
-  showAdmin();
+  showAdminPanel();
+  updatePriceRuleFields();
+  setTimeout(() => {
+    renderRoomStatusList();
+    renderOverrides();
+    loadMaintenanceStatus();
+  }, 100);
+} else {
+  showLoginScreen();
 }
 
 // Initialize
@@ -1010,7 +1043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => initCalendar(), 100);
   }
   
-  // Load saved username after a short delay (ensures admin.js has finished initializing)
+  // Load saved username
   setTimeout(function() {
     const savedUsername = localStorage.getItem('admin_username');
     const rememberChecked = localStorage.getItem('admin_remember_username') === 'true';
