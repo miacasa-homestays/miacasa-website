@@ -102,7 +102,7 @@ async function authenticatedFetch(payload) {
   // If no token, redirect to login
   if (!token) {
     console.error('No admin token found');
-    window.location.href = '/admin-login.html';
+    window.location.href = '/admin.html';
     return null;
   }
   
@@ -120,7 +120,7 @@ async function authenticatedFetch(payload) {
     if (response.status === 401) {
       console.error('Authentication failed - redirecting to login');
       clearToken();
-      window.location.href = '/admin-login.html';
+      window.location.href = '/admin.html';
       return null;
     }
     
