@@ -107,13 +107,13 @@ function showAdminPanel() {
 }
 
 // ================================================================
-// AUTHENTICATED FETCH HELPER - FIXED (NO REDIRECT LOOP)
+// AUTHENTICATED FETCH HELPER - SEND TOKEN IN BODY
 // ================================================================
 
 async function authenticatedFetch(payload) {
   const token = getToken();
   
-  // If no token, show login screen and return null (NO REDIRECT)
+  // If no token, show login screen and return null
   if (!token) {
     console.warn('No admin token found - showing login screen');
     showLoginScreen();
@@ -121,18 +121,22 @@ async function authenticatedFetch(payload) {
   }
   
   try {
+    // Send token in the body, not in the header
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Content-Type': 'application/json'
+        // No Authorization header - send token in body instead
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        ...payload,
+        token: token  // Add token to the request body
+      })
     });
     
     // Handle 401 - Token expired or invalid
     if (response.status === 401) {
-      console.warn('Authentication failed - showing login screen');
+      console.warn('Authentication failed (401) - showing login screen');
       clearToken();
       showLoginScreen();
       return null;
@@ -190,12 +194,15 @@ async function doLogin() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'login', username: user, password: pass })
     });
+    
     const json = await response.json();
-
-    if (json.status === 'ok') {
+    
+    if (json.status === 'ok' && json.token) {
+      // Store the token exactly as received
       setToken(json.token);
       sessionStorage.setItem('mia_admin_logged_in', '1');
       sessionStorage.setItem('mia_admin_user', user);
+      
       showAdminPanel();
       
       // Load admin data after successful login
@@ -206,6 +213,7 @@ async function doLogin() {
       errEl.style.display = 'block';
     }
   } catch (error) {
+    console.error('Login error:', error);
     errEl.textContent = adminLang === 'vn' ? 'Không thể kết nối.' : 'Cannot connect.';
     errEl.style.display = 'block';
   } finally {
