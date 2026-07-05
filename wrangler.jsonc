@@ -1,5 +1,4 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "miacasa-website",
   "compatibility_date": "2026-05-24",
   "observability": {

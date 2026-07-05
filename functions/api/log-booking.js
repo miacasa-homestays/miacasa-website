@@ -1,8 +1,17 @@
 // ================================================================
-// NETLIFY/FUNCTIONS/LOG-BOOKING.JS - Netlify Function Proxy to Google Script
+// FUNCTIONS/LOG-BOOKING.JS - Cloudflare Pages Function Proxy to Google Script
 // ================================================================
-// Kept in sync with api/log-booking.js (the live Vercel version).
-// Required env vars (Netlify → Site Settings → Environment variables):
+// Kept in sync with api/log-booking.js (Vercel) and
+// netlify/functions/log-booking.js (Netlify).
+//
+// Cloudflare Pages Functions use a different convention than Vercel/Netlify:
+// exported onRequestPost/onRequestOptions handlers instead of a single
+// generic handler, and env vars come from `context.env`, not `process.env`.
+// Requires "nodejs_compat" in wrangler.jsonc (already set) so `node:crypto`
+// is available.
+//
+// Required env vars (Cloudflare dashboard → Pages project → Settings →
+// Environment variables):
 //   GOOGLE_SHEETS_URL  — Google Apps Script deployment URL
 //   ADMIN_USER         — admin login username
 //   ADMIN_PASSWORD     — admin login password (also doubles as the
@@ -10,27 +19,17 @@
 //   GAS_ADMIN_TOKEN    — shared secret forwarded to GAS for admin calls
 // ================================================================
 
-const crypto = require('crypto');
+import crypto from 'node:crypto';
 
-const GOOGLE_SHEETS_URL  = process.env.GOOGLE_SHEETS_URL;
-const ADMIN_USER         = process.env.ADMIN_USER;
-const ADMIN_PASSWORD     = process.env.ADMIN_PASSWORD;
-const GAS_ADMIN_TOKEN    = process.env.GAS_ADMIN_TOKEN;
-
-// ── Allowed origins for CORS ──────────────────────────────────────
 const ALLOWED_ORIGINS = [
   'https://www.miacasahanoi.com',
   'https://miacasahanoi.com'
 ];
 
-// ── Session token ────────────────────────────────────────────────
-// Fixed token derived from credentials — no expiry, no per-login
-// uniqueness. Valid until ADMIN_PASSWORD changes. Fine for a single
-// admin whose credentials are never shared. Validated timing-safely.
-function makeSessionToken() {
+function makeSessionToken(adminUser, adminPassword) {
   return crypto
-    .createHmac('sha256', ADMIN_PASSWORD || 'fallback')
-    .update(ADMIN_USER || 'admin')
+    .createHmac('sha256', adminPassword || 'fallback')
+    .update(adminUser || 'admin')
     .digest('hex');
 }
 
@@ -40,21 +39,21 @@ function timingSafeStringEqual(a, b) {
   return crypto.timingSafeEqual(hashA, hashB);
 }
 
-function isValidToken(token) {
+function isValidToken(token, adminUser, adminPassword) {
   if (!token) return false;
-  return timingSafeStringEqual(token, makeSessionToken());
+  return timingSafeStringEqual(token, makeSessionToken(adminUser, adminPassword));
 }
 
 // ── Simple in-memory rate limiter for login attempts ───────────────
-// Resets on cold start — stops casual brute-forcing from one source.
+// Lives for the lifetime of the Worker isolate — same caveat as the
+// Vercel/Netlify versions: resets periodically, stops casual
+// brute-forcing from one source rather than a distributed attack.
 const LOGIN_ATTEMPTS = new Map();
-const LOGIN_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const LOGIN_WINDOW_MS = 10 * 60 * 1000;
 const LOGIN_MAX_ATTEMPTS = 8;
 
-function getClientKey(event) {
-  const headers = event.headers || {};
-  const fwd = headers['x-forwarded-for'] || headers['X-Forwarded-For'];
-  return (fwd ? fwd.split(',')[0].trim() : event.ip) || 'unknown';
+function getClientKey(request) {
+  return request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
 }
 
 function isRateLimited(key) {
@@ -72,10 +71,8 @@ function resetRateLimit(key) {
   LOGIN_ATTEMPTS.delete(key);
 }
 
-// ── CORS ─────────────────────────────────────────────────────────
-// Reflects the origin only if it's on the allow-list, instead of '*'.
-function corsHeaders(event) {
-  const origin = (event.headers || {}).origin || (event.headers || {}).Origin;
+function corsHeaders(request) {
+  const origin = request.headers.get('origin');
   const headers = {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -88,12 +85,12 @@ function corsHeaders(event) {
   return headers;
 }
 
-function ok(event, data)  { return { statusCode: 200, headers: corsHeaders(event), body: JSON.stringify(data) }; }
-function unauth(event)    { return { statusCode: 401, headers: corsHeaders(event), body: JSON.stringify({ status: 'error', message: 'Unauthorized' }) }; }
-function badReq(event, m) { return { statusCode: 400, headers: corsHeaders(event), body: JSON.stringify({ status: 'error', message: m }) }; }
+function jsonResponse(request, data, status = 200) {
+  return new Response(JSON.stringify(data), { status, headers: corsHeaders(request) });
+}
 
-async function callGAS(payload) {
-  if (!GOOGLE_SHEETS_URL) {
+async function callGAS(googleSheetsUrl, payload) {
+  if (!googleSheetsUrl) {
     return { status: 'error', message: 'Configuration error: Google Sheets URL not set' };
   }
 
@@ -101,7 +98,7 @@ async function callGAS(payload) {
   const timeout = setTimeout(() => controller.abort(), 9000);
 
   try {
-    const res = await fetch(GOOGLE_SHEETS_URL, {
+    const res = await fetch(googleSheetsUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -124,23 +121,26 @@ async function callGAS(payload) {
   }
 }
 
-async function callAdminGAS(payload) {
-  return callGAS({ ...payload, token: GAS_ADMIN_TOKEN });
+// ── Cloudflare Pages Functions entry points ─────────────────────────
+
+export async function onRequestOptions(context) {
+  return new Response(null, { status: 204, headers: corsHeaders(context.request) });
 }
 
-exports.handler = async function (event) {
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers: corsHeaders(event), body: '' };
-  }
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers: corsHeaders(event), body: JSON.stringify({ status: 'error', message: 'Method not allowed' }) };
-  }
+export async function onRequestPost(context) {
+  const { request, env } = context;
+  const GOOGLE_SHEETS_URL = env.GOOGLE_SHEETS_URL;
+  const ADMIN_USER = env.ADMIN_USER;
+  const ADMIN_PASSWORD = env.ADMIN_PASSWORD;
+  const GAS_ADMIN_TOKEN = env.GAS_ADMIN_TOKEN;
+
+  const callAdminGAS = (payload) => callGAS(GOOGLE_SHEETS_URL, { ...payload, token: GAS_ADMIN_TOKEN });
 
   let body;
   try {
-    body = JSON.parse(event.body || '{}');
+    body = await request.json();
   } catch (e) {
-    return badReq(event, 'Invalid JSON body');
+    return jsonResponse(request, { status: 'error', message: 'Invalid JSON body' }, 400);
   }
 
   const { action, token } = body;
@@ -149,17 +149,17 @@ exports.handler = async function (event) {
     // ── PUBLIC ACTIONS (no token needed) ──────────────────────────
 
     if (action === 'login') {
-      const clientKey = getClientKey(event);
+      const clientKey = getClientKey(request);
       if (isRateLimited(clientKey)) {
-        return { statusCode: 429, headers: corsHeaders(event), body: JSON.stringify({ status: 'error', message: 'Too many login attempts. Please try again in a few minutes.' }) };
+        return jsonResponse(request, { status: 'error', message: 'Too many login attempts. Please try again in a few minutes.' }, 429);
       }
 
       const { username, password } = body;
       if (!ADMIN_USER || !ADMIN_PASSWORD) {
-        return ok(event, { status: 'error', message: 'Admin credentials not configured.' });
+        return jsonResponse(request, { status: 'error', message: 'Admin credentials not configured.' });
       }
       if (!username || !password) {
-        return ok(event, { status: 'error', message: 'Incorrect username or password.' });
+        return jsonResponse(request, { status: 'error', message: 'Incorrect username or password.' });
       }
 
       const userOk = timingSafeStringEqual(username, ADMIN_USER);
@@ -167,97 +167,97 @@ exports.handler = async function (event) {
 
       if (userOk && passOk) {
         resetRateLimit(clientKey);
-        return ok(event, { status: 'ok', token: makeSessionToken() });
+        return jsonResponse(request, { status: 'ok', token: makeSessionToken(ADMIN_USER, ADMIN_PASSWORD) });
       }
-      return ok(event, { status: 'error', message: 'Incorrect username or password.' });
+      return jsonResponse(request, { status: 'error', message: 'Incorrect username or password.' });
     }
 
     if (action === 'checkRoomAvailability') {
       const { room, checkIn, checkOut } = body;
-      const result = await callGAS({ action: 'checkRoomAvailability', room, checkIn, checkOut });
-      return ok(event, { available: result.available === true, otherPropertyName: result.otherPropertyName || null });
+      const result = await callGAS(GOOGLE_SHEETS_URL, { action: 'checkRoomAvailability', room, checkIn, checkOut });
+      return jsonResponse(request, { available: result.available === true, otherPropertyName: result.otherPropertyName || null });
     }
 
     if (action === 'getMaintenanceMode') {
-      const result = await callGAS({ action: 'getMaintenanceMode' });
-      return ok(event, result);
+      const result = await callGAS(GOOGLE_SHEETS_URL, { action: 'getMaintenanceMode' });
+      return jsonResponse(request, result);
     }
 
     if (action === 'createBooking') {
-      const result = await callGAS(body);
-      return ok(event, result);
+      const result = await callGAS(GOOGLE_SHEETS_URL, body);
+      return jsonResponse(request, result);
     }
 
     if (action === 'getInvoice') {
-      const result = await callGAS(body);
-      return ok(event, result);
+      const result = await callGAS(GOOGLE_SHEETS_URL, body);
+      return jsonResponse(request, result);
     }
 
     if (action === 'requestCancellation') {
-      const result = await callGAS(body);
-      return ok(event, result);
+      const result = await callGAS(GOOGLE_SHEETS_URL, body);
+      return jsonResponse(request, result);
     }
 
     if (action === 'getPriceOverrides') {
-      const result = await callGAS({ action: 'getPriceOverrides' });
-      return ok(event, result);
+      const result = await callGAS(GOOGLE_SHEETS_URL, { action: 'getPriceOverrides' });
+      return jsonResponse(request, result);
     }
 
     // ── ADMIN ACTIONS (token required) ────────────────────────────
 
-    if (!isValidToken(token)) {
-      return unauth(event);
+    if (!isValidToken(token, ADMIN_USER, ADMIN_PASSWORD)) {
+      return jsonResponse(request, { status: 'error', message: 'Unauthorized' }, 401);
     }
 
     if (action === 'setMaintenanceMode') {
       const result = await callAdminGAS({ action: 'setMaintenanceMode', value: body.value });
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'getRoomStatus') {
       const result = await callAdminGAS({ action: 'getRoomStatus' });
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'updateRoomStatus') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'deleteRoomStatus') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'addPriceOverride') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'deletePriceOverride') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'getPendingCancellations') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     if (action === 'confirmRefund') {
       const result = await callAdminGAS(body);
-      return ok(event, result);
+      return jsonResponse(request, result);
     }
 
     // Unknown action — forward and let GAS decide
-    const result = await callGAS(body);
-    return ok(event, result);
+    const result = await callGAS(GOOGLE_SHEETS_URL, body);
+    return jsonResponse(request, result);
 
   } catch (error) {
     console.error('Function error:', error);
     const message = !GOOGLE_SHEETS_URL
-      ? 'GOOGLE_SHEETS_URL is not set. Add it in Netlify → Site Settings → Environment variables.'
+      ? 'GOOGLE_SHEETS_URL is not set. Add it in Cloudflare Pages → Settings → Environment variables.'
       : error.message;
-    return { statusCode: 500, headers: corsHeaders(event), body: JSON.stringify({ status: 'error', message }) };
+    return jsonResponse(request, { status: 'error', message }, 500);
   }
-};
+}
