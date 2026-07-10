@@ -6854,7 +6854,7 @@ function setLang(lang){
     if (typeof renderBookingSelector === 'function' && document.getElementById('booking-prop-sel')) {
         renderBookingSelector();
     }
-    if (typeof activeProp !== 'undefined' && typeof selectProp === 'function' && document.getElementById('properties-grid')) {
+    if (typeof activeProp !== 'undefined' && typeof selectProp === 'function' && document.getElementById('booking-prop-sel')) {
         try { selectProp(activeProp); } catch(e) {}
     }
   
@@ -6918,14 +6918,6 @@ function applyTranslations(){
         if(e && e[lang]!==undefined) opt.textContent = e[lang];
     });
     
-    // Re-render properties when language changes
-    if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
-        try {
-            renderProperties();
-        } catch(e) {
-            // Silently fail
-        }
-    }
     
     // Re-run FAQ toggle display to ensure content is visible after translation
     document.querySelectorAll('.faq-item.open .faq-a').forEach(function(el){

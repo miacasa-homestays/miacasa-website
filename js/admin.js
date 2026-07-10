@@ -377,10 +377,6 @@ function updatePriceRuleFields() {
   }
 }
 
-function getCheckedValues(containerId) {
-  return Array.from(document.querySelectorAll(`#${containerId} input:checked`)).map(input => Number(input.value));
-}
-
 function formatDateInput(date) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }

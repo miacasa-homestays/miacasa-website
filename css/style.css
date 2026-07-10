@@ -32,27 +32,8 @@
 /* ============================================
    RESET & BASE
    ============================================ */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-html {
-    scroll-behavior: smooth;
-}
 
-body {
-    font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Arial', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    font-weight: 300;
-    font-size: var(--body-size);
-    line-height: var(--line-height-body);
-    overflow-x: hidden;
-    padding-top: 64px;
-    font-display: swap;
-}
 
 h1 {
     font-size: var(--h1-size);
@@ -431,11 +412,6 @@ section {
     color: #065f46;
 }
 
-.trust-badge {
-    background: var(--sand);
-    color: var(--ink-light);
-    font-size: 0.65rem;
-}
 
 .booking-kicker {
     margin-bottom: 0.75rem;
@@ -463,10 +439,6 @@ section {
     margin-bottom: 1rem;
 }
 
-.pay-tab {
-    cursor: pointer;
-    padding: 0.4rem 1rem;
-}
 
 .payment-panel {
     text-align: center;
@@ -827,19 +799,7 @@ html[data-lang="vn"] .vn-only {
   display: inline;
 }
 
-.superhost-text {
-  font-size: 0.8rem;  /* Smaller than default */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: nowrap;  /* Forces single line on desktop */
-  white-space: nowrap; /* Prevents wrapping */
-}
 
-.journey-icon {
-  font-size: 0.9rem;
-  flex-shrink: 0;  /* Prevents icon from shrinking */
-}
 
 /* For mobile - allow wrapping if screen is too small */
 @media (max-width: 768px) {
@@ -966,35 +926,11 @@ html[data-lang="vn"] .vn-only {
     background: var(--warm-white);
 }
 
-.properties-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin-top: 1rem;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 @media (max-width: 768px) {
-    .properties-grid {
-        max-width: 100%;
-        padding: 0 1rem;
-    }
     
-    .selector-grid {
-        max-width: 100%;
-        padding: 0 1rem;
-    }
     
-    .selector-card {
-        max-width: 100%;
-    }
     
-    .booking-form-wrap {
-        max-width: 100%;
-        margin: 0 1rem;
-    }
 }
 
 /* Card styling - matching .selector-card style */
@@ -1016,13 +952,6 @@ html[data-lang="vn"] .vn-only {
 }
 
 /* Image container - fixed size, no cropping */
-.property-img {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    position: relative;
-    background: var(--sand);
-}
 
 .property-img img {
     width: 100%;
@@ -1047,12 +976,6 @@ html[data-lang="vn"] .vn-only {
 }
 
 /* Card body */
-.property-body {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
 
 .property-name {
     font-family: 'Cormorant Garamond', serif;
@@ -1112,21 +1035,7 @@ html[data-lang="vn"] .vn-only {
 }
 
 /* Buttons inside card */
-.property-buttons {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-}
 
-.property-buttons .btn-outline,
-.property-buttons .btn-primary {
-    flex: 1;
-    text-align: center;
-    padding: 0.6rem 0.5rem;
-    font-size: 0.7rem;
-    min-height: auto;
-    border-radius: 40px;
-}
 
 /* Price row styling */
 .property-card .price-row {
@@ -1170,21 +1079,9 @@ html[data-lang="vn"] .vn-only {
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    .property-img {
-        height: 180px;
-    }
     
-    .property-body {
-        padding: 1rem;
-    }
     
-    .property-name {
-        font-size: 1.2rem;
-    }
     
-    .property-desc {
-        font-size: 0.75rem;
-    }
 }
 
 /* ============================================
@@ -1379,22 +1276,9 @@ html[data-lang="vn"] .vn-only {
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-    .rooms-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
     
-    .room-card-img-wrap {
-        height: 180px;
-    }
     
-    .room-card-body {
-        padding: 1rem;
-    }
     
-    .room-card-name {
-        font-size: 1.2rem;
-    }
 }
 
 /* ============================================
@@ -1542,13 +1426,6 @@ html[data-lang="vn"] .vn-only {
     border-radius: 2px;
 }
 
-.gallery-teaser-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    border-radius: 4px;
-    overflow: hidden;
-}
 
 .gallery-teaser-grid img,
 .blog-card-image {
@@ -1563,9 +1440,6 @@ html[data-lang="vn"] .vn-only {
 /* ============================================
    BOOKING FORM
    ============================================ */
-#booking {
-    background: var(--sand);
-}
 
 .booking-form-wrap {
     background: white;
@@ -1726,10 +1600,6 @@ html[data-lang="vn"] .vn-only {
     margin-bottom: 0.1rem;
 }
 
-.contact-item-text a {
-    color: var(--terracotta);
-    text-decoration: none;
-}
 
 .contact-form-box {
     background: white;
@@ -1738,16 +1608,6 @@ html[data-lang="vn"] .vn-only {
     padding: 2.25rem;
 }
 
-.confirm-msg {
-    display: none;
-    margin-top: 1rem;
-    color: var(--sage);
-    font-size: 0.88rem;
-    padding: 0.85rem 1rem;
-    background: rgba(122, 158, 126, 0.1);
-    border-radius: 2px;
-    border-left: 3px solid var(--sage);
-}
 
 /* Contact Form Styles */
 .contact-form-box .form-group {
@@ -1805,21 +1665,14 @@ html[data-lang="vn"] .vn-only {
 
 /* Responsive form */
 @media (max-width: 768px) {
-    .contact-form-box .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
     
-    .contact-form-box .form-full {
-        grid-column: span 1;
-    }
 }
 
 /* Contact info links - ensure terracotta color */
 .contact-item-text a {
-    color: var(--terracotta);
-    text-decoration: none;
-    transition: color 0.2s;
+  color: var(--terracotta);
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 .contact-item-text a:hover {
@@ -1829,14 +1682,14 @@ html[data-lang="vn"] .vn-only {
 
 /* Confirm message styling */
 .confirm-msg {
-    display: none;
-    margin-top: 1rem;
-    color: var(--sage);
-    font-size: 0.88rem;
-    padding: 0.85rem 1rem;
-    background: rgba(122, 158, 126, 0.1);
-    border-radius: 8px;
-    border-left: 3px solid var(--sage);
+  display: none;
+  margin-top: 1rem;
+  color: var(--sage);
+  font-size: 0.88rem;
+  padding: 0.85rem 1rem;
+  background: rgba(122, 158, 126, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid var(--sage);
 }
 
 /* ============================================
@@ -2049,43 +1902,8 @@ html[data-lang="vn"] .vn-only {
 /* ============================================
    SECTION NAVIGATION (Desktop & Mobile)
    ============================================ */
-.section-nav {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
-    background: rgba(250, 246, 240, 0.98);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    border-top: 1px solid var(--border);
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0 0 1rem 0;
-}
 
-.section-nav a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-light);
-    text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 40px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    background: white;
-    border: 1px solid var(--border);
-}
 
-.section-nav a:hover,
-.section-nav a.active {
-    background: var(--terracotta);
-    color: white;
-    border-color: var(--terracotta);
-}
 
 /* Mobile Floating Navigation */
 .fab-nav {
@@ -2131,15 +1949,6 @@ html[data-lang="vn"] .vn-only {
     animation: fadeInUp 0.2s ease;
 }
 
-.fab-nav-menu a {
-    display: block;
-    padding: 0.6rem 0.8rem;
-    font-size: 0.75rem;
-    color: var(--ink-light);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.15s;
-}
 
 .fab-nav-menu a:hover {
     background: var(--sand);
@@ -2229,17 +2038,7 @@ footer a,
 }
 
 @media (max-width: 768px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 1.8rem;
-        text-align: center;
-    }
     
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
 }
 
 /* ============================================
@@ -2379,7 +2178,7 @@ footer a,
 /* Desktop layout - side by side */
 @media (min-width: 769px) {
     .back-to-top {
-        bottom: 20px;
+        bottom: 90px;
         right: 20px;
     }
     
@@ -2388,93 +2187,27 @@ footer a,
         right: 90px;
     }
     
-    .whatsapp-float {
-        display: none;
-    }
     
     .sticky-book-btn {
         display: none;
     }
     
-    .floating-book-btn {
-        display: flex;
-    }
 }
 
 /* Mobile layout - stacked vertically */
 @media (max-width: 768px) {
-    .sticky-book-btn {
-        display: block;
-    }
     
-    .floating-book-btn {
-        display: none;
-    }
     
-    .whatsapp-float {
-        display: flex;
-        bottom: 140px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
-        font-size: 20px;
-        z-index: 98;
-    }
     
-    .back-to-top {
-        bottom: 80px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
-        z-index: 99;
-    }
     
-    .chatbot-fab {
-        bottom: 200px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
-        z-index: 100;
-    }
     
-    .fab-nav {
-        bottom: 100px;
-        left: 16px;
-        z-index: 1000;
-    }
     
-    body {
-        padding-bottom: 70px;
-    }
 }
 
 /* Very small screens */
 @media (max-width: 480px) {
-    .whatsapp-float {
-        bottom: 130px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
     
-    .back-to-top {
-        bottom: 75px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
     
-    .chatbot-fab {
-        bottom: 185px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
     
     .fab-nav {
         bottom: 90px;
@@ -2691,14 +2424,14 @@ footer a,
    PAYMENT BUTTONS
    ============================================ */
 .pay-tab {
-    background: white;
-    color: var(--ink-light);
-    border: 1px solid var(--border);
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+  background: white;
+  color: var(--ink-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
 }
 
 .pay-tab.active {
@@ -2745,22 +2478,7 @@ footer a,
     background: var(--terracotta-dark) !important;
 }
 
-.cash-btn {
-  background: #059669;
-  color: white;
-  border: none;
-  padding: 0.85rem;
-  border-radius: 4px;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 
-.cash-btn:hover {
-  background: #047857 !important;
-}
 
 /* ============================================
    PRICE & FEATURE STYLES (Homepage Additions)
@@ -2807,21 +2525,23 @@ footer a,
 }
 
 .property-buttons {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-    align-items: stretch;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: stretch;
 }
 
 .property-buttons .btn-outline,
 .property-buttons .btn-primary {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    text-align: center;
-    padding: 0.9rem 1rem;
+  flex: 1;
+  text-align: center;
+  padding: 0.9rem 1rem;
+  font-size: 0.7rem;
+  min-height: 48px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .property-notice {
@@ -2858,13 +2578,6 @@ footer a,
     flex-shrink: 0;
 }
 
-.price-row {
-    background: linear-gradient(135deg, var(--ink) 0%, #1a1510 100%);
-    border-radius: 60px;
-    padding: 0.5rem 1.25rem;
-    display: inline-block;
-    margin: 0.75rem 0;
-}
 
 .from-text {
     font-size: 0.7rem;
@@ -3048,14 +2761,14 @@ footer a,
 }
 
 .trust-badge {
-    font-size: 0.7rem;
-    color: #6b5c47;
-    background: #f5efe6;
-    padding: 0.3rem 0.8rem;
-    border-radius: 30px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+  background: #f5efe6;
+  color: #6b5c47;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .btn-book-dates {
@@ -3218,11 +2931,6 @@ select:focus-visible {
    REDUCED MOTION ACCESSIBILITY
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-    }
 }
 
 /* ============================================
@@ -3287,119 +2995,24 @@ select:focus-visible {
 
 /* Mobile */
 @media (max-width: 768px) {
-    .nav-links {
-        position: fixed;
-        top: 64px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 64px);
-        background: rgba(250, 246, 240, 0.98);
-        backdrop-filter: blur(12px);
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: 2rem;
-        gap: 1.5rem;
-        transition: left 0.3s ease;
-        z-index: 99;
-        overflow-y: auto;
-    }
-    .nav-links.active {
-        left: 0;
-    }
-    .nav-links li {
-        width: 100%;
-        text-align: center;
-    }
-    .nav-links a {
-        display: block;
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-    }
-    .hamburger {
-        display: flex;
-    }
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
     
-    .hero-mosaic {
-        aspect-ratio: 16/9;
-    }
     
-    #properties {
-        display: block !important;
-        width: 100% !important;
-        overflow: visible !important;
-    }
-    .properties-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-        width: 100% !important;
-        min-height: auto !important;
-        padding: 0 1rem !important;
-    }
-    .property-card {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        margin: 0 !important;
-    }
-    .property-img {
-        height: 200px !important;
-        display: block !important;
-    }
-    .property-body {
-        padding: 1rem !important;
-    }
     
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 150px;
-    }
-    .gallery-item.wide {
-        grid-column: span 2;
-    }
     
-    .section-nav {
-        display: none;
-    }
     .fab-nav {
-        display: block;
+      bottom: 100px;
+      left: 16px;
+      z-index: 1000;
+      display: block;
     }
     
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
     
     .faq-helper div {
         flex-direction: column;
     }
     
-    .whatsapp-float {
-        display: none;
-    }
-    .floating-book-btn {
-        display: none;
-    }
-    .sticky-book-btn {
-        display: block;
-    }
     body {
-        padding-bottom: 70px;
+      padding-bottom: 70px;
     }
     
     .phone-wrapper {
@@ -3409,26 +3022,7 @@ select:focus-visible {
         width: 100%;
     }
     
-    .host-photo {
-        width: 120px;
-        height: 120px;
-    }
     
-    .stay-selector {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
-    .selector-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-    .selector-card {
-        max-width: 100%;
-    }
-    .differentiators-strip {
-        gap: 1rem;
-        font-size: 0.65rem;
-    }
 }
 
 /* Small mobile */
@@ -3498,10 +3092,10 @@ select:focus-visible {
         display: none;
     }
     .whatsapp-float {
-        display: none;
+      display: none;
     }
     .floating-book-btn {
-        display: none;
+      display: none;
     }
 }
 
@@ -3573,14 +3167,7 @@ select:focus-visible {
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-    .building-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
     
-    .during-stack {
-        gap: 0.5rem;
-    }
 }
 /* ────────────────────────────────────────────────────────────── */
 /*              IMPROVED MOBILE STYLES - GLOBAL                  */
@@ -3589,13 +3176,12 @@ select:focus-visible {
 /* --- Base Mobile Improvements --- */
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
 
 /* --- Navigation Mobile Improvements --- */
 
@@ -3629,6 +3215,7 @@ html {
 
   /* Hamburger - better tap target */
   .hamburger {
+    display: flex;
     padding: 0.3rem !important;
     gap: 4px !important;
   }
@@ -3649,20 +3236,22 @@ html {
     flex-direction: column !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
-    padding: 1rem 1.25rem !important;
+    padding-top: 2rem;
     gap: 0.25rem !important;
-    transform: translateX(-100%) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     z-index: 99 !important;
     overflow-y: auto !important;
+    padding: 1rem 1.25rem !important;
+    transform: translateX(-100%) !important;
     border-top: 1px solid var(--border) !important;
   }
   .nav-links.active {
-    transform: translateX(0) !important;
     left: 0 !important;
+    transform: translateX(0) !important;
   }
   .nav-links li {
     width: 100% !important;
+    text-align: center;
   }
   .nav-links a {
     display: block !important;
@@ -3736,34 +3325,6 @@ html {
   }
 
   /* Section Navigation - horizontal scroll */
-  .section-nav {
-    display: flex !important;
-    overflow-x: auto !important;
-    gap: 0.4rem !important;
-    padding: 0.5rem 0.75rem !important;
-    margin: 0.5rem 0 !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    background: var(--sand) !important;
-    border-radius: 12px !important;
-    border: none !important;
-    position: relative !important;
-    top: auto !important;
-  }
-  .section-nav::-webkit-scrollbar {
-    display: none !important;
-  }
-  .section-nav a {
-    white-space: nowrap !important;
-    font-size: 0.65rem !important;
-    padding: 0.3rem 0.7rem !important;
-    border-radius: 20px !important;
-    background: white !important;
-    color: var(--ink-light) !important;
-    border: 1px solid var(--border) !important;
-    text-decoration: none !important;
-    flex-shrink: 0 !important;
-  }
   .section-nav a:hover {
     background: var(--terracotta) !important;
     color: white !important;
@@ -3937,23 +3498,6 @@ html {
     padding: 0.7rem 1rem !important;
     min-height: 54px !important;
   }
-  .whatsapp-float {
-    display: flex !important;
-    bottom: 120px !important;
-    right: 12px !important;
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 20px !important;
-    z-index: 98 !important;
-  }
-  .back-to-top {
-    bottom: 70px !important;
-    right: 12px !important;
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 1rem !important;
-    z-index: 99 !important;
-  }
 
   /* Property CTA */
   .cta-property {
@@ -3966,8 +3510,9 @@ html {
 
   /* Booking form */
   .booking-form-wrap {
-    padding: 1.25rem !important;
+    max-width: 100%;
     margin: 0 0.5rem !important;
+    padding: 1.25rem !important;
   }
   .form-grid {
     grid-template-columns: 1fr !important;
@@ -3988,6 +3533,7 @@ html {
   }
   .contact-form-box .form-grid {
     grid-template-columns: 1fr !important;
+    gap: 1rem;
   }
   .contact-form-box .form-full {
     grid-column: span 1 !important;
@@ -4043,26 +3589,11 @@ html {
     overflow: visible !important;
     padding: 2rem 0 !important;
   }
-  .properties-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1.25rem !important;
-    width: 100% !important;
-    min-height: auto !important;
-    padding: 0 0.75rem !important;
-  }
   .property-card {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
     margin: 0 !important;
-  }
-  .property-img {
-    height: 180px !important;
-    display: block !important;
-  }
-  .property-body {
-    padding: 0.75rem 1rem !important;
   }
   .property-name {
     font-size: 1.1rem !important;
@@ -4100,13 +3631,15 @@ html {
     font-size: 1.3rem !important;
   }
   .selector-grid {
+    max-width: 100%;
+    padding: 0 1rem;
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 1rem !important;
   }
   .selector-card {
-    min-width: auto !important;
     max-width: 100% !important;
+    min-width: auto !important;
     padding: 1rem !important;
   }
   .selector-emoji {
@@ -4127,10 +3660,6 @@ html {
   }
 
   /* Compare stays */
-  .compare-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
   .compare-card {
     padding: 1rem !important;
   }
@@ -4465,8 +3994,8 @@ html {
   }
   .footer-bottom {
     flex-direction: column !important;
-    gap: 0.5rem !important;
     text-align: center !important;
+    gap: 0.5rem !important;
     font-size: 0.65rem !important;
   }
   .footer-bottom span {
@@ -4534,12 +4063,6 @@ html {
     font-size: 0.6rem !important;
   }
 
-  .property-img {
-    height: 150px !important;
-  }
-  .property-body {
-    padding: 0.5rem 0.75rem !important;
-  }
   .property-name {
     font-size: 0.95rem !important;
   }
@@ -4551,20 +4074,6 @@ html {
     font-size: 0.7rem !important;
     padding: 0.6rem 0.75rem !important;
     min-height: 48px !important;
-  }
-  .whatsapp-float {
-    bottom: 100px !important;
-    right: 10px !important;
-    width: 38px !important;
-    height: 38px !important;
-    font-size: 16px !important;
-  }
-  .back-to-top {
-    bottom: 60px !important;
-    right: 10px !important;
-    width: 38px !important;
-    height: 38px !important;
-    font-size: 0.8rem !important;
   }
 
   .selector-card {
@@ -4623,31 +4132,18 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
 
 /* --- Utility Mobile Classes --- */
 
 @media (max-width: 768px) {
-  .hide-mobile {
-    display: none !important;
-  }
-  .show-mobile {
-    display: block !important;
-  }
-  .text-center-mobile {
-    text-align: center !important;
-  }
-  .full-width-mobile {
-    width: 100% !important;
-  }
-  .gap-sm-mobile {
-    gap: 0.5rem !important;
-  }
 }
 @media (max-width: 768px) {
   .hide-mobile {
@@ -4702,6 +4198,7 @@ html {
   
   /* WhatsApp float - adjust */
   .whatsapp-float {
+    display: flex !important;
     bottom: 150px !important;
     right: 16px !important;
     width: 44px !important;
@@ -5027,7 +4524,11 @@ html {
 }
 
 .price-row {
+  background: linear-gradient(135deg, var(--ink) 0%, #1a1510 100%);
+  border-radius: 60px;
+  padding: 0.5rem 1.25rem;
   display: flex;
+  margin: 0.75rem 0;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -5196,13 +4697,16 @@ html {
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-size: 0.9rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
   width: 100%;
 }
 
 .cash-btn:hover {
-  background: #047857;
+  background: #047857 !important;
 }
 
 /* Gallery Section */
@@ -5231,6 +4735,8 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+  border-radius: 4px;
+  overflow: hidden;
   margin: 1rem 0;
 }
 
@@ -5300,17 +4806,21 @@ html {
 }
 
 .superhost-text {
+  font-size: 0.8rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   background: white;
   padding: 0.5rem 1rem;
   border-radius: 30px;
-  font-size: 0.8rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .journey-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
   color: #f59e0b;
 }
 
@@ -5480,7 +4990,8 @@ html {
 
 @media (max-width: 768px) {
   .compare-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
   
   .comparison-table {
@@ -5493,40 +5004,28 @@ html {
   }
 }
 /* Prevent browser auto-scroll */
-html {
-  scroll-behavior: auto !important;
-}
 
 body {
+  font-family: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", "Arial", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-weight: 300;
+  font-size: var(--body-size);
+  line-height: var(--line-height-body);
+  overflow-x: hidden;
+  padding-top: 64px;
+  font-display: swap;
   overflow-anchor: none !important;
 }
 
-:target {
-  scroll-margin-top: 9999px !important;
-}
 /* Prevent browser scroll restoration */
-:target {
-    scroll-margin-top: 9999px !important;
-}
 
-html {
-    overflow-anchor: none !important;
-    scroll-behavior: auto !important;
-}
 
-body.loaded :target {
-    scroll-margin-top: 0 !important;
-}
 /* ================================================================
    SECTION NAVIGATION - FIXES FOR SCROLL BUTTONS
    ================================================================ */
 
 /* Ensure section nav links are clickable and visible */
-.section-nav a {
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
 
 /* Active state for section nav */
 .section-nav a.active {
@@ -5537,17 +5036,17 @@ body.loaded :target {
 
 /* Smooth scroll behavior - only on user interaction */
 html {
-    scroll-behavior: auto !important;
+  scroll-behavior: auto !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-anchor: none !important;
 }
 
 /* Prevent browser scroll restoration on homepage */
 :target {
-    scroll-margin-top: 9999px !important;
+  scroll-margin-top: 9999px !important;
 }
 
-body.loaded :target {
-    scroll-margin-top: 0 !important;
-}
 
 /* Prevent anchor from being hidden behind fixed nav */
 section[id] {
@@ -5563,47 +5062,57 @@ section[id] {
 
 /* Ensure section nav is always on top and clickable */
 .section-nav {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
-    background: rgba(250, 246, 240, 0.98);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    border-top: 1px solid var(--border);
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0 0 1rem 0;
+  position: sticky;
+  top: 70px;
+  z-index: 90;
+  background: rgba(250, 246, 240, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0 0 1rem 0;
 }
 
 .section-nav a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-light);
-    text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 40px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    background: white;
-    border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  background: white;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .section-nav a:hover,
 .section-nav a.active {
-    background: var(--terracotta);
-    color: white;
-    border-color: var(--terracotta);
+  background: var(--terracotta);
+  color: white;
+  border-color: var(--terracotta);
 }
 
 /* Fix for FAB mobile navigation */
 .fab-nav-menu a {
-    cursor: pointer;
-    user-select: none;
+  display: block;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.15s;
+  cursor: pointer;
+  user-select: none;
 }
 
 .fab-nav-menu a.active {
@@ -5614,35 +5123,47 @@ section[id] {
 /* Prevent scroll issues on mobile */
 @media (max-width: 768px) {
     .section-nav {
-        overflow-x: auto;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 0.4rem;
-        padding: 0.5rem 0.75rem;
-        top: 60px;
+      display: flex !important;
+      overflow-x: auto !important;
+      gap: 0.4rem !important;
+      padding: 0.5rem 0.75rem !important;
+      margin: 0.5rem 0 !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      background: var(--sand) !important;
+      border-radius: 12px !important;
+      border: none !important;
+      position: relative !important;
+      top: auto !important;
+      justify-content: flex-start;
     }
     
     .section-nav::-webkit-scrollbar {
-        display: none;
+      display: none !important;
     }
     
     .section-nav a {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.8rem;
-        white-space: nowrap;
-        flex-shrink: 0;
+      white-space: nowrap !important;
+      font-size: 0.65rem !important;
+      padding: 0.3rem 0.7rem !important;
+      border-radius: 20px !important;
+      background: white !important;
+      color: var(--ink-light) !important;
+      border: 1px solid var(--border) !important;
+      text-decoration: none !important;
+      flex-shrink: 0 !important;
     }
 }
 
 /* Add loaded class for scroll margin fix */
 body.loaded :target {
-    scroll-margin-top: 0 !important;
+  scroll-margin-top: 0 !important;
 }
 
 /* Also apply scroll margin to booking section specifically */
 #booking {
-    scroll-margin-top: 80px;
+  background: var(--sand);
+  scroll-margin-top: 80px;
 }
 
 @media (max-width: 768px) {

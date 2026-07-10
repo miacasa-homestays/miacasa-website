@@ -311,52 +311,12 @@ function initScrollReveal() {
 // ================================================================
 // CHATBOT FUNCTIONALITY
 // ================================================================
-
-function toggleChat() {
-    const chatbot = document.getElementById('chatbot');
-    if (!chatbot) {
-        console.warn('Chatbot element not found');
-        return;
-    }
-    chatbot.classList.toggle('open');
-}
-
-function sendChat() {
-    const input = document.getElementById('chat-input');
-    const message = input?.value?.trim();
-    if (!message) return;
-    
-    addChatMessage(message, 'user');
-    if (input) input.value = '';
-    
-    // Simulate typing delay
-    setTimeout(() => {
-        const reply = getChatbotReply(message);
-        addChatMessage(reply, 'bot');
-    }, 500);
-}
-
-function quickReply(message) {
-    addChatMessage(message, 'user');
-    setTimeout(() => {
-        const reply = getChatbotReply(message);
-        addChatMessage(reply, 'bot');
-    }, 300);
-}
-
-function addChatMessage(message, type) {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) {
-        console.warn('Chat messages container not found');
-        return;
-    }
-    
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `msg ${type}`;
-    msgDiv.textContent = message;
-    messagesContainer.appendChild(msgDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
+// NOTE: the chat widget UI itself now lives inline in index.html
+// (chatbotFab/chatbotWindow/chatInput/chatMessages), which calls
+// getChatbotReply() below directly. The older toggleChat/sendChat/
+// quickReply/addChatMessage helpers targeted a previous widget markup
+// (#chatbot/#chat-input/#chat-messages) that no longer exists in any
+// page, so they were removed as dead code.
 
 function getChatbotReply(message) {
     const m = message.toLowerCase();

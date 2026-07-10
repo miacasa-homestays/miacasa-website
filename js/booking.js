@@ -92,16 +92,6 @@ let slowConnectionTimeout = null;
 
 let currentAvailabilityStatus = { available: false, checked: false };
 
-function getPropertyFromRoom(room) {
-    const map = {
-        "Spring Room": "MiaCasa Hanoi",
-        "Summer Room": "MiaCasa Hanoi",
-        "Autumn Room": "MiaCasa Hanoi",
-        "Entire Apartment (3 queen beds)": "MiaCasaOldQuarter"
-    };
-    return map[room] || "MiaCasa Hanoi";
-}
-
 // PROPERTIES DATA
 const PROPERTIES = [
     {
@@ -1094,92 +1084,6 @@ function getField(p, field, lang) {
     return p[field];
 }
 
-function renderProperties() {
-    const grid = document.getElementById('properties-grid');
-    if (!grid) return;
-    
-    let lang = window.currentLang;
-    if (!lang) {
-        try {
-            lang = localStorage.getItem('mia_lang') || CONFIG_DEFAULT_LANG;
-        } catch(e) {
-            lang = CONFIG_DEFAULT_LANG;
-        }
-    }
-    
-    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
-    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
-    const currencySymbol = CONFIG_CURRENCY;
-    
-    const properties = [
-        {
-            id: 'hanoi',
-            name: lang === 'vn' ? 'MiaCasa Hà Nội' : 'MiaCasa Hanoi',
-            badge: lang === 'vn' ? 'Phòng có bếp nhỏ' : 'Rooms with Kitchenette',
-            location: lang === 'vn' ? '92 Ngõ 51 Ng. Linh Quang, Văn Chương' : '92 Ngh. 51 Ng. Linh Quang, Văn Chương',
-            desc: lang === 'vn' ? '3 phòng riêng gần Phố Tàu & Văn Miếu' : '3 private rooms near Train Street & Văn Miếu',
-            price: hanoiPrice,
-            maxGuests: 8,
-            rating: '4.9',
-            roomsLabel: lang === 'vn' ? 'Phòng' : 'Rooms',
-            guestsLabel: lang === 'vn' ? 'Khách' : 'Guests',
-            ratingLabel: lang === 'vn' ? 'Đánh giá' : 'Rating',
-            saveLabel: lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%',
-            exploreBtn: lang === 'vn' ? 'Khám phá →' : 'Explore →',
-            bookBtn: lang === 'vn' ? 'Đặt ngay →' : 'Book Now →',
-            link: 'miacasa-hanoi.html',
-            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg'
-        },
-        {
-            id: 'oldquarter',
-            name: lang === 'vn' ? 'MiaCasa Phố Cổ' : 'MiaCasa Old Quarter',
-            badge: lang === 'vn' ? 'Toàn bộ căn hộ' : 'Whole Apartment',
-            location: '38 P. Lương Ngọc Quyến, Hoàn Kiếm',
-            desc: lang === 'vn' ? 'Toàn bộ căn hộ giữa lòng Phố Cổ' : 'Full apartment in the heart of Old Quarter',
-            price: oldquarterPrice,
-            maxGuests: 6,
-            rating: '4.8',
-            roomsLabel: lang === 'vn' ? 'Phòng' : 'Rooms',
-            guestsLabel: lang === 'vn' ? 'Khách' : 'Guests',
-            ratingLabel: lang === 'vn' ? 'Đánh giá' : 'Rating',
-            saveLabel: lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%',
-            exploreBtn: lang === 'vn' ? 'Khám phá →' : 'Explore →',
-            bookBtn: lang === 'vn' ? 'Đặt ngay →' : 'Book Now →',
-            link: 'miacasa-oldquarter.html',
-            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg'
-        }
-    ];
-    
-    grid.innerHTML = properties.map(prop => `
-        <div class="property-card">
-            <div class="property-img">
-                <img src="${prop.img}" alt="${prop.name}" loading="lazy" decoding="async">
-                <div class="property-badge">${prop.badge}</div>
-            </div>
-            <div class="property-body">
-                <div class="property-name">${prop.name}</div>
-                <div class="property-loc">📍 ${prop.location}</div>
-                <p class="property-desc">${prop.desc}</p>
-                <div class="property-meta">
-                    <div class="meta-item"><span class="meta-num">3</span><span class="meta-lbl">${prop.roomsLabel}</span></div>
-                    <div class="meta-item"><span class="meta-num">1–${prop.maxGuests}</span><span class="meta-lbl">${prop.guestsLabel}</span></div>
-                    <div class="meta-item"><span class="meta-num">${prop.rating}★</span><span class="meta-lbl">${prop.ratingLabel}</span></div>
-                </div>
-                <div class="price-prominent">
-                    <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
-                    <span class="amount">${prop.price.toLocaleString()}${currencySymbol}</span>
-                    <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
-                    <span class="price-save-badge">${prop.saveLabel}</span>
-                </div>
-                <div class="property-buttons">
-                    <a href="${prop.link}" class="btn-outline">${prop.exploreBtn}</a>
-                    <a href="?property=${prop.id}#booking" class="btn-primary">${prop.bookBtn}</a>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
 function renderBookingSelector() {
     const sel = document.getElementById('booking-prop-sel');
     if (!sel) return;
@@ -1341,14 +1245,6 @@ function fileToBase64(file) {
         };
         reader.onerror = reject;
     });
-}
-
-// Show transfer details when VietQR is selected
-function showTransferDetails() {
-    const transferDetails = document.getElementById('transfer-details');
-    if (transferDetails) {
-        transferDetails.style.display = 'block';
-    }
 }
 
 // Submit bank transfer proof
@@ -1670,55 +1566,6 @@ function validateBookingForm() {
     return null;
 }
 
-// Show waiting message (NOT confirmation)
-function showWaitingForPaymentMessage(bookingData) {
-    const priceBox = document.getElementById('mia-price-box');
-    const paymentSection = document.getElementById('mia-payment-section');
-    const bookingSection = document.querySelector('#booking .container');
-    
-    if (!bookingSection) return;
-    
-    // Hide price and payment sections
-    if (priceBox) priceBox.style.display = 'none';
-    if (paymentSection) paymentSection.style.display = 'none';
-    
-    // Create waiting message
-    const waitingDiv = document.createElement('div');
-    waitingDiv.id = 'payment-waiting';
-    waitingDiv.style.cssText = `
-        background: #fef3c7;
-        border: 1px solid #f59e0b;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        text-align: center;
-    `;
-    waitingDiv.innerHTML = `
-        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
-        <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">
-            ${window.currentLang === 'vn' 
-                ? 'Đang chờ thanh toán qua PayPal...' 
-                : 'Waiting for PayPal payment...'}
-        </p>
-        <p style="font-size: 0.85rem; color: #6b5c47; margin-bottom: 1rem;">
-            ${window.currentLang === 'vn'
-                ? 'Vui lòng hoàn tất thanh toán trong cửa sổ PayPal vừa mở.'
-                : 'Please complete your payment in the PayPal window that just opened.'}
-        </p>
-        <p style="font-size: 0.75rem; color: #6b5c47;">
-            ${window.currentLang === 'vn'
-                ? 'Sau khi thanh toán thành công, bạn sẽ nhận được email xác nhận đặt phòng.'
-                : 'Once payment is confirmed, you will receive a booking confirmation email.'}
-        </p>
-        <button onclick="checkPaymentStatus('${escapeHtml(bookingData.bookingId)}')" 
-                style="margin-top: 1rem; background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
-            ${window.currentLang === 'vn' ? 'Tôi đã thanh toán →' : 'I have completed payment →'}
-        </button>
-    `;
-    
-    bookingSection.appendChild(waitingDiv);
-}
-
 // Check payment status (could be called by PayPal IPN or manually by guest)
 async function checkPaymentStatus(bookingId) {
     const waitingDiv = document.getElementById('payment-waiting');
@@ -1822,61 +1669,6 @@ async function updateBookingStatusToPaid(bookingId) {
         console.error('Failed to update status:', error);
     }
 }
-
-function showPayPalBlockedMessage(paypalLink) {
-    const btn = document.getElementById('paypal-pay-btn');
-    const errorDiv = document.getElementById('pay-error') || document.createElement('div');
-    errorDiv.id = 'pay-error';
-    errorDiv.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;';
-    errorDiv.innerHTML = `
-        <p style="margin-bottom: 0.5rem;">
-            ${window.currentLang === 'vn'
-                ? '⚠️ Trình duyệt đã chặn cửa sổ bật lên. Vui lòng nhấp vào nút bên dưới để thanh toán.'
-                : '⚠️ Popup was blocked by your browser. Please click below to continue to PayPal.'}
-        </p>
-        <a href="${paypalLink}" target="_blank" 
-           style="display: inline-block; background: #0070ba; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none;">
-           ${window.currentLang === 'vn' ? 'Thanh toán qua PayPal →' : 'Pay with PayPal →'}
-        </a>
-    `;
-    
-    const paymentSection = document.getElementById('mia-payment-section');
-    if (paymentSection) {
-        paymentSection.insertBefore(errorDiv, paymentSection.firstChild);
-    }
-    
-    if (btn) {
-        btn.disabled = false;
-        btn.textContent = window.currentLang === 'vn' ? 'Thanh toán PayPal' : 'Pay with PayPal';
-    }
-}
-
-/* async function confirmVietQR() {
-    const err = validateBookingForm();
-    if (err) { if (err !== '__captcha__') showPayError(err); return; }
-    if (!currentBookingId) { showPayError('Booking ID not generated yet. Please select dates first.'); return; }
-
-    const data = collectBookingData();
-    const payload = {
-        ...data,
-        action: 'createBooking',
-        paymentMethod: 'vietqr',
-        paymentStatus: 'pending',
-        language: window.currentLang || 'en',
-        bookedAt: new Date().toISOString()
-    };
-
-    try {
-        const res = await callSheetsAPI(payload);
-        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
-    } catch (error) {
-        showPayError('Could not save booking: ' + error.message + '. Please try again or contact us on WhatsApp.');
-        return;
-    }
-
-    saveBookingToLocal(data);
-    showBookingConfirmation(data);
-} */
 
 // ================================================================
 // CASH PAYMENT FUNCTION - Add to booking.js
@@ -2143,31 +1935,32 @@ async function processPayPal() {
 function initializeProperties() {
     console.log('🔍 initializeProperties called');
     console.log('📍 Current URL:', window.location.href);
-    
-    if (document.getElementById('properties-grid')) {
-        renderProperties();
-        renderBookingSelector();
-        
-        // Check URL for property parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const propertyParam = urlParams.get('property');
-        console.log('📌 Property parameter from URL:', propertyParam);
-        
-        // Set active property based on URL parameter, default to 'hanoi'
-        let initialProperty = 'hanoi';
-        if (propertyParam === 'oldquarter') {
-            initialProperty = 'oldquarter';
-        }
-        
-        console.log('🏠 Setting initial property to:', initialProperty);
-        
-        // Select the property (this will update UI)
-        selectProp(initialProperty);
-        setMinDates();
-        updateGuestOptions();
-    } else {
-        console.warn('⚠️ properties-grid not found');
+
+    // NOTE: this used to be gated behind `if (document.getElementById('properties-grid'))`,
+    // a leftover check from an older property-list UI that no longer exists on any page.
+    // Since that element was never present, this entire block — including
+    // renderBookingSelector(), setMinDates(), and updateGuestOptions(), which all target
+    // real, live elements (#booking-prop-sel, #checkin/#checkout, #guests-sel) — was
+    // silently never running. Removed the dead guard so booking-form init actually runs.
+    renderBookingSelector();
+
+    // Check URL for property parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const propertyParam = urlParams.get('property');
+    console.log('📌 Property parameter from URL:', propertyParam);
+
+    // Set active property based on URL parameter, default to 'hanoi'
+    let initialProperty = 'hanoi';
+    if (propertyParam === 'oldquarter') {
+        initialProperty = 'oldquarter';
     }
+
+    console.log('🏠 Setting initial property to:', initialProperty);
+
+    // Select the property (this will update UI)
+    selectProp(initialProperty);
+    setMinDates();
+    updateGuestOptions();
 }
 
 function setupPaymentEventListeners() {
@@ -2218,7 +2011,6 @@ if (document.readyState === 'loading') {
 }
 
 // Make functions available globally
-window.renderProperties = renderProperties;
 window.renderBookingSelector = renderBookingSelector;
 window.selectProp = selectProp;
 //window.selectAndScroll = selectAndScroll;
