@@ -5,6 +5,23 @@
 'use strict';
 
 // ================================================================
+// CONFIGURATION - Single source of truth
+// ================================================================
+
+// Exchange rate and currency settings
+// Must match the values in your GAS script
+const CONFIG_EXCHANGE_RATE = 25000;  // 1 USD = 25,000 VND
+const CONFIG_CURRENCY = '₫';
+const CONFIG_CURRENCY_CODE = 'VND';
+const CONFIG_DEFAULT_LANG = 'en';
+
+// Make config globally available
+window.CONFIG_EXCHANGE_RATE = CONFIG_EXCHANGE_RATE;
+window.CONFIG_CURRENCY = CONFIG_CURRENCY;
+window.CONFIG_CURRENCY_CODE = CONFIG_CURRENCY_CODE;
+window.CONFIG_DEFAULT_LANG = CONFIG_DEFAULT_LANG;
+
+// ================================================================
 // API URL - Single declaration with fallback
 // ================================================================
 
@@ -41,7 +58,8 @@ if (typeof window.config === 'undefined' && typeof window.MiaCasaConfig !== 'und
 // API CONFIGURATION
 // ================================================================
 
-const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
+// Safely access PRICES with fallback
+const EXTRA_GUEST_FEE = (typeof PRICES !== 'undefined' && PRICES['extra-guest-hanoi']) ? PRICES['extra-guest-hanoi'] : 150000;
 const INCLUDED_GUESTS = 2;
 
 // ================================================================
@@ -103,11 +121,11 @@ const PROPERTIES = [
         maxGuests: 8,
         maxGuestsPerRoom: 3,
         rating: '4.9',
-        priceNote: 'From ' + PRICES['hanoi-spring'].toLocaleString() + CONFIG_CURRENCY + ' / room / night',
+        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString() : '750,000') + CONFIG_CURRENCY + ' / room / night',
         vn: {
             badge: 'Phòng có bếp nhỏ',
             desc: 'Ba phòng boho riêng tư — Xuân, Hạ và Thu — mỗi phòng có phòng tắm riêng và bếp nhỏ.',
-            priceNote: 'Từ ' + PRICES['hanoi-spring'].toLocaleString('vi-VN') + CONFIG_CURRENCY + ' / phòng / đêm',
+            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString('vi-VN') : '750.000') + CONFIG_CURRENCY + ' / phòng / đêm',
             rooms: ['Phòng Xuân', 'Phòng Hạ', 'Phòng Thu']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg',
@@ -122,11 +140,11 @@ const PROPERTIES = [
         desc: 'A whole apartment in the heart of the Old Quarter. Two beds on the main level and one in the upper attic.',
         maxGuests: 6,
         rating: '4.8',
-        priceNote: 'From ' + PRICES.oldquarter.toLocaleString() + CONFIG_CURRENCY + ' / night · Base rate for 2 guests',
+        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString() : '1,200,000') + CONFIG_CURRENCY + ' / night · Base rate for 2 guests',
         vn: {
             badge: 'Toàn bộ căn hộ',
             desc: 'Toàn bộ căn hộ giữa lòng Phố Cổ. Hai giường ở tầng chính và một giường ở gác xép phía trên.',
-            priceNote: 'Từ ' + PRICES.oldquarter.toLocaleString('vi-VN') + CONFIG_CURRENCY + ' / đêm · Giá cơ bản cho 2 khách',
+            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString('vi-VN') : '1.200.000') + CONFIG_CURRENCY + ' / đêm · Giá cơ bản cho 2 khách',
             rooms: ['Toàn bộ căn hộ (3 giường đôi)']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
@@ -267,14 +285,14 @@ function nightRate(dateStr, propId, room) {
 
     // 2. Fall back to standard seasonal/weekend rates from prices.js
     const hanoiRates = {
-        weekday: PRICES['hanoi-spring'],
-        weekend: PRICES['hanoi-weekend'],
-        special: PRICES['hanoi-special']
+        weekday: typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'] : 750000,
+        weekend: typeof PRICES !== 'undefined' ? PRICES['hanoi-weekend'] : 850000,
+        special: typeof PRICES !== 'undefined' ? PRICES['hanoi-special'] : 950000
     };
     const oqRates = {
-        weekday: PRICES.oldquarter,
-        weekend: PRICES['oldquarter-weekend'],
-        special: PRICES['oldquarter-special']
+        weekday: typeof PRICES !== 'undefined' ? PRICES.oldquarter : 1200000,
+        weekend: typeof PRICES !== 'undefined' ? PRICES['oldquarter-weekend'] : 1400000,
+        special: typeof PRICES !== 'undefined' ? PRICES['oldquarter-special'] : 1600000
     };
     const r = propId === 'hanoi' ? hanoiRates : oqRates;
     if (isSpecialDay(dateStr)) return r.special;
@@ -299,7 +317,7 @@ function calcTotal(propId, checkIn, checkOut, guests) {
 
     let extra = 0;
     if (guests > INCLUDED_GUESTS) {
-        const extraFee = propId === 'hanoi' ? PRICES['extra-guest-hanoi'] : PRICES['extra-guest-oldquarter'];
+        const extraFee = propId === 'hanoi' ? (typeof PRICES !== 'undefined' ? PRICES['extra-guest-hanoi'] : 150000) : (typeof PRICES !== 'undefined' ? PRICES['extra-guest-oldquarter'] : 200000);
         extra = (guests - INCLUDED_GUESTS) * extraFee * nights;
     }
     return { nights, baseTotal, extra, total: baseTotal + extra };
@@ -498,8 +516,8 @@ function overridePriority(override) {
 // Used to keep ALL "From X₫" displays in sync with admin overrides.
 function getEffectiveFromPrice(propId) {
     const basePrice = propId === 'hanoi'
-        ? PRICES['hanoi-spring']
-        : PRICES.oldquarter;
+        ? (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'] : 750000)
+        : (typeof PRICES !== 'undefined' ? PRICES.oldquarter : 1200000);
 
     if (!_priceOverrides.length) return basePrice;
 
@@ -556,8 +574,8 @@ function refreshAllPriceDisplays() {
     });
 
     // 4. Save% badges — recalculate against the effective price
-    const airbnbHanoi = PRICES['airbnb-price-hanoi'] || 880000;
-    const airbnbOQ    = PRICES['airbnb-price-oldquarter'] || 1410000;
+    const airbnbHanoi = (typeof PRICES !== 'undefined' && PRICES['airbnb-price-hanoi']) ? PRICES['airbnb-price-hanoi'] : 880000;
+    const airbnbOQ    = (typeof PRICES !== 'undefined' && PRICES['airbnb-price-oldquarter']) ? PRICES['airbnb-price-oldquarter'] : 1410000;
     const savedHanoi  = Math.round(((airbnbHanoi - hanoiFrom) / airbnbHanoi) * 100);
     const savedOQ     = Math.round(((airbnbOQ - oqFrom) / airbnbOQ) * 100);
 
@@ -1909,7 +1927,7 @@ async function processPayPal() {
         const res = await callSheetsAPI(payload);
         if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
         
-        const amountUSD = (data.amount / 25000).toFixed(2);
+        const amountUSD = (data.amount / CONFIG_EXCHANGE_RATE).toFixed(2);
         const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
         
         saveBookingToLocal({ ...data, paymentStatus: 'pending_payment' });
