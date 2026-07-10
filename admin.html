@@ -65,13 +65,16 @@
       <button onclick="toggleMaintenance()" id="maintenance-btn" class="add-override-btn" style="margin-top:0.5rem;">Turn Maintenance On</button>
     </div>
 
+    <!-- ===== ADMIN TABS ===== -->
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
       <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
+      <!-- 👇 ADDED PayPal TAB -->
+      <button class="admin-tab" onclick="switchTab('paypal',this)">💰 PayPal</button>
       <button class="admin-tab" onclick="switchTab('cancellations',this)">⚠️ Cancellations</button>
     </div>
 
-    <!-- ROOMS TAB -->
+    <!-- ===== ROOMS TAB ===== -->
     <div class="admin-panel active" id="panel-rooms">
       <div class="price-section" style="margin-bottom:1.5rem;">
         <div class="price-section-title" id="rs-form-title">Set room availability for date range</div>
@@ -118,7 +121,7 @@
       </div>
     </div>
 
-    <!-- PRICES TAB -->
+    <!-- ===== PRICES TAB ===== -->
     <div class="admin-panel" id="panel-prices">
       <div class="price-section">
         <div class="price-section" id="price-override-section">
@@ -250,7 +253,31 @@
       </div>
     </div>
 
-    <!-- CANCELLATIONS TAB -->
+    <!-- ===== PAYPAL TAB ===== -->
+    <div class="admin-panel" id="panel-paypal">
+      <div class="price-section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;">💰 Pending PayPal Bookings</h2>
+          <button onclick="loadPendingPayPalBookings()" 
+                  style="background:none;border:1px solid #d4c8bc;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;font-size:0.75rem;">
+            🔄 Refresh
+          </button>
+        </div>
+        <div id="paypal-pending-list">
+          <!-- Loaded by JavaScript -->
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:#f8f5f0;border-radius:8px;font-size:0.8rem;color:#6b5c47;">
+          <p style="margin:0;"><strong>How it works:</strong></p>
+          <p style="margin:0.25rem 0 0;">When a guest books with PayPal, the booking is saved with status "pending_payment". After you confirm payment in your PayPal account, click "Confirm Payment" below to:</p>
+          <ul style="margin:0.25rem 0 0;padding-left:1.25rem;">
+            <li>Update the booking status to "paid"</li>
+            <li>Send the confirmation email to the guest</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CANCELLATIONS TAB ===== -->
     <div class="admin-panel" id="panel-cancellations">
       <div class="price-section">
         <div class="price-section-title">⚠️ Pending Cancellation Requests <span id="pending-count"></span></div>

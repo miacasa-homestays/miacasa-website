@@ -141,6 +141,62 @@ async function callAdminGAS(payload) {
   return callGAS({ ...payload, token: GAS_ADMIN_TOKEN });
 }
 
+// ================================================================
+// PAYPAL ADMIN HANDLERS
+// ================================================================
+
+async function handleConfirmPayPalPayment(data) {
+  try {
+    const response = await callAdminGAS({
+      action: 'confirmPayPalPayment',
+      bookingId: data.bookingId
+    });
+    return response;
+  } catch (error) {
+    console.error('handleConfirmPayPalPayment error:', error);
+    return { status: 'error', message: error.message };
+  }
+}
+
+async function handleGetPendingPayPalBookings(data) {
+  try {
+    const response = await callAdminGAS({
+      action: 'getPendingPayPalBookings'
+    });
+    return response;
+  } catch (error) {
+    console.error('handleGetPendingPayPalBookings error:', error);
+    return { status: 'error', message: error.message };
+  }
+}
+
+async function handleUpdatePaymentStatus(data) {
+  try {
+    const response = await callAdminGAS({
+      action: 'updatePaymentStatus',
+      bookingId: data.bookingId,
+      status: data.status || 'paid'
+    });
+    return response;
+  } catch (error) {
+    console.error('handleUpdatePaymentStatus error:', error);
+    return { status: 'error', message: error.message };
+  }
+}
+
+async function handleSendConfirmationAfterPayment(data) {
+  try {
+    const response = await callAdminGAS({
+      action: 'sendConfirmationAfterPayment',
+      bookingId: data.bookingId
+    });
+    return response;
+  } catch (error) {
+    console.error('handleSendConfirmationAfterPayment error:', error);
+    return { status: 'error', message: error.message };
+  }
+}
+
 // Helper function to parse body (Vercel doesn't auto-parse JSON)
 async function parseBody(req) {
   return new Promise((resolve, reject) => {
@@ -293,6 +349,29 @@ module.exports = async function handler(req, res) {
 
     if (action === 'confirmRefund') {
       const result = await callAdminGAS(body);
+      return res.status(200).json(result);
+    }
+
+    // ================================================================
+    // PAYPAL ADMIN ACTIONS
+    // ================================================================
+    if (action === 'confirmPayPalPayment') {
+      const result = await handleConfirmPayPalPayment(body);
+      return res.status(200).json(result);
+    }
+
+    if (action === 'getPendingPayPalBookings') {
+      const result = await handleGetPendingPayPalBookings(body);
+      return res.status(200).json(result);
+    }
+
+    if (action === 'updatePaymentStatus') {
+      const result = await handleUpdatePaymentStatus(body);
+      return res.status(200).json(result);
+    }
+
+    if (action === 'sendConfirmationAfterPayment') {
+      const result = await handleSendConfirmationAfterPayment(body);
       return res.status(200).json(result);
     }
 
