@@ -2030,8 +2030,4 @@ window.confirmCashBooking = window.confirmCashBooking || confirmCashBooking;
 window.renderBookingFormLanguage = window.renderBookingFormLanguage || renderBookingFormLanguage;
 window.fmtVND = window.fmtVND || fmtVND;
 window.fmtUSD = window.fmtUSD || fmtUSD;
-<<<<<<< HEAD
 window.formatCurrency = window.formatCurrency || formatCurrency;
-=======
-window.formatCurrency = window.formatCurrency || formatCurrency;
->>>>>>> 6584729ef7b212e79f8ff27920aaa75c4014faaf
