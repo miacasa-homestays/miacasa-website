@@ -799,6 +799,9 @@ function updateGuestOptions() {
 
 function updatePriceDisplayContent(result, ci, co, room) {
     const propName = PROPERTIES.find(p => p.id === activeProp)?.name || activeProp;
+    const lang = window.currentLang || getConfigDefaultLang();
+    const isVN = lang === 'vn';
+    
     const prVal = document.getElementById('ps-pr-val');
     const datesVal = document.getElementById('ps-dates-val');
     const extraRow = document.getElementById('ps-extrarow');
@@ -806,18 +809,41 @@ function updatePriceDisplayContent(result, ci, co, room) {
     const totalVal = document.getElementById('ps-total-val');
     const bidVal = document.getElementById('ps-bid');
     
-    if (prVal) prVal.textContent = propName + ' · ' + room;
-    if (datesVal) datesVal.textContent = fmtDateVN(ci) + ' → ' + fmtDateVN(co) + ' (' + result.nights + ' night' + (result.nights > 1 ? 's' : '') + ')';
+    // Property / Room
+    if (prVal) {
+        prVal.textContent = propName + ' · ' + room;
+    }
     
+    // Dates & Nights
+    if (datesVal) {
+        const nightsLabel = isVN ? 'đêm' : 'night';
+        const nightsText = result.nights > 1 ? (isVN ? 'đêm' : 'nights') : nightsLabel;
+        const dateLabel = isVN ? 'Ngày & Số đêm:' : 'Dates & Nights:';
+        datesVal.textContent = fmtDateVN(ci) + ' → ' + fmtDateVN(co) + ' (' + result.nights + ' ' + nightsText + ')';
+    }
+    
+    // Extra guests surcharge
     if (result.extra > 0) {
         if (extraRow) extraRow.style.display = 'flex';
-        if (extraVal) extraVal.textContent = fmtVND(result.extra) + ' (~' + fmtUSD(result.extra) + ')';
+        if (extraVal) {
+            const extraLabel = isVN ? 'Phụ thu khách thêm:' : 'Extra guests surcharge:';
+            extraVal.textContent = extraLabel + ' ' + fmtVND(result.extra) + ' (~' + fmtUSD(result.extra) + ')';
+        }
     } else {
         if (extraRow) extraRow.style.display = 'none';
     }
     
-    if (totalVal) totalVal.textContent = fmtVND(result.total) + ' (~' + fmtUSD(result.total) + ')';
-    if (bidVal) bidVal.textContent = currentBookingId;
+    // Total
+    if (totalVal) {
+        const totalLabel = isVN ? 'Tổng cộng:' : 'Total:';
+        totalVal.textContent = totalLabel + ' ' + fmtVND(result.total) + ' (~' + fmtUSD(result.total) + ')';
+    }
+    
+    // Booking ID
+    if (bidVal) {
+        const bidLabel = isVN ? 'Mã đặt phòng:' : 'Booking ID:';
+        bidVal.textContent = bidLabel + ' ' + currentBookingId;
+    }
 }
 
 function showCancellationMessage(checkInDate) {
