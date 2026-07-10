@@ -5,21 +5,48 @@
 'use strict';
 
 // ================================================================
-// CONFIGURATION - Single source of truth
+// CONFIGURATION - Use values from prices.js or provide fallbacks
 // ================================================================
 
-// Exchange rate and currency settings
-// Must match the values in your GAS script
-const CONFIG_EXCHANGE_RATE = 25000;  // 1 USD = 25,000 VND
-const CONFIG_CURRENCY = '₫';
-const CONFIG_CURRENCY_CODE = 'VND';
-const CONFIG_DEFAULT_LANG = 'en';
+// These are already defined in prices.js, so we just ensure they exist
+// on the window object with fallback values if prices.js hasn't loaded yet
 
-// Make config globally available
-window.CONFIG_EXCHANGE_RATE = CONFIG_EXCHANGE_RATE;
-window.CONFIG_CURRENCY = CONFIG_CURRENCY;
-window.CONFIG_CURRENCY_CODE = CONFIG_CURRENCY_CODE;
-window.CONFIG_DEFAULT_LANG = CONFIG_DEFAULT_LANG;
+// Ensure CONFIG_EXCHANGE_RATE exists (not in prices.js, so we define it here)
+if (typeof window.CONFIG_EXCHANGE_RATE === 'undefined') {
+    window.CONFIG_EXCHANGE_RATE = 25000;  // 1 USD = 25,000 VND
+}
+
+// Use CONFIG_CURRENCY from prices.js if available, otherwise provide fallback
+if (typeof window.CONFIG_CURRENCY === 'undefined') {
+    window.CONFIG_CURRENCY = '₫';
+}
+
+// Use CONFIG_CURRENCY_CODE from prices.js if available, otherwise provide fallback
+if (typeof window.CONFIG_CURRENCY_CODE === 'undefined') {
+    window.CONFIG_CURRENCY_CODE = 'VND';
+}
+
+// CONFIG_DEFAULT_LANG might not be defined elsewhere
+if (typeof window.CONFIG_DEFAULT_LANG === 'undefined') {
+    window.CONFIG_DEFAULT_LANG = 'en';
+}
+
+// Helper to get config values safely
+function getConfigCurrency() {
+    return window.CONFIG_CURRENCY || '₫';
+}
+
+function getConfigCurrencyCode() {
+    return window.CONFIG_CURRENCY_CODE || 'VND';
+}
+
+function getConfigExchangeRate() {
+    return window.CONFIG_EXCHANGE_RATE || 25000;
+}
+
+function getConfigDefaultLang() {
+    return window.CONFIG_DEFAULT_LANG || 'en';
+}
 
 // ================================================================
 // API URL - Single declaration with fallback
@@ -30,10 +57,6 @@ window.API_URL = window.API_URL || '/api/log-booking';
 // ================================================================
 // SECURITY - Escape guest-supplied text before inserting via innerHTML
 // ================================================================
-// bookingData.guestEmail (and similar fields) are typed by the visitor.
-// Anywhere they're templated into a string that becomes innerHTML, run
-// them through this first so a value like <img src=x onerror=...> is
-// displayed as inert text instead of executing.
 function escapeHtml(value) {
     if (value === null || value === undefined) return '';
     return String(value)
@@ -121,11 +144,11 @@ const PROPERTIES = [
         maxGuests: 8,
         maxGuestsPerRoom: 3,
         rating: '4.9',
-        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString() : '750,000') + CONFIG_CURRENCY + ' / room / night',
+        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString() : '750,000') + getConfigCurrency() + ' / room / night',
         vn: {
             badge: 'Phòng có bếp nhỏ',
             desc: 'Ba phòng boho riêng tư — Xuân, Hạ và Thu — mỗi phòng có phòng tắm riêng và bếp nhỏ.',
-            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString('vi-VN') : '750.000') + CONFIG_CURRENCY + ' / phòng / đêm',
+            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'].toLocaleString('vi-VN') : '750.000') + getConfigCurrency() + ' / phòng / đêm',
             rooms: ['Phòng Xuân', 'Phòng Hạ', 'Phòng Thu']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg',
@@ -140,11 +163,11 @@ const PROPERTIES = [
         desc: 'A whole apartment in the heart of the Old Quarter. Two beds on the main level and one in the upper attic.',
         maxGuests: 6,
         rating: '4.8',
-        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString() : '1,200,000') + CONFIG_CURRENCY + ' / night · Base rate for 2 guests',
+        priceNote: 'From ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString() : '1,200,000') + getConfigCurrency() + ' / night · Base rate for 2 guests',
         vn: {
             badge: 'Toàn bộ căn hộ',
             desc: 'Toàn bộ căn hộ giữa lòng Phố Cổ. Hai giường ở tầng chính và một giường ở gác xép phía trên.',
-            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString('vi-VN') : '1.200.000') + CONFIG_CURRENCY + ' / đêm · Giá cơ bản cho 2 khách',
+            priceNote: 'Từ ' + (typeof PRICES !== 'undefined' ? PRICES.oldquarter.toLocaleString('vi-VN') : '1.200.000') + getConfigCurrency() + ' / đêm · Giá cơ bản cho 2 khách',
             rooms: ['Toàn bộ căn hộ (3 giường đôi)']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
@@ -160,7 +183,7 @@ const PROPERTIES = [
  * This ensures room names and guest counts update when language changes
  */
 function renderBookingFormLanguage() {
-    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
+    const lang = window.currentLang || getConfigDefaultLang();  // ✅ FIXED
     
     // Get the current property
     const prop = PROPERTIES.find(p => p.id === activeProp);
@@ -286,13 +309,13 @@ function nightRate(dateStr, propId, room) {
     // 2. Fall back to standard seasonal/weekend rates from prices.js
     const hanoiRates = {
         weekday: typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'] : 750000,
-        weekend: typeof PRICES !== 'undefined' ? PRICES['hanoi-weekend'] : 850000,
-        special: typeof PRICES !== 'undefined' ? PRICES['hanoi-special'] : 950000
+        weekend: typeof PRICES !== 'undefined' ? PRICES['hanoi-weekend'] : 800000,
+        special: typeof PRICES !== 'undefined' ? PRICES['hanoi-special'] : 900000
     };
     const oqRates = {
         weekday: typeof PRICES !== 'undefined' ? PRICES.oldquarter : 1200000,
-        weekend: typeof PRICES !== 'undefined' ? PRICES['oldquarter-weekend'] : 1400000,
-        special: typeof PRICES !== 'undefined' ? PRICES['oldquarter-special'] : 1600000
+        weekend: typeof PRICES !== 'undefined' ? PRICES['oldquarter-weekend'] : 1350000,
+        special: typeof PRICES !== 'undefined' ? PRICES['oldquarter-special'] : 1400000
     };
     const r = propId === 'hanoi' ? hanoiRates : oqRates;
     if (isSpecialDay(dateStr)) return r.special;
@@ -345,19 +368,12 @@ function makeBookingId(propId, room) {
 
 // ================================================================
 // PRICE OVERRIDES — fetched once from the server on page load
-// Overrides take precedence over the standard PRICES rates.
-// Each override: [id, room, fromDate, toDate, price, note]
-// Recurring rules are stored in note as: MIA_PRICE_RULE:{"type":"weekday","days":[1,2,3],"months":[1..12]}
 // ================================================================
 const PRICE_OVERRIDE_CACHE_KEY = 'mia_price_overrides_v1';
 const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
 
-// Pre-populate from synchronous cache injected by index.html before this script loads.
-// This gives getEffectiveFromPrice() the correct values on the very first call,
-// so prices never flicker from default → overridden.
 let _priceOverrides = [];
 
-// Immediately populate from cache
 (function initPriceOverrides() {
     try {
         if (window._cachedPriceOverrides && Array.isArray(window._cachedPriceOverrides)) {
@@ -378,7 +394,7 @@ let _priceOverrides = [];
     } catch (e) { /* ignore */ }
 })();
 let _overridesFetched = false;
-let _captchaValidated  = false;  // true after captcha passes for the current booking
+let _captchaValidated  = false;
 
 function _parseOverrideRows(rows) {
     return rows
@@ -398,8 +414,6 @@ async function fetchPriceOverrides() {
     if (_overridesFetched) return;
     _overridesFetched = true;
 
-    // ── Step 1: Apply localStorage cache immediately (no network wait) ─────────
-    // On repeat visits this makes overridden prices appear before first paint.
     try {
         const cached = localStorage.getItem(PRICE_OVERRIDE_CACHE_KEY);
         if (cached) {
@@ -411,7 +425,6 @@ async function fetchPriceOverrides() {
         }
     } catch (e) { /* ignore cache read errors */ }
 
-    // ── Step 2: Fetch fresh data from server in background ─────────────────────
     try {
         const res = await fetch('/api/log-booking', {
             method: 'POST',
@@ -429,7 +442,6 @@ async function fetchPriceOverrides() {
             const changed = JSON.stringify(fresh) !== JSON.stringify(_priceOverrides);
             _priceOverrides = fresh;
 
-            // Persist for next page load — prices show instantly
             try {
                 localStorage.setItem(PRICE_OVERRIDE_CACHE_KEY, JSON.stringify({
                     ts: Date.now(),
@@ -446,24 +458,16 @@ async function fetchPriceOverrides() {
 }
 
 function parseLocalDate(dateStr) {
-
     if (!dateStr) return null;
-
-    // Handle full ISO timestamps from Google Sheets / Apps Script
     const iso = new Date(dateStr);
-
     if (!isNaN(iso)) {
         iso.setHours(0, 0, 0, 0);
         return iso;
     }
-
-    // Fallback for YYYY-MM-DD
     const parts = String(dateStr).split('-').map(Number);
-
     if (parts.length !== 3 || parts.some(n => !Number.isFinite(n))) {
         return null;
     }
-
     return new Date(parts[0], parts[1] - 1, parts[2]);
 }
 
@@ -511,9 +515,6 @@ function overridePriority(override) {
     return 0;
 }
 
-// Returns the lowest effective nightly rate for a property,
-// checking active price overrides first, then falling back to PRICES.
-// Used to keep ALL "From X₫" displays in sync with admin overrides.
 function getEffectiveFromPrice(propId) {
     const basePrice = propId === 'hanoi'
         ? (typeof PRICES !== 'undefined' ? PRICES['hanoi-spring'] : 750000)
@@ -525,7 +526,6 @@ function getEffectiveFromPrice(propId) {
         ? ['Spring Room', 'Summer Room', 'Autumn Room']
         : ['Entire Apartment (3 queen beds)', 'Entire Apartment (3 king beds)'];
 
-    // Scan overrides that are currently active or start within the next 90 days
     const today = new Date();
     today.setHours(0,0,0,0);
     const horizon = new Date(today);
@@ -538,42 +538,36 @@ function getEffectiveFromPrice(propId) {
         const from = parseLocalDate(o.from);
         const to   = parseLocalDate(o.to);
         if (!from || !to) continue;
-        // Only consider overrides that overlap the next 90 days
         if (to < today || from > horizon) continue;
         if (o.price < lowest) lowest = o.price;
     }
     return lowest;
 }
 
-// Call this after overrides are fetched to refresh every price display on the page.
 function refreshAllPriceDisplays() {
     const hanoiFrom = getEffectiveFromPrice('hanoi');
     const oqFrom    = getEffectiveFromPrice('oldquarter');
-    const lang = window.currentLang || localStorage.getItem('mia_lang') || CONFIG_DEFAULT_LANG;
-    const currencySymbol = CONFIG_CURRENCY;
+    const lang = window.currentLang || localStorage.getItem('mia_lang') || getConfigDefaultLang();
+    const currencySymbol = getConfigCurrency();
 
-    // 1. Property selector "from" prices (index.html)
     const selHanoi = document.getElementById('selector-hanoi-price');
     if (selHanoi) selHanoi.textContent = hanoiFrom.toLocaleString('vi-VN');
 
     const selOQ = document.getElementById('selector-oldquarter-price');
     if (selOQ) selOQ.textContent = oqFrom.toLocaleString('vi-VN');
 
-    // 2. Compare section (index.html)
     const cmpHanoi = document.getElementById('compare-hanoi-price');
     if (cmpHanoi) cmpHanoi.textContent = hanoiFrom.toLocaleString('vi-VN');
 
     const cmpOQ = document.getElementById('compare-oldquarter-price');
     if (cmpOQ) cmpOQ.textContent = oqFrom.toLocaleString('vi-VN');
 
-    // 3. Room cards (miacasa-hanoi.html / miacasa-oldquarter.html)
     document.querySelectorAll('.room-card-price-amount').forEach(el => {
         const prop = el.dataset.prop;
         if (prop === 'hanoi') el.textContent = hanoiFrom.toLocaleString('vi-VN') + currencySymbol;
         if (prop === 'oldquarter') el.textContent = oqFrom.toLocaleString('vi-VN') + currencySymbol;
     });
 
-    // 4. Save% badges — recalculate against the effective price
     const airbnbHanoi = (typeof PRICES !== 'undefined' && PRICES['airbnb-price-hanoi']) ? PRICES['airbnb-price-hanoi'] : 880000;
     const airbnbOQ    = (typeof PRICES !== 'undefined' && PRICES['airbnb-price-oldquarter']) ? PRICES['airbnb-price-oldquarter'] : 1410000;
     const savedHanoi  = Math.round(((airbnbHanoi - hanoiFrom) / airbnbHanoi) * 100);
@@ -592,17 +586,12 @@ function refreshAllPriceDisplays() {
             : `Save ${savedOQ}% vs Airbnb`;
     }
 
-    // 5. Price estimate strip (if present)
     const estHanoi = document.getElementById('price-est-hanoi-val');
     if (estHanoi) estHanoi.textContent = (hanoiFrom * 2).toLocaleString('vi-VN') + currencySymbol;
     const estOQ = document.getElementById('price-est-oq-val');
     if (estOQ) estOQ.textContent = (oqFrom * 2).toLocaleString('vi-VN') + currencySymbol;
 }
 
-
-// Returns the override price for a given room + date, or null if none applies.
-// room: exact room name e.g. "Spring Room" or "Entire Apartment (3 queen beds)"
-// dateStr: "YYYY-MM-DD"
 function getOverridePrice(room, dateStr) {
     if (!_priceOverrides.length) return null;
     const d = parseLocalDate(dateStr);
@@ -630,12 +619,12 @@ function getOverridePrice(room, dateStr) {
 // ================================================================
 
 function fmtVND(n) { 
-    const currencySymbol = CONFIG_CURRENCY;
+    const currencySymbol = getConfigCurrency();
     return n.toLocaleString('vi-VN') + currencySymbol; 
 }
 
 function fmtUSD(n) { 
-    const rate = CONFIG_EXCHANGE_RATE;
+    const rate = getConfigExchangeRate();
     return '$' + (n / rate).toFixed(0); 
 }
 
@@ -654,10 +643,6 @@ let lastPriceResult = null;
 let selectedPayTab = 'paypal';
 
 // ================================================================
-// OPTIMIZED AVAILABILITY CHECK (Non-blocking + Cached)
-// ================================================================
-
-// ================================================================
 // AVAILABILITY CHECK - Calls the API endpoint
 // ================================================================
 
@@ -665,7 +650,6 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
     const cacheKey = `${room}_${checkIn}_${checkOut}`;
     const cached = availabilityCache.get(cacheKey);
     
-    // Use cache if less than 2 minutes old
     if (cached && (Date.now() - cached.timestamp) < 120000) {
         return cached.data;
     }
@@ -683,7 +667,6 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
         });
         const data = await response.json();
         
-        // Store in cache
         availabilityCache.set(cacheKey, {
             data: data,
             timestamp: Date.now()
@@ -692,7 +675,7 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
         return data;
     } catch (error) {
         console.error('Availability check failed:', error);
-        return { available: true }; // Default to available on error
+        return { available: true };
     }
 }
 
@@ -843,7 +826,7 @@ function showCancellationMessage(checkInDate) {
     
     const cancellationDate = new Date(checkInDate);
     cancellationDate.setDate(cancellationDate.getDate() - 2);
-    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
+    const lang = window.currentLang || getConfigDefaultLang();  // ✅ FIXED
     const formattedDate = cancellationDate.toLocaleDateString(lang === 'vn' ? 'vi-VN' : 'en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
     });
@@ -1106,7 +1089,7 @@ function renderBookingSelector() {
     const sel = document.getElementById('booking-prop-sel');
     if (!sel) return;
     
-    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
+    const lang = window.currentLang || getConfigDefaultLang();  // ✅ FIXED
     sel.innerHTML = '';
     
     // Check URL for property parameter to set initial active state
@@ -1168,7 +1151,7 @@ function selectProp(id) {
     console.log('🔗 URL updated to:', url.toString());
     
     const p = PROPERTIES.find(x => x.id === id);
-    const lang = window.currentLang || CONFIG_DEFAULT_LANG;
+    const lang = window.currentLang || getConfigDefaultLang();  // ✅ FIXED
     
     // CRITICAL FIX: Call renderBookingFormLanguage FIRST to set up the dropdowns with correct language
     renderBookingFormLanguage();
@@ -1183,26 +1166,10 @@ function selectProp(id) {
     updateAvailabilityAndUI();
 }
 
-/* function selectAndScroll(id) {
-    // Select the property
-    selectProp(id);
-    
-    // Scroll to booking section after a short delay
-    setTimeout(() => {
-        const bookingSection = document.getElementById('booking');
-        if (bookingSection) {
-            bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }, 150);
-    
-    // Always return false to prevent link jump
-    return false;
-} */
-
-// Helper function to format currency (add this near the top of booking.js)
+// Helper function to format currency
 function formatCurrency(amount, currency) {
-    if (currency === 'VND' || currency === CONFIG_CURRENCY_CODE) {
-        return amount.toLocaleString('vi-VN') + CONFIG_CURRENCY;
+    if (currency === 'VND' || currency === getConfigCurrencyCode()) {  // ✅ FIXED
+        return amount.toLocaleString('vi-VN') + getConfigCurrency();  // ✅ FIXED
     }
     return amount.toLocaleString('en-US') + ' USD';
 }
@@ -1329,7 +1296,7 @@ async function submitBankTransferProof() {
             paymentMethod: 'vietqr',
             paymentStatus: 'pending_verification',
             paymentProof: base64Image,
-            language: window.currentLang || CONFIG_DEFAULT_LANG,
+            language: window.currentLang || getConfigDefaultLang(),  // ✅ FIXED
             bookedAt: new Date().toISOString()
         };
         
@@ -1927,7 +1894,7 @@ async function processPayPal() {
         const res = await callSheetsAPI(payload);
         if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
         
-        const amountUSD = (data.amount / CONFIG_EXCHANGE_RATE).toFixed(2);
+        const amountUSD = (data.amount / getConfigExchangeRate()).toFixed(2);  // ✅ FIXED
         const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
         
         saveBookingToLocal({ ...data, paymentStatus: 'pending_payment' });
@@ -1954,12 +1921,6 @@ function initializeProperties() {
     console.log('🔍 initializeProperties called');
     console.log('📍 Current URL:', window.location.href);
 
-    // NOTE: this used to be gated behind `if (document.getElementById('properties-grid'))`,
-    // a leftover check from an older property-list UI that no longer exists on any page.
-    // Since that element was never present, this entire block — including
-    // renderBookingSelector(), setMinDates(), and updateGuestOptions(), which all target
-    // real, live elements (#booking-prop-sel, #checkin/#checkout, #guests-sel) — was
-    // silently never running. Removed the dead guard so booking-form init actually runs.
     renderBookingSelector();
 
     // Check URL for property parameter
@@ -2029,18 +1990,18 @@ if (document.readyState === 'loading') {
 }
 
 // Make functions available globally
-window.renderBookingSelector = renderBookingSelector;
-window.selectProp = selectProp;
+window.renderBookingSelector = window.renderBookingSelector || renderBookingSelector;
+window.selectProp = window.selectProp || selectProp;
 //window.selectAndScroll = selectAndScroll;
-window.updateAvailabilityAndUI = updateAvailabilityAndUI;
-window.updateGuestOptions = updateGuestOptions;
-window.resetBookingForm = resetBookingForm;
-window.selectPayTab = selectPayTab;
-window.generateQRCode = generateQRCode;
-window.processPayPal = processPayPal;
-window.submitBankTransferProof = submitBankTransferProof;
-window.confirmCashBooking = confirmCashBooking;
-window.renderBookingFormLanguage = renderBookingFormLanguage;
-window.fmtVND = fmtVND;
-window.fmtUSD = fmtUSD;
-window.formatCurrency = formatCurrency;
+window.updateAvailabilityAndUI = window.updateAvailabilityAndUI || updateAvailabilityAndUI;
+window.updateGuestOptions = window.updateGuestOptions || updateGuestOptions;
+window.resetBookingForm = window.resetBookingForm || resetBookingForm;
+window.selectPayTab = window.selectPayTab || selectPayTab;
+window.generateQRCode = window.generateQRCode || generateQRCode;
+window.processPayPal = window.processPayPal || processPayPal;
+window.submitBankTransferProof = window.submitBankTransferProof || submitBankTransferProof;
+window.confirmCashBooking = window.confirmCashBooking || confirmCashBooking;
+window.renderBookingFormLanguage = window.renderBookingFormLanguage || renderBookingFormLanguage;
+window.fmtVND = window.fmtVND || fmtVND;
+window.fmtUSD = window.fmtUSD || fmtUSD;
+window.formatCurrency = window.formatCurrency || formatCurrency;
