@@ -9,7 +9,7 @@ let adminLang = localStorage.getItem('mia_admin_lang') || 'en';
 // ================================================================
 const CONFIG = {
     // Your GAS Web App URL - update this in one place
-    GAS_URL: 'https://script.google.com/macros/s/AKfycbzwAIEAonOCPKy9rP18bo4UFZF13AxhYGk9GAMyQj2QH6Pra05Di-iDvyzA42Bkmmgurg/exec'
+    GAS_URL: 'https://script.google.com/macros/s/AKfycbzFH6PYsr3RgvdCFAeALY2Hjz9-dSQWyKHJxid2GlayGAqacCqEv0c6OPdf7_FudI1xwA/exec'
 };
 
 // Translation object for admin panel
