@@ -1,5 +1,5 @@
 // ================================================================
-// ADMIN.JS - FINAL VERSION
+// ADMIN.JS - FINAL VERSION (CORS FIXED)
 // ================================================================
 
 let adminLang = localStorage.getItem('mia_admin_lang') || 'en';
@@ -83,6 +83,40 @@ const MONTH_NAMES = {
 };
 
 // ================================================================
+// UNIFIED GAS HELPER - NO Content-Type header to avoid CORS preflight
+// ================================================================
+
+async function gas(payload) {
+    try {
+        const response = await fetch(CONFIG.GAS_URL, {
+            method: 'POST',
+            // NO Content-Type header - this avoids CORS preflight!
+            body: JSON.stringify(payload)
+        });
+        
+        // Check for network errors
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        // Safely parse response
+        const text = await response.text();
+        let json;
+        try {
+            json = JSON.parse(text);
+        } catch (e) {
+            console.error('Invalid response from GAS:', text);
+            throw new Error('Invalid response from server');
+        }
+        
+        return json;
+    } catch (error) {
+        console.error('GAS request failed:', error);
+        throw error;
+    }
+}
+
+// ================================================================
 // TOKEN MANAGEMENT - Unified storage
 // ================================================================
 
@@ -120,112 +154,90 @@ function showAdminPanel() {
 }
 
 // ================================================================
-// AUTHENTICATED FETCH HELPER - Uses CONFIG.GAS_URL
+// AUTHENTICATED FETCH HELPER - Uses gas() helper
 // ================================================================
 
 async function authenticatedFetch(payload) {
-  const token = getToken();
-  
-  if (!token) {
-    console.warn('No admin token found - showing login screen');
-    showLoginScreen();
-    return null;
-  }
-  
-  try {
-    const response = await fetch(CONFIG.GAS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...payload,
-        token: token
-      })
-    });
+    const token = getToken();
     
-    if (response.status === 401) {
-      console.warn('Authentication failed (401) - showing login screen');
-      clearToken();
-      showLoginScreen();
-      return null;
+    if (!token) {
+        console.warn('No admin token found - showing login screen');
+        showLoginScreen();
+        return null;
     }
     
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    try {
+        const result = await gas({
+            ...payload,
+            token: token
+        });
+        return result;
+    } catch (error) {
+        console.error('Authenticated fetch failed:', error);
+        return null;
     }
-    
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.error('Authenticated fetch failed:', error);
-    return null;
-  }
 }
 
 // ================================================================
-// LOGIN & LOGOUT - Uses CONFIG.GAS_URL
+// LOGIN & LOGOUT - Uses gas() helper
 // ================================================================
 
 async function doLogin() {
-  const usernameInput = document.getElementById('login-user');
-  const rememberCheckbox = document.getElementById('remember-username');
-  const enteredUsername = usernameInput?.value.trim();
-  const remember = rememberCheckbox?.checked;
-  
-  if (remember && enteredUsername) {
-    localStorage.setItem('admin_username', enteredUsername);
-    localStorage.setItem('admin_remember_username', 'true');
-  } else if (rememberCheckbox && !remember) {
-    localStorage.removeItem('admin_username');
-    localStorage.setItem('admin_remember_username', 'false');
-  }
-
-  const user = document.getElementById('login-user').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-error');
-
-  if (!user || !pass) {
-    errEl.textContent = adminLang === 'vn' ? 'Vui lòng nhập tên đăng nhập và mật khẩu.' : 'Please enter username and password.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  const loginBtn = document.getElementById('btn-signin');
-  loginBtn.disabled = true;
-  loginBtn.textContent = adminLang === 'vn' ? 'Đang đăng nhập...' : 'Signing in...';
-
-  try {
-    const response = await fetch(CONFIG.GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'login', username: user, password: pass })
-    });
+    const usernameInput = document.getElementById('login-user');
+    const rememberCheckbox = document.getElementById('remember-username');
+    const enteredUsername = usernameInput?.value.trim();
+    const remember = rememberCheckbox?.checked;
     
-    const json = await response.json();
-    
-    if (json.status === 'ok' && json.token) {
-      setToken(json.token);
-      sessionStorage.setItem('mia_admin_logged_in', '1');
-      sessionStorage.setItem('mia_admin_user', user);
-      
-      showAdminPanel();
-      
-      updatePriceRuleFields();
-      await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
-    } else {
-      errEl.textContent = json.message || (adminLang === 'vn' ? 'Tên đăng nhập hoặc mật khẩu không đúng.' : 'Incorrect username or password.');
-      errEl.style.display = 'block';
+    if (remember && enteredUsername) {
+        localStorage.setItem('admin_username', enteredUsername);
+        localStorage.setItem('admin_remember_username', 'true');
+    } else if (rememberCheckbox && !remember) {
+        localStorage.removeItem('admin_username');
+        localStorage.setItem('admin_remember_username', 'false');
     }
-  } catch (error) {
-    console.error('Login error:', error);
-    errEl.textContent = adminLang === 'vn' ? 'Không thể kết nối.' : 'Cannot connect.';
-    errEl.style.display = 'block';
-  } finally {
-    loginBtn.disabled = false;
-    loginBtn.textContent = adminLang === 'vn' ? 'Đăng nhập' : 'Sign In';
-  }
+
+    const user = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value;
+    const errEl = document.getElementById('login-error');
+
+    if (!user || !pass) {
+        errEl.textContent = adminLang === 'vn' ? 'Vui lòng nhập tên đăng nhập và mật khẩu.' : 'Please enter username and password.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    const loginBtn = document.getElementById('btn-signin');
+    loginBtn.disabled = true;
+    loginBtn.textContent = adminLang === 'vn' ? 'Đang đăng nhập...' : 'Signing in...';
+
+    try {
+        const json = await gas({
+            action: 'login',
+            username: user,
+            password: pass
+        });
+        
+        if (json.status === 'ok' && json.token) {
+            setToken(json.token);
+            sessionStorage.setItem('mia_admin_logged_in', '1');
+            sessionStorage.setItem('mia_admin_user', user);
+            
+            showAdminPanel();
+            
+            updatePriceRuleFields();
+            await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
+        } else {
+            errEl.textContent = json.message || (adminLang === 'vn' ? 'Tên đăng nhập hoặc mật khẩu không đúng.' : 'Incorrect username or password.');
+            errEl.style.display = 'block';
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        errEl.textContent = adminLang === 'vn' ? 'Không thể kết nối.' : 'Cannot connect.';
+        errEl.style.display = 'block';
+    } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = adminLang === 'vn' ? 'Đăng nhập' : 'Sign In';
+    }
 }
 
 function doLogout() {
@@ -618,135 +630,103 @@ async function rejectCancellation(bookingId) {
 // ================================================================
 
 async function loadPendingBookings() {
-  const container = document.getElementById('pending-bookings-list');
-  if (!container) {
-    console.warn('pending-bookings-list element not found');
-    return;
-  }
-  
-  container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
-  
-  try {
-    const token = getToken();
-    
-    if (!token) {
-      container.innerHTML = `
-        <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-          ⚠️ Please login first
-          <br><br>
-          <button onclick="showLoginScreen()" style="
-            background: #c17a5a;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-          ">Go to Login</button>
-        </div>
-      `;
-      return;
-    }
-    
-    const response = await fetch(CONFIG.GAS_URL, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        action: 'getPendingBookings',
-        token: token
-      })
-    });
-    
-    if (!response.ok) {
-      if (response.status === 401) {
-        clearToken();
-        container.innerHTML = `
-          <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-            ⚠️ Session expired. Please login again.
-            <br><br>
-            <button onclick="showLoginScreen()" style="
-              background: #c17a5a;
-              color: white;
-              border: none;
-              padding: 0.5rem 1rem;
-              border-radius: 4px;
-              cursor: pointer;
-            ">Login</button>
-          </div>
-        `;
+    const container = document.getElementById('pending-bookings-list');
+    if (!container) {
+        console.warn('pending-bookings-list element not found');
         return;
-      }
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     
-    const result = await response.json();
-    console.log('📊 Pending bookings response:', result);
+    container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
     
-    if (result.status === 'error') {
-      throw new Error(result.message || 'Unknown error from server');
+    try {
+        const token = getToken();
+        
+        if (!token) {
+            container.innerHTML = `
+                <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
+                    ⚠️ Please login first
+                    <br><br>
+                    <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Go to Login</button>
+                </div>
+            `;
+            return;
+        }
+        
+        const result = await gas({
+            action: 'getPendingBookings',
+            token: token
+        });
+        
+        console.log('📊 Pending bookings response:', result);
+        
+        if (result.status === 'error') {
+            if (result.message && result.message.toLowerCase().includes('unauthorized')) {
+                clearToken();
+                container.innerHTML = `
+                    <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
+                        ⚠️ Session expired. Please login again.
+                        <br><br>
+                        <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Login</button>
+                    </div>
+                `;
+                return;
+            }
+            throw new Error(result.message || 'Unknown error from server');
+        }
+        
+        let bookings = result.bookings || { paypal: [], vietqr: [] };
+        
+        if (Array.isArray(bookings)) {
+            bookings = { paypal: bookings, vietqr: [] };
+        }
+        
+        const totalPending = (bookings.paypal?.length || 0) + (bookings.vietqr?.length || 0);
+        
+        if (totalPending === 0) {
+            container.innerHTML = `
+                <div style="background: #d1fae5; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <p style="margin:0;color:#065f46;">✅ No pending bookings</p>
+                </div>
+            `;
+            return;
+        }
+        
+        let html = `
+            <div style="margin-bottom: 1rem; font-size: 0.85rem; color: #6b5c47;">
+                ${totalPending} booking(s) awaiting payment confirmation
+            </div>
+        `;
+        
+        if (bookings.paypal && bookings.paypal.length > 0) {
+            html += `
+                <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
+                    💳 PayPal (${bookings.paypal.length})
+                </div>
+                ${bookings.paypal.map(b => renderBookingCard(b, 'paypal')).join('')}
+            `;
+        }
+        
+        if (bookings.vietqr && bookings.vietqr.length > 0) {
+            html += `
+                <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
+                    🏦 VietQR (${bookings.vietqr.length})
+                </div>
+                ${bookings.vietqr.map(b => renderBookingCard(b, 'vietqr')).join('')}
+            `;
+        }
+        
+        container.innerHTML = html;
+        
+    } catch (error) {
+        console.error('❌ Error loading pending bookings:', error);
+        container.innerHTML = `
+            <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
+                ❌ Error loading bookings: ${error.message}
+                <br><br>
+                <button onclick="loadPendingBookings()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Retry</button>
+            </div>
+        `;
     }
-    
-    let bookings = result.bookings || { paypal: [], vietqr: [] };
-    
-    if (Array.isArray(bookings)) {
-      bookings = { paypal: bookings, vietqr: [] };
-    }
-    
-    const totalPending = (bookings.paypal?.length || 0) + (bookings.vietqr?.length || 0);
-    
-    if (totalPending === 0) {
-      container.innerHTML = `
-        <div style="background: #d1fae5; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <p style="margin:0;color:#065f46;">✅ No pending bookings</p>
-        </div>
-      `;
-      return;
-    }
-    
-    let html = `
-      <div style="margin-bottom: 1rem; font-size: 0.85rem; color: #6b5c47;">
-        ${totalPending} booking(s) awaiting payment confirmation
-      </div>
-    `;
-    
-    if (bookings.paypal && bookings.paypal.length > 0) {
-      html += `
-        <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
-          💳 PayPal (${bookings.paypal.length})
-        </div>
-        ${bookings.paypal.map(b => renderBookingCard(b, 'paypal')).join('')}
-      `;
-    }
-    
-    if (bookings.vietqr && bookings.vietqr.length > 0) {
-      html += `
-        <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
-          🏦 VietQR (${bookings.vietqr.length})
-        </div>
-        ${bookings.vietqr.map(b => renderBookingCard(b, 'vietqr')).join('')}
-      `;
-    }
-    
-    container.innerHTML = html;
-    
-  } catch (error) {
-    console.error('❌ Error loading pending bookings:', error);
-    container.innerHTML = `
-      <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-        ❌ Error loading bookings: ${error.message}
-        <br><br>
-        <button onclick="loadPendingBookings()" style="
-          background: #c17a5a;
-          color: white;
-          border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          cursor: pointer;
-        ">Retry</button>
-      </div>
-    `;
-  }
 }
 
 function renderBookingCard(booking, method) {
@@ -837,99 +817,89 @@ function renderBookingCard(booking, method) {
 }
 
 async function confirmPayment(bookingId, method) {
-  if (!confirm(`Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`)) {
-    return;
-  }
-  
-  const button = document.querySelector(`[data-booking-id="${bookingId}"] button:first-of-type`);
-  if (button) {
-    button.textContent = 'Processing...';
-    button.disabled = true;
-    button.style.opacity = '0.6';
-  }
-  
-  try {
-    const token = getToken();
-    
-    const response = await fetch(CONFIG.GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'confirmPayment',
-        bookingId: bookingId,
-        paymentMethod: method,
-        token: token
-      })
-    });
-    
-    const result = await response.json();
-    console.log('✅ Payment confirmation result:', result);
-    
-    if (result.status === 'ok' || result.status === 'partial') {
-      alert(`✅ Payment confirmed for booking #${bookingId}`);
-      loadPendingBookings();
-    } else {
-      alert(`❌ Error: ${result.message || 'Unknown error'}`);
-      if (button) {
-        button.textContent = '✅ Confirm';
-        button.disabled = false;
-        button.style.opacity = '1';
-      }
+    if (!confirm(`Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`)) {
+        return;
     }
-  } catch (error) {
-    console.error('❌ Error confirming payment:', error);
-    alert(`❌ Error: ${error.message}`);
+    
+    const button = document.querySelector(`[data-booking-id="${bookingId}"] button:first-of-type`);
     if (button) {
-      button.textContent = '✅ Confirm';
-      button.disabled = false;
-      button.style.opacity = '1';
+        button.textContent = 'Processing...';
+        button.disabled = true;
+        button.style.opacity = '0.6';
     }
-  }
+    
+    try {
+        const token = getToken();
+        
+        const result = await gas({
+            action: 'confirmPayment',
+            bookingId: bookingId,
+            paymentMethod: method,
+            token: token
+        });
+        
+        console.log('✅ Payment confirmation result:', result);
+        
+        if (result.status === 'ok' || result.status === 'partial') {
+            alert(`✅ Payment confirmed for booking #${bookingId}`);
+            loadPendingBookings();
+        } else {
+            alert(`❌ Error: ${result.message || 'Unknown error'}`);
+            if (button) {
+                button.textContent = '✅ Confirm';
+                button.disabled = false;
+                button.style.opacity = '1';
+            }
+        }
+    } catch (error) {
+        console.error('❌ Error confirming payment:', error);
+        alert(`❌ Error: ${error.message}`);
+        if (button) {
+            button.textContent = '✅ Confirm';
+            button.disabled = false;
+            button.style.opacity = '1';
+        }
+    }
 }
 
 async function rejectPayment(bookingId, method) {
-  if (!confirm(`Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`)) {
-    return;
-  }
-  
-  const bookingCard = document.querySelector(`[data-booking-id="${bookingId}"]`);
-  if (bookingCard) {
-    bookingCard.style.opacity = '0.5';
-  }
-  
-  try {
-    const token = getToken();
-    
-    const response = await fetch(CONFIG.GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'updatePaymentStatus',
-        bookingId: bookingId,
-        status: 'cancelled',
-        token: token
-      })
-    });
-    
-    const result = await response.json();
-    console.log('✅ Payment rejection result:', result);
-    
-    if (result.status === 'ok') {
-      alert(`❌ Payment rejected for booking #${bookingId}`);
-      loadPendingBookings();
-    } else {
-      alert(`❌ Error: ${result.message || 'Unknown error'}`);
-      if (bookingCard) {
-        bookingCard.style.opacity = '1';
-      }
+    if (!confirm(`Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`)) {
+        return;
     }
-  } catch (error) {
-    console.error('❌ Error rejecting payment:', error);
-    alert(`❌ Error: ${error.message}`);
+    
+    const bookingCard = document.querySelector(`[data-booking-id="${bookingId}"]`);
     if (bookingCard) {
-      bookingCard.style.opacity = '1';
+        bookingCard.style.opacity = '0.5';
     }
-  }
+    
+    try {
+        const token = getToken();
+        
+        const result = await gas({
+            action: 'updatePaymentStatus',
+            bookingId: bookingId,
+            status: 'cancelled',
+            token: token
+        });
+        
+        console.log('✅ Payment rejection result:', result);
+        
+        if (result.status === 'ok') {
+            alert(`❌ Payment rejected for booking #${bookingId}`);
+            loadPendingBookings();
+        } else {
+            alert(`❌ Error: ${result.message || 'Unknown error'}`);
+            if (bookingCard) {
+                bookingCard.style.opacity = '1';
+            }
+        }
+    } catch (error) {
+        console.error('❌ Error rejecting payment:', error);
+        alert(`❌ Error: ${error.message}`);
+        if (bookingCard) {
+            bookingCard.style.opacity = '1';
+        }
+    }
 }
 
 function viewBookingDetails(bookingId) {
