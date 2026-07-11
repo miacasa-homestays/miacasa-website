@@ -142,30 +142,51 @@ async function callAdminGAS(payload) {
 }
 
 // ================================================================
-// PAYPAL ADMIN HANDLERS
+// PAYMENT CONFIRMATION HANDLERS - log-booking.js
 // ================================================================
 
-async function handleConfirmPayPalPayment(data) {
+async function handleConfirmPayment(data) {
   try {
-    const response = await callAdminGAS({
-      action: 'confirmPayPalPayment',
-      bookingId: data.bookingId
+    if (!data.token || data.token !== process.env.ADMIN_TOKEN) {
+      return { status: 'error', message: 'Unauthorized' };
+    }
+    
+    const response = await fetch(process.env.GOOGLE_SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'confirmPayment',
+        token: process.env.GAS_ADMIN_TOKEN,
+        bookingId: data.bookingId,
+        paymentMethod: data.paymentMethod || 'paypal'
+      })
     });
-    return response;
+    
+    return await response.json();
   } catch (error) {
-    console.error('handleConfirmPayPalPayment error:', error);
+    console.error('handleConfirmPayment error:', error);
     return { status: 'error', message: error.message };
   }
 }
 
-async function handleGetPendingPayPalBookings(data) {
+async function handleGetPendingBookings(data) {
   try {
-    const response = await callAdminGAS({
-      action: 'getPendingPayPalBookings'
+    if (!data.token || data.token !== process.env.ADMIN_TOKEN) {
+      return { status: 'error', message: 'Unauthorized' };
+    }
+    
+    const response = await fetch(process.env.GOOGLE_SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'getPendingBookings',
+        token: process.env.GAS_ADMIN_TOKEN
+      })
     });
-    return response;
+    
+    return await response.json();
   } catch (error) {
-    console.error('handleGetPendingPayPalBookings error:', error);
+    console.error('handleGetPendingBookings error:', error);
     return { status: 'error', message: error.message };
   }
 }
@@ -352,17 +373,12 @@ module.exports = async function handler(req, res) {
       return res.status(200).json(result);
     }
 
-    // ================================================================
-    // PAYPAL ADMIN ACTIONS
-    // ================================================================
-    if (action === 'confirmPayPalPayment') {
-      const result = await handleConfirmPayPalPayment(body);
-      return res.status(200).json(result);
+    // Replace the PayPal actions with:
+    if (action === 'confirmPayment') {
+      return await handleConfirmPayment(body);
     }
-
-    if (action === 'getPendingPayPalBookings') {
-      const result = await handleGetPendingPayPalBookings(body);
-      return res.status(200).json(result);
+    if (action === 'getPendingBookings') {
+      return await handleGetPendingBookings(body);
     }
 
     if (action === 'updatePaymentStatus') {

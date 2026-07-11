@@ -17,7 +17,7 @@ const ADMIN_TRANSLATION_KEYS = {
   "admin-page-sub": "admin-admin-page-sub",
   "tab-rooms": "admin-tab-rooms",
   "tab-prices": "admin-tab-prices",
-  "tab-paypal": "admin-tab-paypal",
+  "tab-payments": "admin-tab-payments",
   "logout": "admin-logout",
   "rs-form-title": "admin-rs-form-title",
   "lbl-rs-room": "admin-lbl-rs-room",
@@ -246,7 +246,7 @@ function switchTab(name, btn) {
     renderOverrides();
     setTimeout(() => initCalendar(), 100);
   }
-  else if (name === 'paypal') loadPendingPayPalBookings();
+  else if (name === 'payments') loadPendingBookings();
   else if (name === 'cancellations') loadPendingCancellations();
 }
 
@@ -537,7 +537,7 @@ function setAdminLang(lang) {
   const tabs = document.querySelectorAll('.admin-tab');
   if (tabs[0]) tabs[0].textContent = L['tab-rooms'];
   if (tabs[1]) tabs[1].textContent = L['tab-prices'];
-  if (tabs[2]) tabs[2].textContent = L['tab-paypal'] || '💰 PayPal';
+  if (tabs[2]) tabs[2].textContent = L['tab-payments'] || '💰 Confirm Payment';
   
   const rsSel = document.getElementById('rs-status');
   if (rsSel && rsSel.options.length >= 2) {
@@ -612,16 +612,18 @@ async function rejectCancellation(bookingId) {
 }
 
 // ================================================================
-// PAYPAL MANAGEMENT
+// PAYMENT MANAGEMENT (Unified for PayPal & VietQR)
 // ================================================================
 
-async function confirmPayPalPayment(bookingId) {
+async function confirmPayment(bookingId, paymentMethod) {
   if (!bookingId) {
     alert('No booking ID provided');
     return;
   }
   
-  if (!confirm(`Confirm payment for booking ${bookingId}? This will mark it as paid and send a confirmation email to the guest.`)) {
+  const methodLabel = paymentMethod === 'paypal' ? 'PayPal' : 'VietQR';
+  
+  if (!confirm(`Confirm ${methodLabel} payment for booking ${bookingId}? This will mark it as paid and send a confirmation email to the guest.`)) {
     return;
   }
   
@@ -635,15 +637,16 @@ async function confirmPayPalPayment(bookingId) {
   
   try {
     const result = await authenticatedFetch({
-      action: 'confirmPayPalPayment',
-      bookingId: bookingId
+      action: 'confirmPayment',
+      bookingId: bookingId,
+      paymentMethod: paymentMethod
     });
     
     if (result?.status === 'ok' || result?.status === 'partial') {
       alert(result.message);
       
       // Remove or update the row in the UI
-      const row = document.getElementById(`paypal-row-${bookingId}`);
+      const row = document.getElementById(`payment-row-${bookingId}`);
       if (row) {
         row.style.opacity = '0.5';
         row.style.backgroundColor = '#d1fae5';
@@ -657,7 +660,7 @@ async function confirmPayPalPayment(bookingId) {
       
       // Refresh the list after a delay
       setTimeout(() => {
-        loadPendingPayPalBookings();
+        loadPendingBookings();
       }, 2000);
       
     } else {
@@ -677,92 +680,59 @@ async function confirmPayPalPayment(bookingId) {
   }
 }
 
-async function loadPendingPayPalBookings() {
-  const container = document.getElementById('paypal-pending-list');
+async function loadPendingBookings() {
+  const container = document.getElementById('pending-bookings-list');
   if (!container) return;
   
-  container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading PayPal bookings...</div>';
+  container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
   
   try {
     const result = await authenticatedFetch({
-      action: 'getPendingPayPalBookings'
+      action: 'getPendingBookings'
     });
     
-    const bookings = result?.bookings || [];
+    const bookings = result?.bookings || { paypal: [], vietqr: [] };
+    const totalPending = bookings.paypal.length + bookings.vietqr.length;
     
-    if (bookings.length === 0) {
+    if (totalPending === 0) {
       container.innerHTML = `
         <div style="background: #d1fae5; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <p style="margin:0;color:#065f46;">✅ No pending PayPal bookings</p>
+          <p style="margin:0;color:#065f46;">✅ No pending bookings</p>
         </div>
       `;
       return;
     }
     
-    container.innerHTML = `
+    let html = `
       <div style="margin-bottom: 1rem; font-size: 0.85rem; color: #6b5c47;">
-        ${bookings.length} booking(s) awaiting payment confirmation
+        ${totalPending} booking(s) awaiting payment confirmation
       </div>
-      ${bookings.map(b => `
-        <div id="paypal-row-${b.bookingId}" style="
-          background: white;
-          border: 1px solid #e0ddd5;
-          border-radius: 8px;
-          padding: 1rem;
-          margin-bottom: 0.75rem;
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 1rem;
-          align-items: start;
-        ">
-          <div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;margin-bottom:0.5rem;">
-              <strong style="color:#c17a5a;">${b.bookingId}</strong>
-              <span style="color:#6b5c47;">|</span>
-              <span><strong>Guest:</strong> ${escapeHtml(b.guestName)}</span>
-              <span style="color:#6b5c47;">|</span>
-              <span><strong>Email:</strong> ${escapeHtml(b.guestEmail)}</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;font-size:0.85rem;color:#6b5c47;">
-              <span><strong>Property:</strong> ${escapeHtml(b.property)}</span>
-              <span><strong>Room:</strong> ${escapeHtml(b.room)}</span>
-              <span><strong>Check-in:</strong> ${b.checkIn}</span>
-              <span><strong>Amount:</strong> ${formatVND(b.amount)}</span>
-            </div>
-          </div>
-          <div class="action-cell" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
-            <button id="confirm-btn-${b.bookingId}" 
-                    onclick="confirmPayPalPayment('${b.bookingId}')"
-                    style="
-                      background: #059669;
-                      color: white;
-                      border: none;
-                      padding: 0.5rem 1rem;
-                      border-radius: 4px;
-                      cursor: pointer;
-                      font-weight: 500;
-                      white-space: nowrap;
-                    ">
-              ✅ Confirm Payment
-            </button>
-            <button onclick="viewBookingDetails('${b.bookingId}')"
-                    style="
-                      background: none;
-                      color: #6b5c47;
-                      border: 1px solid #d4c8bc;
-                      padding: 0.3rem 0.8rem;
-                      border-radius: 4px;
-                      cursor: pointer;
-                      font-size: 0.75rem;
-                    ">
-              View Details
-            </button>
-          </div>
-        </div>
-      `).join('')}
     `;
+    
+    // PayPal Section
+    if (bookings.paypal.length > 0) {
+      html += `
+        <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
+          💳 PayPal (${bookings.paypal.length})
+        </div>
+        ${bookings.paypal.map(b => renderBookingCard(b, 'paypal')).join('')}
+      `;
+    }
+    
+    // VietQR Section
+    if (bookings.vietqr.length > 0) {
+      html += `
+        <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
+          🏦 VietQR (${bookings.vietqr.length})
+        </div>
+        ${bookings.vietqr.map(b => renderBookingCard(b, 'vietqr')).join('')}
+      `;
+    }
+    
+    container.innerHTML = html;
+    
   } catch (error) {
-    console.error('Error loading PayPal bookings:', error);
+    console.error('Error loading pending bookings:', error);
     container.innerHTML = `
       <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
         ❌ Error loading bookings
@@ -771,8 +741,74 @@ async function loadPendingPayPalBookings() {
   }
 }
 
+function renderBookingCard(booking, paymentMethod) {
+  const methodLabel = paymentMethod === 'paypal' ? 'PayPal' : 'VietQR';
+  const buttonColor = paymentMethod === 'paypal' ? '#0070ba' : '#059669';
+  
+  return `
+    <div id="payment-row-${booking.bookingId}" style="
+      background: white;
+      border: 1px solid #e0ddd5;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+    ">
+      <div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;margin-bottom:0.5rem;">
+          <strong style="color:#c17a5a;">${booking.bookingId}</strong>
+          <span style="color:#6b5c47;">|</span>
+          <span><strong>Guest:</strong> ${escapeHtml(booking.guestName)}</span>
+          <span style="color:#6b5c47;">|</span>
+          <span><strong>Email:</strong> ${escapeHtml(booking.guestEmail)}</span>
+          <span style="color:#6b5c47;">|</span>
+          <span style="background: ${paymentMethod === 'paypal' ? '#e8f4fd' : '#dcfce7'}; padding: 0.1rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; color: ${paymentMethod === 'paypal' ? '#0070ba' : '#059669'};">
+            ${methodLabel}
+          </span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;font-size:0.85rem;color:#6b5c47;">
+          <span><strong>Property:</strong> ${escapeHtml(booking.property)}</span>
+          <span><strong>Room:</strong> ${escapeHtml(booking.room)}</span>
+          <span><strong>Check-in:</strong> ${booking.checkIn}</span>
+          <span><strong>Amount:</strong> ${formatVND(booking.amount)}</span>
+        </div>
+      </div>
+      <div class="action-cell" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
+        <button id="confirm-btn-${booking.bookingId}" 
+                onclick="confirmPayment('${booking.bookingId}', '${paymentMethod}')"
+                style="
+                  background: ${buttonColor};
+                  color: white;
+                  border: none;
+                  padding: 0.5rem 1rem;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: 500;
+                  white-space: nowrap;
+                ">
+          ✅ Confirm ${methodLabel} Payment
+        </button>
+        <button onclick="viewBookingDetails('${booking.bookingId}')"
+                style="
+                  background: none;
+                  color: #6b5c47;
+                  border: 1px solid #d4c8bc;
+                  padding: 0.3rem 0.8rem;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-size: 0.75rem;
+                ">
+          View Details
+        </button>
+      </div>
+    </div>
+  `;
+}
+
 function viewBookingDetails(bookingId) {
-  // Opens the Google Sheet at the specific booking row
   const sheetUrl = 'https://docs.google.com/spreadsheets/d/1MEWkt1K6w0bVyxNrreVifgpYeyjO_hmHUp6AjD7OBUg';
   window.open(sheetUrl, '_blank');
 }
@@ -1247,8 +1283,8 @@ window.loadPendingCancellations = loadPendingCancellations;
 window.showRefundForm = showRefundForm;
 window.confirmRefund = confirmRefund;
 window.rejectCancellation = rejectCancellation;
-window.confirmPayPalPayment = confirmPayPalPayment;
-window.loadPendingPayPalBookings = loadPendingPayPalBookings;
+window.confirmPayment = confirmPayment;
+window.loadPendingBookings = loadPendingBookings;
 window.viewBookingDetails = viewBookingDetails;
 window.changeMonth = changeMonth;
 window.clearAllSelectedDates = clearAllSelectedDates;

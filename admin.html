@@ -69,8 +69,8 @@
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
       <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
-      <!-- 👇 ADDED PayPal TAB -->
-      <button class="admin-tab" onclick="switchTab('paypal',this)">💰 PayPal</button>
+      <!-- 👇 UPDATED: Payments Tab (unified for PayPal & VietQR) -->
+      <button class="admin-tab" onclick="switchTab('payments',this)">💰 Confirm Payment</button>
       <button class="admin-tab" onclick="switchTab('cancellations',this)">⚠️ Cancellations</button>
     </div>
 
@@ -253,26 +253,29 @@
       </div>
     </div>
 
-    <!-- ===== PAYPAL TAB ===== -->
-    <div class="admin-panel" id="panel-paypal">
+    <!-- ===== PAYMENTS TAB (Unified for PayPal & VietQR) ===== -->
+    <div class="admin-panel" id="panel-payments">
       <div class="price-section">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;">💰 Pending PayPal Bookings</h2>
-          <button onclick="loadPendingPayPalBookings()" 
+          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;">💰 Confirm Payments</h2>
+          <button onclick="loadPendingBookings()" 
                   style="background:none;border:1px solid #d4c8bc;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;font-size:0.75rem;">
             🔄 Refresh
           </button>
         </div>
-        <div id="paypal-pending-list">
+        <div id="pending-bookings-list">
           <!-- Loaded by JavaScript -->
         </div>
         <div style="margin-top:1rem;padding:1rem;background:#f8f5f0;border-radius:8px;font-size:0.8rem;color:#6b5c47;">
           <p style="margin:0;"><strong>How it works:</strong></p>
-          <p style="margin:0.25rem 0 0;">When a guest books with PayPal, the booking is saved with status "pending_payment". After you confirm payment in your PayPal account, click "Confirm Payment" below to:</p>
+          <p style="margin:0.25rem 0 0;">When a guest books with PayPal or VietQR, the booking is saved with status "pending". After you confirm payment in your PayPal account or bank, click "Confirm Payment" to:</p>
           <ul style="margin:0.25rem 0 0;padding-left:1.25rem;">
             <li>Update the booking status to "paid"</li>
-            <li>Send the confirmation email to the guest</li>
+            <li>Send the confirmation email to the guest with check-in instructions</li>
           </ul>
+          <p style="margin:0.5rem 0 0;font-weight:500;color:#c17a5a;">
+            💡 Both PayPal and VietQR bookings appear here for easy management.
+          </p>
         </div>
       </div>
     </div>
