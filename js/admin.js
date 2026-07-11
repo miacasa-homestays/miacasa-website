@@ -682,17 +682,60 @@ async function confirmPayment(bookingId, paymentMethod) {
 
 async function loadPendingBookings() {
   const container = document.getElementById('pending-bookings-list');
-  if (!container) return;
+  if (!container) {
+    console.warn('pending-bookings-list element not found');
+    return;
+  }
   
   container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
   
   try {
-    const result = await authenticatedFetch({
-      action: 'getPendingBookings'
+    // Get token from localStorage
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      container.innerHTML = `
+        <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
+          ⚠️ Please login first
+        </div>
+      `;
+      return;
+    }
+    
+    // Use the GAS endpoint directly
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
+    
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'getPendingBookings',
+        token: token
+      })
     });
     
-    const bookings = result?.bookings || { paypal: [], vietqr: [] };
-    const totalPending = bookings.paypal.length + bookings.vietqr.length;
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const result = await response.json();
+    console.log('📊 Pending bookings response:', result);
+    
+    // Check if the response has the expected structure
+    if (result.status === 'error') {
+      throw new Error(result.message || 'Unknown error from server');
+    }
+    
+    // Extract bookings - handle both old and new response formats
+    let bookings = result.bookings || { paypal: [], vietqr: [] };
+    
+    // If bookings is an array (old format), convert to object format
+    if (Array.isArray(bookings)) {
+      bookings = { paypal: bookings, vietqr: [] };
+    }
+    
+    const totalPending = (bookings.paypal?.length || 0) + (bookings.vietqr?.length || 0);
     
     if (totalPending === 0) {
       container.innerHTML = `
@@ -710,7 +753,7 @@ async function loadPendingBookings() {
     `;
     
     // PayPal Section
-    if (bookings.paypal.length > 0) {
+    if (bookings.paypal && bookings.paypal.length > 0) {
       html += `
         <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
           💳 PayPal (${bookings.paypal.length})
@@ -720,7 +763,7 @@ async function loadPendingBookings() {
     }
     
     // VietQR Section
-    if (bookings.vietqr.length > 0) {
+    if (bookings.vietqr && bookings.vietqr.length > 0) {
       html += `
         <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
           🏦 VietQR (${bookings.vietqr.length})
@@ -731,13 +774,222 @@ async function loadPendingBookings() {
     
     container.innerHTML = html;
     
+    // Attach event listeners to the buttons
+    attachBookingEventListeners();
+    
   } catch (error) {
-    console.error('Error loading pending bookings:', error);
+    console.error('❌ Error loading pending bookings:', error);
     container.innerHTML = `
       <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
-        ❌ Error loading bookings
+        ❌ Error loading bookings: ${error.message}
+        <br><br>
+        <button onclick="loadPendingBookings()" style="
+          background: #c17a5a;
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          cursor: pointer;
+        ">Retry</button>
       </div>
     `;
+  }
+}
+
+// Helper function to render a booking card
+function renderBookingCard(booking, method) {
+  const formattedAmount = booking.amount ? 
+    Number(booking.amount).toLocaleString('vi-VN') + '₫' : 
+    '0₫';
+  
+  const checkInDate = booking.checkIn ? 
+    new Date(booking.checkIn).toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    }) : 
+    'N/A';
+  
+  const statusColor = method === 'paypal' ? '#0070ba' : '#059669';
+  const statusLabel = method === 'paypal' ? 'Pending Payment' : 'Verifying Payment';
+  
+  return `
+    <div class="booking-card" data-booking-id="${booking.bookingId}" data-method="${method}" style="
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    ">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+            <strong style="color: #2c2416;">#${booking.bookingId || 'N/A'}</strong>
+            <span style="
+              font-size: 0.65rem;
+              background: ${statusColor};
+              color: white;
+              padding: 0.15rem 0.5rem;
+              border-radius: 12px;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            ">${statusLabel}</span>
+          </div>
+          <div style="font-size: 0.85rem; color: #4b5563;">
+            <strong>${booking.guestName || 'Unknown'}</strong>
+            <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
+            ${booking.guestEmail || 'No email'}
+            <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
+            ${booking.guestPhone || 'No phone'}
+          </div>
+          <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">
+            ${booking.property || 'N/A'} · ${booking.room || 'N/A'}
+            <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
+            Check-in: ${checkInDate}
+            <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
+            ${booking.guests || 0} guest(s)
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <div style="font-weight: 600; color: #2c2416; font-size: 1rem; white-space: nowrap;">
+            ${formattedAmount}
+          </div>
+          <button onclick="confirmPayment('${booking.bookingId}', '${method}')" style="
+            background: #2c2416;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+          ">✅ Confirm</button>
+          <button onclick="rejectPayment('${booking.bookingId}', '${method}')" style="
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+          ">❌ Reject</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Function to attach event listeners (for dynamic content)
+function attachBookingEventListeners() {
+  // The buttons use onclick in the HTML, so we don't need to attach listeners
+  // But we can add any additional event listeners here if needed
+  console.log('✅ Booking cards rendered');
+}
+
+// Function to confirm payment
+async function confirmPayment(bookingId, method) {
+  if (!confirm(`Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`)) {
+    return;
+  }
+  
+  const button = document.querySelector(`[data-booking-id="${bookingId}"] button:first-of-type`);
+  if (button) {
+    button.textContent = 'Processing...';
+    button.disabled = true;
+    button.style.opacity = '0.6';
+  }
+  
+  try {
+    const token = localStorage.getItem('adminToken');
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
+    
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'confirmPayment',
+        bookingId: bookingId,
+        paymentMethod: method,
+        token: token
+      })
+    });
+    
+    const result = await response.json();
+    console.log('✅ Payment confirmation result:', result);
+    
+    if (result.status === 'ok' || result.status === 'partial') {
+      alert(`✅ Payment confirmed for booking #${bookingId}`);
+      // Reload the bookings list
+      loadPendingBookings();
+    } else {
+      alert(`❌ Error: ${result.message || 'Unknown error'}`);
+      if (button) {
+        button.textContent = '✅ Confirm';
+        button.disabled = false;
+        button.style.opacity = '1';
+      }
+    }
+  } catch (error) {
+    console.error('❌ Error confirming payment:', error);
+    alert(`❌ Error: ${error.message}`);
+    if (button) {
+      button.textContent = '✅ Confirm';
+      button.disabled = false;
+      button.style.opacity = '1';
+    }
+  }
+}
+
+// Function to reject payment
+async function rejectPayment(bookingId, method) {
+  if (!confirm(`Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`)) {
+    return;
+  }
+  
+  const bookingCard = document.querySelector(`[data-booking-id="${bookingId}"]`);
+  if (bookingCard) {
+    bookingCard.style.opacity = '0.5';
+  }
+  
+  try {
+    const token = localStorage.getItem('adminToken');
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
+    
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'updatePaymentStatus',
+        bookingId: bookingId,
+        status: 'cancelled',
+        token: token
+      })
+    });
+    
+    const result = await response.json();
+    console.log('✅ Payment rejection result:', result);
+    
+    if (result.status === 'ok') {
+      alert(`❌ Payment rejected for booking #${bookingId}`);
+      // Reload the bookings list
+      loadPendingBookings();
+    } else {
+      alert(`❌ Error: ${result.message || 'Unknown error'}`);
+      if (bookingCard) {
+        bookingCard.style.opacity = '1';
+      }
+    }
+  } catch (error) {
+    console.error('❌ Error rejecting payment:', error);
+    alert(`❌ Error: ${error.message}`);
+    if (bookingCard) {
+      bookingCard.style.opacity = '1';
+    }
   }
 }
 
