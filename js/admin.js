@@ -1,9 +1,16 @@
 // ================================================================
-// ADMIN.JS - Fixed for login screen
+// ADMIN.JS - FINAL VERSION
 // ================================================================
 
-window.API_URL = '/api/log-booking';
 let adminLang = localStorage.getItem('mia_admin_lang') || 'en';
+
+// ================================================================
+// CONFIGURATION - Single source of truth
+// ================================================================
+const CONFIG = {
+    // Your GAS Web App URL - update this in one place
+    GAS_URL: 'https://script.google.com/macros/s/AKfycbzwAIEAonOCPKy9rP18bo4UFZF13AxhYGk9GAMyQj2QH6Pra05Di-iDvyzA42Bkmmgurg/exec'
+};
 
 // Translation object for admin panel
 const ADMIN_TRANSLATION_KEYS = {
@@ -76,21 +83,26 @@ const MONTH_NAMES = {
 };
 
 // ================================================================
-// TOKEN MANAGEMENT
+// TOKEN MANAGEMENT - Unified storage
 // ================================================================
 
 function getToken() {
-  return sessionStorage.getItem('mia_admin_token') || '';
+  // Check both storage locations for compatibility
+  return sessionStorage.getItem('mia_admin_token') || 
+         localStorage.getItem('adminToken') || 
+         '';
 }
 
 function setToken(token) {
   sessionStorage.setItem('mia_admin_token', token);
+  localStorage.setItem('adminToken', token); // For compatibility
 }
 
 function clearToken() {
   sessionStorage.removeItem('mia_admin_token');
   sessionStorage.removeItem('mia_admin_logged_in');
   sessionStorage.removeItem('mia_admin_user');
+  localStorage.removeItem('adminToken');
 }
 
 // ================================================================
@@ -108,13 +120,12 @@ function showAdminPanel() {
 }
 
 // ================================================================
-// AUTHENTICATED FETCH HELPER - SEND TOKEN IN BODY
+// AUTHENTICATED FETCH HELPER - Uses CONFIG.GAS_URL
 // ================================================================
 
 async function authenticatedFetch(payload) {
   const token = getToken();
   
-  // If no token, show login screen and return null
   if (!token) {
     console.warn('No admin token found - showing login screen');
     showLoginScreen();
@@ -122,20 +133,17 @@ async function authenticatedFetch(payload) {
   }
   
   try {
-    // Send token in the body, not in the header
-    const response = await fetch(API_URL, {
+    const response = await fetch(CONFIG.GAS_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-        // No Authorization header - send token in body instead
       },
       body: JSON.stringify({
         ...payload,
-        token: token  // Add token to the request body
+        token: token
       })
     });
     
-    // Handle 401 - Token expired or invalid
     if (response.status === 401) {
       console.warn('Authentication failed (401) - showing login screen');
       clearToken();
@@ -143,7 +151,6 @@ async function authenticatedFetch(payload) {
       return null;
     }
     
-    // Handle other errors
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
@@ -158,7 +165,7 @@ async function authenticatedFetch(payload) {
 }
 
 // ================================================================
-// LOGIN & LOGOUT
+// LOGIN & LOGOUT - Uses CONFIG.GAS_URL
 // ================================================================
 
 async function doLogin() {
@@ -190,7 +197,7 @@ async function doLogin() {
   loginBtn.textContent = adminLang === 'vn' ? 'Đang đăng nhập...' : 'Signing in...';
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(CONFIG.GAS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'login', username: user, password: pass })
@@ -199,14 +206,12 @@ async function doLogin() {
     const json = await response.json();
     
     if (json.status === 'ok' && json.token) {
-      // Store the token exactly as received
       setToken(json.token);
       sessionStorage.setItem('mia_admin_logged_in', '1');
       sessionStorage.setItem('mia_admin_user', user);
       
       showAdminPanel();
       
-      // Load admin data after successful login
       updatePriceRuleFields();
       await Promise.all([renderRoomStatusList(), renderOverrides(), loadMaintenanceStatus()]);
     } else {
@@ -330,7 +335,6 @@ async function renderRoomStatusList() {
   
   container.innerHTML = '<p>Loading...</p>';
   
-  // Check if we have a token before trying to fetch
   if (!getToken()) {
     container.innerHTML = '<p style="color:#991B1B;">Please log in to view room status.</p>';
     return;
@@ -399,7 +403,6 @@ async function renderOverrides() {
   
   container.innerHTML = '<p>Loading...</p>';
   
-  // Check if we have a token before trying to fetch
   if (!getToken()) {
     container.innerHTML = '<p style="color:#991B1B;">Please log in to view price overrides.</p>';
     return;
@@ -559,7 +562,6 @@ async function loadPendingCancellations() {
   if (!container) return;
   container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
   
-  // Check if we have a token before trying to fetch
   if (!getToken()) {
     container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>Please log in to view cancellations.</p></div>';
     return;
@@ -615,71 +617,6 @@ async function rejectCancellation(bookingId) {
 // PAYMENT MANAGEMENT (Unified for PayPal & VietQR)
 // ================================================================
 
-async function confirmPayment(bookingId, paymentMethod) {
-  if (!bookingId) {
-    alert('No booking ID provided');
-    return;
-  }
-  
-  const methodLabel = paymentMethod === 'paypal' ? 'PayPal' : 'VietQR';
-  
-  if (!confirm(`Confirm ${methodLabel} payment for booking ${bookingId}? This will mark it as paid and send a confirmation email to the guest.`)) {
-    return;
-  }
-  
-  const btn = document.getElementById(`confirm-btn-${bookingId}`);
-  const originalText = btn ? btn.textContent : '';
-  
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '⏳ Processing...';
-  }
-  
-  try {
-    const result = await authenticatedFetch({
-      action: 'confirmPayment',
-      bookingId: bookingId,
-      paymentMethod: paymentMethod
-    });
-    
-    if (result?.status === 'ok' || result?.status === 'partial') {
-      alert(result.message);
-      
-      // Remove or update the row in the UI
-      const row = document.getElementById(`payment-row-${bookingId}`);
-      if (row) {
-        row.style.opacity = '0.5';
-        row.style.backgroundColor = '#d1fae5';
-        
-        // Replace the button with a success badge
-        const btnCell = row.querySelector('.action-cell');
-        if (btnCell) {
-          btnCell.innerHTML = `<span style="color:#065f46;font-weight:bold;">✅ Paid & Confirmed</span>`;
-        }
-      }
-      
-      // Refresh the list after a delay
-      setTimeout(() => {
-        loadPendingBookings();
-      }, 2000);
-      
-    } else {
-      alert('❌ Error: ' + (result?.message || 'Failed to confirm payment'));
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    }
-  } catch (error) {
-    console.error('Error confirming payment:', error);
-    alert('Error: ' + error.message);
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = originalText;
-    }
-  }
-}
-
 async function loadPendingBookings() {
   const container = document.getElementById('pending-bookings-list');
   if (!container) {
@@ -690,21 +627,27 @@ async function loadPendingBookings() {
   container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
   
   try {
-    // Get token from localStorage
-    const token = localStorage.getItem('adminToken');
+    const token = getToken();
+    
     if (!token) {
       container.innerHTML = `
-        <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
+        <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
           ⚠️ Please login first
+          <br><br>
+          <button onclick="showLoginScreen()" style="
+            background: #c17a5a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+          ">Go to Login</button>
         </div>
       `;
       return;
     }
     
-    // Use the GAS endpoint directly
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
-    
-    const response = await fetch(GAS_URL, {
+    const response = await fetch(CONFIG.GAS_URL, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json'
@@ -716,21 +659,36 @@ async function loadPendingBookings() {
     });
     
     if (!response.ok) {
+      if (response.status === 401) {
+        clearToken();
+        container.innerHTML = `
+          <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
+            ⚠️ Session expired. Please login again.
+            <br><br>
+            <button onclick="showLoginScreen()" style="
+              background: #c17a5a;
+              color: white;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              cursor: pointer;
+            ">Login</button>
+          </div>
+        `;
+        return;
+      }
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     
     const result = await response.json();
     console.log('📊 Pending bookings response:', result);
     
-    // Check if the response has the expected structure
     if (result.status === 'error') {
       throw new Error(result.message || 'Unknown error from server');
     }
     
-    // Extract bookings - handle both old and new response formats
     let bookings = result.bookings || { paypal: [], vietqr: [] };
     
-    // If bookings is an array (old format), convert to object format
     if (Array.isArray(bookings)) {
       bookings = { paypal: bookings, vietqr: [] };
     }
@@ -752,7 +710,6 @@ async function loadPendingBookings() {
       </div>
     `;
     
-    // PayPal Section
     if (bookings.paypal && bookings.paypal.length > 0) {
       html += `
         <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
@@ -762,7 +719,6 @@ async function loadPendingBookings() {
       `;
     }
     
-    // VietQR Section
     if (bookings.vietqr && bookings.vietqr.length > 0) {
       html += `
         <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
@@ -774,13 +730,10 @@ async function loadPendingBookings() {
     
     container.innerHTML = html;
     
-    // Attach event listeners to the buttons
-    attachBookingEventListeners();
-    
   } catch (error) {
     console.error('❌ Error loading pending bookings:', error);
     container.innerHTML = `
-      <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
+      <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
         ❌ Error loading bookings: ${error.message}
         <br><br>
         <button onclick="loadPendingBookings()" style="
@@ -796,7 +749,6 @@ async function loadPendingBookings() {
   }
 }
 
-// Helper function to render a booking card
 function renderBookingCard(booking, method) {
   const formattedAmount = booking.amount ? 
     Number(booking.amount).toLocaleString('vi-VN') + '₫' : 
@@ -814,7 +766,7 @@ function renderBookingCard(booking, method) {
   const statusLabel = method === 'paypal' ? 'Pending Payment' : 'Verifying Payment';
   
   return `
-    <div class="booking-card" data-booking-id="${booking.bookingId}" data-method="${method}" style="
+    <div class="booking-card" id="payment-row-${booking.bookingId}" data-booking-id="${booking.bookingId}" data-method="${method}" style="
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
@@ -884,14 +836,6 @@ function renderBookingCard(booking, method) {
   `;
 }
 
-// Function to attach event listeners (for dynamic content)
-function attachBookingEventListeners() {
-  // The buttons use onclick in the HTML, so we don't need to attach listeners
-  // But we can add any additional event listeners here if needed
-  console.log('✅ Booking cards rendered');
-}
-
-// Function to confirm payment
 async function confirmPayment(bookingId, method) {
   if (!confirm(`Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`)) {
     return;
@@ -905,10 +849,9 @@ async function confirmPayment(bookingId, method) {
   }
   
   try {
-    const token = localStorage.getItem('adminToken');
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
+    const token = getToken();
     
-    const response = await fetch(GAS_URL, {
+    const response = await fetch(CONFIG.GAS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -924,7 +867,6 @@ async function confirmPayment(bookingId, method) {
     
     if (result.status === 'ok' || result.status === 'partial') {
       alert(`✅ Payment confirmed for booking #${bookingId}`);
-      // Reload the bookings list
       loadPendingBookings();
     } else {
       alert(`❌ Error: ${result.message || 'Unknown error'}`);
@@ -945,7 +887,6 @@ async function confirmPayment(bookingId, method) {
   }
 }
 
-// Function to reject payment
 async function rejectPayment(bookingId, method) {
   if (!confirm(`Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`)) {
     return;
@@ -957,10 +898,9 @@ async function rejectPayment(bookingId, method) {
   }
   
   try {
-    const token = localStorage.getItem('adminToken');
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz_91poYde_trqjXZBw6hiLUDcwhGvzWF4vt9opWT71P9-4aGhmCnPajNsbbGQHAs_4Bw/exec';
+    const token = getToken();
     
-    const response = await fetch(GAS_URL, {
+    const response = await fetch(CONFIG.GAS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -976,7 +916,6 @@ async function rejectPayment(bookingId, method) {
     
     if (result.status === 'ok') {
       alert(`❌ Payment rejected for booking #${bookingId}`);
-      // Reload the bookings list
       loadPendingBookings();
     } else {
       alert(`❌ Error: ${result.message || 'Unknown error'}`);
@@ -991,73 +930,6 @@ async function rejectPayment(bookingId, method) {
       bookingCard.style.opacity = '1';
     }
   }
-}
-
-function renderBookingCard(booking, paymentMethod) {
-  const methodLabel = paymentMethod === 'paypal' ? 'PayPal' : 'VietQR';
-  const buttonColor = paymentMethod === 'paypal' ? '#0070ba' : '#059669';
-  
-  return `
-    <div id="payment-row-${booking.bookingId}" style="
-      background: white;
-      border: 1px solid #e0ddd5;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 0.75rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
-      align-items: start;
-    ">
-      <div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;margin-bottom:0.5rem;">
-          <strong style="color:#c17a5a;">${booking.bookingId}</strong>
-          <span style="color:#6b5c47;">|</span>
-          <span><strong>Guest:</strong> ${escapeHtml(booking.guestName)}</span>
-          <span style="color:#6b5c47;">|</span>
-          <span><strong>Email:</strong> ${escapeHtml(booking.guestEmail)}</span>
-          <span style="color:#6b5c47;">|</span>
-          <span style="background: ${paymentMethod === 'paypal' ? '#e8f4fd' : '#dcfce7'}; padding: 0.1rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; color: ${paymentMethod === 'paypal' ? '#0070ba' : '#059669'};">
-            ${methodLabel}
-          </span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1rem;font-size:0.85rem;color:#6b5c47;">
-          <span><strong>Property:</strong> ${escapeHtml(booking.property)}</span>
-          <span><strong>Room:</strong> ${escapeHtml(booking.room)}</span>
-          <span><strong>Check-in:</strong> ${booking.checkIn}</span>
-          <span><strong>Amount:</strong> ${formatVND(booking.amount)}</span>
-        </div>
-      </div>
-      <div class="action-cell" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
-        <button id="confirm-btn-${booking.bookingId}" 
-                onclick="confirmPayment('${booking.bookingId}', '${paymentMethod}')"
-                style="
-                  background: ${buttonColor};
-                  color: white;
-                  border: none;
-                  padding: 0.5rem 1rem;
-                  border-radius: 4px;
-                  cursor: pointer;
-                  font-weight: 500;
-                  white-space: nowrap;
-                ">
-          ✅ Confirm ${methodLabel} Payment
-        </button>
-        <button onclick="viewBookingDetails('${booking.bookingId}')"
-                style="
-                  background: none;
-                  color: #6b5c47;
-                  border: 1px solid #d4c8bc;
-                  padding: 0.3rem 0.8rem;
-                  border-radius: 4px;
-                  cursor: pointer;
-                  font-size: 0.75rem;
-                ">
-          View Details
-        </button>
-      </div>
-    </div>
-  `;
 }
 
 function viewBookingDetails(bookingId) {
@@ -1475,7 +1347,7 @@ window.addOverride = async function() {
 };
 
 // ================================================================
-// INITIALIZATION - FIXED
+// INITIALIZATION
 // ================================================================
 
 // Check if already logged in
