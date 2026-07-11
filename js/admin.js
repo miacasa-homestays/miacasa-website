@@ -25,6 +25,7 @@ const ADMIN_TRANSLATION_KEYS = {
   "tab-rooms": "admin-tab-rooms",
   "tab-prices": "admin-tab-prices",
   "tab-payments": "admin-tab-payments",
+  "tab-cancellations": "admin-tab-cancellations",
   "logout": "admin-logout",
   "rs-form-title": "admin-rs-form-title",
   "lbl-rs-room": "admin-lbl-rs-room",
