@@ -1371,6 +1371,20 @@ function setDefaultDates() {
   }
 }
 
+function debugTranslations() {
+  console.log('🔍 === TRANSLATION DEBUG ===');
+  console.log('Current language:', adminLang);
+  console.log('ADMIN_TRANSLATIONS:', ADMIN_TRANSLATIONS[adminLang]);
+  console.log('admin-payments-title:', ADMIN_TRANSLATIONS[adminLang]?.['admin-payments-title']);
+  console.log('admin-cancellations-title:', ADMIN_TRANSLATIONS[adminLang]?.['admin-cancellations-title']);
+  
+  // Check DOM elements
+  document.querySelectorAll('[data-t]').forEach(el => {
+    console.log('data-t element:', el.getAttribute('data-t'), el.textContent);
+  });
+  console.log('🔍 === END DEBUG ===');
+}
+
 window.addOverride = async function() {
   const mode = document.getElementById('ov-rule-type')?.value || 'single';
   const room = document.getElementById('ov-room').value;
@@ -1505,6 +1519,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (rememberCheckbox) rememberCheckbox.checked = false;
     }
   }, 200);
+  
+  // FORCE translations to apply to all static content
+  setTimeout(function() {
+    if (typeof applyTranslations === 'function') {
+      console.log('🔄 Applying translations to admin panel...');
+      applyTranslations();
+    }
+  }, 300);
 });
 
 // Global exports
