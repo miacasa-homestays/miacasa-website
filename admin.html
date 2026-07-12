@@ -257,23 +257,23 @@
     <div class="admin-panel" id="panel-payments">
       <div class="price-section">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;">💰 Confirm Payments</h2>
+          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;" data-t="admin-payments-title">💰 Confirm Payments</h2>
           <button onclick="loadPendingBookings()" 
                   style="background:none;border:1px solid #d4c8bc;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;font-size:0.75rem;">
-            🔄 Refresh
+            🔄 <span data-t="admin-refresh">Refresh</span>
           </button>
         </div>
         <div id="pending-bookings-list">
           <!-- Loaded by JavaScript -->
         </div>
         <div style="margin-top:1rem;padding:1rem;background:#f8f5f0;border-radius:8px;font-size:0.8rem;color:#6b5c47;">
-          <p style="margin:0;"><strong>How it works:</strong></p>
-          <p style="margin:0.25rem 0 0;">When a guest books with PayPal or VietQR, the booking is saved with status "pending". After you confirm payment in your PayPal account or bank, click "Confirm Payment" to:</p>
+          <p style="margin:0;"><strong data-t="admin-payments-how-it-works">How it works:</strong></p>
+          <p style="margin:0.25rem 0 0;" data-t="admin-payments-description">When a guest books with PayPal or VietQR, the booking is saved with status "pending". After you confirm payment in your PayPal account or bank, click "Confirm Payment" to:</p>
           <ul style="margin:0.25rem 0 0;padding-left:1.25rem;">
-            <li>Update the booking status to "paid"</li>
-            <li>Send the confirmation email to the guest with check-in instructions</li>
+            <li data-t="admin-payments-step1">Update the booking status to "paid"</li>
+            <li data-t="admin-payments-step2">Send the confirmation email to the guest with check-in instructions</li>
           </ul>
-          <p style="margin:0.5rem 0 0;font-weight:500;color:#c17a5a;">
+          <p style="margin:0.5rem 0 0;font-weight:500;color:#c17a5a;" data-t="admin-payments-tip">
             💡 Both PayPal and VietQR bookings appear here for easy management.
           </p>
         </div>
@@ -283,11 +283,28 @@
     <!-- ===== CANCELLATIONS TAB ===== -->
     <div class="admin-panel" id="panel-cancellations">
       <div class="price-section">
-        <div class="price-section-title">⚠️ Pending Cancellation Requests <span id="pending-count"></span></div>
-        <div id="cancellations-list" style="margin-top: 1rem;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+          <h2 style="margin:0;font-size:1.1rem;color:#2c2416;" data-t="admin-cancellations-title">❌ Cancellations &amp; Refunds</h2>
+          <button onclick="loadPendingCancellations()" 
+                  style="background:none;border:1px solid #d4c8bc;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;font-size:0.75rem;">
+            🔄 <span data-t="admin-refresh">Refresh</span>
+          </button>
+        </div>
+        <p data-t="admin-cancellations-description" style="color:#6b5c47;font-size:0.9rem;margin-bottom:0.5rem;">Review and process guest cancellation requests.</p>
+        <p data-t="admin-cancellations-instructions" style="color:#6b5c47;font-size:0.85rem;margin-bottom:1rem;">Click "Approve Refund" to process a refund, or "Reject" to decline the cancellation.</p>
+        <div id="cancellations-list" style="margin-top: 1rem;">
+          <!-- Loaded by JavaScript -->
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:#f8f5f0;border-radius:8px;font-size:0.8rem;color:#6b5c47;">
+          <p style="margin:0;"><strong data-t="admin-cancellations-policy-title">📌 Cancellation Policy:</strong></p>
+          <ul style="margin:0.25rem 0 0;padding-left:1.25rem;">
+            <li data-t="admin-cancellations-policy1">✅ Free cancellation up to 48 hours before check-in</li>
+            <li data-t="admin-cancellations-policy2">⚠️ Cancellations within 48 hours may incur a fee</li>
+            <li data-t="admin-cancellations-policy3">❌ No refunds after check-in</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
   <!-- Sheet link -->
   <div style="margin-top: 2rem; padding: 1rem 2rem; border-top: 1px solid #e5e0d8; font-size: 0.75rem; color: #6b5c47; text-align: center;">
