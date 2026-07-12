@@ -81,7 +81,7 @@ const ADMIN_TRANSLATION_KEYS = {
   "maintenance-on-status": "admin-maintenance-on-status",
   "maintenance-off-status": "admin-maintenance-off-status",
   
-  // PAYMENT TAB - NEW
+  // PAYMENT TAB
   "pending-payment": "admin-pending-payment",
   "verifying-payment": "admin-verifying-payment",
   "no-pending-bookings": "admin-no-pending-bookings",
@@ -92,7 +92,7 @@ const ADMIN_TRANSLATION_KEYS = {
   "reject-payment": "admin-reject-payment",
   "view-details": "admin-view-details",
   
-  // CANCELLATION TAB - NEW
+  // CANCELLATION TAB
   "no-pending-cancellations": "admin-no-pending-cancellations",
   "pending-cancellations": "admin-pending-cancellations",
   "booking-id": "admin-booking-id",
@@ -109,7 +109,7 @@ const ADMIN_TRANSLATION_KEYS = {
   "refund-error": "admin-refund-error",
   "please-login": "admin-please-login",
   
-  // UI Helpers - NEW
+  // UI Helpers
   "loading": "admin-loading",
   "retry": "admin-retry",
   "login": "admin-login",
@@ -120,7 +120,8 @@ const ADMIN_TRANSLATION_KEYS = {
   "unknown-guest": "admin-unknown-guest",
   "processing": "admin-processing",
   "confirm": "admin-confirm",
-  "reject": "admin-reject"
+  "reject": "admin-reject",
+  "refresh": "admin-refresh"  // ADDED THIS
 };
 
 const ADMIN_TRANSLATIONS = window.buildMiaTranslations(ADMIN_TRANSLATION_KEYS);
@@ -424,6 +425,11 @@ async function renderRoomStatusList() {
   } catch (error) {
     container.innerHTML = `<p style="color:#991B1B;">${L['refund-error'] || 'Failed to load.'}</p>`;
   }
+  
+  // Apply translations to any new elements
+  if (typeof applyTranslations === 'function') {
+    applyTranslations();
+  }
 }
 
 // ================================================================
@@ -491,6 +497,11 @@ async function renderOverrides() {
     }</tbody></table>`;
   } catch (error) {
     container.innerHTML = `<p style="color:#991B1B;">${L['refund-error'] || 'Failed to load.'}</p>`;
+  }
+  
+  // Apply translations to any new elements
+  if (typeof applyTranslations === 'function') {
+    applyTranslations();
   }
 }
 
@@ -599,6 +610,11 @@ function setAdminLang(lang) {
   if (enBtn) enBtn.classList.toggle('active', lang === 'en');
   if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
   if (zhBtn) zhBtn.classList.toggle('active', lang === 'zh');
+
+  // Apply translations to the page
+  if (typeof applyTranslations === 'function') {
+    applyTranslations();
+  }
 
   const L = ADMIN_TRANSLATIONS[lang];
   if (!L) return;
@@ -726,6 +742,11 @@ async function loadPendingBookings() {
         
         container.innerHTML = html;
         
+        // Apply translations to any new elements
+        if (typeof applyTranslations === 'function') {
+            applyTranslations();
+        }
+        
     } catch (error) {
         console.error('❌ Error loading pending bookings:', error);
         container.innerHTML = `
@@ -737,6 +758,11 @@ async function loadPendingBookings() {
                 </button>
             </div>
         `;
+        
+        // Apply translations to the error message
+        if (typeof applyTranslations === 'function') {
+            applyTranslations();
+        }
     }
 }
 
@@ -992,6 +1018,12 @@ async function loadPendingCancellations() {
         </div>
       </div>
     `).join('');
+    
+    // Apply translations to any new elements
+    if (typeof applyTranslations === 'function') {
+      applyTranslations();
+    }
+    
   } catch (error) {
     container.innerHTML = `<div style="background: #fee2e2; padding: 1rem;">${L['refund-error'] || 'Error loading'}</div>`;
   }
