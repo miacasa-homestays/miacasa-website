@@ -1,5 +1,5 @@
 // ================================================================
-// ADMIN.JS - FINAL VERSION (CORS FIXED)
+// ADMIN.JS - FINAL VERSION (CORS FIXED + FULL VIETNAMESE TRANSLATIONS)
 // ================================================================
 
 let adminLang = localStorage.getItem('mia_admin_lang') || 'en';
@@ -122,7 +122,6 @@ async function gas(payload) {
 // ================================================================
 
 function getToken() {
-  // Check both storage locations for compatibility
   return sessionStorage.getItem('mia_admin_token') || 
          localStorage.getItem('adminToken') || 
          '';
@@ -130,7 +129,7 @@ function getToken() {
 
 function setToken(token) {
   sessionStorage.setItem('mia_admin_token', token);
-  localStorage.setItem('adminToken', token); // For compatibility
+  localStorage.setItem('adminToken', token);
 }
 
 function clearToken() {
@@ -346,10 +345,10 @@ async function renderRoomStatusList() {
   const container = document.getElementById('room-status-list');
   if (!container) return;
   
-  container.innerHTML = '<p>Loading...</p>';
+  container.innerHTML = '<p>' + (adminLang === 'vn' ? 'Đang tải...' : 'Loading...') + '</p>';
   
   if (!getToken()) {
-    container.innerHTML = '<p style="color:#991B1B;">Please log in to view room status.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">' + (adminLang === 'vn' ? 'Vui lòng đăng nhập để xem trạng thái phòng.' : 'Please log in to view room status.') + '</p>';
     return;
   }
   
@@ -363,11 +362,14 @@ async function renderRoomStatusList() {
     container.innerHTML = `<table class="overrides-table"><thead><tr><th>${AL['th-room']}</th><th>${AL['th-from']}</th><th>${AL['th-to']}</th><th>${AL['th-status']}</th><th>${AL['th-note']}</th><th></th></tr></thead><tbody>${
       rows.map(r => {
         const isClosed = r[3] === 'closed';
-        return `<tr><td>${escapeHtml(r[0])}</td><td>${formatDateForDisplay(r[1])}</td><td>${formatDateForDisplay(r[2])}</td><td><span style="color:${isClosed ? '#991B1B' : '#065F46'}">${isClosed ? '🔒 Closed' : '🔓 Open'}</span></td><td>${escapeHtml(r[4] || '—')}</td><td><button class="del-btn" onclick="deleteRoomStatus('${r[5]}')">✕</button></td></tr>`
+        const statusLabel = isClosed 
+          ? (adminLang === 'vn' ? '🔒 Đóng' : '🔒 Closed')
+          : (adminLang === 'vn' ? '🔓 Mở' : '🔓 Open');
+        return `<tr><td>${escapeHtml(r[0])}</td><td>${formatDateForDisplay(r[1])}</td><td>${formatDateForDisplay(r[2])}</td><td><span style="color:${isClosed ? '#991B1B' : '#065F46'}">${statusLabel}</span></td><td>${escapeHtml(r[4] || '—')}</td><td><button class="del-btn" onclick="deleteRoomStatus('${r[5]}')">✕</button></td></tr>`
       }).join('')
     }</tbody></table>`;
   } catch (error) {
-    container.innerHTML = '<p style="color:#991B1B;">Failed to load.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">' + (adminLang === 'vn' ? 'Không thể tải.' : 'Failed to load.') + '</p>';
   }
 }
 
@@ -406,7 +408,7 @@ async function deleteOverride(id) {
     await authenticatedFetch({ action: 'deletePriceOverride', id });
     await renderOverrides();
   } catch (error) {
-    alert('Delete failed');
+    alert(adminLang === 'vn' ? 'Xóa thất bại.' : 'Delete failed.');
   }
 }
 
@@ -414,10 +416,10 @@ async function renderOverrides() {
   const container = document.getElementById('overrides-list');
   if (!container) return;
   
-  container.innerHTML = '<p>Loading...</p>';
+  container.innerHTML = '<p>' + (adminLang === 'vn' ? 'Đang tải...' : 'Loading...') + '</p>';
   
   if (!getToken()) {
-    container.innerHTML = '<p style="color:#991B1B;">Please log in to view price overrides.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">' + (adminLang === 'vn' ? 'Vui lòng đăng nhập để xem giá tùy chỉnh.' : 'Please log in to view price overrides.') + '</p>';
     return;
   }
   
@@ -429,11 +431,11 @@ async function renderOverrides() {
     }
     const AL = ADMIN_TRANSLATIONS[adminLang];
     container.innerHTML = `<table class="overrides-table"><thead><tr><th>${AL['th-room']}</th><th>${AL['th-rule']}</th><th>${AL['th-from']}</th><th>${AL['th-to']}</th><th>${AL['th-price']}</th><th>${AL['th-usd']}</th><th>${AL['th-note']}</th><th></th></tr></thead><tbody>${
-      overrides.map(o => `<tr><td>${escapeHtml(o[1])}</td><td><span class="rule-pill">Specific dates</span></td><td>${formatDateForDisplay(o[2])}</td><td>${formatDateForDisplay(o[3])}</td><td>${formatVND(o[4])}</td><td>~$${Math.round(o[4]/USD_EXCHANGE_RATE)}</td><td>${escapeHtml(o[5] || '—')}</td><td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td></tr>`
+      overrides.map(o => `<tr><td>${escapeHtml(o[1])}</td><td><span class="rule-pill">${adminLang === 'vn' ? 'Ngày cụ thể' : 'Specific dates'}</span></td><td>${formatDateForDisplay(o[2])}</td><td>${formatDateForDisplay(o[3])}</td><td>${formatVND(o[4])}</td><td>~$${Math.round(o[4]/USD_EXCHANGE_RATE)}</td><td>${escapeHtml(o[5] || '—')}</td><td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td></tr>`
       ).join('')
     }</tbody></table>`;
   } catch (error) {
-    container.innerHTML = '<p style="color:#991B1B;">Failed to load.</p>';
+    container.innerHTML = '<p style="color:#991B1B;">' + (adminLang === 'vn' ? 'Không thể tải.' : 'Failed to load.') + '</p>';
   }
 }
 
@@ -478,11 +480,11 @@ async function toggleMaintenance() {
       }
     } else {
       btn.textContent = originalText;
-      alert('Failed to update maintenance mode.');
+      alert(adminLang === 'vn' ? 'Không thể cập nhật chế độ bảo trì.' : 'Failed to update maintenance mode.');
     }
   } catch (error) {
     btn.textContent = originalText;
-    alert('An error occurred.');
+    alert(adminLang === 'vn' ? 'Đã xảy ra lỗi.' : 'An error occurred.');
   } finally {
     btn.disabled = false;
   }
@@ -553,7 +555,8 @@ function setAdminLang(lang) {
   const tabs = document.querySelectorAll('.admin-tab');
   if (tabs[0]) tabs[0].textContent = L['tab-rooms'];
   if (tabs[1]) tabs[1].textContent = L['tab-prices'];
-  if (tabs[2]) tabs[2].textContent = L['tab-payments'] || '💰 Confirm Payment';
+  if (tabs[2]) tabs[2].textContent = L['tab-payments'] || (adminLang === 'vn' ? '💰 Xác Nhận Thanh Toán' : '💰 Confirm Payment');
+  if (tabs[3]) tabs[3].textContent = L['tab-cancellations'] || (adminLang === 'vn' ? '❌ Hủy Phòng & Hoàn Tiền' : '❌ Cancellations & Refunds');
   
   const rsSel = document.getElementById('rs-status');
   if (rsSel && rsSel.options.length >= 2) {
@@ -573,10 +576,10 @@ function setAdminLang(lang) {
 async function loadPendingCancellations() {
   const container = document.getElementById('cancellations-list');
   if (!container) return;
-  container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+  container.innerHTML = '<div style="text-align: center; padding: 2rem;">' + (adminLang === 'vn' ? 'Đang tải...' : 'Loading...') + '</div>';
   
   if (!getToken()) {
-    container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>Please log in to view cancellations.</p></div>';
+    container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>' + (adminLang === 'vn' ? 'Vui lòng đăng nhập để xem yêu cầu hủy.' : 'Please log in to view cancellations.') + '</p></div>';
     return;
   }
   
@@ -585,22 +588,40 @@ async function loadPendingCancellations() {
     const cancellations = result?.cancellations || [];
     
     if (!cancellations || cancellations.length === 0) {
-      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>✅ No pending cancellation requests</p></div>';
+      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p>' + (adminLang === 'vn' ? '✅ Không có yêu cầu hủy phòng đang chờ' : '✅ No pending cancellation requests') + '</p></div>';
       document.getElementById('pending-count').innerHTML = '';
       return;
     }
-    document.getElementById('pending-count').innerHTML = `(${cancellations.length} pending)`;
+    document.getElementById('pending-count').innerHTML = `(${cancellations.length} ${adminLang === 'vn' ? 'đang chờ xử lý' : 'pending'})`;
     container.innerHTML = cancellations.map(c => `
       <div class="cancel-card" id="cancel-card-${c.bookingId}" style="background: white; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-          <div><strong>${c.bookingId}</strong><p><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p><p><strong>Property:</strong> ${c.property} - ${c.room}</p><p><strong>Check-in:</strong> ${c.checkIn}</p><p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫</p></div>
-          <div><button onclick="showRefundForm('${c.bookingId}')" class="add-override-btn" style="background: #059669;">✅ Approve Refund</button><button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="margin-top: 0.5rem; background: #dc2626;">❌ Reject</button></div>
+          <div>
+            <strong>${c.bookingId}</strong>
+            <p><strong>${adminLang === 'vn' ? 'Khách' : 'Guest'}:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p>
+            <p><strong>${adminLang === 'vn' ? 'Chỗ nghỉ' : 'Property'}:</strong> ${c.property} - ${c.room}</p>
+            <p><strong>${adminLang === 'vn' ? 'Nhận phòng' : 'Check-in'}:</strong> ${c.checkIn}</p>
+            <p><strong>${adminLang === 'vn' ? 'Số tiền' : 'Amount'}:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫</p>
+            <p><strong>${adminLang === 'vn' ? 'Đủ điều kiện hoàn tiền' : 'Free eligible'}:</strong> ${c.isFreeCancellation ? (adminLang === 'vn' ? '✅ CÓ' : '✅ YES') : (adminLang === 'vn' ? '❌ KHÔNG' : '❌ NO')}</p>
+          </div>
+          <div>
+            <button onclick="showRefundForm('${c.bookingId}')" class="add-override-btn" style="background: #059669;">
+              ${adminLang === 'vn' ? '✅ Xác nhận hoàn tiền' : '✅ Approve Refund'}
+            </button>
+            <button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="margin-top: 0.5rem; background: #dc2626;">
+              ${adminLang === 'vn' ? '❌ Từ chối' : '❌ Reject'}
+            </button>
+          </div>
         </div>
-        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem;"><button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">Confirm Refund</button></div>
+        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem;">
+          <button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">
+            ${adminLang === 'vn' ? 'Xác nhận hoàn tiền' : 'Confirm Refund'}
+          </button>
+        </div>
       </div>
     `).join('');
   } catch (error) {
-    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem;">Error loading</div>';
+    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem;">' + (adminLang === 'vn' ? 'Lỗi tải dữ liệu' : 'Error loading') + '</div>';
   }
 }
 
@@ -609,25 +630,25 @@ function showRefundForm(bookingId) {
 }
 
 async function confirmRefund(bookingId) {
-  if (!confirm('Have you manually processed the refund?')) return;
+  if (!confirm(adminLang === 'vn' ? 'Bạn đã thực hiện hoàn tiền thủ công chưa?' : 'Have you manually processed the refund?')) return;
   const result = await authenticatedFetch({ action: 'confirmRefund', bookingId });
   if (result?.status === 'ok') {
-    alert('✅ Refund confirmed');
+    alert(adminLang === 'vn' ? '✅ Đã xác nhận hoàn tiền' : '✅ Refund confirmed');
     document.getElementById(`cancel-card-${bookingId}`)?.remove();
     loadPendingCancellations();
   } else {
-    alert('❌ Error: ' + (result?.message || 'Unknown error'));
+    alert(adminLang === 'vn' ? '❌ Lỗi: ' : '❌ Error: ' + (result?.message || (adminLang === 'vn' ? 'Lỗi không xác định' : 'Unknown error')));
   }
 }
 
 async function rejectCancellation(bookingId) {
-  if (!confirm('Reject this cancellation?')) return;
+  if (!confirm(adminLang === 'vn' ? 'Từ chối yêu cầu hủy này?' : 'Reject this cancellation?')) return;
   document.getElementById(`cancel-card-${bookingId}`)?.remove();
   loadPendingCancellations();
 }
 
 // ================================================================
-// PAYMENT MANAGEMENT (Unified for PayPal & VietQR)
+// PAYMENT MANAGEMENT (Unified for PayPal & VietQR) - FULLY TRANSLATED
 // ================================================================
 
 async function loadPendingBookings() {
@@ -637,7 +658,9 @@ async function loadPendingBookings() {
         return;
     }
     
-    container.innerHTML = '<div style="text-align:center;padding:1rem;">Loading pending bookings...</div>';
+    container.innerHTML = '<div style="text-align:center;padding:1rem;">' + 
+        (adminLang === 'vn' ? 'Đang tải đặt phòng đang chờ...' : 'Loading pending bookings...') + 
+        '</div>';
     
     try {
         const token = getToken();
@@ -645,9 +668,11 @@ async function loadPendingBookings() {
         if (!token) {
             container.innerHTML = `
                 <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-                    ⚠️ Please login first
+                    ${adminLang === 'vn' ? '⚠️ Vui lòng đăng nhập trước' : '⚠️ Please login first'}
                     <br><br>
-                    <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Go to Login</button>
+                    <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                        ${adminLang === 'vn' ? 'Đăng nhập' : 'Go to Login'}
+                    </button>
                 </div>
             `;
             return;
@@ -665,14 +690,16 @@ async function loadPendingBookings() {
                 clearToken();
                 container.innerHTML = `
                     <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-                        ⚠️ Session expired. Please login again.
+                        ${adminLang === 'vn' ? '⚠️ Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' : '⚠️ Session expired. Please login again.'}
                         <br><br>
-                        <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Login</button>
+                        <button onclick="showLoginScreen()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                            ${adminLang === 'vn' ? 'Đăng nhập' : 'Login'}
+                        </button>
                     </div>
                 `;
                 return;
             }
-            throw new Error(result.message || 'Unknown error from server');
+            throw new Error(result.message || (adminLang === 'vn' ? 'Lỗi không xác định từ máy chủ' : 'Unknown error from server'));
         }
         
         let bookings = result.bookings || { paypal: [], vietqr: [] };
@@ -686,7 +713,9 @@ async function loadPendingBookings() {
         if (totalPending === 0) {
             container.innerHTML = `
                 <div style="background: #d1fae5; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                    <p style="margin:0;color:#065f46;">✅ No pending bookings</p>
+                    <p style="margin:0;color:#065f46;">
+                        ${adminLang === 'vn' ? '✅ Không có đặt phòng đang chờ' : '✅ No pending bookings'}
+                    </p>
                 </div>
             `;
             return;
@@ -694,14 +723,14 @@ async function loadPendingBookings() {
         
         let html = `
             <div style="margin-bottom: 1rem; font-size: 0.85rem; color: #6b5c47;">
-                ${totalPending} booking(s) awaiting payment confirmation
+                ${totalPending} ${adminLang === 'vn' ? 'đặt phòng đang chờ xác nhận thanh toán' : 'booking(s) awaiting payment confirmation'}
             </div>
         `;
         
         if (bookings.paypal && bookings.paypal.length > 0) {
             html += `
                 <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0f7ff; border-radius: 4px; font-weight: 600; color: #0070ba; border-left: 3px solid #0070ba;">
-                    💳 PayPal (${bookings.paypal.length})
+                    ${adminLang === 'vn' ? '💳 PayPal (đang chờ xác nhận)' : '💳 PayPal (pending confirmation)'} (${bookings.paypal.length})
                 </div>
                 ${bookings.paypal.map(b => renderBookingCard(b, 'paypal')).join('')}
             `;
@@ -710,7 +739,7 @@ async function loadPendingBookings() {
         if (bookings.vietqr && bookings.vietqr.length > 0) {
             html += `
                 <div style="margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: #f0fdf4; border-radius: 4px; font-weight: 600; color: #059669; border-left: 3px solid #059669;">
-                    🏦 VietQR (${bookings.vietqr.length})
+                    ${adminLang === 'vn' ? '🏦 VietQR (đang chờ xác minh)' : '🏦 VietQR (pending verification)'} (${bookings.vietqr.length})
                 </div>
                 ${bookings.vietqr.map(b => renderBookingCard(b, 'vietqr')).join('')}
             `;
@@ -722,9 +751,11 @@ async function loadPendingBookings() {
         console.error('❌ Error loading pending bookings:', error);
         container.innerHTML = `
             <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b; text-align: center;">
-                ❌ Error loading bookings: ${error.message}
+                ${adminLang === 'vn' ? '❌ Lỗi tải đặt phòng: ' : '❌ Error loading bookings: '} ${error.message}
                 <br><br>
-                <button onclick="loadPendingBookings()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Retry</button>
+                <button onclick="loadPendingBookings()" style="background: #c17a5a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                    ${adminLang === 'vn' ? 'Thử lại' : 'Retry'}
+                </button>
             </div>
         `;
     }
@@ -736,7 +767,7 @@ function renderBookingCard(booking, method) {
     '0₫';
   
   const checkInDate = booking.checkIn ? 
-    new Date(booking.checkIn).toLocaleDateString('en-US', { 
+    new Date(booking.checkIn).toLocaleDateString(adminLang === 'vn' ? 'vi-VN' : 'en-US', { 
       month: 'short', 
       day: 'numeric', 
       year: 'numeric' 
@@ -744,7 +775,15 @@ function renderBookingCard(booking, method) {
     'N/A';
   
   const statusColor = method === 'paypal' ? '#0070ba' : '#059669';
-  const statusLabel = method === 'paypal' ? 'Pending Payment' : 'Verifying Payment';
+  const statusLabel = method === 'paypal' 
+    ? (adminLang === 'vn' ? 'Đang chờ thanh toán' : 'Pending Payment')
+    : (adminLang === 'vn' ? 'Đang xác minh' : 'Verifying Payment');
+  
+  const confirmLabel = adminLang === 'vn' ? '✅ Xác nhận' : '✅ Confirm';
+  const rejectLabel = adminLang === 'vn' ? '❌ Từ chối' : '❌ Reject';
+  const guestLabel = adminLang === 'vn' ? 'Khách' : 'Guest';
+  const checkinLabel = adminLang === 'vn' ? 'Nhận phòng' : 'Check-in';
+  const guestCountLabel = adminLang === 'vn' ? 'khách' : 'guest(s)';
   
   return `
     <div class="booking-card" id="payment-row-${booking.bookingId}" data-booking-id="${booking.bookingId}" data-method="${method}" style="
@@ -771,18 +810,18 @@ function renderBookingCard(booking, method) {
             ">${statusLabel}</span>
           </div>
           <div style="font-size: 0.85rem; color: #4b5563;">
-            <strong>${booking.guestName || 'Unknown'}</strong>
+            <strong>${booking.guestName || (adminLang === 'vn' ? 'Không xác định' : 'Unknown')}</strong>
             <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
-            ${booking.guestEmail || 'No email'}
+            ${booking.guestEmail || (adminLang === 'vn' ? 'Không có email' : 'No email')}
             <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
-            ${booking.guestPhone || 'No phone'}
+            ${booking.guestPhone || (adminLang === 'vn' ? 'Không có số điện thoại' : 'No phone')}
           </div>
           <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">
             ${booking.property || 'N/A'} · ${booking.room || 'N/A'}
             <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
-            Check-in: ${checkInDate}
+            ${checkinLabel}: ${checkInDate}
             <span style="color: #9ca3af; margin: 0 0.25rem;">·</span>
-            ${booking.guests || 0} guest(s)
+            ${booking.guests || 0} ${guestCountLabel}
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
@@ -799,7 +838,7 @@ function renderBookingCard(booking, method) {
             font-size: 0.8rem;
             font-weight: 500;
             white-space: nowrap;
-          ">✅ Confirm</button>
+          ">${confirmLabel}</button>
           <button onclick="rejectPayment('${booking.bookingId}', '${method}')" style="
             background: #fee2e2;
             color: #991b1b;
@@ -810,7 +849,7 @@ function renderBookingCard(booking, method) {
             font-size: 0.8rem;
             font-weight: 500;
             white-space: nowrap;
-          ">❌ Reject</button>
+          ">${rejectLabel}</button>
         </div>
       </div>
     </div>
@@ -818,13 +857,17 @@ function renderBookingCard(booking, method) {
 }
 
 async function confirmPayment(bookingId, method) {
-    if (!confirm(`Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`)) {
+    const confirmMsg = adminLang === 'vn' 
+        ? `Xác nhận thanh toán ${method.toUpperCase()} cho đặt phòng #${bookingId}?`
+        : `Confirm ${method.toUpperCase()} payment for booking #${bookingId}?`;
+    
+    if (!confirm(confirmMsg)) {
         return;
     }
     
     const button = document.querySelector(`[data-booking-id="${bookingId}"] button:first-of-type`);
     if (button) {
-        button.textContent = 'Processing...';
+        button.textContent = adminLang === 'vn' ? 'Đang xử lý...' : 'Processing...';
         button.disabled = true;
         button.style.opacity = '0.6';
     }
@@ -842,21 +885,27 @@ async function confirmPayment(bookingId, method) {
         console.log('✅ Payment confirmation result:', result);
         
         if (result.status === 'ok' || result.status === 'partial') {
-            alert(`✅ Payment confirmed for booking #${bookingId}`);
+            alert(adminLang === 'vn' 
+                ? `✅ Đã xác nhận thanh toán cho đặt phòng #${bookingId}`
+                : `✅ Payment confirmed for booking #${bookingId}`);
             loadPendingBookings();
         } else {
-            alert(`❌ Error: ${result.message || 'Unknown error'}`);
+            alert(adminLang === 'vn' 
+                ? `❌ Lỗi: ${result.message || 'Lỗi không xác định'}`
+                : `❌ Error: ${result.message || 'Unknown error'}`);
             if (button) {
-                button.textContent = '✅ Confirm';
+                button.textContent = adminLang === 'vn' ? '✅ Xác nhận' : '✅ Confirm';
                 button.disabled = false;
                 button.style.opacity = '1';
             }
         }
     } catch (error) {
         console.error('❌ Error confirming payment:', error);
-        alert(`❌ Error: ${error.message}`);
+        alert(adminLang === 'vn' 
+            ? `❌ Lỗi: ${error.message}`
+            : `❌ Error: ${error.message}`);
         if (button) {
-            button.textContent = '✅ Confirm';
+            button.textContent = adminLang === 'vn' ? '✅ Xác nhận' : '✅ Confirm';
             button.disabled = false;
             button.style.opacity = '1';
         }
@@ -864,7 +913,11 @@ async function confirmPayment(bookingId, method) {
 }
 
 async function rejectPayment(bookingId, method) {
-    if (!confirm(`Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`)) {
+    const rejectMsg = adminLang === 'vn'
+        ? `Từ chối thanh toán ${method.toUpperCase()} cho đặt phòng #${bookingId}? Điều này sẽ hủy đặt phòng.`
+        : `Reject ${method.toUpperCase()} payment for booking #${bookingId}? This will mark it as cancelled.`;
+    
+    if (!confirm(rejectMsg)) {
         return;
     }
     
@@ -886,17 +939,23 @@ async function rejectPayment(bookingId, method) {
         console.log('✅ Payment rejection result:', result);
         
         if (result.status === 'ok') {
-            alert(`❌ Payment rejected for booking #${bookingId}`);
+            alert(adminLang === 'vn'
+                ? `❌ Đã từ chối thanh toán cho đặt phòng #${bookingId}`
+                : `❌ Payment rejected for booking #${bookingId}`);
             loadPendingBookings();
         } else {
-            alert(`❌ Error: ${result.message || 'Unknown error'}`);
+            alert(adminLang === 'vn'
+                ? `❌ Lỗi: ${result.message || 'Lỗi không xác định'}`
+                : `❌ Error: ${result.message || 'Unknown error'}`);
             if (bookingCard) {
                 bookingCard.style.opacity = '1';
             }
         }
     } catch (error) {
         console.error('❌ Error rejecting payment:', error);
-        alert(`❌ Error: ${error.message}`);
+        alert(adminLang === 'vn'
+            ? `❌ Lỗi: ${error.message}`
+            : `❌ Error: ${error.message}`);
         if (bookingCard) {
             bookingCard.style.opacity = '1';
         }
